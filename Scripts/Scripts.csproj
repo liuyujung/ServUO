@@ -12407,7 +12407,7 @@
     <Compile Include="Custom\OWLTR4.0\New\RunicFletchersTools.cs" />
     <Compile Include="Custom\OWLTR4.0\New\RunicTinkerTools.cs" />
     <Compile Include="Custom\OWLTR4.0\New\WoodElementals.cs" />
-    <Compile Include="Custom\OWLTR4.0\New\BodRewards\Bag of Resources.cs" />
+    <Compile Include="Custom\OWLTR4.0\New\BodRewards\Resource Bag.cs" />
     <Compile Include="Custom\OWLTR4.0\New\BodRewards\Charged Dye Tub.cs" />
     <Compile Include="Custom\OWLTR4.0\New\BodRewards\Colored Forge Addon.cs" />
     <Compile Include="Custom\OWLTR4.0\New\BodRewards\Colored Loom.cs" />

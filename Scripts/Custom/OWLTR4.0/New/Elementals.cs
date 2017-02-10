@@ -118,7 +118,7 @@ namespace Server.Mobiles
 
 			if ( i_Resource >= 1 && i_Resource < 101 )
 			{
-				if ( !Core.AOS && !OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFT_RUNIC_JEWELERY) && Utility.Random(10) == 1 )
+				if ( !Core.AOS && !OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFT_RUNIC_JEWELRY) && Utility.Random(10) == 1 )
 					b_Tinker = true;
 				else if (Utility.Random(4) == 1)
 					b_Tinker = true;

@@ -32,6 +32,7 @@ using Server.Targeting;
 using System.Linq;
 using Server.Spells.SkillMasteries;
 using Server.Prompts;
+using daat99;
 #endregion
 
 namespace Server.Mobiles
@@ -110,7 +111,12 @@ namespace Server.Mobiles
         Blue,
         MedusaLight,
         MedusaDark,
-        All
+		//daat99 OWLTR start - custom scales 1
+		Copper,
+		Silver,
+		Gold,
+		//daat99 OWLTR end - custom scales 1
+		All
     }
 
     public enum MeatType
@@ -126,8 +132,17 @@ namespace Server.Mobiles
         Spined,
         Horned,
         Barbed,
-        Fur
-    }
+        Fur,
+		//daat99 OWLTR start - custom hides
+		Polar,
+		Synthetic,
+		BlazeL,
+		Daemonic,
+		Shadow,
+		Frost,
+		Ethereal
+		//daat99 OWLTR end - custom hides
+	}
     #endregion
 
     public class DamageStore : IComparable
@@ -1885,7 +1900,16 @@ namespace Server.Mobiles
                             case HideType.Barbed:
                                 leather = new BarbedLeather(hides);
                                 break;
-                        }
+							//daat99 OWLTR start - custom leather
+                            case HideType.Polar: leather = new PolarLeather(hides); break;
+							case HideType.Synthetic: leather = new SyntheticLeather(hides); break;
+							case HideType.BlazeL: leather = new BlazeLeather(hides); break;
+							case HideType.Daemonic: leather = new DaemonicLeather(hides); break;
+							case HideType.Shadow: leather = new ShadowLeather(hides); break;
+							case HideType.Frost: leather = new FrostLeather(hides); break;
+							case HideType.Ethereal: leather = new EtherealLeather(hides); break;
+							//daat99 OWLTR end - custom leather
+						}
 
                         if (leather != null)
                         {
@@ -1918,8 +1942,24 @@ namespace Server.Mobiles
                         {
                             corpse.DropItem(new BarbedHides(hides));
                         }
+						//daat99 OWLTR start - custom hides
+						else if (HideType == HideType.Polar)
+							corpse.DropItem(new PolarHides(hides));
+						else if (HideType == HideType.Synthetic)
+							corpse.DropItem(new SyntheticHides(hides));
+						else if (HideType == HideType.BlazeL)
+							corpse.DropItem(new BlazeHides(hides));
+						else if (HideType == HideType.Daemonic)
+							corpse.DropItem(new DaemonicHides(hides));
+						else if (HideType == HideType.Shadow)
+							corpse.DropItem(new ShadowHides(hides));
+						else if (HideType == HideType.Frost)
+							corpse.DropItem(new FrostHides(hides));
+						else if (HideType == HideType.Ethereal)
+							corpse.DropItem(new EtherealHides(hides));
+						//daat99 OWLTR end - custom hides
 
-                        from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
+						from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
                     }
                 }
 
@@ -1947,7 +1987,12 @@ namespace Server.Mobiles
                         case ScaleType.Blue:
                             corpse.AddCarvedItem(new BlueScales(scales), from);
                             break;
-                        case ScaleType.All:
+						//daat99 OWLTR start - custom scales
+                        case ScaleType.Copper: corpse.DropItem(new CopperScales(scales)); break;
+						case ScaleType.Silver: corpse.DropItem(new SilverScales(scales)); break;
+						case ScaleType.Gold: corpse.DropItem(new GoldScales(scales)); break;
+						//daat99 OWLTR end - custom scales
+						case ScaleType.All:
                             {
                                 corpse.AddCarvedItem(new RedScales(scales), from);
                                 corpse.AddCarvedItem(new YellowScales(scales), from);
@@ -1955,7 +2000,12 @@ namespace Server.Mobiles
                                 corpse.AddCarvedItem(new GreenScales(scales), from);
                                 corpse.AddCarvedItem(new WhiteScales(scales), from);
                                 corpse.AddCarvedItem(new BlueScales(scales), from);
-                                break;
+								//daat99 OWLTR start - custom scales
+								corpse.DropItem(new CopperScales(scales));
+								corpse.DropItem(new SilverScales(scales));
+								corpse.DropItem(new GoldScales(scales));
+								//daat99 OWLTR end - custom scales
+								break;
                             }
                     }
 
@@ -4573,6 +4623,85 @@ namespace Server.Mobiles
             }
         }
 
+		//daat
+		#region Pack & Loot
+
+		#region Mondain's Legacy
+		public void PackArcaneScroll(int min, int max)
+		{
+			PackArcaneScroll(Utility.RandomMinMax(min, max));
+		}
+
+		public void PackArcaneScroll(int amount)
+		{
+			for (int i = 0; i < amount; ++i)
+			{
+				PackArcaneScroll();
+			}
+		}
+
+		public void PackArcaneScroll()
+		{
+			if (!Core.ML)
+			{
+				return;
+			}
+
+			PackItem(Loot.Construct(Loot.ArcanistScrollTypes));
+		}
+		#endregion
+
+		public void PackPotion()
+		{
+			PackItem(Loot.RandomPotion());
+		}
+
+		public void PackArcanceScroll(double chance)
+		{
+			if (!Core.ML || chance <= Utility.RandomDouble())
+			{
+				return;
+			}
+
+			PackItem(Loot.Construct(Loot.ArcanistScrollTypes));
+		}
+
+		public void PackNecroScroll(int index)
+		{
+			if (!Core.AOS || 0.05 <= Utility.RandomDouble())
+			{
+				return;
+			}
+
+			PackItem(Loot.Construct(Loot.NecromancyScrollTypes, index));
+		}
+
+		public void PackScroll(int minCircle, int maxCircle)
+		{
+			PackScroll(Utility.RandomMinMax(minCircle, maxCircle));
+		}
+
+		public void PackScroll(int circle)
+		{
+			int min = (circle - 1) * 8;
+
+			PackItem(Loot.RandomScroll(min, min + 7, SpellbookType.Regular));
+		}
+
+		public void PackMagicItems(int minLevel, int maxLevel)
+		{
+			PackMagicItems(minLevel, maxLevel, 0.30, 0.15);
+		}
+
+		public void PackMagicItems(int minLevel, int maxLevel, double armorChance, double weaponChance)
+		{
+			if (!PackArmor(minLevel, maxLevel, armorChance))
+			{
+				PackWeapon(minLevel, maxLevel, weaponChance);
+			}
+		}
+		//daat
+
         public virtual void DropBackpack()
         {
             if (Backpack != null)
@@ -4677,6 +4806,64 @@ namespace Server.Mobiles
             pack.Generate(this, backpack, m_Spawning, m_KillersLuck);
         }
 
+		//daat
+		public bool PackArmor(int minLevel, int maxLevel)
+		{
+			return PackArmor(minLevel, maxLevel, 1.0);
+		}
+
+		public bool PackArmor(int minLevel, int maxLevel, double chance)
+		{
+			if (chance <= Utility.RandomDouble())
+			{
+				return false;
+			}
+
+			Cap(ref minLevel, 0, 5);
+			Cap(ref maxLevel, 0, 5);
+
+			if (Core.AOS)
+			{
+				Item item = Loot.RandomArmorOrShieldOrJewelry();
+
+				if (item == null)
+				{
+					return false;
+				}
+
+				int attributeCount, min, max;
+				GetRandomAOSStats(minLevel, maxLevel, out attributeCount, out min, out max);
+
+				if (item is BaseArmor)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseArmor)item, attributeCount, min, max);
+				}
+				else if (item is BaseJewel)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
+				}
+
+				PackItem(item);
+			}
+			else
+			{
+				BaseArmor armor = Loot.RandomArmorOrShield();
+
+				if (armor == null)
+				{
+					return false;
+				}
+
+				armor.ProtectionLevel = (ArmorProtectionLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				armor.Durability = (ArmorDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
+
+				PackItem(armor);
+			}
+
+			return true;
+		}
+		//daat
+
         public static void GetRandomAOSStats(int minLevel, int maxLevel, out int attributeCount, out int min, out int max)
         {
             int v = RandomMinMaxScaled(minLevel, maxLevel);
@@ -4767,13 +4954,146 @@ namespace Server.Mobiles
             return val;
         }
 
+		//daat
+		public bool PackSlayer()
+		{
+			return PackSlayer(0.05);
+		}
+
+		public bool PackSlayer(double chance)
+		{
+			if (chance <= Utility.RandomDouble())
+			{
+				return false;
+			}
+
+			if (Utility.RandomBool())
+			{
+				BaseInstrument instrument = Loot.RandomInstrument();
+
+				if (instrument != null)
+				{
+					instrument.Slayer = SlayerGroup.GetLootSlayerType(GetType());
+					PackItem(instrument);
+				}
+			}
+			else if (!Core.AOS)
+			{
+				BaseWeapon weapon = Loot.RandomWeapon();
+
+				if (weapon != null)
+				{
+					weapon.Slayer = SlayerGroup.GetLootSlayerType(GetType());
+					PackItem(weapon);
+				}
+			}
+
+			return true;
+		}
+
+		public bool PackWeapon(int minLevel, int maxLevel)
+		{
+			return PackWeapon(minLevel, maxLevel, 1.0);
+		}
+
+		public bool PackWeapon(int minLevel, int maxLevel, double chance)
+		{
+			if (chance <= Utility.RandomDouble())
+			{
+				return false;
+			}
+
+			Cap(ref minLevel, 0, 5);
+			Cap(ref maxLevel, 0, 5);
+
+			if (Core.AOS)
+			{
+				Item item = Loot.RandomWeaponOrJewelry();
+
+				if (item == null)
+				{
+					return false;
+				}
+
+				int attributeCount, min, max;
+				GetRandomAOSStats(minLevel, maxLevel, out attributeCount, out min, out max);
+
+				if (item is BaseWeapon)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseWeapon)item, attributeCount, min, max);
+				}
+				else if (item is BaseJewel)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
+				}
+
+				PackItem(item);
+			}
+			else
+			{
+				BaseWeapon weapon = Loot.RandomWeapon();
+
+				if (weapon == null)
+				{
+					return false;
+				}
+
+				if (0.05 > Utility.RandomDouble())
+				{
+					weapon.Slayer = SlayerName.Silver;
+				}
+
+				weapon.DamageLevel = (WeaponDamageLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				weapon.AccuracyLevel = (WeaponAccuracyLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				weapon.DurabilityLevel = (WeaponDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
+
+				PackItem(weapon);
+			}
+
+			return true;
+		}
+		//daat
+
         public void PackGold(int amount)
         {
             if (amount > 0)
             {
                 PackItem(new Gold(amount));
             }
-        }
+			//daat99 OWLTR start - add recipies to pack
+			if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT))
+			{
+				if (amount >= 10 && amount < 50)
+					amount = 1;
+				else if (amount >= 50 && amount < 125)
+					amount = 2;
+				else if (amount >= 125 && amount < 225)
+					amount = 3;
+				else if (amount >= 225 && amount < 350)
+					amount = 4;
+				else if (amount >= 350 && amount < 500)
+					amount = 5;
+				else if (amount >= 500)
+					amount = 6;
+				else
+					return;
+				if (Utility.Random(100) == 50)
+					PackItem(new CraftingRecipe(0));
+				int check = 3, level = amount;
+				if (amount < check)
+					check = amount;
+				while (check != 0)
+				{
+					if (check > 2)
+						PackItem(new CraftingRecipe(level));
+					else
+						PackItem(new CraftingRecipe(Utility.RandomMinMax(1, amount)));
+					level--;
+					check--;
+				}
+			}
+			//daat99 OWLTR end - add gold/recipies
+		}
 
         public void PackGold(int min, int max)
         {
@@ -4862,7 +5182,37 @@ namespace Server.Mobiles
             reg.Amount = amount;
 
             PackItem(reg);
-        }
+			//daat99 OWLTR start - add recipies to pack
+			if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT))
+			{
+				if (Utility.Random(100) == 50)
+					PackItem(new CraftingRecipe(0));
+				amount = Utility.RandomMinMax(1, amount);
+				if (amount > 4)
+					amount = 4;
+				switch (amount)
+				{
+					case 1:
+					default: amount = Utility.RandomMinMax(1, 3); break;
+					case 2: amount = Utility.RandomMinMax(2, 4); break;
+					case 3: amount = Utility.RandomMinMax(3, 5); break;
+					case 4: amount = Utility.RandomMinMax(4, 6); break;
+				}
+				int check = 3, level = amount;
+				if (level < check)
+					check = level;
+				while (check != 0)
+				{
+					if (check > 2)
+						PackItem(new CraftingRecipe(level));
+					else
+						PackItem(new CraftingRecipe(Utility.RandomMinMax(1, amount)));
+					level--;
+					check--;
+				}
+			}
+			//daat99 OWLTR end - add recipies to pack
+		}
 
         public void PackItem(Item item)
         {
@@ -4892,6 +5242,7 @@ namespace Server.Mobiles
                 pack.DropItem(item); // failed, drop it anyway
             }
         }
+		#endregion
 
         public virtual void SetToChampionSpawn()
         {
@@ -5042,7 +5393,17 @@ namespace Server.Mobiles
 
         public virtual bool IgnoreYoungProtection { get { return false; } }
 
-        public override bool OnBeforeDeath()
+		//daat99 OWLTR start - On Before (Re) Tame methods
+		public virtual void OnBeforeTame()
+		{
+		}
+
+		public virtual void OnBeforeReTame()
+		{
+		}
+		//daat99 OWLTR start - On Before (Re) Tame methods
+
+		public override bool OnBeforeDeath()
         {
             int treasureLevel = TreasureMapLevel;
             GetLootingRights();
@@ -5648,6 +6009,11 @@ namespace Server.Mobiles
                         {
                             continue;
                         }
+						// daat99 OWLTR start -add tokens on death
+						if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.MONSTER_GIVE_TOKENS))
+							//daat99 Tokens start - add tokens on death
+							GiveTokens.CalculateTokens(ds.m_Mobile, this);
+						//daat99 OWLTR/Tokens end - add tokens on death
 
                         if (GivesFameAndKarmaAward)
                         {

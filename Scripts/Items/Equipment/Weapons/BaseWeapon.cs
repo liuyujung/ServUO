@@ -2007,7 +2007,14 @@ namespace Server.Items
 
 		public static bool InDoubleStrike { get { return m_InDoubleStrike; } set { m_InDoubleStrike = value; } }
 
-		public void OnHit(Mobile attacker, IDamageable damageable)
+		//daat99 OWLTR start - make it virtual
+		public virtual void OnHit(Mobile attacker, Mobile defender)
+		//daat99 OWLTR end - make it virtual
+		{
+			OnHit(attacker, defender, 1.0);
+		}
+
+		public virtual void OnHit(Mobile attacker, IDamageable damageable)
 		{
             OnHit(attacker, damageable, 1.0);
 		}
@@ -3444,10 +3451,14 @@ namespace Server.Items
 				attacker.CheckSkill(SkillName.Anatomy, 0.0, attacker.Skills[SkillName.Anatomy].Cap);
 					// Passively check Anatomy for gain
 
-				if (Type == WeaponType.Axe)
+				//daat99 OWLTR start - allow lumberjacking past 100
+                if (Type == WeaponType.Axe)
+					attacker.CheckSkill(SkillName.Lumberjacking, 0.0, 120.0); // Passively check Lumberjacking for gain
+				//daat99 OWLTR end - allow lumberjacking past 100
+				/*if (Type == WeaponType.Axe)
 				{
 					attacker.CheckSkill(SkillName.Lumberjacking, 0.0, 100.0); // Passively check Lumberjacking for gain
-				}
+				}*/
 			}
 
 			/* Compute tactics modifier
@@ -4754,7 +4765,34 @@ namespace Server.Items
 
 		public override void AddNameProperty(ObjectPropertyList list)
 		{
-			int oreType;
+			//daat99 OWLTR start - custom resources
+			string oreType = CraftResources.GetName(m_Resource);
+			int level = CraftResources.GetIndex(m_Resource) + 1;
+
+			if (m_Quality == WeaponQuality.Exceptional)
+			{
+				if (level > 1 && !string.IsNullOrEmpty(oreType))
+					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
+				else
+					list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
+			}
+			else if (level > 1 && !string.IsNullOrEmpty(oreType))
+			{
+				list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
+			}
+			#region High Seas
+			else if (m_SearingWeapon)
+			{
+				list.Add(1151318, String.Format("#{0}", LabelNumber));
+			}
+			#endregion
+			else
+			{
+				list.Add(GetNameString());
+
+			}
+			//daat99 OWLTR end - custom resources
+			/*int oreType;
 
 			switch (m_Resource)
 			{
@@ -4836,7 +4874,7 @@ namespace Server.Items
 					break;
 			}
 
-            if (m_ReforgedPrefix != ReforgedPrefix.None || m_ReforgedSuffix != ReforgedSuffix.None)
+			if (m_ReforgedPrefix != ReforgedPrefix.None || m_ReforgedSuffix != ReforgedSuffix.None)
             {
                 if (m_ReforgedPrefix != ReforgedPrefix.None)
                 {
@@ -4872,7 +4910,7 @@ namespace Server.Items
             else
             {
                 list.Add(Name);
-            }
+            }*/
 
 			/*
             * Want to move this to the engraving tool, let the non-harmful 
@@ -5871,6 +5909,13 @@ namespace Server.Items
 									break;
 								}
 							case CraftResource.Valorite:
+							//daat99 OWLTR start - custom resources are like Valorite in Pre-AOS
+                            case CraftResource.Blaze:
+							case CraftResource.Ice:
+							case CraftResource.Toxic:
+							case CraftResource.Electrum:
+							case CraftResource.Platinum:
+							//daat99 OWLTR end - custom resources are like Valorite in Pre-AOS
 								{
 									Identified = true;
 									DurabilityLevel = WeaponDurabilityLevel.Indestructible;

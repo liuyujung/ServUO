@@ -13,10 +13,10 @@ using System;
 
 namespace Server.Items
 {
-	public class BagOfResources : Bag
+	public class ResourceBag : Bag
 	{
 		[Constructable]
-		public BagOfResources() : base()
+		public ResourceBag() : base()
 		{
 			Weight = 100.0;
 			Name = "Bag of Resources";
@@ -60,7 +60,7 @@ namespace Server.Items
 			Weight = 0;
 		}
 
-		public BagOfResources( Serial serial ) : base( serial )
+		public ResourceBag( Serial serial ) : base( serial )
 		{
 		}
 		
