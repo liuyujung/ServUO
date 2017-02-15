@@ -56,6 +56,8 @@ namespace Server.Network
 
 		public static PacketHandler[] Handlers { get { return m_Handlers; } }
 
+        public static bool AllowEC = Config.Get("Client.AllowEC", true);
+
 		static PacketHandlers()
 		{
 			m_Handlers = new PacketHandler[0x100];
@@ -1130,7 +1132,7 @@ namespace Server.Network
 
 		public static void DropReq(NetState state, PacketReader pvSrc)
 		{
-			pvSrc.ReadInt32(); // serial, ignored
+			Serial serial = pvSrc.ReadInt32(); // serial, ignored
 			int x = pvSrc.ReadInt16();
 			int y = pvSrc.ReadInt16();
 			int z = pvSrc.ReadSByte();
@@ -1138,8 +1140,17 @@ namespace Server.Network
             Serial dest = pvSrc.ReadInt32();
 
 			Point3D loc = new Point3D(x, y, z);
-
 			Mobile from = state.Mobile;
+
+            if (serial.IsItem)
+            {
+                Item dropped = World.FindItem(serial);
+
+                if (dropped != null)
+                {
+                    dropped.GridLocation = gridloc;
+                }
+            }
 
 			if (dest.IsMobile)
 			{
@@ -1157,7 +1168,6 @@ namespace Server.Network
 				}
 				else
 				{
-                    item.GridLocation = gridloc;
 					from.Drop(item, loc);
 				}
 			}
@@ -1177,8 +1187,17 @@ namespace Server.Network
             Serial dest = pvSrc.ReadInt32();
 
 			Point3D loc = new Point3D(x, y, z);
-
 			Mobile from = state.Mobile;
+
+            if (serial.IsItem)
+            {
+                Item dropped = World.FindItem(serial);
+
+                if (dropped != null)
+                {
+                    dropped.GridLocation = gridloc;
+                }
+            }
 
 			if (dest.IsMobile)
 			{
@@ -1196,7 +1215,6 @@ namespace Server.Network
 				}
 				else
 				{
-                    item.GridLocation = gridloc;
 					from.Drop(item, loc);
 				}
 			}
@@ -1719,7 +1737,9 @@ namespace Server.Network
 
 		public static void SetUpdateRange(NetState state, PacketReader pvSrc)
 		{
-			state.Send(ChangeUpdateRange.Instantiate(18));
+            int range = pvSrc.ReadByte();
+
+            state.Send(ChangeUpdateRange.Instantiate(range));
 		}
 
 		private const int BadFood = unchecked((int)0xBAADF00D);
@@ -2226,12 +2246,18 @@ namespace Server.Network
 
 		public static void ClientType(NetState state, PacketReader pvSrc)
 		{
-			pvSrc.ReadUInt16();
+			pvSrc.ReadUInt16(); // 0x1
+			pvSrc.ReadUInt32(); // 0x3
 
-			int type = pvSrc.ReadUInt16();
-			CV version = state.Version = new CV(pvSrc.ReadString());
+            // TODO: Eventually create a EC event sink to handle in ClientVerification.cs if EC clients matter
+            if (!AllowEC && state.IsEnhancedClient)
+            {
+                Utility.PushColor(ConsoleColor.DarkRed);
+                Console.WriteLine("Enhanced Client: {0}: Disconnecting...", state);
+                Utility.PopColor();
 
-			//EventSink.InvokeClientVersionReceived( new ClientVersionReceivedArgs( state, version ) );//todo
+                state.Dispose();
+            }
 		}
 
 		public static void MobileQuery(NetState state, PacketReader pvSrc)

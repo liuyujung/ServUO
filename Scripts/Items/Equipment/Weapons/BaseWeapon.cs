@@ -149,6 +149,7 @@ namespace Server.Items
 		private AosElementAttributes m_AosElementDamages;
 		private SAAbsorptionAttributes m_SAAbsorptionAttributes;
         private NegativeAttributes m_NegativeAttributes;
+        private ExtendedWeaponAttributes m_ExtendedWeaponAttributes;
 
 		// Overridable values. These values are provided to override the defaults which get defined in the individual weapon scripts.
 		private int m_StrReq, m_DexReq, m_IntReq;
@@ -304,6 +305,9 @@ namespace Server.Items
 
         [CommandProperty(AccessLevel.GameMaster)]
         public NegativeAttributes NegativeAttributes { get { return m_NegativeAttributes; } set { } }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public ExtendedWeaponAttributes ExtendedWeaponAttributes { get { return m_ExtendedWeaponAttributes; } set { } }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool Cursed { get { return m_Cursed; } set { m_Cursed = value; } }
@@ -731,6 +735,7 @@ namespace Server.Items
 			weap.m_AosSkillBonuses = new AosSkillBonuses(newItem, m_AosSkillBonuses);
 			weap.m_AosWeaponAttributes = new AosWeaponAttributes(newItem, m_AosWeaponAttributes);
             weap.m_NegativeAttributes = new NegativeAttributes(newItem, m_NegativeAttributes);
+            weap.m_ExtendedWeaponAttributes = new ExtendedWeaponAttributes(newItem, m_ExtendedWeaponAttributes);
 
 			#region Mondain's Legacy
 			weap.m_SetAttributes = new AosAttributes(newItem, m_SetAttributes);
@@ -2211,24 +2216,45 @@ namespace Server.Items
 
             percentageBonus += (int)(damageBonus * 100) - 100;
 
-			CheckSlayerResult cs = CheckSlayers(attacker, defender, false);
+			CheckSlayerResult cs1 = CheckSlayers(attacker, defender, Slayer);
+            CheckSlayerResult cs2 = CheckSlayers(attacker, defender, Slayer2);
+            CheckSlayerResult suit = CheckSlayers(attacker, defender, SetHelper.GetSetSlayer(attacker));
+            CheckSlayerResult tal = CheckTalismanSlayer(attacker, defender);
 
-			if (cs != CheckSlayerResult.None)
+			if (cs1 != CheckSlayerResult.None)
 			{
-			    defender.FixedEffect(0x37B9, 10, 5);
-
-                if (cs == CheckSlayerResult.SuperSlayer || cs == CheckSlayerResult.Opposition)
+                if (cs1 == CheckSlayerResult.SuperSlayer)
                     percentageBonus += 100;
-                else if (cs == CheckSlayerResult.Slayer)
+                else if (cs1 == CheckSlayerResult.Slayer)
                     percentageBonus += 200;
             }
 
-            cs = CheckSlayers(attacker, defender, true);
+            if (cs2 != CheckSlayerResult.None)
+            {
+                if (cs2 == CheckSlayerResult.SuperSlayer)
+                    percentageBonus += 100;
+                else if (cs2 == CheckSlayerResult.Slayer)
+                    percentageBonus += 200;
+            }
 
-            if (cs != CheckSlayerResult.None)
+            if (suit != CheckSlayerResult.None)
+            {
+                percentageBonus += 100;
+            }
+
+            if (tal != CheckSlayerResult.None)
+            {
+                percentageBonus += 100;
+            }
+
+            if (CheckSlayerOpposition(attacker, defender) != CheckSlayerResult.None)
+            {
+                percentageBonus += 100;
+                defender.FixedEffect(0x37B9, 10, 5);
+            }
+            else if (cs1 != CheckSlayerResult.None || cs2 != CheckSlayerResult.None || suit != CheckSlayerResult.None || tal != CheckSlayerResult.None)
             {
                 defender.FixedEffect(0x37B9, 10, 5);
-                percentageBonus += 100;
             }
 
 			if (!attacker.Player)
@@ -3015,62 +3041,64 @@ namespace Server.Items
 		}
 		#endregion
 
-        public virtual CheckSlayerResult CheckSlayers(Mobile attacker, Mobile defender, bool checktalisman)
+        public virtual CheckSlayerResult CheckSlayers(Mobile attacker, Mobile defender, SlayerName slayer)
         {
-            if (checktalisman)
-            {
-                BaseTalisman talisman = attacker.Talisman as BaseTalisman;
+            if (slayer == SlayerName.None)
+                return CheckSlayerResult.None;
 
-                if (talisman != null && TalismanSlayer.Slays(talisman.Slayer, defender))
+            BaseWeapon atkWeapon = attacker.Weapon as BaseWeapon;
+            SlayerEntry atkSlayer = SlayerGroup.GetEntryByName(slayer);
+
+            if (atkSlayer != null && atkSlayer.Slays(defender) && _SuperSlayers.Contains(atkSlayer.Name))
+            {
+                return CheckSlayerResult.SuperSlayer;
+            }
+
+            if (atkSlayer != null && atkSlayer.Slays(defender))
+            {
+                return CheckSlayerResult.Slayer;
+            }
+
+            return CheckSlayerResult.None;
+        }
+
+        public CheckSlayerResult CheckSlayerOpposition(Mobile attacker, Mobile defender)
+        {
+            ISlayer defISlayer = Spellbook.FindEquippedSpellbook(defender);
+
+            if (defISlayer == null)
+            {
+                defISlayer = defender.Weapon as ISlayer;
+            }
+
+            if (defISlayer != null)
+            {
+                SlayerEntry defSlayer = SlayerGroup.GetEntryByName(defISlayer.Slayer);
+                SlayerEntry defSlayer2 = SlayerGroup.GetEntryByName(defISlayer.Slayer2);
+                SlayerEntry defSetSlayer = SlayerGroup.GetEntryByName(SetHelper.GetSetSlayer(defender));
+
+                if (defSlayer != null && defSlayer.Group.OppositionSuperSlays(attacker) ||
+                    defSlayer2 != null && defSlayer2.Group.OppositionSuperSlays(attacker) ||
+                    defSetSlayer != null && defSetSlayer.Group.OppositionSuperSlays(attacker))
                 {
-                    return CheckSlayerResult.Slayer;
-                }
-                else if (Slayer3 != TalismanSlayerName.None && TalismanSlayer.Slays(Slayer3, defender))
-                {
-                    return CheckSlayerResult.Slayer;
+                    return CheckSlayerResult.Opposition;
                 }
             }
-            else
+
+            return CheckSlayerResult.None;
+        }
+
+        public CheckSlayerResult CheckTalismanSlayer(Mobile attacker, Mobile defender)
+        {
+            BaseTalisman talisman = attacker.Talisman as BaseTalisman;
+
+            if (talisman != null && TalismanSlayer.Slays(talisman.Slayer, defender))
             {
-                BaseWeapon atkWeapon = attacker.Weapon as BaseWeapon;
-                SlayerEntry atkSlayer = SlayerGroup.GetEntryByName(atkWeapon.Slayer);
-                SlayerEntry atkSlayer2 = SlayerGroup.GetEntryByName(atkWeapon.Slayer2);
-                SlayerEntry setSlayer = SlayerGroup.GetEntryByName(SetHelper.GetSetSlayer(attacker));
-
-                if ((atkSlayer != null && atkSlayer.Slays(defender) && _SuperSlayers.Contains(atkSlayer.Name))
-                    || (atkSlayer2 != null && atkSlayer2.Slays(defender) && _SuperSlayers.Contains(atkSlayer2.Name))
-                    || (setSlayer != null && setSlayer.Slays(defender) && _SuperSlayers.Contains(setSlayer.Name)))
-                {
-                    return CheckSlayerResult.SuperSlayer;
-                }
-
-                if (atkSlayer != null && atkSlayer.Slays(defender) 
-                    || atkSlayer2 != null && atkSlayer2.Slays(defender)
-                    || setSlayer != null && setSlayer.Slays(defender))
-                {
-                    return CheckSlayerResult.Slayer;
-                }
-
-                ISlayer defISlayer = Spellbook.FindEquippedSpellbook(defender);
-
-                if (defISlayer == null)
-                {
-                    defISlayer = defender.Weapon as ISlayer;
-                }
-
-                if (defISlayer != null)
-                {
-                    SlayerEntry defSlayer = SlayerGroup.GetEntryByName(defISlayer.Slayer);
-                    SlayerEntry defSlayer2 = SlayerGroup.GetEntryByName(defISlayer.Slayer2);
-                    SlayerEntry defSetSlayer = SlayerGroup.GetEntryByName(SetHelper.GetSetSlayer(defender));
-
-                    if (defSlayer != null && defSlayer.Group.OppositionSuperSlays(attacker) ||
-                        defSlayer2 != null && defSlayer2.Group.OppositionSuperSlays(attacker) ||
-                        defSetSlayer != null && defSetSlayer.Group.OppositionSuperSlays(attacker))
-                    {
-                        return CheckSlayerResult.Opposition;
-                    }
-                }
+                return CheckSlayerResult.Slayer;
+            }
+            else if (Slayer3 != TalismanSlayerName.None && TalismanSlayer.Slays(Slayer3, defender))
+            {
+                return CheckSlayerResult.Slayer;
             }
 
             return CheckSlayerResult.None;
@@ -3793,6 +3821,7 @@ namespace Server.Items
 			SetSaveFlag(ref flags, SaveFlag.xAbsorptionAttributes, !m_SAAbsorptionAttributes.IsEmpty);
             SetSaveFlag(ref flags, SaveFlag.xNegativeAttributes, !m_NegativeAttributes.IsEmpty);
             SetSaveFlag(ref flags, SaveFlag.Altered, m_Altered);
+            SetSaveFlag(ref flags, SaveFlag.xExtendedWeaponAttributes, !m_ExtendedWeaponAttributes.IsEmpty);
 
             writer.Write((long)flags);
 
@@ -3952,6 +3981,11 @@ namespace Server.Items
                 m_NegativeAttributes.Serialize(writer);
             }
 			#endregion
+
+            if (GetSaveFlag(flags, SaveFlag.xExtendedWeaponAttributes))
+            {
+                m_ExtendedWeaponAttributes.Serialize(writer);
+            }
 		}
 
 		[Flags]
@@ -3991,7 +4025,8 @@ namespace Server.Items
 			EngravedText = 0x40000000,
 			xAbsorptionAttributes = 0x80000000,
             xNegativeAttributes = 0x100000000,
-            Altered = 0x200000000
+            Altered = 0x200000000,
+            xExtendedWeaponAttributes = 0x400000000
         }
 
 		#region Mondain's Legacy Sets
@@ -4426,7 +4461,18 @@ namespace Server.Items
                         #endregion
 
                         if (GetSaveFlag(flags, SaveFlag.Altered))
+                        {
                             m_Altered = true;
+                        }
+
+                        if (GetSaveFlag(flags, SaveFlag.xExtendedWeaponAttributes))
+                        {
+                            m_ExtendedWeaponAttributes = new ExtendedWeaponAttributes(this, reader);
+                        }
+                        else
+                        {
+                            m_ExtendedWeaponAttributes = new ExtendedWeaponAttributes(this);
+                        }
 
                         break;
 					}
@@ -4665,6 +4711,7 @@ namespace Server.Items
 			m_AosSkillBonuses = new AosSkillBonuses(this);
 			m_AosElementDamages = new AosElementAttributes(this);
             m_NegativeAttributes = new NegativeAttributes(this);
+            m_ExtendedWeaponAttributes = new ExtendedWeaponAttributes(this);
 
 			#region Stygian Abyss
 			m_SAAbsorptionAttributes = new SAAbsorptionAttributes(this);
@@ -5140,6 +5187,29 @@ namespace Server.Items
 			{
 				list.Add(1072792); // Balanced
 			}
+
+            if (Core.TOL)
+            {
+                if (m_ExtendedWeaponAttributes.Bane > 0)
+                {
+                    list.Add(1154671); // Bane
+                }
+
+                if (m_ExtendedWeaponAttributes.BoneBreaker > 0)
+                {
+                    list.Add(1157318); // Bone Breaker
+                }
+
+                if ((prop = m_ExtendedWeaponAttributes.HitSwarm) != 0)
+                {
+                    list.Add(1157325, prop.ToString()); // Swarm ~1_val~%
+                }
+
+                if ((prop = m_ExtendedWeaponAttributes.HitSparks) != 0)
+                {
+                    list.Add(1157326, prop.ToString()); // Sparks ~1_val~%
+                }
+            }
 
 			#region Stygian Abyss
 			if ((prop = m_AosWeaponAttributes.BloodDrinker) != 0)

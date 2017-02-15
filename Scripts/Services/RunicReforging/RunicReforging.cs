@@ -2287,6 +2287,19 @@ namespace Server.Items
             if (item is Glasses)
                 return ((Glasses)item).WeaponAttributes;
 
+            if (item is GargishGlasses)
+                return ((GargishGlasses)item).WeaponAttributes;
+
+            if(item is ElvenGlasses)
+                return ((ElvenGlasses)item).WeaponAttributes;
+            return null;
+        }
+
+        public static ExtendedWeaponAttributes GetExtendedWeaponAttributes(Item item)
+        {
+            if (item is BaseWeapon)
+                return ((BaseWeapon)item).ExtendedWeaponAttributes;
+
             return null;
         }
 
