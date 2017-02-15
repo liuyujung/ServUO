@@ -595,6 +595,9 @@
     <Compile Include="Items\Artifacts\Decorative\MapOfTheKnownWorld.cs" />
     <Compile Include="Items\Artifacts\Decorative\MummifiedCorpse.cs" />
     <Compile Include="Items\Artifacts\Decorative\TenthAnniversarySculpture.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Armor\GlovesOfFeudalGrip.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Armor\BritchesOfWarding.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Armor\CuffsOfTheArchmage.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Alorons Set\AloronsBustier.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Alorons Set\AloronsGorget.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Alorons Set\AloronsHelm.cs" />
@@ -627,10 +630,15 @@
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Bestial\BestialLegs.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Luck\LuneRouge.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\Sets\Luck\SoleilRouge.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Clothing\TheScholarsHalo.cs" />
     <Compile Include="Items\Artifacts\Equipment\Clothing\JadeArmband.cs" />
     <Compile Include="Items\Artifacts\Equipment\Clothing\MagicalDoor.cs" />
     <Compile Include="Items\Artifacts\Equipment\Jewelry\AnkhPendant.cs" />
     <Compile Include="Items\Artifacts\Equipment\Jewelry\NecklaceofDiligence.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Jewelry\BraceletOfPrimalConsumption.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Weapons\Glenda.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Weapons\BowOfTheInfiniteSwarm.cs" />
+    <Compile Include="Items\Artifacts\Equipment\Weapons\TheDeceiver.cs" />
     <Compile Include="Items\Decorative\TatteredWallMap.cs" />
     <Compile Include="Items\Equipment\Armor\BoneArms.cs" />
     <Compile Include="Items\Equipment\Weapons\Craven.cs" />
@@ -836,6 +844,7 @@
     <Compile Include="Items\Artifacts\Equipment\Clothing\ShadowCloakOfRejuvenation.cs" />
     <Compile Include="Items\Artifacts\Equipment\Armor\WardedDemonboneBracers.cs" />
     <Compile Include="Items\Artifacts\Equipment\Clothing\WardensArmorOfAugmentation.cs" />
+    <Compile Include="Items\Resource\BloodOfTheDarkFather.cs" />
     <Compile Include="Items\Resource\WorkableGlass.cs" />
     <Compile Include="Items\Tools\BaseHarvestTool.cs">
       <SubType>Code</SubType>
@@ -3763,9 +3772,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Items\Artifacts\Equipment\Glasses\LyricalGlasses.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Items\Artifacts\Equipment\Glasses\MaceShieldGlasses.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Items\Artifacts\Equipment\Glasses\MaritimeGlasses.cs">
