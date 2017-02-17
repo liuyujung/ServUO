@@ -198,7 +198,7 @@ namespace Server.Items
             base.GetProperties(list);
 
             if (this.m_Commodity != null)
-            {
+            /*{
                 string args;
 
                 if (this.m_Commodity.Name == null)
@@ -207,7 +207,15 @@ namespace Server.Items
                     args = String.Format("{0}\t{1}", this.m_Commodity.Name, this.m_Commodity.Amount);
 
                 list.Add(1060658, args); // ~1_val~: ~2_val~
-            }
+            }*/
+			//daat99 OWLTR start - commodity deeds
+			{
+                if (m_Commodity.Name != null)
+                    list.Add(1060658, "{0}\t{1}", m_Commodity.Name, m_Commodity.Amount); // ~1_val~: ~2_val~
+                else
+                    list.Add(1060658, "#{0}\t{1}", ((ICommodity)m_Commodity).DescriptionNumber, m_Commodity.Amount); // ~1_val~: ~2_val~
+			}
+			//daat99 OWLTR end - commodity deeds
             else
             {
                 list.Add(1060748); // unfilled

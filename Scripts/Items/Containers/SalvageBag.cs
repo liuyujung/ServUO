@@ -116,9 +116,11 @@ namespace Server.Items
                 if (craftResource.Amount < 2)
                     return false; // Not enough metal to resmelt
 					
-                double difficulty = 0.0;
+				//double difficulty = 0.0;//daat99 OWLTR start - smelting difficulty
+                double difficulty = daat99.ResourceHelper.GetMinSkill(resource);
+				//daat99 OWLTR end - smelting difficulty
 
-                switch ( resource )
+				switch ( resource )
                 {
                     case CraftResource.DullCopper:
                         difficulty = 65.0;
@@ -298,8 +300,11 @@ namespace Server.Items
 			
             foreach (Item i in ((Container)this).FindItemsByType(typeof(Item), true))
             {
-                if ((i is Leather) || (i is Cloth) || (i is SpinedLeather) || (i is HornedLeather) || (i is BarbedLeather) || (i is Bandage) || (i is Bone))
-                {
+                //if ((i is Leather) || (i is Cloth) || (i is SpinedLeather) || (i is HornedLeather) || (i is BarbedLeather) || (i is Bandage) || (i is Bone))
+                //daat99 OWLTR start - custom leathers
+                if ((i is BaseLeather) || (i is Cloth) || (i is Bandage) || (i is Bone))
+				//daat99 OWLTR end - custom leathers
+				{
                     from.AddToBackpack(i);
                 }
             }
