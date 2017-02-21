@@ -44,7 +44,7 @@ namespace Server.Spells.SkillMasteries
         public virtual bool ClearOnSpecialAbility { get { return false; } }
 
         public virtual TimeSpan ExpirationPeriod { get { return TimeSpan.FromMinutes(30); } }
-        public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(2.0); } }
+        public override TimeSpan CastDelayBase { get { return TimeSpan.FromSeconds(2.25); } }
 
 		public virtual double BaseSkillBonus 
 		{
@@ -175,6 +175,10 @@ namespace Server.Spells.SkillMasteries
                 if(UpkeepCancelMessage > 0)
                     Caster.SendLocalizedMessage(UpkeepCancelMessage);
 
+                Expire();
+            }
+            else if (Caster.Skills[CastSkill].Value < RequiredSkill)
+            {
                 Expire();
             }
             else
@@ -660,7 +664,7 @@ namespace Server.Spells.SkillMasteries
             if (move != null)
                 move.OnDamaged(damager, victim, damage);
 
-            //CombatTrainingSpell.CheckDamage(damager, victim, ref damage);
+            CombatTrainingSpell.CheckDamage(damager, victim, ref damage);
 		}
 
         /// <summary>
