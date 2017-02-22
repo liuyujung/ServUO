@@ -260,7 +260,7 @@ namespace Server.Regions
                 {
                     from.SendLocalizedMessage(500295); // you are too far away to do that.
                 }
-                else if (DateTime.UtcNow <= this.m_House.BuiltOn.AddHours(1))
+                else if (DateTime.UtcNow <= this.m_House.BuiltOn.AddHours(Config.Get("Housing.DemolitionWait", true) ? 1 : 0))
                 {
                     from.SendLocalizedMessage(1080178); // You must wait one hour between each house demolition.
                 }
