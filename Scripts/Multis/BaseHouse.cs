@@ -79,7 +79,7 @@ namespace Server.Multis
 
         #endregion
 
-        public bool DecayEnabled = Config.Get("Housing.DecayEnabled", true);
+        public static bool DecayEnabled = Config.Get("Housing.DecayEnabled", true);
 
         public static void Decay_OnTick()
         {
