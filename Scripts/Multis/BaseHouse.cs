@@ -79,7 +79,7 @@ namespace Server.Multis
 
         #endregion
 
-        public const bool DecayEnabled = true;
+        public bool DecayEnabled = Config.Get("Housing.DecayEnabled", true);
 
         public static void Decay_OnTick()
         {
@@ -1795,7 +1795,7 @@ namespace Server.Multis
                 bool valid = this.m_House != null && Sextant.Format(this.m_House.Location, this.m_House.Map, ref xLong, ref yLat, ref xMins, ref yMins, ref xEast, ref ySouth);
 
                 if (valid)
-                    location = String.Format("{0}° {1}'{2}, {3}° {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
+                    location = String.Format("{0}ï¿½ {1}'{2}, {3}ï¿½ {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
                 else
                     location = "unknown";
 
