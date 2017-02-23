@@ -10,6 +10,7 @@ using System;
 using Server.Mobiles;
 using Server.Network;
 using Server.Spells;
+using daat99;
 #endregion
 
 namespace Server.Items
@@ -243,6 +244,20 @@ namespace Server.Items
 
 			return true;
 		}
+
+		//daat
+		// Vii added for firing the ammotype directly from a masterstorage bag
+		public bool TryFireFromMasterStorage(Mobile attacker)
+		{
+			MasterStorage bag = MasterStorageUtils.GetMasterStorage((PlayerMobile)attacker);
+
+			if (bag == null || !bag.TryConsume(AmmoType, 1))
+
+				return false;
+
+			return true;
+		}
+		//daat
 
 		public override void Serialize(GenericWriter writer)
 		{

@@ -1079,7 +1079,7 @@ namespace Server.Items
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            int oreType;
+            /*int oreType;
 
             switch ( this.m_Resource )
             {
@@ -1137,7 +1137,12 @@ namespace Server.Items
                 default:
                     oreType = 0;
                     break;
-            }
+            }*/
+
+			//daat99 OWLTR start - custom resources
+            string oreType = CraftResources.GetName(m_Resource);
+			int level = CraftResources.GetIndex(m_Resource) + 1;
+			//daat
 
             if (m_ReforgedPrefix != ReforgedPrefix.None || m_ReforgedSuffix != ReforgedSuffix.None)
             {
@@ -1160,13 +1165,25 @@ namespace Server.Items
                         list.Add(1151758, String.Format("{0}\t#{1}", GetNameString(), RunicReforging.GetSuffixName(m_ReforgedSuffix))); // ~1_ITEM~ of ~2_SUFFIX~
                 }
             }
-            else if (oreType != 0)
+			//daat
+			else if (level > 1 && !string.IsNullOrEmpty(oreType))
+				list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
+			else
+			{
+				string name = GetNameString();
+				if (!string.IsNullOrEmpty(name))
+					list.Add(GetNameString());
+				else
+					list.Add(LabelNumber);
+			}
+			//daat99 OWLTR end - custom resources
+			/*else if (oreType != 0)
                 list.Add(1053099, "#{0}\t{1}", oreType, this.GetNameString()); // ~1_oretype~ ~2_armortype~
             else if (this.Name == null)
                 list.Add(this.LabelNumber);
             else
-                list.Add(this.Name);
-        }
+                list.Add(this.Name);*/
+		}
 
         public override void AddWeightProperty(ObjectPropertyList list)
         {

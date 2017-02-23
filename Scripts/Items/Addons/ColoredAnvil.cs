@@ -7,8 +7,11 @@ namespace Server.Items
     public class ColoredAnvil : Item
     {
         [Constructable]
-        public ColoredAnvil()
-            : this(CraftResources.GetHue((CraftResource)Utility.RandomMinMax((int)CraftResource.DullCopper, (int)CraftResource.Valorite)))
+		//daat99 OWLTR start - custom resource
+		public ColoredAnvil() : this(CraftResources.GetHue((CraftResource)Utility.RandomMinMax((int)CraftResource.DullCopper, (int)CraftResource.Platinum)))
+		//daat99 OWLTR end - custom resource
+		//public ColoredAnvil()
+        //    : this(CraftResources.GetHue((CraftResource)Utility.RandomMinMax((int)CraftResource.DullCopper, (int)CraftResource.Valorite)))
         {
         }
 

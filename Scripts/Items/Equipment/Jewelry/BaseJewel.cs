@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Server.ContextMenus;
 using Server.Engines.Craft;
 using Server.Mobiles;
+using daat99;
 
 namespace Server.Items
 {
@@ -1193,7 +1194,12 @@ namespace Server.Items
             if (context != null && context.DoNotColor)
                 this.Hue = 0;
 
-            if (1 < craftItem.Resources.Count)
+			//daat99 OWLTR start - runic jewels
+			if (Core.AOS && tool is BaseRunicTool && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT))
+				((BaseRunicTool)tool).ApplyAttributesTo(this);
+			//daat99 OWLTR end - reunic jewels
+
+			if (1 < craftItem.Resources.Count)
             {
                 resourceType = craftItem.Resources.GetAt(1).ItemType;
 

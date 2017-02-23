@@ -4861,30 +4861,8 @@ namespace Server.Items
 			//daat99 OWLTR start - custom resources
 			string oreType = CraftResources.GetName(m_Resource);
 			int level = CraftResources.GetIndex(m_Resource) + 1;
+			//daat
 
-			if (m_Quality == WeaponQuality.Exceptional)
-			{
-				if (level > 1 && !string.IsNullOrEmpty(oreType))
-					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
-				else
-					list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
-			}
-			else if (level > 1 && !string.IsNullOrEmpty(oreType))
-			{
-				list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
-			}
-			#region High Seas
-			else if (m_SearingWeapon)
-			{
-				list.Add(1151318, String.Format("#{0}", LabelNumber));
-			}
-			#endregion
-			else
-			{
-				list.Add(GetNameString());
-
-			}
-			//daat99 OWLTR end - custom resources
 			/*int oreType;
 
 			switch (m_Resource)
@@ -4965,7 +4943,7 @@ namespace Server.Items
 				default:
 					oreType = 0;
 					break;
-			}
+			}*/
 
 			if (m_ReforgedPrefix != ReforgedPrefix.None || m_ReforgedSuffix != ReforgedSuffix.None)
             {
@@ -4986,7 +4964,32 @@ namespace Server.Items
                         list.Add(1151758, String.Format("{0}\t#{1}", GetNameString(), RunicReforging.GetSuffixName(m_ReforgedSuffix))); // ~1_ITEM~ of ~2_SUFFIX~
                 }
             }
-			else if (oreType != 0)
+			//daat
+			else if (m_Quality == WeaponQuality.Exceptional)
+			{
+				if (level > 1 && !string.IsNullOrEmpty(oreType))
+					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
+				else
+					list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
+			}
+			else if (level > 1 && !string.IsNullOrEmpty(oreType))
+			{
+				list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
+			}
+			#region High Seas
+			else if (m_SearingWeapon)
+			{
+				list.Add(1151318, String.Format("#{0}", LabelNumber));
+			}
+			#endregion
+			else
+			{
+				list.Add(GetNameString());
+
+			}
+			//daat99 OWLTR end - custom resources
+
+			/*else if (oreType != 0)
 			{
 				list.Add(1053099, "#{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
             }

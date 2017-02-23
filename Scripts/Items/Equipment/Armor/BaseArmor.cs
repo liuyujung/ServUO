@@ -414,7 +414,11 @@ namespace Server.Items
                 if (this.m_Protection != ArmorProtectionLevel.Regular)
                     ar += 10 + (5 * (int)this.m_Protection);
 
-                switch ( this.m_Resource )
+				//daat99 OWLTR start - armor rating
+				ar += CraftResources.GetIndex(m_Resource) * 2;
+				//daat99 OWLTR end - armor rating
+
+                /*switch ( this.m_Resource )
                 {
                     case CraftResource.DullCopper:
                         ar += 2;
@@ -449,7 +453,7 @@ namespace Server.Items
                     case CraftResource.BarbedLeather:
                         ar += 16;
                         break;
-                }
+                }*/
 
                 ar += -8 + (8 * (int)this.m_Quality);
                 return this.ScaleArmorByDurability(ar);
@@ -1190,7 +1194,7 @@ namespace Server.Items
             }
         }
 
-        public override int PhysicalResistance
+        /*public override int PhysicalResistance
         {
             get
             {
@@ -1228,9 +1232,18 @@ namespace Server.Items
             {
                 return this.BaseEnergyResistance + this.GetProtOffset() + this.GetResourceAttrs().ArmorEnergyResist + this.m_EnergyBonus;
             }
-        }
+        }*/
 
-        public virtual int InitMinHits
+		//daat99 OWLTR start
+        private int m_PhysicalResistance = -1, m_FireResistance = -1, m_ColdResistance = -1, m_PoisonResistance = -1, m_EnergyResistance = -1;
+		public override int PhysicalResistance { get { return ((m_PhysicalResistance != -1) ? m_PhysicalResistance : (BasePhysicalResistance + GetProtOffset() + GetResourceAttrs().ArmorPhysicalResist + m_PhysicalBonus)); } }
+		public override int FireResistance { get { return ((m_FireResistance != -1) ? m_FireResistance : (BaseFireResistance + GetProtOffset() + GetResourceAttrs().ArmorFireResist + m_FireBonus)); } }
+		public override int ColdResistance { get { return ((m_ColdResistance != -1) ? m_ColdResistance : (BaseColdResistance + GetProtOffset() + GetResourceAttrs().ArmorColdResist + m_ColdBonus)); } }
+		public override int PoisonResistance { get { return ((m_PoisonResistance != -1) ? m_PoisonResistance : (BasePoisonResistance + GetProtOffset() + GetResourceAttrs().ArmorPoisonResist + m_PoisonBonus)); } }
+		public override int EnergyResistance { get { return ((m_EnergyResistance != -1) ? m_EnergyResistance : (BaseEnergyResistance + GetProtOffset() + GetResourceAttrs().ArmorEnergyResist + m_EnergyBonus)); } }
+		//daat99 OWLTR end
+
+		public virtual int InitMinHits
         {
             get
             {
@@ -1649,9 +1662,17 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)12); // version
+            //writer.Write((int)12); // version
+			// daat99 OWLTR start -increase version and save resistance
+			writer.Write((int)13); // version
+			writer.WriteEncodedInt((int)PhysicalResistance);
+			writer.WriteEncodedInt((int)FireResistance);
+			writer.WriteEncodedInt((int)ColdResistance);
+			writer.WriteEncodedInt((int)PoisonResistance);
+			writer.WriteEncodedInt((int)EnergyResistance);
+			//daat99 OWLTR end
 
-            writer.Write(_VvVItem);
+			writer.Write(_VvVItem);
             writer.Write(_Owner);
             writer.Write(_OwnerName);
 
@@ -1862,6 +1883,17 @@ namespace Server.Items
 
             switch ( version )
             {
+				//daat99 OWLTR start - load resists version
+				case 13:
+					{
+						m_PhysicalResistance = reader.ReadEncodedInt();
+						m_FireResistance = reader.ReadEncodedInt();
+						m_ColdResistance = reader.ReadEncodedInt();
+						m_PoisonResistance = reader.ReadEncodedInt();
+						m_EnergyResistance = reader.ReadEncodedInt();
+						goto case 12;
+					}
+				//daat99 OWLTR end
                 case 12:
                     {
                         _VvVItem = reader.ReadBool();
@@ -2181,7 +2213,14 @@ namespace Server.Items
                                 case 8:
                                     info = OreInfo.Valorite;
                                     break;
-                            }
+								//daat99 OWLTR start - add custom ores
+                                case 9: info = OreInfo.Blaze; break;
+								case 10: info = OreInfo.Ice; break;
+								case 11: info = OreInfo.Toxic; break;
+								case 12: info = OreInfo.Electrum; break;
+								case 13: info = OreInfo.Platinum; break;
+								//daat99 OWLTR end - add custom ores
+							}
 
                             this.m_Resource = CraftResources.GetFromOreInfo(info, mat);
                         }
@@ -2226,7 +2265,23 @@ namespace Server.Items
                                 this.m_Resource = CraftResource.HornedLeather;
                             else if (mat == ArmorMaterialType.Barbed)
                                 this.m_Resource = CraftResource.BarbedLeather;
-                            else
+							//daat99 OWLTR start - add custom leather
+							else if (mat == ArmorMaterialType.Polar)
+								m_Resource = CraftResource.PolarLeather;
+							else if (mat == ArmorMaterialType.Synthetic)
+								m_Resource = CraftResource.SyntheticLeather;
+							else if (mat == ArmorMaterialType.BlazeL)
+								m_Resource = CraftResource.BlazeLeather;
+							else if (mat == ArmorMaterialType.Daemonic)
+								m_Resource = CraftResource.DaemonicLeather;
+							else if (mat == ArmorMaterialType.Shadow)
+								m_Resource = CraftResource.ShadowLeather;
+							else if (mat == ArmorMaterialType.Frost)
+								m_Resource = CraftResource.FrostLeather;
+							else if (mat == ArmorMaterialType.Ethereal)
+								m_Resource = CraftResource.EtherealLeather;
+							//daat99 OWLTR end
+							else
                                 this.m_Resource = CraftResource.Iron;
                         }
 
@@ -2613,7 +2668,7 @@ namespace Server.Items
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            int oreType;
+            /*int oreType;
 
             switch ( this.m_Resource )
             {
@@ -2689,7 +2744,12 @@ namespace Server.Items
                 default:
                     oreType = 0;
                     break;
-            }
+            }*/
+
+			//daat99 OWLTR start - add custom resources to name
+            string oreType = CraftResources.GetName(m_Resource);
+			int level = CraftResources.GetIndex(m_Resource) + 1;
+			//daat99
 
             if (m_ReforgedPrefix != ReforgedPrefix.None || m_ReforgedSuffix != ReforgedSuffix.None)
             {
@@ -2712,7 +2772,25 @@ namespace Server.Items
                         list.Add(1151758, String.Format("{0}\t#{1}", GetNameString(), RunicReforging.GetSuffixName(m_ReforgedSuffix))); // ~1_ITEM~ of ~2_SUFFIX~
                 }
             }
-            else if (this.m_Quality == ArmorQuality.Exceptional)
+			//daat99
+			else if (m_Quality == ArmorQuality.Exceptional)
+			{
+				if (level > 1 && !string.IsNullOrEmpty(oreType))
+					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
+				else
+					list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
+			}
+			else
+			{
+				if (level > 1 && !string.IsNullOrEmpty(oreType))
+					list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
+				else
+					list.Add(GetNameString());
+
+			}
+			//daat99 OWLTR end - add custom resources to name
+
+			/*else if (this.m_Quality == ArmorQuality.Exceptional)
             {
                 if (oreType != 0)
                     list.Add(1053100, "#{0}\t{1}", oreType, this.GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
@@ -2727,8 +2805,8 @@ namespace Server.Items
                     list.Add(this.LabelNumber);
                 else
                     list.Add(this.Name);
-            }
-        }
+            }*/
+		}
 
         public override bool AllowEquipedCast(Mobile from)
         {
