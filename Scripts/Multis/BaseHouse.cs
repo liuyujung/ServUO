@@ -3630,6 +3630,29 @@ namespace Server.Multis
             return false;
         }
 
+		public static int NumberOfHouse(Mobile m)
+		{
+			int count = 0;
+			if (m == null)
+				return count;
+
+			List<BaseHouse> list = null;
+			m_Table.TryGetValue(m, out list);
+
+			if (list == null)
+				return count;
+
+			for (int i = 0; i < list.Count; ++i)
+			{
+				BaseHouse h = list[i];
+
+				if (!h.Deleted)
+					count++;
+			}
+
+			return count;
+		}
+
         public static bool HasAccountHouse(Mobile m)
         {
             Account a = m.Account as Account;
@@ -3637,17 +3660,12 @@ namespace Server.Multis
             if (a == null)
                 return false;
 
-			if(HasHouse(m))
-			{
-				return true;
-			}
-
 			int count = 0;
 			for (int i = 0; i < a.Length; ++i)
 			{
-				if (a[i] != null && HasHouse(a[i]))
+				if (a[i] != null)
 				{
-					++count;
+					count += NumberOfHouse(a[i]);
 				}
 			}
 
