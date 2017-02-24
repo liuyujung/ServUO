@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Server.Engines.BulkOrders;
 
 namespace Server.Mobiles
 {
@@ -50,7 +51,59 @@ namespace Server.Mobiles
             this.AddItem(new Server.Items.HalfApron());
         }
 
-        public override void Serialize(GenericWriter writer)
+		//daat
+		#region Bulk Orders
+		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
+		{
+			PlayerMobile pm = from as PlayerMobile;
+
+			if (pm != null && pm.NextCarpenterBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
+			{
+				double theirSkill = pm.Skills[SkillName.Carpentry].Base;
+
+				if (theirSkill >= 70.1)
+					pm.NextCarpenterBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.CarpenterHighWaitMins", 360));
+				else if (theirSkill >= 50.1)
+					pm.NextCarpenterBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.CarpenterMidWaitMins", 120));
+				else
+					pm.NextCarpenterBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.CarpenterLowWaitMins", 60));
+
+				if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
+					return new LargeCarpenterBOD();
+
+				return SmallCarpenterBOD.CreateRandomFor(from);
+			}
+
+			return null;
+		}
+
+		public override bool IsValidBulkOrder(Item item)
+		{
+			return (item is SmallCarpenterBOD || item is LargeCarpenterBOD);
+		}
+
+		public override bool SupportsBulkOrders(Mobile from)
+		{
+			return (from is PlayerMobile && from.Skills[SkillName.Carpentry].Base > 0);
+		}
+
+		public override TimeSpan GetNextBulkOrder(Mobile from)
+		{
+			if (from is PlayerMobile)
+				return ((PlayerMobile)from).NextCarpenterBulkOrder;
+
+			return TimeSpan.Zero;
+		}
+
+		public override void OnSuccessfulBulkOrderReceive(Mobile from)
+		{
+			if (Core.SE && from is PlayerMobile)
+				((PlayerMobile)from).NextCarpenterBulkOrder = TimeSpan.Zero;
+		}
+		#endregion
+		//daat
+
+		public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 

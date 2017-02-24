@@ -19,7 +19,14 @@ namespace Server.Engines.BulkOrders
             else if (bod is LargeSmithBOD)
                 this.m_DeedType = BODType.Smith;
 
-            this.m_Material = bod.Material;
+			//daat--<< Custom BODs Edit>>-------------------------------[Start 2 of 2]
+			else if (bod is LargeCarpenterBOD)
+				m_DeedType = BODType.Carpenter;
+			else if (bod is LargeFletcherBOD)
+				m_DeedType = BODType.Fletcher;
+			//daat--<< Custom BODs Edit>>-------------------------------[End 2 of 2]
+
+			this.m_Material = bod.Material;
             this.m_AmountMax = bod.AmountMax;
 
             this.m_Entries = new BOBLargeSubEntry[bod.Entries.Length];
@@ -109,7 +116,14 @@ namespace Server.Engines.BulkOrders
             else if (this.m_DeedType == BODType.Tailor)
                 bod = new LargeTailorBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries());
 
-            for (int i = 0; bod != null && i < bod.Entries.Length; ++i)
+			//daat--<< Custom BODs Edit>>-------------------------------[Start 1 of 2]
+			else if (m_DeedType == BODType.Carpenter)
+				bod = new LargeFletcherBOD(m_AmountMax, m_RequireExceptional, m_Material, ReconstructEntries());
+			else if (m_DeedType == BODType.Fletcher)
+				bod = new LargeCarpenterBOD(m_AmountMax, m_RequireExceptional, m_Material, ReconstructEntries());
+			//daat--<< Custom BODs Edit>>-------------------------------[End 1 of 2]
+
+			for (int i = 0; bod != null && i < bod.Entries.Length; ++i)
                 bod.Entries[i].Owner = bod;
 
             return bod;

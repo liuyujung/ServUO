@@ -12455,6 +12455,14 @@
     <Compile Include="Items\Tools\StainOfDurability.cs" />
     <Compile Include="Items\Tools\SturdyAxe.cs" />
     <Compile Include="Items\Tools\SturdyLumberjackAxe.cs" />
+    <Compile Include="Services\BulkOrders\LargeCarpenterBOD.cs" />
+    <Compile Include="Services\BulkOrders\LargeFletcherBOD.cs" />
+    <Compile Include="Services\BulkOrders\SmallCarpenterBOD.cs" />
+    <Compile Include="Services\BulkOrders\SmallFletcherBOD.cs" />
+    <Compile Include="Services\BulkOrders\Books\BOBFilterGump2.cs" />
+    <Compile Include="Services\BulkOrders\Books\BOBGump2.cs" />
+    <Compile Include="Services\BulkOrders\Books\BODBuyGump2.cs" />
+    <Compile Include="Services\BulkOrders\Books\BulkOrderBook2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

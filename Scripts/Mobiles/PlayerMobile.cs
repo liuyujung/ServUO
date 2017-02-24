@@ -3477,7 +3477,12 @@ namespace Server.Mobiles
 					killer = ((BaseCreature)m).ControlMaster as PlayerMobile;
 				}
 			}
-			
+
+			// daat99 Master Looter start - keep / drop items on death
+			//NO WIPE RISK!!!
+			daat99.MasterStorageUtils.MoveItemsOnDeath(this, c);
+			//daat99 Master Looter end - keep/drop items on death
+
 			if (m_NonAutoreinsuredItems > 0)
 			{
 				SendLocalizedMessage(1061115);
@@ -3660,6 +3665,10 @@ namespace Server.Mobiles
 		private DateTime m_SessionStart;
 		private DateTime m_NextSmithBulkOrder;
 		private DateTime m_NextTailorBulkOrder;
+		//daat
+        private DateTime m_NextFletcherBulkOrder;
+		private DateTime m_NextCarpenterBulkOrder;
+		//daat
 		private DateTime m_SavagePaintExpiration;
 		private SkillName m_Learning = (SkillName)(-1);
 
@@ -3731,6 +3740,46 @@ namespace Server.Mobiles
 				{ }
 			}
 		}
+
+		//daat
+        [CommandProperty(AccessLevel.GameMaster)]
+		public TimeSpan NextFletcherBulkOrder
+		{
+			get
+			{
+				TimeSpan ts = m_NextFletcherBulkOrder - DateTime.Now;
+
+				if (ts < TimeSpan.Zero)
+					ts = TimeSpan.Zero;
+
+				return ts;
+			}
+			set
+			{
+				try { m_NextFletcherBulkOrder = DateTime.Now + value; }
+				catch { }
+			}
+		}
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public TimeSpan NextCarpenterBulkOrder
+		{
+			get
+			{
+				TimeSpan ts = m_NextCarpenterBulkOrder - DateTime.Now;
+
+				if (ts < TimeSpan.Zero)
+					ts = TimeSpan.Zero;
+
+				return ts;
+			}
+			set
+			{
+				try { m_NextCarpenterBulkOrder = DateTime.Now + value; }
+				catch { }
+			}
+		}
+		//daat
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime LastEscortTime { get; set; }
@@ -4035,6 +4084,18 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
+				//daat
+				case 35:
+					{
+						NextFletcherBulkOrder = reader.ReadTimeSpan();
+						goto case 34;
+					}
+				case 34:
+					{
+						NextCarpenterBulkOrder = reader.ReadTimeSpan();
+						goto case 33;
+					}
+				//daat
                 case 33:
                     {
                         m_ExploringTheDeepQuest = (ExploringTheDeepQuestChain)reader.ReadInt();
@@ -4464,6 +4525,13 @@ namespace Server.Mobiles
             CheckAtrophies(this);
 
 			base.Serialize(writer);
+
+			//daat
+			writer.Write(35);
+			writer.Write(NextFletcherBulkOrder);
+
+			writer.Write(NextCarpenterBulkOrder);
+			//daat
 
 			writer.Write(33); // version
 

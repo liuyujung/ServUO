@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Server.Engines.BulkOrders;
 
 namespace Server.Mobiles
 {
@@ -56,7 +57,59 @@ namespace Server.Mobiles
                 this.m_SBInfos.Add(new SBSEBowyer());	
         }
 
-        public override void Serialize(GenericWriter writer)
+		//daat
+		#region Bulk Orders
+		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
+		{
+			PlayerMobile pm = from as PlayerMobile;
+
+			if (pm != null && pm.NextFletcherBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
+			{
+				double theirSkill = pm.Skills[SkillName.Fletching].Base;
+
+				if (theirSkill >= 70.1)
+					pm.NextFletcherBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BowyerHighWaitMins", 360));
+				else if (theirSkill >= 50.1)
+					pm.NextFletcherBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BowyerMidWaitMins", 120));
+				else
+					pm.NextFletcherBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BowyerLowWaitMins", 60));
+
+				if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
+					return new LargeFletcherBOD();
+
+				return SmallFletcherBOD.CreateRandomFor(from);
+			}
+
+			return null;
+		}
+
+		public override bool IsValidBulkOrder(Item item)
+		{
+			return (item is SmallFletcherBOD || item is LargeFletcherBOD);
+		}
+
+		public override bool SupportsBulkOrders(Mobile from)
+		{
+			return (from is PlayerMobile && from.Skills[SkillName.Fletching].Base > 0);
+		}
+
+		public override TimeSpan GetNextBulkOrder(Mobile from)
+		{
+			if (from is PlayerMobile)
+				return ((PlayerMobile)from).NextFletcherBulkOrder;
+
+			return TimeSpan.Zero;
+		}
+
+		public override void OnSuccessfulBulkOrderReceive(Mobile from)
+		{
+			if (Core.SE && from is PlayerMobile)
+				((PlayerMobile)from).NextFletcherBulkOrder = TimeSpan.Zero;
+		}
+		#endregion
+		//daat
+
+		public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 

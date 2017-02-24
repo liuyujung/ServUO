@@ -23,7 +23,14 @@ namespace Server.Engines.BulkOrders
             else if (bod is SmallSmithBOD)
                 this.m_DeedType = BODType.Smith;
 
-            this.m_Material = bod.Material;
+			//daat--<< Custom BODs Edit>>-------------------------------[Start 2 of 2]
+			else if (bod is SmallCarpenterBOD)
+				m_DeedType = BODType.Carpenter;
+			else if (bod is SmallFletcherBOD)
+				m_DeedType = BODType.Fletcher;
+			//daat--<< Custom BODs Edit>>-------------------------------[End 2 of 2]
+
+			this.m_Material = bod.Material;
             this.m_AmountCur = bod.AmountCur;
             this.m_AmountMax = bod.AmountMax;
             this.m_Number = bod.Number;
@@ -135,7 +142,14 @@ namespace Server.Engines.BulkOrders
             else if (this.m_DeedType == BODType.Tailor)
                 bod = new SmallTailorBOD(this.m_AmountCur, this.m_AmountMax, this.m_ItemType, this.m_Number, this.m_Graphic, this.m_RequireExceptional, this.m_Material);
 
-            return bod;
+			//daat--<< Custom BODs Edit>>-------------------------------[Start 1 of 2]
+			else if (m_DeedType == BODType.Carpenter)
+				bod = new SmallCarpenterBOD(m_AmountCur, m_AmountMax, m_ItemType, m_Number, m_Graphic, m_RequireExceptional, m_Material);
+			else if (m_DeedType == BODType.Fletcher)
+				bod = new SmallFletcherBOD(m_AmountCur, m_AmountMax, m_ItemType, m_Number, m_Graphic, m_RequireExceptional, m_Material);
+			//daat--<< Custom BODs Edit>>-------------------------------[End 1 of 2]
+
+			return bod;
         }
 
         public void Serialize(GenericWriter writer)
