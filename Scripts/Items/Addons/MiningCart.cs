@@ -226,6 +226,13 @@ namespace Server.Items
                                 case 8:
                                     ingots = new ValoriteIngot();
                                     break;
+								//daat
+								case 9: ingots = new BlazeIngot(); break;
+								case 10: ingots = new IceIngot(); break;
+								case 11: ingots = new ToxicIngot(); break;
+								case 12: ingots = new ElectrumIngot(); break;
+								case 13: ingots = new PlatinumIngot(); break;
+								//daat
                             }
 
                             int amount = Math.Min(10, this.m_Ore);

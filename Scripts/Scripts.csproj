@@ -12448,6 +12448,13 @@
     <Compile Include="Custom\OWLTR4.0\Tokens\Safe Trash 4 Tokens Backpack.cs" />
     <Compile Include="Custom\OWLTR4.0\Tokens\Token Vendor Stone.cs" />
     <Compile Include="Custom\OWLTR4.0\Tokens\daat99%27s Token System.cs" />
+    <Compile Include="Items\Tools\AncientCarpenterHammer.cs" />
+    <Compile Include="Items\Tools\AncientFletcherHammer.cs" />
+    <Compile Include="Items\Tools\Engraver.cs" />
+    <Compile Include="Items\Tools\GlovesOfLumberjacking.cs" />
+    <Compile Include="Items\Tools\StainOfDurability.cs" />
+    <Compile Include="Items\Tools\SturdyAxe.cs" />
+    <Compile Include="Items\Tools\SturdyLumberjackAxe.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
