@@ -299,7 +299,7 @@ namespace Server.Engines.BulkOrders
 
 		private static Item CreateBagOfResources(int type)
 		{
-			return new BagOfResources();
+			return new ResourcesBag();
 		}
 
 		private static Item CreateArmorOfMining(int type)
@@ -752,7 +752,7 @@ namespace Server.Engines.BulkOrders
 
 		private static Item CreateBagOfResources(int type)
 		{
-			return new BagOfResources();
+			return new ResourcesBag();
 		}
 
 		private static Item CreateDeco(int type)
@@ -1316,7 +1316,7 @@ namespace Server.Engines.BulkOrders
 
 		private static Item CreateBagOfResources(int type)
 		{
-			return new BagOfResources();
+			return new ResourcesBag();
 		}
 
 		private static Item CreateLumberjackingPowerScroll(int type)
