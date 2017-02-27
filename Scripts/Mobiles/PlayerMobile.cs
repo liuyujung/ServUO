@@ -1,4 +1,4 @@
-#region Header
+de#region Header
 // **********
 // ServUO - PlayerMobile.cs
 // **********
@@ -4361,12 +4361,12 @@ namespace Server.Mobiles
 					}
 				case 6:
 					{
-						NextTailorBulkOrder = reader.ReadTimeSpan();
+						//NextTailorBulkOrder = reader.ReadTimeSpan();
 						goto case 5;
 					}
 				case 5:
 					{
-						NextSmithBulkOrder = reader.ReadTimeSpan();
+						//NextSmithBulkOrder = reader.ReadTimeSpan();
 						goto case 4;
 					}
 				case 4:
