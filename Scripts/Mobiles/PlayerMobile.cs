@@ -4538,9 +4538,9 @@ namespace Server.Mobiles
 			writer.Write(NextFletcherBulkOrder);
 
 			writer.Write(NextCarpenterBulkOrder);
-			//daat
 
-			writer.Write(33); // version
+			//writer.Write(33); // version
+			//daat
 
             writer.Write((int)m_ExploringTheDeepQuest);
 
