@@ -1,4 +1,4 @@
-de#region Header
+#region Header
 // **********
 // ServUO - PlayerMobile.cs
 // **********
