@@ -289,6 +289,14 @@ namespace Server.Items
                         ApplySuffixName(item, suffix);
                 }
 
+                NegativeAttributes neg = GetNegativeAttributes(item);
+
+                if (neg != null && item is IDurability && (neg.Antique == 1 || neg.Brittle == 1 || item is BaseJewel))
+                {
+                    ((IDurability)item).MaxHitPoints = 255;
+                    ((IDurability)item).HitPoints = 255;
+                }
+
                 ApplyItemPower(item, playermade);
             }
         }
@@ -1978,12 +1986,6 @@ namespace Server.Items
                     budget += 150;
                 }
             }
-
-            if (item is IDurability && (neg.Antique == 1 || neg.Brittle == 1 || item is BaseJewel))
-            {
-                ((IDurability)item).MaxHitPoints = 255;
-                ((IDurability)item).HitPoints = 255;
-            }
         }
 
         public static void SetBlockRepair(Item item)
@@ -2200,7 +2202,7 @@ namespace Server.Items
                         }
                         else if (str == "ElementalDamage")
                         {
-                            BaseRunicTool.GetElementalDamages((BaseWeapon)item);
+                            BaseRunicTool.ApplyElementalDamage((BaseWeapon)item, perclow, perchigh);
                         }
                     }
                     else if (skillbonuses != null && str == "SkillBonus")
