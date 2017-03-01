@@ -158,10 +158,14 @@ namespace Server.Engines.BulkOrders
             if (this.m_RequireExceptional)
                 list.Add(1045141); // All items must be exceptional.
 
-            if (this.m_Material != BulkMaterialType.None)
-                list.Add(LargeBODGump.GetMaterialNumberFor(this.m_Material)); // All items must be made with x material.
+            //if (this.m_Material != BulkMaterialType.None)
+            //    list.Add(LargeBODGump.GetMaterialNumberFor(this.m_Material)); // All items must be made with x material.
+			//daat99 OWLTR start - custom resource
+            if (m_Material != BulkMaterialType.None)
+				list.Add("All items must be crafted with " + LargeBODGump.GetMaterialStringFor(m_Material)); // All items must be made with x material.
+			//daat99 OWLTR end - custom resource.
 
-            list.Add(1060656, this.m_AmountMax.ToString()); // amount to make: ~1_val~
+			list.Add(1060656, this.m_AmountMax.ToString()); // amount to make: ~1_val~
 
             for (int i = 0; i < this.m_Entries.Length; ++i)
                 list.Add(1060658 + i, "#{0}\t{1}", this.m_Entries[i].Details.Number, this.m_Entries[i].Amount); // ~1_val~: ~2_val~
@@ -222,15 +226,29 @@ namespace Server.Engines.BulkOrders
                     {
                         from.SendLocalizedMessage(1045161); // Both orders must be of exceptional quality.
                     }
-                    else if (this.m_Material >= BulkMaterialType.DullCopper && this.m_Material <= BulkMaterialType.Valorite && small.Material != this.m_Material)
+					//daat99 OWLTR start
+					else if (m_Material >= BulkMaterialType.DullCopper && m_Material <= BulkMaterialType.Platinum && small.Material != m_Material)
+					{
+						from.SendLocalizedMessage(1045162); // Both orders must use the same ore type.
+					}
+					else if (m_Material >= BulkMaterialType.Spined && m_Material <= BulkMaterialType.Ethereal && small.Material != m_Material)
+					{
+						from.SendLocalizedMessage(1049351); // Both orders must use the same leather type.
+					}
+					else if (m_Material >= BulkMaterialType.OakWood && m_Material <= BulkMaterialType.Petrified && small.Material != m_Material)
+					{
+						from.SendMessage("Both orders must use the same wood type."); // Both orders must use the same leather type.
+					}
+					//daat99 OWLTR end
+					/*else if (this.m_Material >= BulkMaterialType.DullCopper && this.m_Material <= BulkMaterialType.Valorite && small.Material != this.m_Material)
                     {
                         from.SendLocalizedMessage(1045162); // Both orders must use the same ore type.
                     }
                     else if (this.m_Material >= BulkMaterialType.Spined && this.m_Material <= BulkMaterialType.Barbed && small.Material != this.m_Material)
                     {
                         from.SendLocalizedMessage(1049351); // Both orders must use the same leather type.
-                    }
-                    else if (this.m_AmountMax != small.AmountMax)
+                    }*/
+					else if (this.m_AmountMax != small.AmountMax)
                     {
                         from.SendLocalizedMessage(1045163); // The two orders have different requested amounts and cannot be combined.
                     }

@@ -21,6 +21,10 @@ namespace Server.Engines.CannedEvil
         #region TOL
         DragonTurtle
         #endregion
+		//daat99 OWLTR start - MotA champ
+        ,
+        Crafter
+        //daat99 OWLTR end - MotA champ
     }
 
     public class ChampionSpawnInfo
@@ -169,6 +173,16 @@ namespace Server.Engines.CannedEvil
 				new Type[]{ typeof( Dimetrosaur ), typeof( Allosaurus ) }											    // Level 4
 			} ),
                 #endregion
+
+			//daat99 OWLTR start - MotA champ mobs
+				new ChampionSpawnInfo( "Master of the Arts", typeof(MasterOfTheArts), new string[]{ "Destoyer", "Smelter", "Crafter" } , new Type[][]
+				{																											// Crafter
+					new Type[]{ typeof( CarpenterAutomaton ), typeof( BabyBellhop ) },										// Level 1
+					new Type[]{ typeof( TailorAutomaton ), typeof( Bellhop ) },												// Level 2
+					new Type[]{ typeof( BlacksmithAutomaton ), typeof( StrongBellhop ) },									// Level 3
+					new Type[]{ typeof( FletcherAutomaton ), typeof( BurntOne ) }											// Level 4
+				} )				
+				//daat99 OWLTR end - MotA champ mobs
         };
 
         public static ChampionSpawnInfo GetInfo(ChampionSpawnType type)
