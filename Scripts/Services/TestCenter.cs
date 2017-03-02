@@ -260,10 +260,26 @@ namespace Server.Misc
             PlaceItemIn(cont, 67, 51, new RunicHammer(CraftResource.Agapite, 1000));
             PlaceItemIn(cont, 73, 51, new RunicHammer(CraftResource.Verite, 1000));
             PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Valorite, 1000));
+			//daat start
+			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Blaze, 1000));
+			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Ice, 1000));
+			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Toxic, 1000));
+			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Electrum, 1000));
+			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Platinum, 1000));
+			//daat end
 
             PlaceItemIn(cont, 36, 55, new RunicSewingKit(CraftResource.SpinedLeather, 1000));
             PlaceItemIn(cont, 42, 55, new RunicSewingKit(CraftResource.HornedLeather, 1000));
             PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.BarbedLeather, 1000));
+			//daat start
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.PolarLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.SyntheticLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.BlazeLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.DaemonicLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.ShadowLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.FrostLeather, 1000));
+			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.EtherealLeather, 1000));
+			//daat end
 
             PlaceItemIn(bank, 118, 169, cont);
             // End bag of tools
@@ -311,6 +327,15 @@ namespace Server.Misc
             PlaceItemIn(cont, 92, 68, new HornedLeather(5000));
             PlaceItemIn(cont, 92, 76, new SpinedLeather(5000));
             PlaceItemIn(cont, 92, 84, new Leather(5000));
+			//daat
+			PlaceItemIn(cont, 92, 84, new PolarLeather(5000));
+			PlaceItemIn(cont, 92, 84, new SyntheticLeather(5000));
+			PlaceItemIn(cont, 92, 84, new BlazeLeather(5000));
+			PlaceItemIn(cont, 92, 84, new DaemonicLeather(5000));
+			PlaceItemIn(cont, 92, 84, new ShadowLeather(5000));
+			PlaceItemIn(cont, 92, 84, new FrostLeather(5000));
+			PlaceItemIn(cont, 92, 84, new EtherealLeather(5000));
+			//daat
 
             PlaceItemIn(cont, 30, 118, new Cloth(5000));
             PlaceItemIn(cont, 30, 84, new Board(5000));
@@ -325,6 +350,13 @@ namespace Server.Misc
             PlaceItemIn(cont, 72, 35, new VeriteIngot(5000));
             PlaceItemIn(cont, 79, 35, new ValoriteIngot(5000));
             PlaceItemIn(cont, 86, 35, new IronIngot(5000));
+			//daat
+			PlaceItemIn(cont, 93, 35, new BlazeIngot(5000));
+			PlaceItemIn(cont, 100, 35, new IceIngot(5000));
+			PlaceItemIn(cont, 107, 35, new ToxicIngot(5000));
+			PlaceItemIn(cont, 114, 35, new ElectrumIngot(5000));
+			PlaceItemIn(cont, 121, 35, new PlatinumIngot(5000));
+			//daat
 
             PlaceItemIn(cont, 30, 59, new RedScales(5000));
             PlaceItemIn(cont, 36, 59, new YellowScales(5000));
@@ -332,6 +364,11 @@ namespace Server.Misc
             PlaceItemIn(cont, 48, 59, new GreenScales(5000));
             PlaceItemIn(cont, 54, 59, new WhiteScales(5000));
             PlaceItemIn(cont, 60, 59, new BlueScales(5000));
+			//daat
+			PlaceItemIn(cont, 66, 59, new CopperScales(5000));
+			PlaceItemIn(cont, 72, 59, new SilverScales(5000));
+			PlaceItemIn(cont, 78, 59, new GoldScales(5000));
+			//daat
 
             PlaceItemIn(bank, 98, 169, cont);
             // End bag of raw materials
@@ -629,6 +666,13 @@ namespace Server.Misc
             bank.DropItem(MakeNewbie(new AgapiteIngot(5000)));
             bank.DropItem(MakeNewbie(new VeriteIngot(5000)));
             bank.DropItem(MakeNewbie(new ValoriteIngot(5000)));
+			//daat
+            bank.DropItem(MakeNewbie(new BlazeIngot(5000)));
+			bank.DropItem(MakeNewbie(new IceIngot(5000)));
+			bank.DropItem(MakeNewbie(new ToxicIngot(5000)));
+			bank.DropItem(MakeNewbie(new ElectrumIngot(5000)));
+			bank.DropItem(MakeNewbie(new PlatinumIngot(5000)));
+			//daat
 
             // Reagents
             bank.DropItem(MakeNewbie(new BlackPearl(1000)));
