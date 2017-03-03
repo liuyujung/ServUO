@@ -2,6 +2,7 @@ using System;
 using Server.Items;
 using Server.Mobiles;
 using Server.Targeting;
+using daat99;
 
 namespace Server.Engines.Craft
 {
@@ -370,6 +371,10 @@ namespace Server.Engines.Craft
                             number = 1044279; // You repair the item.
                             this.m_CraftSystem.PlayCraftEffect(from);
                             weapon.HitPoints = weapon.MaxHitPoints;
+							//daat99 OWLTR start - tokens on repairs
+							if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFT_GIVE_TOKENS))
+								TokenSystem.GiveTokensToPlayer(from as PlayerMobile, Utility.Random(5));
+							//daat99 OWLTR end - tokens on repairs
                         }
                         else
                         {

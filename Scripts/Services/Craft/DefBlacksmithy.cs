@@ -1015,7 +1015,12 @@ namespace Server.Engines.Craft
             AddSubRes2(typeof(WhiteScales), 1060879, 0.0, 1053137, 1044268);
             AddSubRes2(typeof(BlueScales), 1060880, 0.0, 1053137, 1044268);
 
-            Resmelt = true;
+			//daat99 OWLTR start - custom resources
+            daat99.ResourceHelper.AddMetalResources(this);
+			daat99.ResourceHelper.AddScaleResources(this);
+			//daat99 OWLTR end - custom resources
+
+			Resmelt = true;
             Repair = true;
             MarkOption = true;
             CanEnhance = Core.AOS;

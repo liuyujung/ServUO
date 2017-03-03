@@ -14,6 +14,7 @@ using Server.Factions;
 using Server.Items;
 using Server.Mobiles;
 using Server.Engines.Quests;
+using daat99;
 #endregion
 
 namespace Server.Engines.Craft
@@ -52,6 +53,10 @@ namespace Server.Engines.Craft
 		private readonly int m_NameNumber;
 
 		private BeverageType m_RequiredBeverage;
+
+		//daat start
+		private bool m_UseAllRes;
+		//daat end
 
 		private bool m_NeedHeat;
 		private bool m_NeedOven;
@@ -362,7 +367,9 @@ namespace Server.Engines.Craft
 			0x1932, 0x1934
 		};
 
-		private static readonly Type[][] m_TypesTable = new[]
+		private static Type[][] m_TypesTable = daat99.ResourceHelper.GetTypesTable(); //daat99 OWLTR
+
+		/*private static readonly Type[][] m_TypesTable = new[]
 		{
 			new[] {typeof(Board), typeof(Log)}, 
             new[] {typeof(HeartwoodBoard), typeof(HeartwoodLog)},
@@ -382,7 +389,7 @@ namespace Server.Engines.Craft
             new[] {typeof(WoodenBowlOfPeas), typeof(PewterBowlOfPeas)},
             new[] { typeof( CrystallineFragments ), typeof( BrokenCrystals ), typeof( ShatteredCrystals ), typeof( ScatteredCrystals ), typeof( CrushedCrystals ), typeof( JaggedCrystals ), typeof( AncientPotteryFragments ) },
             new[] { typeof( RedScales ), typeof( BlueScales ), typeof( BlackScales ), typeof( YellowScales ), typeof( GreenScales ), typeof( WhiteScales ), typeof( MedusaDarkScales ), typeof( MedusaLightScales ) }
-		};
+		};*/
 
 		private static readonly Type[] m_ColoredItemTable = new[]
 		{
@@ -396,14 +403,20 @@ namespace Server.Engines.Craft
             #region Stygian Abyss
             typeof(PlantPigment), typeof(SoftenedReeds), typeof(DryReeds), typeof(PlantClippings),
             typeof(MedusaLightScales), typeof(MedusaDarkScales)
+			//daat99 OWLTR start - colored containers
+			, typeof( BaseContainer )
+			//daat99 OWLTR end - colored containers
             #endregion
 		};
 
 		private static readonly Type[] m_ColoredResourceTable = new[]
 		{
 			#region Mondain's Legacy
-			typeof(Board), typeof(Log),
+			//typeof(Board), typeof(Log),
 			#endregion
+			//daat99 OWLTR start - colorable wood
+			typeof( BaseLog ), typeof( BaseWoodBoard ),
+			//daat99 OWLTR end - colorable wood
 			typeof(BaseIngot), typeof(BaseOre), typeof(BaseLeather), typeof(BaseHides), typeof(AbyssalCloth), typeof(UncutCloth), typeof(Cloth),
 			typeof(BaseGranite), typeof(BaseScales), typeof(PlantClippings), typeof(DryReeds), typeof(SoftenedReeds),
 			typeof(PlantPigment), typeof(BaseContainer)
@@ -919,6 +932,20 @@ namespace Server.Engines.Craft
 				if (UseAllRes)
 				{
 					int tempAmount = ourPack.GetAmount(types[i]);
+
+					//daat99 OWLTR start - craft from storage
+                    ulong amount = 0;
+					for (int j = 0; j < types[i].Length && amount <= (ulong)amounts[i]; ++j)
+					{
+						amount = MasterStorageUtils.GetPlayersStorageItemCount(from as PlayerMobile, types[i][j]);
+					}
+					if (amount > int.MaxValue || amount + (ulong)tempAmount > int.MaxValue)
+						tempAmount = int.MaxValue;
+					else
+						tempAmount = tempAmount + (int)amount;
+					tempAmount = Math.Min(100, tempAmount /= amounts[i]); //limit "craft all" to 100 items.
+					//daat99 OWLTR end - craft from storage
+
 					tempAmount /= amounts[i];
 					if (tempAmount < maxAmount)
 					{
@@ -1000,6 +1027,28 @@ namespace Server.Engines.Craft
 				m_ResAmount = 0;
 				m_System = craftSystem;
 
+				//daat99 OWLTR start - craft from storage
+                List<Type[]> typesList = new List<Type[]>();
+				List<int> amountsList = new List<int>();
+				for (int i = 0; i < types.Length; ++i)
+				{
+					bool consumed = false;
+					foreach (Type type in types[i])
+						if (MasterStorageUtils.ConsumePlayersStorageItem(from as PlayerMobile, type, amounts[i]))
+						{
+							consumed = true;
+							break;
+						}
+					if (!consumed)
+					{
+						typesList.Add(types[i]);
+						amountsList.Add(amounts[i]);
+					}
+				}
+				types = typesList.ToArray();
+				amounts = amountsList.ToArray();
+				//daat99 OWLTR end - craft from storage
+
 				if (IsQuantityType(types))
 				{
 					index = ConsumeQuantity(ourPack, types, amounts);
@@ -1031,6 +1080,28 @@ namespace Server.Engines.Craft
 				m_ResHue = 0;
 				m_ResAmount = 0;
 				m_System = craftSystem;
+
+				//daat99 OWLTR start - craft from storage
+                List<Type[]> typesList = new List<Type[]>();
+				List<int> amountsList = new List<int>();
+				for (int i = 0; i < types.Length; ++i)
+				{
+					bool consumed = false;
+					foreach (Type type in types[i])
+						if (MasterStorageUtils.ConsumePlayersStorageItem(from as PlayerMobile, type, amounts[i]))
+						{
+							consumed = true;
+							break;
+						}
+					if (!consumed)
+					{
+						typesList.Add(types[i]);
+						amountsList.Add(amounts[i]);
+					}
+				}
+				types = typesList.ToArray();
+				amounts = amountsList.ToArray();
+				//daat99 OWLTR end - craft from storage
 
 				if (IsQuantityType(types))
 				{
@@ -1080,6 +1151,15 @@ namespace Server.Engines.Craft
 				{
 					for (int i = 0; i < types.Length; i++)
 					{
+						//daat99 OWLTR start - craft from storage
+                        ulong amount = 0;
+						for (int j = 0; j < types[i].Length && amount <= (ulong)amounts[i]; ++j)
+						{
+							amount = MasterStorageUtils.GetPlayersStorageItemCount(from as PlayerMobile, types[i][j]);
+						}
+						if (amount >= (ulong)amounts[i])
+							continue;
+						//daat99 OWLTR end - craft from storage
 						if (ourPack.GetBestGroupAmount(types[i], true, CheckHueGrouping) < amounts[i])
 						{
 							index = i;
@@ -1752,7 +1832,37 @@ namespace Server.Engines.Craft
 							from, "Crafting {0} with craft system {1}", CommandLogging.Format(item), craftSystem.GetType().Name);
 					}
 
-                    AutoCraftTimer.OnSuccessfulCraft(from);
+					//daat99 OWLTR start - crafting system
+					//typeres amount quality  Type resourceType = typeRes;
+					if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.CRAFT_GIVE_TOKENS) && !m_UseAllRes)
+					{
+						int i_TokensAmount = 1;
+
+						if (typeRes != null)
+							i_TokensAmount *= CraftResources.GetIndex(CraftResources.GetFromType(typeRes)) + 1;
+
+						i_TokensAmount *= Resources.GetAt(0).Amount;
+						double tok = i_TokensAmount;
+						if (quality == 2)
+							tok *= 1.35;
+						tok /= 8;
+						if (tok >= 1)
+							i_TokensAmount = (int)tok;
+						else
+							i_TokensAmount = 1;
+						TokenSystem.GiveTokensToPlayer(from as PlayerMobile, i_TokensAmount);
+					}
+
+					if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.DEDICATION_RECIPE) && !m_UseAllRes)
+					{
+						NewDaat99Holder dh = (NewDaat99Holder)daat99.Daat99OWLTR.TempHolders[from];
+						++dh.ItemsCrafted;
+						if (dh.ItemsCrafted >= 100 && dh.NextReward <= TimeSpan.Zero) //give random recipe
+							dh.GiveDedication(from, craftSystem);
+					}
+					//daat99 OWLTR end - crafting system
+
+					AutoCraftTimer.OnSuccessfulCraft(from);
 					//from.PlaySound( 0x57 );
 				}
 

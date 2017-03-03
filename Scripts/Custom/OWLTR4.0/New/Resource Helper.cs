@@ -363,7 +363,26 @@ namespace daat99
 				new Type[]{ typeof( Cloth ), 			typeof( UncutCloth ) },
 				new Type[]{ typeof( CheeseWheel ), 		typeof( CheeseWedge ) },
 				new Type[]{ typeof( Pumpkin ), 			typeof( SmallPumpkin ) },
-				new Type[]{ typeof( WoodenBowlOfPeas ), typeof( PewterBowlOfPeas ) }
+				new Type[]{ typeof( WoodenBowlOfPeas ), typeof( PewterBowlOfPeas ) },
+				//
+				new Type[]{ typeof( CrystallineFragments ),
+							typeof( BrokenCrystals ),
+							typeof( ShatteredCrystals ),
+							typeof( ScatteredCrystals ),
+							typeof( CrushedCrystals ),
+							typeof( JaggedCrystals ),
+							typeof( AncientPotteryFragments ) },
+				new Type[]{ typeof( RedScales ),
+							typeof( BlueScales ),
+							typeof( BlackScales ),
+							typeof( YellowScales ),
+							typeof( GreenScales ),
+							typeof( WhiteScales ),
+							typeof( CopperScales ),
+							typeof( SilverScales ),
+							typeof( GoldScales ),
+							typeof( MedusaDarkScales ),
+							typeof( MedusaLightScales ) }
 			};
 		}
 	}
