@@ -936,7 +936,7 @@ namespace Server.Items
 			platinum.RunicMaxIntensity = Uber ? 110 : 105;
 			//daat99 OWLTR end - custom resource
 
-            CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
+            /*CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
 
             spined.ArmorPhysicalResist = 9;
             spined.ArmorLuck = 40;
@@ -991,9 +991,66 @@ namespace Server.Items
             {
                 barbed.RunicMinIntensity = 40;
                 barbed.RunicMaxIntensity = 100;
-            }
+            }*/
 
 			//daat99 OWLTR start - custom resources
+			CraftAttributeInfo spined = Spined = new CraftAttributeInfo();
+
+			spined.ArmorPhysicalResist = 5;
+			spined.ArmorLuck = 40;
+			spined.RunicMinAttributes = 1;
+			spined.RunicMaxAttributes = 3;
+			if (Core.ML)
+			{
+				spined.RunicMinIntensity = 40;
+				spined.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				spined.RunicMinIntensity = 20;
+				spined.RunicMaxIntensity = 40;
+			}
+
+			CraftAttributeInfo horned = Horned = new CraftAttributeInfo();
+
+			horned.ArmorPhysicalResist = 2;
+			horned.ArmorFireResist = 3;
+			horned.ArmorColdResist = 2;
+			horned.ArmorPoisonResist = 2;
+			horned.ArmorEnergyResist = 2;
+			horned.RunicMinAttributes = 3;
+			horned.RunicMaxAttributes = 4;
+			if (Core.ML)
+			{
+				horned.RunicMinIntensity = 45;
+				horned.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				horned.RunicMinIntensity = 30;
+				horned.RunicMaxIntensity = 70;
+			}
+
+			CraftAttributeInfo barbed = Barbed = new CraftAttributeInfo();
+
+			barbed.ArmorPhysicalResist = 2;
+			barbed.ArmorFireResist = 1;
+			barbed.ArmorColdResist = 2;
+			barbed.ArmorPoisonResist = 3;
+			barbed.ArmorEnergyResist = 4;
+			barbed.RunicMinAttributes = 4;
+			barbed.RunicMaxAttributes = 5;
+			if (Core.ML)
+			{
+				barbed.RunicMinIntensity = 50;
+				barbed.RunicMaxIntensity = 100;
+			}
+			else
+			{
+				barbed.RunicMinIntensity = 40;
+				barbed.RunicMaxIntensity = 100;
+			}
+
 			CraftAttributeInfo polar = Polar = new CraftAttributeInfo();
 
 			polar.ArmorPhysicalResist = Uber ? 4 : Utility.Random(5);
@@ -1489,20 +1546,27 @@ namespace Server.Items
 
         private static readonly CraftResourceInfo[] m_WoodInfo = new CraftResourceInfo[]
         {
-            new CraftResourceInfo(0x000, 1011542, "Normal", CraftAttributeInfo.Blank, CraftResource.RegularWood,	typeof(Log), typeof(Board)),
+            /*new CraftResourceInfo(0x000, 1011542, "Normal", CraftAttributeInfo.Blank, CraftResource.RegularWood,	typeof(Log), typeof(Board)),
             new CraftResourceInfo(0x7DA, 1072533, "Oak", CraftAttributeInfo.OakWood, CraftResource.OakWood, typeof(OakLog), typeof(OakBoard)),
             new CraftResourceInfo(0x4A7, 1072534, "Ash", CraftAttributeInfo.AshWood, CraftResource.AshWood, typeof(AshLog), typeof(AshBoard)),
             new CraftResourceInfo(0x4A8, 1072535, "Yew", CraftAttributeInfo.YewWood, CraftResource.YewWood, typeof(YewLog), typeof(YewBoard)),
             new CraftResourceInfo(0x4A9, 1072536, "Heartwood", CraftAttributeInfo.Heartwood,	CraftResource.Heartwood,	typeof(HeartwoodLog),	typeof(HeartwoodBoard)),
             new CraftResourceInfo(0x4AA, 1072538, "Bloodwood", CraftAttributeInfo.Bloodwood,	CraftResource.Bloodwood,	typeof(BloodwoodLog),	typeof(BloodwoodBoard)),
-            new CraftResourceInfo(0x47F, 1072539, "Frostwood", CraftAttributeInfo.Frostwood,	CraftResource.Frostwood,	typeof(FrostwoodLog),	typeof(FrostwoodBoard)),
-			//daat99 OWLTR start - custom resources
+            new CraftResourceInfo(0x47F, 1072539, "Frostwood", CraftAttributeInfo.Frostwood,	CraftResource.Frostwood,	typeof(FrostwoodLog),	typeof(FrostwoodBoard)),*/
+			//daat99 OWLTR start - custom wood
+			new CraftResourceInfo( 0, 0,    "Normal",       CraftAttributeInfo.Blank,       CraftResource.RegularWood,  typeof(Board),              typeof( Log ) ),
+			new CraftResourceInfo( 1281, 0, "Oak",          CraftAttributeInfo.OakWood,     CraftResource.OakWood,      typeof(OakBoard),           typeof( OakLog ) ),
+			new CraftResourceInfo( 488,  0, "Ash",          CraftAttributeInfo.AshWood,     CraftResource.AshWood,      typeof(AshBoard),           typeof( AshLog ) ),
+			new CraftResourceInfo( 2313, 0, "Yew",          CraftAttributeInfo.YewWood,     CraftResource.YewWood,      typeof(YewBoard),           typeof( YewLog ) ),
+			new CraftResourceInfo( 1262, 0, "Heartwood",    CraftAttributeInfo.Heartwood,   CraftResource.Heartwood,    typeof(HeartwoodBoard),     typeof( HeartwoodLog ) ),
+			new CraftResourceInfo( 1194, 0, "Bloodwood",    CraftAttributeInfo.Bloodwood,   CraftResource.Bloodwood,    typeof(BloodwoodBoard),     typeof( BloodwoodLog ) ),
+			new CraftResourceInfo( 1266, 0, "Frostwood",    CraftAttributeInfo.Frostwood,   CraftResource.Frostwood,    typeof(FrostwoodBoard),     typeof( FrostwoodLog ) ),
 			new CraftResourceInfo( 1457, 0, "Ebony",        CraftAttributeInfo.Ebony,       CraftResource.Ebony,        typeof(EbonyBoard),         typeof( EbonyLog ) ),
 			new CraftResourceInfo( 1719, 0, "Bamboo",       CraftAttributeInfo.Bamboo,      CraftResource.Bamboo,       typeof(BambooBoard),        typeof( BambooLog ) ),
 			new CraftResourceInfo( 114,  0, "PurpleHeart",  CraftAttributeInfo.PurpleHeart, CraftResource.PurpleHeart,  typeof(PurpleHeartBoard),   typeof( PurpleHeartLog ) ),
 			new CraftResourceInfo( 37,   0, "Redwood",      CraftAttributeInfo.Redwood,     CraftResource.Redwood,      typeof(RedwoodBoard),       typeof( RedwoodLog ) ),
 			new CraftResourceInfo( 1153, 0, "Petrified",    CraftAttributeInfo.Petrified,   CraftResource.Petrified,    typeof(PetrifiedBoard),     typeof( PetrifiedLog ) ),
-			//daat99 OWLTR end - custom resources
+			//daat99 OWLTR end - custom wood
 		};
 
         /// <summary>
