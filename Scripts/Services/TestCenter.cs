@@ -261,24 +261,24 @@ namespace Server.Misc
             PlaceItemIn(cont, 73, 51, new RunicHammer(CraftResource.Verite, 1000));
             PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Valorite, 1000));
 			//daat start
-			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Blaze, 1000));
-			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Ice, 1000));
-			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Toxic, 1000));
-			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Electrum, 1000));
-			PlaceItemIn(cont, 79, 51, new RunicHammer(CraftResource.Platinum, 1000));
+			PlaceItemIn(cont, 85, 51, new RunicHammer(CraftResource.Blaze, 1000));
+			PlaceItemIn(cont, 91, 51, new RunicHammer(CraftResource.Ice, 1000));
+			PlaceItemIn(cont, 97, 51, new RunicHammer(CraftResource.Toxic, 1000));
+			PlaceItemIn(cont, 103, 51, new RunicHammer(CraftResource.Electrum, 1000));
+			PlaceItemIn(cont, 109, 51, new RunicHammer(CraftResource.Platinum, 1000));
 			//daat end
 
             PlaceItemIn(cont, 36, 55, new RunicSewingKit(CraftResource.SpinedLeather, 1000));
             PlaceItemIn(cont, 42, 55, new RunicSewingKit(CraftResource.HornedLeather, 1000));
             PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.BarbedLeather, 1000));
 			//daat start
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.PolarLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.SyntheticLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.BlazeLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.DaemonicLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.ShadowLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.FrostLeather, 1000));
-			PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.EtherealLeather, 1000));
+			PlaceItemIn(cont, 54, 55, new RunicSewingKit(CraftResource.PolarLeather, 1000));
+			PlaceItemIn(cont, 60, 55, new RunicSewingKit(CraftResource.SyntheticLeather, 1000));
+			PlaceItemIn(cont, 66, 55, new RunicSewingKit(CraftResource.BlazeLeather, 1000));
+			PlaceItemIn(cont, 72, 55, new RunicSewingKit(CraftResource.DaemonicLeather, 1000));
+			PlaceItemIn(cont, 78, 55, new RunicSewingKit(CraftResource.ShadowLeather, 1000));
+			PlaceItemIn(cont, 84, 55, new RunicSewingKit(CraftResource.FrostLeather, 1000));
+			PlaceItemIn(cont, 90, 55, new RunicSewingKit(CraftResource.EtherealLeather, 1000));
 			//daat end
 
             PlaceItemIn(bank, 118, 169, cont);
