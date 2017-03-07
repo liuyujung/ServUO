@@ -725,7 +725,6 @@ namespace Server.Engines.Craft
 			AddRes(index, typeof(BlazeIngot), "Blaze Ingots", 180, "You need more Blaze Ingots");
 			AddRes(index, typeof(EbonyBoard), "Ebony Boards", 345, "You need more Ebony Boards");
 
-
 			// Bards Storage
 			index = AddCraft(typeof(BardStorageDeed), "Customs", "Bard Storage", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
 			AddSkill(index, SkillName.Discordance, 100.0, 150.0);
@@ -796,6 +795,88 @@ namespace Server.Engines.Craft
 			AddRes(index, typeof(BlazeIngot), "Blaze Ingots", 150, "You need more Blaze Ingots");
 			AddRes(index, typeof(HornedLeather), "Horned Leather", 50, "You need more Horned Leather");
 			AddRes(index, typeof(CopperScales), "Copper Scales", 50, "You need more Copper Scales");
+
+			//tool house
+			index = AddCraft(typeof(ToolHouse), "Customs", "Tool House", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Carpentry, 100.0, 150.0);
+			AddSkill(index, SkillName.Blacksmith, 100.0, 150.0);
+			AddSkill(index, SkillName.Tailoring, 100.0, 150.0);
+			AddRes(index, typeof(PlatinumIngot), "Platinum Ingots", 100, "You need more Platinum Ingots");
+			AddRes(index, typeof(SpinedLeather), "Spined Leather", 100, "You need more Spined Leather");
+			AddRes(index, typeof(FrostwoodBoard), "Frostwood Boards", 20, "You need more Frostwood Boards");
+
+			//runic house
+			index = AddCraft(typeof(RunicHouse), "Customs", "Runic House", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Carpentry, 100.0, 150.0);
+			AddSkill(index, SkillName.Blacksmith, 100.0, 150.0);
+			AddSkill(index, SkillName.Tailoring, 100.0, 150.0);
+			AddRes(index, typeof(PlatinumIngot), "Platinum Ingots", 100, "You need more Platinum Ingots");
+			AddRes(index, typeof(SpinedLeather), "Spined Leather", 100, "You need more Spined Leather");
+			AddRes(index, typeof(FrostwoodBoard), "Frostwood Boards", 20, "You need more Frostwood Boards");
+
+			// Alchemist Kit
+			index = AddCraft(typeof(AlchemistKit), "Customs", "Alchemist Kit", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Alchemy, 100.0, 150.0);
+			AddSkill(index, SkillName.Carpentry, 100.0, 150.0);
+			AddSkill(index, SkillName.ItemID, 100.0, 150.0);
+			AddRes(index, typeof(Bottle), "Empty Bottles", 150, "You need more Empty Bottles");
+			AddRes(index, typeof(BlazeIngot), "Blaze Ingots", 180, "You need more Blaze Ingots");
+			AddRes(index, typeof(EbonyBoard), "Ebony Boards", 345, "You need more Ebony Boards");
+
+
+			// Bards Stand
+			index = AddCraft(typeof(BardsStand), "Customs", "Bards Stand", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Discordance, 100.0, 150.0);
+			AddSkill(index, SkillName.Provocation, 100.0, 150.0);
+			AddRes(index, typeof(OilCloth), "Oil Cloth", 200, "You need more Oil Cloth");
+			AddRes(index, typeof(DaemonicLeather), "Daemonic Leather", 100, "You need more Daemonic Leather");
+			AddRes(index, typeof(BambooBoard), "Bamboo Boards", 100, "You need more Bamboo Boards");
+
+			// Metal Workers Key				
+			index = AddCraft(typeof(MetalWorkersKey), "Customs", "Metal Workers Key", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Blacksmith, 100.0, 150.0);
+			AddSkill(index, SkillName.Mining, 100.0, 150.0);
+			AddRes(index, typeof(PlatinumIngot), "Platinum Ingots", 250, "You need more Platinum Ingots");
+			AddRes(index, typeof(Kindling), "Kindling", 20, "You need more Kindling");
+
+			// Scribers Tome
+			index = AddCraft(typeof(ScribersTome), "Customs", "Scribers Tome", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Magery, 100.0, 150.0);
+			AddSkill(index, SkillName.Inscribe, 100.0, 150.0);
+			AddRes(index, typeof(BlankScroll), "Blank Scrolls", 150, "You need more Blank Scrolls");
+			AddRes(index, typeof(FrostLeather), "Frost Leather", 50, "You need more Frost Leather");
+			AddRes(index, typeof(FrostwoodBoard), "Frostwood Boards", 50, "You need more Frostwood Boards");
+
+			// Spell Casters Key
+			index = AddCraft(typeof(SpellCastersKey), "Customs", "Spell Casters Key", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Magery, 100.0, 150.0);
+			AddSkill(index, SkillName.Necromancy, 100.0, 150.0);
+			AddRes(index, typeof(SpringWater), "Spring Water", 10, "You need more Spring Water"); // this line use druidic reagent, if you have it then remove the // from //AddRes
+			AddRes(index, typeof(BlankScroll), "Blank Scrolls", 50, "You need more Blank Scrolls");
+			AddRes(index, typeof(Sand), "Sand", 15, "You need more Sand");
+
+			// Stone Workers Key			
+			index = AddCraft(typeof(StoneWorkersKey), "Customs", "Stone Workers Key", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Carpentry, 100.0, 150.0);
+			AddSkill(index, SkillName.Mining, 100.0, 150.0);
+			AddRes(index, typeof(PlatinumIngot), "Platinum Ingots", 100, "You need more Platinum Ingots");
+			AddRes(index, typeof(PlatinumGranite), "Platinum Granite", 25, "You need more Platinum Granite");
+			AddRes(index, typeof(FrostwoodBoard), "Frostwood Boards", 50, "You need more Frostwood Boards");
+
+			// Tailors Key
+			index = AddCraft(typeof(TailorsKey), "Customs", "Tailors Key", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Tailoring, 100.0, 150.0);
+			AddRes(index, typeof(Cloth), "Cloth", 125, "You need more Cloth");
+			AddRes(index, typeof(BarbedLeather), "Barbed Leather", 150, "You need more Barbed Leather");
+			AddRes(index, typeof(OilCloth), "Oil Cloth", 20, "You need more Oil Cloth");
+
+			// Wood Workers Key				
+			index = AddCraft(typeof(WoodWorkersKey), "Customs", "Wood Workers Key", 100.0, 150.0, typeof(KeyRing), "KeyRing", 2, "You need more Key Rings");
+			AddSkill(index, SkillName.Carpentry, 100.0, 150.0);
+			AddSkill(index, SkillName.Lumberjacking, 100.0, 150.0);
+			AddRes(index, typeof(FrostwoodBoard), "Frostwood Boards", 250, "You need more Frostwood Boards");
+			AddRes(index, typeof(Shaft), "Shafts", 150, "You need more Shafts");
+			AddRes(index, typeof(FertileDirt), "Fertile Dirt", 50, "You need more Fertile Dirt");
 			#endregion Customs
 			//daat99 OWLTR end - custom craftables
 

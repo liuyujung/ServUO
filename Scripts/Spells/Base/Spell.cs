@@ -344,8 +344,17 @@ namespace Server.Spells
 				return true;
 			}
 
+			//start daat99 use SpellCastersKey 1/1
+            if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.USE_STORAGE_RESOURCES))
+			{
+				SpellCastersKey sck = (SpellCastersKey)pack.FindItemByType(typeof(SpellCastersKey));
+				if (sck != null && sck.ConsumeReg(m_Info.Reagents, m_Info.Amounts))
+					return true;
+			}
+			//end daat99 use SpellCastersKey 1/1
+
 			//daat99 OWLTR start - use SpellCastersKey
-            if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.USE_STORAGE_RESOURCES) && MasterStorageUtils.ConsumePlayersStorageItems(m_Caster as PlayerMobile, m_Info.Reagents, m_Info.Amounts))
+			if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.USE_STORAGE_RESOURCES) && MasterStorageUtils.ConsumePlayersStorageItems(m_Caster as PlayerMobile, m_Info.Reagents, m_Info.Amounts))
 				return true;
 			//daat99 OWLTR end - use SpellCastersKey
 

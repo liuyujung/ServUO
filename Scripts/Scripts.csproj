@@ -12462,6 +12462,16 @@
     <Compile Include="Services\BulkOrders\Books\BOBGump2.cs" />
     <Compile Include="Services\BulkOrders\Books\BODBuyGump2.cs" />
     <Compile Include="Services\BulkOrders\Books\BulkOrderBook2.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Alchemist Kit.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Bards Stand.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Metal Workers Key.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\RunicHouse.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Scribers Tome.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Spell Casters Key.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Stone Workers Key.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\Tailors Key.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\ToolHouse.cs" />
+    <Compile Include="Custom\OWLTR4.0\Custom Craftables\WoodWorkersKey.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
