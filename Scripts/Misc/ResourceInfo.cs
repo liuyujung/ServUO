@@ -1497,13 +1497,19 @@ namespace Server.Items
 
         private static readonly CraftResourceInfo[] m_ScaleInfo = new CraftResourceInfo[]
         {
-            new CraftResourceInfo(0x66D, 1053129, "Red Scales",	CraftAttributeInfo.RedScales, CraftResource.RedScales, typeof(RedScales)),
+            /*new CraftResourceInfo(0x66D, 1053129, "Red Scales",	CraftAttributeInfo.RedScales, CraftResource.RedScales, typeof(RedScales)),
             new CraftResourceInfo(0x8A8, 1053130, "Yellow Scales",	CraftAttributeInfo.YellowScales,	CraftResource.YellowScales, typeof(YellowScales)),
             new CraftResourceInfo(0x455, 1053131, "Black Scales",	CraftAttributeInfo.BlackScales, CraftResource.BlackScales, typeof(BlackScales)),
             new CraftResourceInfo(0x851, 1053132, "Green Scales",	CraftAttributeInfo.GreenScales, CraftResource.GreenScales, typeof(GreenScales)),
             new CraftResourceInfo(0x8FD, 1053133, "White Scales",	CraftAttributeInfo.WhiteScales, CraftResource.WhiteScales, typeof(WhiteScales)),
-            new CraftResourceInfo(0x8B0, 1053134, "Blue Scales",	CraftAttributeInfo.BlueScales, CraftResource.BlueScales, typeof(BlueScales)),
+            new CraftResourceInfo(0x8B0, 1053134, "Blue Scales",	CraftAttributeInfo.BlueScales, CraftResource.BlueScales, typeof(BlueScales)),*/
 			//daat99 OWLTR start - custom resources
+			new CraftResourceInfo( 0x66D, 1053129, "Red Scales",    CraftAttributeInfo.RedScales,       CraftResource.RedScales,        typeof( RedScales ) ),
+			new CraftResourceInfo( 54,    1053130,  "Yellow Scales",    CraftAttributeInfo.YellowScales,    CraftResource.YellowScales,     typeof( YellowScales ) ),
+			new CraftResourceInfo( 0x455, 1053131, "Black Scales",  CraftAttributeInfo.BlackScales,     CraftResource.BlackScales,      typeof( BlackScales ) ),
+			new CraftResourceInfo( 0x851, 1053132, "Green Scales",  CraftAttributeInfo.GreenScales,     CraftResource.GreenScales,      typeof( GreenScales ) ),
+			new CraftResourceInfo( 1153,  1053133,  "White Scales",     CraftAttributeInfo.WhiteScales,     CraftResource.WhiteScales,      typeof( WhiteScales ) ),
+			new CraftResourceInfo( 0x8B0, 1053134,  "Blue Scales",      CraftAttributeInfo.BlueScales,      CraftResource.BlueScales,       typeof( BlueScales ) ),
 			new CraftResourceInfo( 0x96D,   0,      "Copper Scales",    CraftAttributeInfo.CopperScales,    CraftResource.CopperScales,     typeof( CopperScales ) ),
 			new CraftResourceInfo( 0x8FD,   0,      "Silver Scales",    CraftAttributeInfo.SilverScales,    CraftResource.SilverScales,     typeof( SilverScales ) ),
 			new CraftResourceInfo( 49,      0,      "Gold Scales",      CraftAttributeInfo.GoldScales,      CraftResource.GoldScales,       typeof( GoldScales ) ),
@@ -1645,7 +1651,7 @@ namespace Server.Items
         /// </summary>
         public static CraftResourceType GetType(CraftResource resource)
         {
-            if (resource >= CraftResource.Iron && resource <= CraftResource.Valorite)
+            /*if (resource >= CraftResource.Iron && resource <= CraftResource.Valorite)
                 return CraftResourceType.Metal;
 
             if (resource >= CraftResource.RegularLeather && resource <= CraftResource.BarbedLeather)
@@ -1655,7 +1661,21 @@ namespace Server.Items
                 return CraftResourceType.Scales;
 
             if (resource >= CraftResource.RegularWood && resource <= CraftResource.Frostwood)
-                return CraftResourceType.Wood;
+                return CraftResourceType.Wood;*/
+
+			//daat start
+			if (resource >= CraftResource.Iron && resource <= CraftResource.Platinum)
+				return CraftResourceType.Metal;
+
+			if (resource >= CraftResource.RegularLeather && resource <= CraftResource.EtherealLeather)
+				return CraftResourceType.Leather;
+
+			if (resource >= CraftResource.RedScales && resource <= CraftResource.GoldScales)
+				return CraftResourceType.Scales;
+
+			if (resource >= CraftResource.RegularWood && resource <= CraftResource.Petrified)
+				return CraftResourceType.Wood;
+			//daat end
 
             return CraftResourceType.None;
         }
