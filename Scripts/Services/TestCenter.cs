@@ -268,17 +268,17 @@ namespace Server.Misc
 			PlaceItemIn(cont, 109, 51, new RunicHammer(CraftResource.Platinum, 1000));
 			//daat end
 
-            PlaceItemIn(cont, 36, 55, new RunicSewingKit(CraftResource.SpinedLeather, 1000));
-            PlaceItemIn(cont, 42, 55, new RunicSewingKit(CraftResource.HornedLeather, 1000));
-            PlaceItemIn(cont, 48, 55, new RunicSewingKit(CraftResource.BarbedLeather, 1000));
+            PlaceItemIn(cont, 36, 58, new RunicSewingKit(CraftResource.SpinedLeather, 1000));
+            PlaceItemIn(cont, 42, 58, new RunicSewingKit(CraftResource.HornedLeather, 1000));
+            PlaceItemIn(cont, 48, 58, new RunicSewingKit(CraftResource.BarbedLeather, 1000));
 			//daat start
-			PlaceItemIn(cont, 54, 55, new RunicSewingKit(CraftResource.PolarLeather, 1000));
-			PlaceItemIn(cont, 60, 55, new RunicSewingKit(CraftResource.SyntheticLeather, 1000));
-			PlaceItemIn(cont, 66, 55, new RunicSewingKit(CraftResource.BlazeLeather, 1000));
-			PlaceItemIn(cont, 72, 55, new RunicSewingKit(CraftResource.DaemonicLeather, 1000));
-			PlaceItemIn(cont, 78, 55, new RunicSewingKit(CraftResource.ShadowLeather, 1000));
-			PlaceItemIn(cont, 84, 55, new RunicSewingKit(CraftResource.FrostLeather, 1000));
-			PlaceItemIn(cont, 90, 55, new RunicSewingKit(CraftResource.EtherealLeather, 1000));
+			PlaceItemIn(cont, 54, 58, new RunicSewingKit(CraftResource.PolarLeather, 1000));
+			PlaceItemIn(cont, 60, 58, new RunicSewingKit(CraftResource.SyntheticLeather, 1000));
+			PlaceItemIn(cont, 66, 58, new RunicSewingKit(CraftResource.BlazeLeather, 1000));
+			PlaceItemIn(cont, 72, 58, new RunicSewingKit(CraftResource.DaemonicLeather, 1000));
+			PlaceItemIn(cont, 78, 58, new RunicSewingKit(CraftResource.ShadowLeather, 1000));
+			PlaceItemIn(cont, 84, 58, new RunicSewingKit(CraftResource.FrostLeather, 1000));
+			PlaceItemIn(cont, 90, 58, new RunicSewingKit(CraftResource.EtherealLeather, 1000));
 			//daat end
 
             PlaceItemIn(bank, 118, 169, cont);
@@ -328,13 +328,13 @@ namespace Server.Misc
             PlaceItemIn(cont, 92, 76, new SpinedLeather(5000));
             PlaceItemIn(cont, 92, 84, new Leather(5000));
 			//daat
-			PlaceItemIn(cont, 92, 84, new PolarLeather(5000));
-			PlaceItemIn(cont, 92, 84, new SyntheticLeather(5000));
-			PlaceItemIn(cont, 92, 84, new BlazeLeather(5000));
-			PlaceItemIn(cont, 92, 84, new DaemonicLeather(5000));
-			PlaceItemIn(cont, 92, 84, new ShadowLeather(5000));
-			PlaceItemIn(cont, 92, 84, new FrostLeather(5000));
-			PlaceItemIn(cont, 92, 84, new EtherealLeather(5000));
+			PlaceItemIn(cont, 82, 76, new PolarLeather(5000));
+			PlaceItemIn(cont, 82, 84, new SyntheticLeather(5000));
+			PlaceItemIn(cont, 74, 84, new BlazeLeather(5000));
+			PlaceItemIn(cont, 66, 84, new DaemonicLeather(5000));
+			PlaceItemIn(cont, 58, 84, new ShadowLeather(5000));
+			PlaceItemIn(cont, 50, 84, new FrostLeather(5000));
+			PlaceItemIn(cont, 42, 84, new EtherealLeather(5000));
 			//daat
 
             PlaceItemIn(cont, 30, 118, new Cloth(5000));
@@ -351,11 +351,11 @@ namespace Server.Misc
             PlaceItemIn(cont, 79, 35, new ValoriteIngot(5000));
             PlaceItemIn(cont, 86, 35, new IronIngot(5000));
 			//daat
-			PlaceItemIn(cont, 93, 35, new BlazeIngot(5000));
-			PlaceItemIn(cont, 100, 35, new IceIngot(5000));
-			PlaceItemIn(cont, 107, 35, new ToxicIngot(5000));
-			PlaceItemIn(cont, 114, 35, new ElectrumIngot(5000));
-			PlaceItemIn(cont, 121, 35, new PlatinumIngot(5000));
+			PlaceItemIn(cont, 30, 45, new BlazeIngot(5000));
+			PlaceItemIn(cont, 37, 45, new IceIngot(5000));
+			PlaceItemIn(cont, 44, 45, new ToxicIngot(5000));
+			PlaceItemIn(cont, 51, 45, new ElectrumIngot(5000));
+			PlaceItemIn(cont, 58, 45, new PlatinumIngot(5000));
 			//daat
 
             PlaceItemIn(cont, 30, 59, new RedScales(5000));
