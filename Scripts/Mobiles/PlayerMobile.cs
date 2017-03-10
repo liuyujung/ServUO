@@ -199,6 +199,37 @@ namespace Server.Mobiles
 		}
 		#endregion
 
+		//FS:ATS start
+		private DateTime m_NextTamingBulkOrder;
+		private bool m_Bioenginer;
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public TimeSpan NextTamingBulkOrder
+		{
+			get
+			{
+				TimeSpan ts = m_NextTamingBulkOrder - DateTime.Now;
+
+				if (ts < TimeSpan.Zero)
+					ts = TimeSpan.Zero;
+
+				return ts;
+			}
+			set
+			{
+				try { m_NextTamingBulkOrder = DateTime.Now + value; }
+				catch { }
+			}
+		}
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool Bioenginer
+		{
+			get { return m_Bioenginer; }
+			set { m_Bioenginer = value; }
+		}
+		//FS:ATS end
+
 		private class CountAndTimeStamp
 		{
 			private int m_Count;
@@ -218,6 +249,7 @@ namespace Server.Mobiles
 		}
 
 		private DesignContext m_DesignContext;
+		public Xanthos.SafeResurrection.SafeResContext SafeResContext; //Xanthos
 
 		private NpcGuild m_NpcGuild;
 		private DateTime m_NpcGuildJoinTime;
@@ -2002,8 +2034,11 @@ namespace Server.Mobiles
 				return false;
 			}
 			#endregion
-
-			return DesignContext.Check(this);
+			//Xanthos start
+			if (null != SafeResContext)
+				return (DesignContext.Check(this) && SafeResContext.AllowSkillUse(this, skill));
+			else //Xnathos end
+				return DesignContext.Check(this);
 		}
 
 		private bool m_LastProtectedMessage;
@@ -3198,12 +3233,15 @@ namespace Server.Mobiles
 
 			if (Alive && !wasAlive)
 			{
-				Item deathRobe = new DeathRobe();
+				//Xnathos start
+				/*Item deathRobe = new DeathRobe();
 
 				if (!EquipItem(deathRobe))
 				{
 					deathRobe.Delete();
-				}
+				}*/
+				Xanthos.SafeResurrection.SafeResContext.Add(this);
+				//Xanthos end
 
                 if (this.NetState != null && this.NetState.IsEnhancedClient)
                 {
@@ -3823,6 +3861,10 @@ namespace Server.Mobiles
 
 			m_BOBFilter = new BOBFilter();
 
+			//FS:ATS start
+			m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter();
+			//FS:ATS end
+
 			m_GameTime = TimeSpan.Zero;
 			m_ShortTermElapse = TimeSpan.FromHours(8.0);
 			m_LongTermElapse = TimeSpan.FromHours(40.0);
@@ -4090,7 +4132,18 @@ namespace Server.Mobiles
 
 		private BOBFilter m_BOBFilter;
 
+		//FS:ATS start
+		private Engines.BulkOrders.TamingBOBFilter m_TamingBOBFilter;
+		//FS:ATS end
+
 		public BOBFilter BOBFilter { get { return m_BOBFilter; } }
+
+		//FS:ATS start
+		public Engines.BulkOrders.TamingBOBFilter TamingBOBFilter
+		{
+			get { return m_TamingBOBFilter; }
+		}
+		//FS:ATS end
 
 		public override void Deserialize(GenericReader reader)
 		{
@@ -4099,6 +4152,19 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
+				//FS:ATS start
+				case 37:
+					{
+						m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter(reader);
+						goto case 36;
+					}
+				case 36:
+					{
+						m_Bioenginer = reader.ReadBool();
+						NextTamingBulkOrder = reader.ReadTimeSpan();
+						goto case 35;
+					}
+				//FS:ATS end
 				//daat
 				case 35:
 					{
@@ -4541,8 +4607,15 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
+			//FS:ATS start
+			writer.Write(37);
+			m_TamingBOBFilter.Serialize(writer);
+			writer.Write(m_Bioenginer);
+			writer.Write(NextTamingBulkOrder);
+			//FS:ATS end
+
 			//daat
-			writer.Write(35);
+			//writer.Write(35);
 			writer.Write(NextFletcherBulkOrder);
 
 			writer.Write(NextCarpenterBulkOrder);

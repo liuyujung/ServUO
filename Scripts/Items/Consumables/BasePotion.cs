@@ -44,6 +44,14 @@ namespace Server.Items
         Urali,
         Sakkhra,
         #endregion
+		//FS:ATS start
+		PetResurrect,
+		PetShrink,
+		PetHeal,
+		PetGreaterHeal,
+		PetCure,
+		PetGreaterCure
+		//FS:ATS end
     }
 
     public abstract class BasePotion : Item, ICraftable, ICommodity

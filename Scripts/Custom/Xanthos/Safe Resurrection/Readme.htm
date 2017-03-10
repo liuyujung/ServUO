@@ -1,0 +1,117 @@
+<html>
+<body>
+	<h3>Safe Resurrection System version 2.2, by Xanthos</h3>
+	<p>
+		This code provides a way to make players invulnerable for a short time upon resurrection
+		so they will not be killed immediately after. It also allows one or more skills
+		to be disabled while players are invulnerable so they wont exploit their temporary
+		safe status, restores all stats and removes the deathrobe. It provides commands
+		for self resurrection as well as pet resurrection and stones for both. The commands
+		may individually be enalbed or disabled. An option allows for random selected messages
+		from a message list to be broadcast upon player death, the message can include information
+		about the incident (victim, killer, and number of deaths for the victim today).
+		the messages are completely free form and configurable.</p>
+	<p>
+		It consists of three parts:
+		a set of C# class files that is added to your custom folder, an xml configuration file, and a few lines of code that
+		must be inserted into your PlayerMobile.cs.</p>
+	<h4>PlayerMobile Mods</h4>
+	<p>
+		The following changes must be made to your PlayerMobile.cs to support the Safe Res
+		Feature. Its really only four lines of code to be added and four commented out but
+		I have included the surrounding lines to make it easy to find exactly where to insert
+		the new lines. Each modified line includes a comment so that the modifications are
+		easy to identify and remove if need be.</p>
+	<p><strong>1</strong> - Find this line:</p>
+	<span style="font-size: 10pt; font-family: Courier">&#160; &#160; &#160; private DesignContext m_DesignContext; </span>
+	<p>and change to this:</p>
+	<span style="font-size: 10pt; font-family: Courier">&#160; &#160; &#160; private DesignContext m_DesignContext;<br />
+		&#160; &#160; &#160; public Xanthos.SafeResurrection.SafeResContext SafeResContext;
+		// &lt;- Xanthos Safe Res change - added</span><br />
+		<br />
+		<br />
+	<p>
+		<strong>2</strong> - Find this block:</p>
+
+		<span style="font-size: 10pt; font-family: Courier">&#160; &#160; &#160; if (this.Alive &amp;&amp; !wasAlive )<br />
+			&#160; &#160; &#160; {<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; Item deathRobe = new DeathRobe();<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; if ( !EquipItem( deathRobe) )<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; deathRobe.Delete();<br />
+			&#160; &#160; &#160; }</span>
+			<p>and change to this:</p><br />
+		<br />
+		<span style="font-size: 10pt; font-family: Courier">
+		&#160; &#160; &#160; if ( this.Alive &amp;&amp; !wasAlive )<br />
+		&#160; &#160; &#160; {<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; //Item deathRobe = new DeathRobe(); // &lt;- Xanthos Safe Res change - commented&#160;<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; //if ( !EquipItem( deathRobe ) ) &#160;&#160; // &lt;- Xanthos Safe Res change - commented&#160;<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; //deathRobe.Delete(); &#160; &#160; &#160; &#160; &#160;&#160; &#160; &#160; // &lt;- Xanthos Safe Res change - commented<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; Xanthos.SafeResurrection.SafeResContext.Add(
+			this ); // &lt;- Xanthos Safe Res change - added<br />
+			<span style="font-size: 12pt; font-family: Times New Roman"></span>
+		&#160; &#160; &#160; }<br />
+	</span>
+		<p><strong>3</strong> - Find this method:</p>
+			<br />
+			<span style="font-size: 10pt; font-family: Courier">
+			&#160; &#160; public override bool AllowSkillUse( SkillName skill )<br />
+		&#160; &#160; {<br />
+		&#160; &#160; &#160; &#160; if ( AnimalForm.UnderTransformation( this ) )<br />
+		&#160; &#160; &#160; &#160; {<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; for( int i = 0; i &lt; m_AnimalFormRestrictedSkills.Length; i++ )<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; {<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; if( m_AnimalFormRestrictedSkills[i] == skill )<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; {<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; SendLocalizedMessage( 1070771 ); // You cannot use that skill in this form.<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; return false;<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; }<br />
+		&#160; &#160; &#160; &#160; &#160; &#160; }<br />
+		&#160; &#160; &#160; &#160; }<br />
+		<br />
+		&#160; &#160; &#160; &#160;
+			return DesignContext.Check( this );<br />
+		&#160; &#160; }<br />
+		<br />
+	</span>
+	<p>and change to this:</p>
+		
+		<br />
+	<span style="font-size: 10pt; font-family: Courier">
+			&#160; &#160; public override bool AllowSkillUse( SkillName skill )<br />
+			&#160; &#160; {<br />
+			&#160; &#160; &#160; &#160; if ( AnimalForm.UnderTransformation( this ) )<br />
+			&#160; &#160; &#160; &#160; {<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; for( int i = 0; i &lt; m_AnimalFormRestrictedSkills.Length; i++ )<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; {<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; if( m_AnimalFormRestrictedSkills[i] == skill )<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; {<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; SendLocalizedMessage( 1070771 ); // You cannot use that skill in this form.<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; return false;<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; }<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; }<br />
+			&#160; &#160; &#160; &#160; }<br />
+			<br />
+			&#160; &#160; &#160; &#160; if ( null != SafeResContext ) &#160; &#160; &#160; &#160;&#160; // &lt;- Xanthos Safe Res change - added<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; return (DesignContext.Check( this ) &amp;&amp; SafeResContext.AllowSkillUse( this, skill )); // &lt;- Xanthos Safe Res change - added<br />
+		&#160; &#160; &#160; &#160; else &#160; &#160; &#160; &#160; &#160; &#160; &#160;
+		&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; // &lt;- Xanthos
+		Safe Res change - added<br />
+			&#160; &#160; &#160; &#160; &#160; &#160; return
+		DesignContext.Check( this
+		);<br />
+			&#160; &#160; &#160;&#160; }</span>
+			<h4>Commands</h4>
+	<ul>
+				<li>[ResMe</li>
+		<li>[ResMyPet</li>
+	</ul>
+	<h4>Configuration</h4>
+			<p>No code need be changed to configure the system. Instead, the system is configured by modifying SafeResConfig.xml. This file must be placed in your RunUO/Data folder to take effect.</p>
+		<h4>Requirements</h4>
+	<p>Requires the Xanthos Utilities package.</p>
+	<h4>Caveats</h4>
+	<p>You may use or modify this system in any way you desire, however I ask that you leave the original headers in the source files if you re-write or redistribute the sources in any way.</p>
+	<p>- Xan</p>
+</body>
+</html>
