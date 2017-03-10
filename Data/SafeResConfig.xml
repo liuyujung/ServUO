@@ -1,0 +1,56 @@
+<?xml version='1.0' ?>
+<!--
+	This file enables configuration of the Xanthos Safe Resurrection System module without code changes
+	You may only change the values between the '>' and '<' characters to set the configuratoin
+	parameters.  The type attribute is ignored and is only provided as a documentary guide to
+	the user. Array element names are also meaningless.  Values may be left empty, with the
+	exception of individual array elements, so that the value in the code is used.
+	
+	For example: to change the foo configuration from 50 to 100 one would change
+		<foo type="int">50</foo>
+			to
+		<foo type="int">100</foo>
+-->
+<Xanthos>
+	<SafeResurrection version='2.0'>
+
+		<SafeForSeconds type="int">60</SafeForSeconds>					<!-- Seconds of invlnerability -->
+		<MessageHue type="int">60</MessageHue>							<!-- Hue of death announcement -->
+		<ResStoneHue type="int">1109</ResStoneHue>						<!-- Hue of resurrection stone -->
+		<PetResStoneHue type="int">2209</PetResStoneHue>				<!-- Hue of pet resurrection stone -->
+		<AllowSelfRes type="bool">false</AllowSelfRes>					<!-- Enable Self Res? -->
+		<UseSelfResStone type="bool">false</UseSelfResStone>				<!-- Use the stone or use the command? -->
+		<AllowPetRes type="bool">false</AllowPetRes>					<!-- Can players res their pets? -->
+		<UsePetResStone type="bool">false</UsePetResStone>				<!-- Use the stone or use the command? -->
+		<FullStatsOnRes type="bool">true</FullStatsOnRes>				<!-- Heal them, etc on res?  -->
+		<RandomDeathCry type="bool">true</RandomDeathCry>				<!-- Send out a random message on player death? -->
+		<AllowCorpseRetrieval type="bool">false</AllowCorpseRetrieval>	<!-- Can player pull their corpse to here? -->
+		<CorpseRetrievalAmount type="int">3500</CorpseRetrievalAmount>	<!-- Amount of gold for this service -->
+
+		<!--
+			These strings will be randomly selected when a player dies. Use of string
+			substitution variables allows information about the death to be dynamically
+			inserted into the string.
+			
+			The variables are defined as follows:
+			{0} = victim		[the name of the player that died]
+			{1} = he/she		[based on whether the victim is a he or a she]
+			{2} = his/her		[based on whether the victim is a he or a she]
+			{3} = killer		[the name of the player who killed the victim]
+			{4} = deaths		[the number of times the player has died since shard startup]
+		-->
+
+		<DeathCrys type="array">
+			<a type="string">{0}'s death cry is heard throughout the land!</a>
+			<a type="string">Another dramatic death by {0}!</a>
+			<a type="string">{0} has died again - looks like {1}'s going for a record!</a>
+			<a type="string">Once again {0} has shown us how to die in style!</a>
+			<a type="string">{0} was taken down kicking and screaming!</a>
+			<a type="string">Looks like {0} got whomped!</a>
+			<a type="string">Dead again - that's {4} times today for {0}!</a>
+			<a type="string">{0} has just discovered another way to die!</a>
+			<a type="string">{0} has met {2} demise at the hands of {3}!</a>
+		</DeathCrys>
+		
+	</SafeResurrection>	
+</Xanthos>
