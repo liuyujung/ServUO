@@ -13,6 +13,7 @@ using Server.Gumps;
 using Server.Items;
 using Server.Network;
 using Server.Targeting;
+using Server.Engines.BulkOrders;
 #endregion
 
 namespace Server.Mobiles
@@ -41,6 +42,59 @@ namespace Server.Mobiles
 		{
 			m_SBInfos.Add(new SBAnimalTrainer());
 		}
+
+		//FS:ATS start
+		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
+		{
+			PlayerMobile pm = from as PlayerMobile;
+
+			if (pm != null && pm.NextTamingBulkOrder == TimeSpan.Zero && (fromContextMenu || 0.2 > Utility.RandomDouble()))
+			{
+				double theirSkill = pm.Skills[SkillName.AnimalTaming].Base;
+
+				if (theirSkill >= 70.1)
+				{
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerHighWaitMins", 120));
+				}
+				else if (theirSkill >= 50.1)
+				{
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerMidWaitMins", 120));
+				}
+				else
+				{
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerLowWaitMins", 30));
+				}
+				if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
+				{
+					return new LargeTamingBOD();
+				}
+
+				return SmallTamingBOD.CreateRandomFor(from);
+			}
+
+			return null;
+		}
+
+		public override bool IsValidBulkOrder(Item item)
+		{
+			return (item is SmallTamingBOD || item is LargeTamingBOD);
+		}
+
+		public override bool SupportsBulkOrders(Mobile from)
+		{
+			return (from is PlayerMobile && from.Skills[SkillName.AnimalTaming].Base > 0 && FSATS.EnableTamingBODs == true);
+		}
+
+		public override TimeSpan GetNextBulkOrder(Mobile from)
+		{
+			if (from is PlayerMobile)
+			{
+				return ((PlayerMobile)from).NextTamingBulkOrder;
+			}
+
+			return TimeSpan.Zero;
+		}
+		//FS:ATS end
 
 		public override int GetShoeHue()
 		{
