@@ -12714,11 +12714,6 @@
     <Compile Include="Custom\Xanthos\Safe Resurrection\Resurrection Stone.cs" />
     <Compile Include="Custom\Xanthos\Safe Resurrection\SafeResConfig.cs" />
     <Compile Include="Custom\Xanthos\Safe Resurrection\SafeResContext.cs" />
-    <Compile Include="Custom\Xanthos\Shrink System\HitchingPost.cs" />
-    <Compile Include="Custom\Xanthos\Shrink System\PetLeash.cs" />
-    <Compile Include="Custom\Xanthos\Shrink System\ShrinkCommand.cs" />
-    <Compile Include="Custom\Xanthos\Shrink System\ShrinkConfig.cs" />
-    <Compile Include="Custom\Xanthos\Shrink System\ShrinkItem.cs" />
     <Compile Include="Custom\Xanthos\Spell Crafting\BaseSpellCraft.cs" />
     <Compile Include="Custom\Xanthos\Spell Crafting\SpellCraftBookGump.cs" />
     <Compile Include="Custom\Xanthos\Spell Crafting\Spellcraft.cs" />
@@ -12912,7 +12907,6 @@
     <None Include="Custom\Xanthos\EVO System\Changelog.htm" />
     <None Include="Custom\Xanthos\EVO System\ReadMe.htm" />
     <None Include="Custom\Xanthos\Safe Resurrection\Readme.htm" />
-    <None Include="Custom\Xanthos\Shrink System\ReadMe.htm" />
     <None Include="Custom\Xanthos\Spell Crafting\Changelog.txt" />
     <None Include="Custom\Xanthos\Spell Crafting\ReadMe.htm" />
     <None Include="Custom\Town Houses v2.01\Read.doc" />

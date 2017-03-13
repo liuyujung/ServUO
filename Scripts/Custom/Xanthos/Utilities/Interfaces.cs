@@ -7,6 +7,7 @@
 using System;
 using Server;
 using Server.Mobiles;
+using Server.Items;
 using Xanthos.Interfaces;
 
 namespace Xanthos.Interfaces
@@ -44,7 +45,8 @@ namespace Xanthos.Interfaces
 		Type GetEvoDustType();
 		int Ep { get; }
 		int Stage { get; }
-		void OnShrink( IShrinkItem ShrinkItemX );
+		//void OnShrink( IShrinkItem ShrinkItemX );
+		void onShrink(ShrinkItem ShrinkItem); //FS:ATS
 	}
 
 	//

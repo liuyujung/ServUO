@@ -1,4 +1,4 @@
-#region AuthorHeader
+ #region AuthorHeader
 //
 //	EvoSystem version 2.1, by Xanthos
 //
@@ -12,7 +12,7 @@ using Server.Gumps;
 using Server.Network;
 using Server.Targeting;
 using Xanthos.Interfaces;
-using Xanthos.ShrinkSystem;
+//using Xanthos.ShrinkSystem; //FS:ATS
 
 namespace Xanthos.Evo
 {
@@ -26,7 +26,8 @@ namespace Xanthos.Evo
 		protected bool m_Pregnant;
 		protected bool m_HasEgg;
 		protected DateTime m_DeliveryDate;
-		protected ShrinkItemX m_ShrinkItemX;
+		//protected ShrinkItemX m_ShrinkItemX;
+		protected ShrinkItem m_ShrinkItem; //FS:ATS
 
 		protected int m_FinalStage;
 		protected int m_MaxTrainingStage;
@@ -417,10 +418,17 @@ namespace Xanthos.Evo
 			return base.OnDragDrop( from, dropped );
 		}
 
-		public void OnShrink( IShrinkItem ShrinkItemX )
+		//FS:ATS start
+		public void onShrink(ShrinkItem ShrinkItem)
+		{
+			m_ShrinkItem = ShrinkItem;
+		}
+
+		/*public void OnShrink( IShrinkItem ShrinkItemX )
 		{
 			m_ShrinkItemX = (ShrinkItemX)ShrinkItemX;
-		}
+		}*/
+		//FS:ATS end
 
 		private void MatingTarget_Callback( Mobile from, object obj )
 		{
@@ -522,7 +530,8 @@ namespace Xanthos.Evo
 			writer.Write( (int)2 );
 
 			// Version 2
-			writer.Write( (ShrinkItemX)m_ShrinkItemX );
+			//writer.Write( (ShrinkItemX)m_ShrinkItemX );
+			writer.Write(m_ShrinkItem); //FS:ATS
 
 			// Version 1
 
@@ -543,7 +552,8 @@ namespace Xanthos.Evo
 			switch ( version )
 			{
 				case 2:
-					m_ShrinkItemX = (ShrinkItemX)(reader.ReadItem());
+					//m_ShrinkItemX = (ShrinkItemX)(reader.ReadItem());
+					m_ShrinkItem = (ShrinkItem)(reader.ReadItem()); //FS:ATS
 					goto case 1;
 
 				case 1:
