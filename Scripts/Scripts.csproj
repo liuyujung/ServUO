@@ -12836,6 +12836,31 @@
     <Compile Include="Custom\Xanthos\Utilities\findMobs.cs" />
     <Compile Include="Custom\Xanthos\Utilities\motd.cs" />
     <Compile Include="Custom\Xanthos\Utilities\wipemobs.cs" />
+    <Compile Include="Custom\Town Houses v2.01\RUOVersion.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Error Reporting\Errors.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Error Reporting\ErrorsGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Error Reporting\ErrorsNotifyGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\BackgroundPlus.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\ButtonPlus.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\GumpPlusLight.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\HTML.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\HtmlPlus.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\Gumps Plus Light\InfoGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\TownHouse Gumps\ContractConfirmGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\TownHouse Gumps\ContractSetupGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\TownHouse Gumps\TownHouseConfirmGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\TownHouse Gumps\TownHouseSetupGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Gumps\TownHouse Gumps\TownHousesGump.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\RentalContract.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\RentalContractCopy.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\RentalLicense.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\SignHammer.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\TownHouse.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Items\TownHouseSign.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Misc\CommandInfo.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Misc\DecoreItemInfo.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Misc\General.cs" />
+    <Compile Include="Custom\Town Houses v2.01\Misc\GumpResponse.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
@@ -12890,6 +12915,10 @@
     <None Include="Custom\Xanthos\Shrink System\ReadMe.htm" />
     <None Include="Custom\Xanthos\Spell Crafting\Changelog.txt" />
     <None Include="Custom\Xanthos\Spell Crafting\ReadMe.htm" />
+    <None Include="Custom\Town Houses v2.01\Read.doc" />
+    <None Include="Custom\Town Houses v2.01\Optional Patches\BaseHousePatch.txt" />
+    <None Include="Custom\Town Houses v2.01\Optional Patches\InteriorDecoratorPatch.txt" />
+    <None Include="Custom\Town Houses v2.01\Optional Patches\READ.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Services\New Magincia\ReadMe.txt" />
