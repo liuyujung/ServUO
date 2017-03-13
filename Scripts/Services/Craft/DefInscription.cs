@@ -397,7 +397,7 @@ namespace Server.Engines.Craft
                 this.AddCraft(typeof(Engines.BulkOrders.BulkOrderBook), 1044294, 1028793, 65.0, 115.0, typeof(BlankScroll), 1044377, 10, 1044378);
 				//FS:ATS start
 				if (FSATS.EnableTamingBODs == true)
-					AddCraft(typeof(Engines.BulkOrders.TamingBulkOrderBook), 1044294, "taming bulk order book", 65.0, 115.0, typeof(BlankScroll), 1044377, 10, 1044378);
+					AddCraft(typeof(Engines.BulkOrders.TamingBulkOrderBook), 1044294, "Taming Bulk Order Book", 65.0, 115.0, typeof(BlankScroll), 1044377, 10, 1044378);
 				//FS:ATS end
             }
 
