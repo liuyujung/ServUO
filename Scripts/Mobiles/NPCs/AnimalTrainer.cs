@@ -94,6 +94,12 @@ namespace Server.Mobiles
 
 			return TimeSpan.Zero;
 		}
+
+		public override void OnSuccessfulBulkOrderReceive(Mobile from)
+		{
+			if (Core.SE && from is PlayerMobile)
+				((PlayerMobile)from).NextTamingBulkOrder = TimeSpan.Zero;
+		}
 		//FS:ATS end
 
 		public override int GetShoeHue()
