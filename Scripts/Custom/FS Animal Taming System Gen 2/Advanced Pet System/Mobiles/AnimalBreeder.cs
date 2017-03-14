@@ -27,7 +27,7 @@ namespace Server.Mobiles
 
 		public override void InitSBInfo()
 		{
-			//m_SBInfos.Add( new SBAnimalTrainer() );
+			m_SBInfos.Add( new SBAnimalTrainer() );
 		}
 
 		public override VendorShoeType ShoeType
