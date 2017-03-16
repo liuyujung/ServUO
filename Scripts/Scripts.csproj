@@ -12886,6 +12886,14 @@
     <Compile Include="Custom\Misc\Battle Chess\Pieces\Pawn.cs" />
     <Compile Include="Custom\Misc\Battle Chess\Pieces\Queen.cs" />
     <Compile Include="Custom\Misc\Battle Chess\Pieces\Rook.cs" />
+    <Compile Include="Custom\Misc\Auction\AddAuctionGump.cs" />
+    <Compile Include="Custom\Misc\Auction\AuctionGump.cs" />
+    <Compile Include="Custom\Misc\Auction\AuctionItem.cs" />
+    <Compile Include="Custom\Misc\Auction\Board.cs" />
+    <Compile Include="Custom\Misc\Auction\MessageLog.cs" />
+    <Compile Include="Custom\Misc\Auction\StringList.cs" />
+    <Compile Include="Custom\Misc\Auction\ViewItemGump.cs" />
+    <Compile Include="Custom\Misc\Auction\VirtualItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
