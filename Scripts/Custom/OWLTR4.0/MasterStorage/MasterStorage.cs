@@ -57,7 +57,7 @@ namespace daat99
 #endif
 			GoldLedger = true; //enables the gold ledger
 			TokenLedger = true; //enables the token ledger
-			KeepItemsOnDeath = false;
+			KeepItemsOnDeath = true;
 		}
 		
 		public void RestoreDefaultList()
