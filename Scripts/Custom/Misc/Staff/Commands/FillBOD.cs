@@ -33,22 +33,31 @@ namespace Server.Commands
 
 			protected override void OnTarget( Mobile from, object targ )
 			{
-				if (!((targ is SmallBOD) || (targ is LargeBOD)))
-					return;
-				
 				if (targ is SmallBOD)
 				{
 					SmallBOD x = targ as SmallBOD;
-					x.AmountCur =x.AmountMax;
-					x.InvalidateProperties();
-				}else if (targ is LargeBOD)
+					x.AmountCur = x.AmountMax;
+				}
+				else if (targ is LargeBOD)
 				{
 					LargeBOD y = targ as LargeBOD;
 					foreach (LargeBulkEntry e in y.Entries)
 					{
 						e.Amount = y.AmountMax;
 					}
-					y.InvalidateProperties();
+				}
+				else if (targ is SmallMobileBOD)
+				{
+					SmallMobileBOD x = targ as SmallMobileBOD;
+					x.AmountCur = x.AmountMax;
+				}
+				else if (targ is LargeMobileBOD)
+				{
+					LargeMobileBOD y = targ as LargeMobileBOD;
+					foreach (LargeMobileBulkEntry e in y.Entries)
+					{
+						e.Amount = y.AmountMax;
+					}
 				}
 			}
 			

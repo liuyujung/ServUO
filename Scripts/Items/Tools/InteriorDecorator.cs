@@ -174,8 +174,29 @@ namespace Server.Items
                 {
                     BaseHouse house = BaseHouse.FindHouseAt(from);
                     Item item = (Item)targeted;
-					
-                    bool isDecorableComponent = false;
+
+					//YARD ITEM
+					if (item is YardItem || item is YardTreeMulti || item is YardFountain
+						|| item is YardIronGate || item is YardShortIronGate
+						|| item is YardLightWoodGate || item is YardDarkWoodGate
+						|| item is YardStair)
+					{
+						YardItem yi = (YardItem)targeted;
+						if (yi.Placer == from)
+						{
+							switch (m_Decorator.Command)
+							{
+								case DecorateCommand.Up: Up(item, from); break;
+								case DecorateCommand.Down: Down(item, from); break;
+								case DecorateCommand.Turn: Turn(item, from); break;
+							}
+						}
+						else
+							from.SendMessage("That item does not belong to you!");
+					}
+					//YARD ITEM
+
+					bool isDecorableComponent = false;
 
                     if (item is AddonComponent || item is AddonContainerComponent || item is BaseAddonContainer)
                     {
@@ -304,7 +325,15 @@ namespace Server.Items
             {
                 int floorZ = GetFloorZ(item);
 
-                if (floorZ > int.MinValue && item.Z < (floorZ + 15)) // Confirmed : no height checks here
+				// YARD ITEM
+				if (item is YardItem || item is YardTreeMulti || item is YardFountain
+						|| item is YardIronGate || item is YardShortIronGate
+						|| item is YardLightWoodGate || item is YardDarkWoodGate
+						|| item is YardStair)
+					item.Location = new Point3D(item.Location, item.Z + 1);
+				//YARD ITEM
+
+				if (floorZ > int.MinValue && item.Z < (floorZ + 15)) // Confirmed : no height checks here
                     item.Location = new Point3D(item.Location, item.Z + 1);
                 else
                     from.SendLocalizedMessage(1042274); // You cannot raise it up any higher.
@@ -314,7 +343,15 @@ namespace Server.Items
             {
                 int floorZ = GetFloorZ(item);
 
-                if (floorZ > int.MinValue && item.Z > GetFloorZ(item))
+				//YARD ITEM
+				if (item is YardItem || item is YardTreeMulti || item is YardFountain
+						|| item is YardIronGate || item is YardShortIronGate
+						|| item is YardLightWoodGate || item is YardDarkWoodGate
+						|| item is YardStair)
+					item.Location = new Point3D(item.Location, item.Z - 1);
+				//YARD ITEM
+
+				if (floorZ > int.MinValue && item.Z > GetFloorZ(item))
                     item.Location = new Point3D(item.Location, item.Z - 1);
                 else
                     from.SendLocalizedMessage(1042275); // You cannot lower it down any further.
