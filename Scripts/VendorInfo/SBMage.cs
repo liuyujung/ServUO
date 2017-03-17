@@ -64,11 +64,11 @@ namespace Server.Mobiles
 
                 if (Core.AOS)
                 {
-                    this.Add(new GenericBuyInfo(typeof(BatWing), 3, 999, 0xF78, 0));
-                    this.Add(new GenericBuyInfo(typeof(DaemonBlood), 6, 999, 0xF7D, 0));
-                    this.Add(new GenericBuyInfo(typeof(PigIron), 5, 999, 0xF8A, 0));
-                    this.Add(new GenericBuyInfo(typeof(NoxCrystal), 6, 999, 0xF8E, 0));
-                    this.Add(new GenericBuyInfo(typeof(GraveDust), 3, 999, 0xF8F, 0));
+                    this.Add(new GenericBuyInfo(typeof(BatWing), 3, 20, 0xF78, 0));
+                    this.Add(new GenericBuyInfo(typeof(DaemonBlood), 6, 20, 0xF7D, 0));
+                    this.Add(new GenericBuyInfo(typeof(PigIron), 5, 20, 0xF8A, 0));
+                    this.Add(new GenericBuyInfo(typeof(NoxCrystal), 6, 20, 0xF8E, 0));
+                    this.Add(new GenericBuyInfo(typeof(GraveDust), 3, 20, 0xF8F, 0));
                 }
 
                 Type[] types = Loot.RegularScrollTypes;
