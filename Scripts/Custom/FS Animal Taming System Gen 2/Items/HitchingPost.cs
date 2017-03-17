@@ -6,7 +6,7 @@ using Server.Mobiles;
 namespace Server.Items
 {
 	[Flipable( 0x14E8, 0x14E7 )]
-	public class PetHitchingPost : AddonComponent
+	public class NewHitchingPost : AddonComponent
 	{
 		private int m_Charges = 100;
 
@@ -21,16 +21,16 @@ namespace Server.Items
 
 		#region Constructors
 		[Constructable]
-		public PetHitchingPost() : this( 0x14E7 )
+		public NewHitchingPost() : this( 0x14E7 )
 		{
 		}
 
 		[Constructable]
-		public PetHitchingPost( int itemID ) : base( itemID )
+		public NewHitchingPost( int itemID ) : base( itemID )
 		{
 		}
 		
-		public PetHitchingPost( Serial serial ) : base( serial )
+		public NewHitchingPost( Serial serial ) : base( serial )
 		{
 		}
 		#endregion
@@ -77,9 +77,9 @@ namespace Server.Items
       		{ 
          		private Mobile m_Owner; 
       
-         		private PetHitchingPost m_Powder; 
+         		private NewHitchingPost m_Powder; 
 
-         		public HitchingPostTarget( PetHitchingPost charge ) : base ( 10, false, TargetFlags.None ) 
+         		public HitchingPostTarget( NewHitchingPost charge ) : base ( 10, false, TargetFlags.None ) 
          		{ 
             			m_Powder=charge; 
          		} 
@@ -186,7 +186,7 @@ namespace Server.Items
 		[Constructable]
 		public HitchingPostEastAddon()
 		{
-			AddComponent( new PetHitchingPost( 0x14E7 ), 0, 0, 0);
+			AddComponent( new NewHitchingPost( 0x14E7 ), 0, 0, 0);
 		}
 
 		public HitchingPostEastAddon( Serial serial ) : base( serial )
@@ -249,7 +249,7 @@ namespace Server.Items
 		[Constructable]
 		public HitchingPostSouthAddon()
 		{
-			AddComponent( new PetHitchingPost( 0x14E8 ), 0, 0, 0);
+			AddComponent( new NewHitchingPost( 0x14E8 ), 0, 0, 0);
 		}
 
 		public HitchingPostSouthAddon( Serial serial ) : base( serial )
