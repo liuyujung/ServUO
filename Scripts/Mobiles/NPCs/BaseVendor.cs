@@ -1066,7 +1066,12 @@ namespace Server.Mobiles
 					return false;
 				}
 				else if ((dropped is SmallBOD && !((SmallBOD)dropped).Complete) ||
-						 (dropped is LargeBOD && !((LargeBOD)dropped).Complete))
+						 (dropped is LargeBOD && !((LargeBOD)dropped).Complete) ||
+				         //FS:ATS start
+						 (dropped is SmallMobileBOD && !((SmallMobileBOD)dropped).Complete) ||
+						 (dropped is LargeMobileBOD && !((LargeMobileBOD)dropped).Complete)
+				         //FS:ATS end
+				        )
 				{
 					SayTo(from, 1045131); // You have not completed the order yet.
 					return false;
@@ -1079,10 +1084,20 @@ namespace Server.Mobiles
 				{
 					((SmallBOD)dropped).GetRewards(out reward, out gold, out fame);
 				}
-				else
+				else if (dropped is LargeBOD) //FS:ATS
 				{
 					((LargeBOD)dropped).GetRewards(out reward, out gold, out fame);
 				}
+				//FS:ATS start
+				else if (dropped is LargeMobileBOD)
+				{
+					((LargeMobileBOD)dropped).GetRewards(out reward, out gold, out fame);
+				}
+				else
+				{
+					((SmallMobileBOD)dropped).GetRewards(out reward, out gold, out fame);
+				}
+				//FS:ATS end
 
 				from.SendSound(0x3D);
 
