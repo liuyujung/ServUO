@@ -1,55 +1,8 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/FS Animal Taming System Gen 2/Items/HitchingPost.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Knives Chat 3.0 Beta 9/Gumps/1.0 Skin/ListGump10.cs">
     <Files>
-      <File FileName="Scripts/Custom/Yard and Garden System 10-05/YardTarget.cs" Line="76" Column="3" />
-      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="1667" Column="7" />
-      <File FileName="Scripts/Mobiles/NPCs/Mage.cs" Line="49" Column="38" />
-      <File FileName="Scripts/VendorInfo/SBMage.cs" Line="11" Column="16" />
-      <File FileName="Scripts/Custom/FS Animal Taming System Gen 2/Items/HitchingPost.cs" Line="252" Column="37" />
+      <File FileName="Scripts/Custom/Knives Chat 3.0 Beta 9/Gumps/1.0 Skin/ListGump10.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="ServUO" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Custom" expanded="True">
-                <Node name="FS Animal Taming System Gen 2" expanded="True">
-                  <Node name="Items" expanded="True">
-                    <Node name="HitchingPost.cs" selected="True" />
-                  </Node>
-                </Node>
-                <Node name="Misc" expanded="True">
-                  <Node name="Staff" expanded="True" />
-                </Node>
-                <Node name="OWLTR4.0" expanded="True">
-                  <Node name="MasterStorage" expanded="True" />
-                </Node>
-                <Node name="Yard and Garden System 10-05" expanded="True" />
-              </Node>
-              <Node name="Mobiles" expanded="True">
-                <Node name="Normal" expanded="True" />
-                <Node name="NPCs" expanded="True" />
-              </Node>
-              <Node name="Services" expanded="True">
-                <Node name="BulkOrders" expanded="True" />
-                <Node name="XmlSpawner" expanded="True">
-                  <Node name="XmlSpawner Core" expanded="True" />
-                  <Node name="XMLSpawner Extras" expanded="True">
-                    <Node name="XmlLevelItem" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
-              <Node name="Skills" expanded="True" />
-              <Node name="Spells" expanded="True">
-                <Node name="Base" expanded="True" />
-              </Node>
-              <Node name="VendorInfo" expanded="True" />
-            </Node>
-            <Node name="Server" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
