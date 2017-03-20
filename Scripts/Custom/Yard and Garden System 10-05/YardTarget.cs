@@ -60,13 +60,13 @@ namespace Server.Misc
 				return false;
 			}
 
-			if( loc.Y > m_From.Location.Y + Config.Get("Yard.Back", 2) || loc.Y < m_From.Location.Y - Config.Get("Yard.Front", 10) ) //Change the demensions of the yard HERE
+			if( loc.Y > m_From.Location.Y + Config.Get("Yard.South", 10) || loc.Y < m_From.Location.Y - Config.Get("Yard.North", 10) ) //Change the demensions of the yard HERE
 			{
 				m_From.SendMessage( "This is outside of your yard. Please re-try the placement" );
 				return false;
 			}
 
-			if( loc.X > m_From.Location.X + Config.Get("Yard.Right", 5) || loc.X < m_From.Location.X - Config.Get("Yard.Left", 2) ) //and HERE
+			if( loc.X > m_From.Location.X + Config.Get("Yard.East", 10) || loc.X < m_From.Location.X - Config.Get("Yard.West", 10) ) //and HERE
 			{
 				m_From.SendMessage( "This is outside of your yard. Please re-try the placement" );
 				return false;
