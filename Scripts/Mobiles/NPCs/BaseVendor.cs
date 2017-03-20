@@ -1051,7 +1051,7 @@ namespace Server.Mobiles
 		public override bool OnDragDrop(Mobile from, Item dropped)
 		{
 			/* TODO: Thou art giving me? and fame/karma for gold gifts */
-			if (dropped is SmallBOD || dropped is LargeBOD)
+			if (dropped is SmallBOD || dropped is LargeBOD || dropped is SmallMobileBOD || dropped is LargeMobileBOD)
 			{
 				PlayerMobile pm = from as PlayerMobile;
 
@@ -1129,7 +1129,7 @@ namespace Server.Mobiles
 
 				if (Core.ML && pm != null)
 				{
-					pm.NextBODTurnInTime = DateTime.UtcNow + TimeSpan.FromSeconds(10.0);
+					pm.NextBODTurnInTime = DateTime.UtcNow + TimeSpan.FromSeconds(Config.Get("BulkOrder.TurnInTimeSeconds", 10.0));
 				}
 
 				dropped.Delete();
@@ -1871,6 +1871,16 @@ namespace Server.Mobiles
 					{
 						seller.SendGump(new SmallBODAcceptGump(seller, (SmallBOD)bulkOrder));
 					}
+					//FS:ATS start
+					else if (bulkOrder is SmallMobileBOD)
+					{
+						seller.SendGump(new SmallMobileBODAcceptGump(seller, (SmallMobileBOD)bulkOrder));
+					}
+					else if (bulkOrder is LargeMobileBOD)
+					{
+						seller.SendGump(new LargeMobileBODAcceptGump(seller, (LargeMobileBOD)bulkOrder));
+					}
+					//FS:ATS end
 				}
 			}
 			//no cliloc for this?
