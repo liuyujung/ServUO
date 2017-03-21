@@ -12994,6 +12994,8 @@
     <Compile Include="Custom\Knives Chat 3.0 Beta 9\Gumps\Gumps Plus\HtmlPlus.cs" />
     <Compile Include="Custom\Knives Chat 3.0 Beta 9\Gumps\Gumps Plus\InfoGump.cs" />
     <Compile Include="Custom\Misc\Items\GemPouch.cs" />
+    <Compile Include="Custom\Misc\Items\SeedChest\SeedChest.cs" />
+    <Compile Include="Custom\Misc\Items\SeedChest\SeedChestGump.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
