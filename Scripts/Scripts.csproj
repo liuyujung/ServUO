@@ -12996,6 +12996,19 @@
     <Compile Include="Custom\Misc\Items\GemPouch.cs" />
     <Compile Include="Custom\Misc\Items\SeedChest\SeedChest.cs" />
     <Compile Include="Custom\Misc\Items\SeedChest\SeedChestGump.cs" />
+    <Compile Include="Custom\Apiculture\BeeHiveAddon.cs" />
+    <Compile Include="Custom\Apiculture\BeeHiveGumps.cs" />
+    <Compile Include="Custom\Apiculture\BeeHiveHelp.cs" />
+    <Compile Include="Custom\Apiculture\BeeHiveHelper.cs" />
+    <Compile Include="Custom\Apiculture\Craft\DefWax.cs" />
+    <Compile Include="Custom\Apiculture\Craft\DippingSticks.cs" />
+    <Compile Include="Custom\Apiculture\Craft\WaxMask.cs" />
+    <Compile Include="Custom\Apiculture\Craft\WaxPot.cs" />
+    <Compile Include="Custom\Apiculture\Items\HiveTool.cs" />
+    <Compile Include="Custom\Apiculture\Items\LargeWaxPot.cs" />
+    <Compile Include="Custom\Apiculture\Items\RawBeeswax.cs" />
+    <Compile Include="Custom\Apiculture\Items\Slumgum.cs" />
+    <Compile Include="Custom\Apiculture\Items\SmallWaxPot.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
