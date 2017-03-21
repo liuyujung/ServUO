@@ -33,6 +33,14 @@ namespace Server
         {
             new Rectangle2D(new Point2D(0, 0), new Point2D(320 * 8, 256 * 8))
         };
+        private static readonly Rectangle2D[] m_TokunoRegions = new Rectangle2D[]
+        {
+           new Rectangle2D( new Point2D( 0, 0 ), new Point2D( 181*8, 181*8 ) )
+        };
+        private static readonly Rectangle2D[] m_TerMurRegions = new Rectangle2D[]
+        {
+            new Rectangle2D( new Point2D( 0, 0 ), new Point2D( 160*8, 512*8 ) )
+        };
         private static readonly int[] m_SouthFrames = new int[]
         {
             0x0006,
@@ -376,9 +384,25 @@ namespace Server
 
             int malasCount = m_Count;
 
+            m_Map = Map.Tokuno;
+            m_Count = 0;
+
+            for ( int i = 0; i < m_TokunoRegions.Length; ++i )
+                Generate( m_TokunoRegions[i] );
+
+            int tokunoCount = m_Count;
+
+            m_Map = Map.TerMur;
+            m_Count = 0;
+
+            for ( int i = 0; i < m_TerMurRegions.Length; ++i )
+                Generate( m_TerMurRegions[i] );
+
+            int terMurCount = m_Count;
+
             Network.NetState.Resume();
 
-            World.Broadcast(0x35, true, "Door generation complete. Trammel: {0}; Felucca: {1}; Ilshenar: {2}; Malas: {3};", trammelCount, feluccaCount, ilshenarCount, malasCount);
+            World.Broadcast(0x35, true, "Door generation complete. Trammel: {0}; Felucca: {1}; Ilshenar: {2}; Malas: {3}; Tokuno: {4}; TerMur: {5}", trammelCount, feluccaCount, ilshenarCount, malasCount, tokunoCount, terMurCount );
         }
 
         public static bool IsFrame(int id, int[] list)
