@@ -13009,6 +13009,7 @@
     <Compile Include="Custom\Apiculture\Items\RawBeeswax.cs" />
     <Compile Include="Custom\Apiculture\Items\Slumgum.cs" />
     <Compile Include="Custom\Apiculture\Items\SmallWaxPot.cs" />
+    <Compile Include="Custom\Misc\Items\BankStorageDeeds.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

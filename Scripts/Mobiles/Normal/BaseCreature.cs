@@ -2443,7 +2443,7 @@ namespace Server.Mobiles
 					case 1: this.Female = false; break;
 				}
 			}
-
+			m_NextLevel = Utility.RandomMinMax(250, 500);
 			m_MaxLevel = Utility.RandomMinMax(10, 30);
 			//FS:ATS end
 
@@ -3890,6 +3890,34 @@ namespace Server.Mobiles
             {
                 DrainLife();
             }
+
+			//FS:ATS start
+			if (FSATS.EnablePetLeveling == true)
+			{
+				ArrayList toCheck = new ArrayList();
+				List<DamageEntry> rights = this.DamageEntries;
+
+				foreach (DamageEntry entry in rights)
+				{
+					if (entry.Damager is BaseCreature)
+					{
+						BaseCreature bc = (BaseCreature)entry.Damager;
+
+						if (bc.Controlled == true && bc.ControlMaster != null)
+							toCheck.Add(entry.Damager);
+					}
+				}
+
+				foreach (Mobile mob in toCheck)
+				{
+					if (mob is BaseCreature)
+					{
+						BaseCreature bc = (BaseCreature)mob;
+						PetLeveling.CheckLevel(this, bc, toCheck.Count);
+					}
+				}
+			}
+			//FS:ATS end
         }
 
         public override void OnAfterDelete()
@@ -5975,43 +6003,6 @@ namespace Server.Mobiles
 
 		public override bool OnBeforeDeath()
         {
-			//FS:ATS start
-			if (FSATS.EnablePetLeveling == true)
-			{
-				ArrayList toCheck = new ArrayList();
-				List<DamageEntry> rights = this.DamageEntries;
-
-				foreach (DamageEntry entry in rights)
-				{
-					if (entry.Damager is BaseCreature)
-					{
-						BaseCreature bc = (BaseCreature)entry.Damager;
-
-						if (bc.Controlled == true && bc.ControlMaster != null)
-							toCheck.Add(entry.Damager);
-					}
-				}
-
-				foreach (Mobile mob in toCheck)
-				{
-					if (mob is BaseCreature)
-					{
-						BaseCreature bc = (BaseCreature)mob;
-						PetLeveling.CheckLevel(this, bc, toCheck.Count);
-					}
-				}
-			}
-			if (this is BaseBioCreature || this is BioCreature || this is BioMount)
-			{
-				PetLeveling.DoBioDeath(this);
-			}
-			else
-			{
-				if (FSATS.EnablePetLeveling == true)
-					PetLeveling.DoDeathCheck(this);
-			}
-			//FS:ATS end
-
             int treasureLevel = TreasureMapLevel;
             GetLootingRights();
 
@@ -6516,6 +6507,18 @@ namespace Server.Mobiles
         public override void OnDeath(Container c)
         {
             MeerMage.StopEffect(this, false);
+
+			//FS:ATS start
+			if (this is BaseBioCreature || this is BioCreature || this is BioMount)
+			{
+				PetLeveling.DoBioDeath(this);
+			}
+			else
+			{
+				if (FSATS.EnablePetLeveling == true)
+					PetLeveling.DoDeathCheck(this);
+			}
+			//FS:ATS end
 
             if (IsBonded)
             {

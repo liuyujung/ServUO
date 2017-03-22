@@ -222,7 +222,7 @@ namespace Server
 
 						Mobile cm = attacker.ControlMaster;
 						attacker.Level += 1;
-						attacker.Exp = 0;
+						attacker.NextLevel = nextLevel;
 						attacker.FixedParticles( 0x373A, 10, 15, 5012, EffectLayer.Waist );
 						attacker.PlaySound( 503 );
 						cm.SendMessage( 38, "Your pets level has increased to {0}.", attacker.Level );

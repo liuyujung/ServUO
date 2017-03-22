@@ -1158,6 +1158,7 @@ namespace Server.Items
 					m_Mob.ControlMaster = from;
 					m_Mob.ControlTarget = from;
 					m_Mob.ControlOrder = OrderType.Follow;
+					m_Mob.IsStabled = false;
 
 					if ( m_Mob.IsBonded == true && m_PetOwner != from )
 						m_Mob.IsBonded = false;
@@ -1425,12 +1426,12 @@ namespace Server.Items
 						Effects.SendMovingParticles( p1, p2, ShrinkTable.Lookup( m_PetBody ), 1, 0, true, false, 0, 3, 1153, 1, 0, EffectLayer.Head, 0x100 );
 						from.PlaySound( 492 );
 
-        					pet.Controlled = true;
-        					pet.ControlMaster = from;
-        					pet.Location = from.Location;
+        				pet.Controlled = true;
+        				pet.ControlMaster = from;
+        				pet.Location = from.Location;
 						pet.ControlOrder = OrderType.Follow;
 						pet.ControlTarget = from;
-        					pet.Map = from.Map;
+        				pet.Map = from.Map;
 
 						if ( pet.IsParagon )
 							pet.IsParagon = false;

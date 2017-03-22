@@ -182,10 +182,10 @@ namespace Server.Gumps
 				{
 					from.SendMessage( "That creature has mating in that last six days, It cannot mate again so soon." );
 				}
-				else if ( bc.ControlMaster == from )
+				/*else if ( bc.ControlMaster == from )
 				{
 					from.SendMessage( "You cannot breed two of your own pets together, You must find another player who has the same type of pet as your in order to breed." );
-				}
+				}*/
 				else if ( breeder == null )
 				{
 					from.SendMessage( "You must be near an animal breeder in order to breed your pet." );
