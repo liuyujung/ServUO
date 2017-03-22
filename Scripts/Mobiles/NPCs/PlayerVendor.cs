@@ -1585,7 +1585,7 @@ namespace Server.Mobiles
                         else
                             setPrice = true;
                     }
-                    else if (item is BaseBook || item is Engines.BulkOrders.BulkOrderBook)
+                    else if (item is BaseBook || item is Engines.BulkOrders.BulkOrderBook || item is Engines.BulkOrders.TamingBulkOrderBook)
                     {
                         setPrice = true;
                     }
