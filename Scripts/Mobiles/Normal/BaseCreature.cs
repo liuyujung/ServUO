@@ -5922,8 +5922,8 @@ namespace Server.Mobiles
 					else
 						list.Add(1060658, "Gender\tMale");
 
-					if (this.Controlled == false)
-						list.Add(1060659, "Max Level\t{0}", this.MaxLevel);
+					//if (this.Controlled == false)
+						//list.Add(1060659, "Max Level\t{0}", this.MaxLevel);
 				}
 			}
 			//FS:ATS end
@@ -7790,6 +7790,24 @@ namespace Server.Mobiles
 
         public virtual void OnThink()
         {
+			//FS:ATS start
+			if (this.Tamable == true)
+			{
+				if (this.NextLevel == 0)
+				{
+					int totalstats = this.Str + this.Dex + this.Int + this.HitsMax + this.StamMax + this.ManaMax + this.PhysicalResistance + this.FireResistance + this.ColdResistance + this.EnergyResistance + this.PoisonResistance + this.DamageMin + this.DamageMax + this.VirtualArmor;
+					int nextlevel = totalstats * 10;
+
+					this.NextLevel = nextlevel;
+				}
+
+				if (this.MaxLevel == 0)
+				{
+					this.MaxLevel = Utility.RandomMinMax(10, 30);
+				}
+			}
+			//FS:ATS end
+
             long tc = Core.TickCount;
 
             if (EnableRummaging && CanRummageCorpses && !Summoned && !Controlled && tc - m_NextRummageTime >= 0)

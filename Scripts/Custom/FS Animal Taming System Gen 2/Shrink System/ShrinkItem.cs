@@ -1512,20 +1512,26 @@ namespace Server.Items
 					string secondhalf = s.Substring( capsbreak );
  					string firsthalf = s.Substring(0, capsbreak );
 
-					list.Add( 1060663, "Name\t{0} Breed: {1} {2}", m_PetName, firsthalf, secondhalf );
+					list.Add( 1060663, "Name\t{0} Breed: {1} {2} Gender: {3}", m_PetName, firsthalf, secondhalf, (m_IsFemale ? "Female" : "Male") );
 				}
 				else
 				{
-					list.Add( 1060663, "Name\t{0} Breed: {1}", m_PetName, m_MobTypeString );
+					list.Add( 1060663, "Name\t{0} Breed: {1} Gender: {2}", m_PetName, m_MobTypeString, (m_IsFemale ? "Female" : "Male") );
 				}
 
 				list.Add( 1061640, (m_PetOwner == null ) ? "nobody" : m_PetOwner.Name ); // Owner: ~1_OWNER~
-				list.Add( 1060659, "Stats\tStrength {0}, Dexterity {1}, Intelligence {2}", m_PetStr, m_PetDex, m_PetInt );
+				list.Add( 1060659, "Stats\tStrength {0}, Dexterity {1}, Intelligence {2}, Hit Points {3}, Stamina {4}, Mana {5}", m_PetStr, m_PetDex, m_PetInt, m_PetHits, m_PetStam, m_PetMana );
 				list.Add( 1060660, "Combat Skills\tWrestling {0}, Tactics {1}, Anatomy {2}, Poisoning {3}", m_PetWrestling, m_PetTactics, m_PetAnatomy, m_PetPoisoning );
 				list.Add( 1060661, "Magic Skills\tMagery {0}, Eval Intel {1}, Magic Resist {2}, Meditation {3}", m_PetMagery, m_PetEvalInt, m_PetResist, m_PetMed );
-				
-				if ( m_Level != 0 )
-					list.Add( 1060662, "Exp\t{0}, Level: {1}", m_Exp, m_Level );
+
+				if (m_AbilityPoints != 0)
+				{
+					list.Add(1060662, "Ability Points\t{0}, Level: {1}/{2}, Generation: {3}", m_AbilityPoints, m_Level, m_MaxLevel, m_Gen);
+				}
+				else
+				{
+					list.Add(1060662, "Level\t{0}/{1}, Generation: {2}", m_Level, m_MaxLevel, m_Gen);
+				}
 			}
 		}
 
