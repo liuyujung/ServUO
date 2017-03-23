@@ -21,8 +21,8 @@ using Server.Spells.Spellweaving;
 using Server.Targeting;
 using Server.Spells.SkillMasteries;
 using System.Reflection;
-using Server.Spells.Mystic;
 using daat99;
+using Server.Spells.Mysticism;
 #endregion
 
 namespace Server.Spells
