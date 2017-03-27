@@ -56,7 +56,7 @@ namespace Server.Gumps
 			AddLabel(35, 235, 1149, @"Owner:");
 			AddLabel(35, 255, 1149, @"Generation:");
 			AddPage(1);
-			AddLabel(65, 55, 64, bc.Exp.ToString() );
+			AddLabel(65, 55, 64, bc.TotalExp.ToString() );
 			AddLabel(129, 75, 64, bc.Level.ToString() );
 			AddLabel(125, 95, 64, bc.MaxLevel.ToString() );
 			AddLabel(156, 115, 64, nextLevel.ToString() );
