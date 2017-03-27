@@ -35,10 +35,10 @@ namespace Server.Engines.Apiculture
 
 			//potions
 			AddItem(195, 46, 3848);
-			AddItem(185, 96, 3847);
-			AddItem(190, 71, 3850);
-			AddItem(183, 121, 3852);
-			AddItem(186, 146, 3849);
+			AddItem(195, 96, 3847);
+			AddItem(195, 71, 3850);
+			AddItem(195, 121, 3852);
+			AddItem(195, 146, 3849);
 
 			//status icons
 			AddItem(-5, 76, 882); //little bug thing
