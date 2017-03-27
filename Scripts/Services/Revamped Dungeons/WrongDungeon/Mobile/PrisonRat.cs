@@ -7,38 +7,66 @@ namespace Server.Mobiles
     {
         [Constructable]
         public PrisonRat()
+<<<<<<< HEAD
             : base(AIType.AI_Animal, FightMode.Closest, 10, 1, 0.2, 0.4)
         {
             this.Name = "a prison rat";
             this.Body = 238;
+=======
+            : base(AIType.AI_Melee, FightMode.Closest, 10, 1, 0.2, 0.4)
+        {
+            this.Name = "a prison rat";
+            this.Body = 0xEE;
+            this.Hue = 443;
+>>>>>>> master
             this.BaseSoundID = 0xCC;
 
             this.SetStr(9);
             this.SetDex(35);
+<<<<<<< HEAD
             this.SetInt(5);
 
             this.SetHits(6);
             this.SetMana(0);
+=======
+            this.SetInt(7, 10);
+
+            this.SetHits(50);
+            this.SetStam(25);
+            this.SetMana(7, 10);
+>>>>>>> master
 
             this.SetDamage(5, 8);
 
             this.SetDamageType(ResistanceType.Physical, 100);
 
             this.SetResistance(ResistanceType.Physical, 5, 10);
+<<<<<<< HEAD
             this.SetResistance(ResistanceType.Poison, 5, 10);
 
             this.SetSkill(SkillName.MagicResist, 11.0);
             this.SetSkill(SkillName.Tactics, 14.0);
             this.SetSkill(SkillName.Wrestling, 12.0);
+=======
+            this.SetResistance(ResistanceType.Poison, 15, 25);
+            this.SetResistance(ResistanceType.Energy, 5, 10);
+
+            this.SetSkill(SkillName.MagicResist, 3.7, 20.7);
+            this.SetSkill(SkillName.Tactics, 6.7, 17.0);
+            this.SetSkill(SkillName.Wrestling, 9.1, 19.5);
+>>>>>>> master
 
             this.Fame = 150;
             this.Karma = -150;
 
             this.VirtualArmor = 6;
+<<<<<<< HEAD
 
             this.Tamable = true;
             this.ControlSlots = 1;
             this.MinTameSkill = -0.9;
+=======
+>>>>>>> master
         }
 
         public PrisonRat(Serial serial)
@@ -46,6 +74,7 @@ namespace Server.Mobiles
         {
         }
 
+<<<<<<< HEAD
         public override int Meat
         {
             get
@@ -60,6 +89,11 @@ namespace Server.Mobiles
                 return FoodType.Fish;
             }
         }
+=======
+        public override int Meat { get { return 1; } }
+        public override FoodType FavoriteFood { get { return FoodType.Fish; } }
+
+>>>>>>> master
         public override void GenerateLoot()
         {
             this.AddLoot(LootPack.Poor);

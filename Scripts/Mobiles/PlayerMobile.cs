@@ -3494,11 +3494,14 @@ namespace Server.Mobiles
 				}
 			}
 
+<<<<<<< HEAD
 			// daat99 Master Looter start - keep / drop items on death
 			//NO WIPE RISK!!!
 			daat99.MasterStorageUtils.MoveItemsOnDeath(this, c);
 			//daat99 Master Looter end - keep/drop items on death
 			
+=======
+>>>>>>> master
 			if (m_NonAutoreinsuredItems > 0)
 			{
 				SendLocalizedMessage(1061115);
