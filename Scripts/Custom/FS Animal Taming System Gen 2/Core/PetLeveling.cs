@@ -211,6 +211,7 @@ namespace Server
 					if ( attacker.Level <= attacker.MaxLevel - 1 )
 					{
 						attacker.Exp += xpgain;
+						attacker.TotalExp += xpgain;
 						attacker.ControlMaster.SendMessage( "Your pet has gained {0} experience points.", xpgain );
 					}
 			
