@@ -36,11 +36,13 @@ namespace Server.Items
 		private DateTime m_SheepWool;
 
 		private int m_Exp;
+		private int m_TotalExp;
 		private int m_NextLevel;
 		private int m_Level;
 		private int m_MaxLevel;
 
 		private bool m_AllowMating;
+		private int m_MatingTimes;
 
 		private bool m_Evolves;
 		private int m_Gen;
@@ -253,10 +255,12 @@ namespace Server.Items
 				m_BondingBegin = m_Mob.BondingBegin;
 
 				m_Exp = m_Mob.Exp;
+				m_TotalExp = m_Mob.TotalExp;
 				m_NextLevel = m_Mob.NextLevel;
 				m_Level = m_Mob.Level;
 				m_MaxLevel = m_Mob.MaxLevel;
 				m_AllowMating = m_Mob.AllowMating;
+				m_MatingTimes = m_Mob.MatingTimes;
 				m_Evolves = m_Mob.Evolves;
 				m_Gen = m_Mob.Generation;
 				this.MatingDelay = m_Mob.MatingDelay;
@@ -789,6 +793,13 @@ namespace Server.Items
 			set{ m_Exp = value; }
 		}
 
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int TotalExp
+		{
+			get { return m_TotalExp; }
+			set { m_TotalExp = value; }
+		}
+
 		[CommandProperty( AccessLevel.GameMaster )]
 		public int NextLevel
 		{
@@ -822,6 +833,13 @@ namespace Server.Items
 		{
 			get{ return m_AllowMating; }
 			set{ m_AllowMating = value; }
+		}
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int MatingTimes
+		{
+			get { return m_MatingTimes; }
+			set { m_MatingTimes = value; }
 		}
 
 		public int Form1
@@ -1113,27 +1131,31 @@ namespace Server.Items
     					notame = true;
 			}
 
-			if ( !IsChildOf( from.Backpack ) )
+			if (!IsChildOf(from.Backpack))
 			{
-				from.SendLocalizedMessage( 1042001 ); // That must be in your pack for you to use it.
+				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
 			}
-			else if ( m_MobTypeString == null || m_PetOwner == null || this.ItemID == 0xFAA )
+			else if (m_MobTypeString == null || m_PetOwner == null || this.ItemID == 0xFAA)
 			{
-				from.SendMessage( 38, "You have encountered an error trying to reclaim your pet, Please contact a gamemaster and tell them about this error, It could still be possible to reclaim your pet." );
+				from.SendMessage(38, "You have encountered an error trying to reclaim your pet, Please contact a gamemaster and tell them about this error, It could still be possible to reclaim your pet.");
 			}
-			else if ( m_Locked != false && m_PetOwner != from )
+			else if (m_Locked != false && m_PetOwner != from)
 			{
-				from.SendMessage( "This is locked and only the owner can claim this pet while locked." );
-				from.SendMessage( "This item is now being returned to its owner." );
-				m_PetOwner.AddToBackpack( this );
-				m_PetOwner.SendMessage( "You pet {0} has been returned to you because it was locked and {1} was trying to claim the pet.", m_MobTypeString, from.Name );
+				from.SendMessage("This is locked and only the owner can claim this pet while locked.");
+				from.SendMessage("This item is now being returned to its owner.");
+				m_PetOwner.AddToBackpack(this);
+				m_PetOwner.SendMessage("You pet {0} has been returned to you because it was locked and {1} was trying to claim the pet.", m_MobTypeString, from.Name);
 			}
-			else if ( from.Skills[SkillName.AnimalTaming].Value < m_PetMinTame && notame != true )
+			else if (from.Skills[SkillName.AnimalTaming].Value < m_PetMinTame && notame != true)
 			{
-				from.SendMessage( "You do not have the required taming to control this pet.");
-				from.SendMessage( "You must have {0} animal taming to reclaim this pet.", m_PetMinTame );
+				from.SendMessage("You do not have the required taming to control this pet.");
+				from.SendMessage("You must have {0} animal taming to reclaim this pet.", m_PetMinTame);
 			}
-			else if ( from.Followers + m_PetControlSlots > from.FollowersMax )
+			else if (m_MatingDelay >= DateTime.Now)
+			{
+				from.SendMessage("Your pet {0} is not done mating yet, Please check back later.", m_PetName);
+			}
+			else if (from.Followers + m_PetControlSlots > from.FollowersMax )
 			{
 				from.SendMessage( "You have to many followers to claim this pet." );
 			}
@@ -1217,10 +1239,12 @@ namespace Server.Items
 						pet.AbilityPoints = m_AbilityPoints;
 
 						pet.Exp = m_Exp;
+						pet.TotalExp = m_TotalExp;
 						pet.NextLevel = m_NextLevel;
 						pet.Level = m_Level;
 						pet.MaxLevel = m_MaxLevel;
 						pet.AllowMating = m_AllowMating;
+						pet.MatingTimes = m_MatingTimes;
 						pet.Evolves = m_Evolves;
 						pet.Generation = m_Gen;
 						pet.MatingDelay = this.MatingDelay;
@@ -1543,7 +1567,10 @@ namespace Server.Items
       		{
         	 	base.Serialize( writer );
 
-         		writer.Write( (int) 14 ); // version
+         		writer.Write( (int) 15 ); // version
+
+			writer.Write(m_TotalExp);
+			writer.Write(m_MatingTimes);
 
 			writer.Write( m_PetTitle );
 
@@ -1792,6 +1819,12 @@ namespace Server.Items
 
 			switch ( version )
 			{
+				case 15:
+				{
+					m_TotalExp = reader.ReadInt();
+					m_MatingTimes = reader.ReadInt();
+					goto case 14;
+				}
 				case 14: // Fixed War Horese
 				{
 					m_PetTitle = reader.ReadString();

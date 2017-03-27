@@ -208,11 +208,13 @@ namespace Server.Mobiles
 
 		private int m_ABPoints;
 		private int m_Exp;
+		private int m_TotalExp;
 		private int m_NextLevel;
 		private int m_Level = 1;
 		private int m_MaxLevel;
 
 		private bool m_AllowMating;
+		private int m_MatingTimes;
 
 		private bool m_Evolves;
 		private int m_Gen = 1;
@@ -310,6 +312,13 @@ namespace Server.Mobiles
 		}
 
 		[CommandProperty(AccessLevel.GameMaster)]
+		public int TotalExp
+		{
+			get { return m_TotalExp; }
+			set { m_TotalExp = value; }
+		}
+
+		[CommandProperty(AccessLevel.GameMaster)]
 		public int NextLevel
 		{
 			get { return m_NextLevel; }
@@ -342,6 +351,13 @@ namespace Server.Mobiles
 		{
 			get { return m_AllowMating; }
 			set { m_AllowMating = value; }
+		}
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int MatingTimes
+		{
+			get { return m_MatingTimes; }
+			set { m_MatingTimes = value; }
 		}
 
 		public int Form1
@@ -2467,6 +2483,7 @@ namespace Server.Mobiles
 			}
 			m_NextLevel = Utility.RandomMinMax(250, 500);
 			m_MaxLevel = Utility.RandomMinMax(10, 30);
+			m_MatingTimes = Utility.RandomMinMax(0, 4);
 			//FS:ATS end
 
             if (iRangePerception == OldRangePerception)
@@ -2538,7 +2555,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(22); // version
+            writer.Write(23); // version
 
             writer.Write((int)m_CurrentAI);
             writer.Write((int)m_DefaultAI);
@@ -2725,6 +2742,9 @@ namespace Server.Mobiles
 			writer.Write((int)m_PetPoisonAttack);
 			writer.Write((int)m_FireBreathAttack);
 			//FS:ATS end
+
+			writer.Write((int)m_TotalExp);
+			writer.Write((int)m_MatingTimes);
         }
 
         private static readonly double[] m_StandardActiveSpeeds = new[] { 0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8 };
@@ -3055,6 +3075,11 @@ namespace Server.Mobiles
 				m_FireBreathAttack = reader.ReadInt();
 			}
 			//FS:ATS end
+			if (version >= 23)
+			{
+				m_TotalExp = reader.ReadInt();
+				m_MatingTimes = reader.ReadInt();
+			}
 
             if (version <= 14 && m_Paragon && Hue == 0x31)
             {
@@ -7813,7 +7838,7 @@ namespace Server.Mobiles
         public virtual void OnThink()
         {
 			//FS:ATS start
-			if (this.Tamable == true)
+			/*if (this.Tamable == true)
 			{
 				if (this.NextLevel == 0)
 				{
@@ -7827,7 +7852,7 @@ namespace Server.Mobiles
 				{
 					this.MaxLevel = Utility.RandomMinMax(10, 30);
 				}
-			}
+			}*/
 			//FS:ATS end
 
             long tc = Core.TickCount;
