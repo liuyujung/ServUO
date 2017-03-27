@@ -119,9 +119,9 @@ namespace Server.Mobiles
 						Type pettype = pct.Pet.GetType();
 						BaseCreature bc = (BaseCreature)pct.Pet;
 
-						bc.IsStabled = true;
-						from.Stabled.Add( bc );
-						this.SayTo( from, "I have put your pet that was mating in the stable under you name." );
+						//bc.IsStabled = true;
+						//from.Stabled.Add( bc );
+						//this.SayTo( from, "I have put your pet that was mating in the stable under you name." );
 
 						BaseCreature baby = null;
 

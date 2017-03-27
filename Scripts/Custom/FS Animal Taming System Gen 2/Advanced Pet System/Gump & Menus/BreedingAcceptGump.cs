@@ -230,15 +230,15 @@ namespace Server.Gumps
 						pct.Price = babyPrice;
 						cm1.AddToBackpack( pct );
 
-						breeder.SayTo( cm1, "Ill hold onto your pet for you while its mating." );
+						//breeder.SayTo( cm1, "Ill hold onto your pet for you while its mating." );
 						breeder.SayTo( cm1, "Return here in three days and the show me that claim ticket i gave to you." );
 						cm1.SendMessage( "They have accepted your offer." );
 
-						bc1.ControlTarget = null;
+						/*bc1.ControlTarget = null;
 						bc1.ControlOrder = OrderType.Stay;
 						bc1.Internalize();
 
-						bc1.SetControlMaster( null );
+						bc1.SetControlMaster( null );*/
 					}
 
 					if ( cm2 != null ) //Generate Claim Ticket One
@@ -265,15 +265,15 @@ namespace Server.Gumps
 						pct.Price = babyPrice;
 						cm2.AddToBackpack( pct );
 
-						breeder.SayTo( cm2, "Ill hold onto your pet for you while its mating." );
+						//breeder.SayTo( cm2, "Ill hold onto your pet for you while its mating." );
 						breeder.SayTo( cm2, "Return here in three days and the show me that claim ticket i gave to you." );
 						cm2.SendMessage( "You accept their offer." );
 
-						bc2.ControlTarget = null;
+						/*bc2.ControlTarget = null;
 						bc2.ControlOrder = OrderType.Stay;
 						bc2.Internalize();
 
-						bc2.SetControlMaster( null );
+						bc2.SetControlMaster( null );*/
 					}
 
 					if ( bc1 != null || bc2 != null )
@@ -281,6 +281,9 @@ namespace Server.Gumps
 						bc1.MatingDelay = DateTime.Now + TimeSpan.FromHours( 144.0 );
 						bc2.MatingDelay = DateTime.Now + TimeSpan.FromHours( 144.0 );
 					}
+
+					shrink(bc1, cm1);
+					shrink(bc2, cm2);
 				}
 				else
 				{
@@ -303,5 +306,31 @@ namespace Server.Gumps
 					cm1.SendMessage( "They have declined your offer" );
 			}
 		}
+
+		private void shrink(BaseCreature bc, Mobile cm)
+		{
+			Type type = bc.GetType();
+			ShrinkItem si = new ShrinkItem();
+			si.MobType = type;
+			si.Pet = bc;
+			si.PetOwner = cm;
+
+
+			if (bc is BaseMount)
+			{
+				BaseMount mount = (BaseMount)bc;
+				si.MountID = mount.ItemID;
+			}
+			cm.AddToBackpack(si);
+
+			bc.Controlled = true;
+			bc.ControlMaster = null;
+			bc.Internalize();
+
+			bc.OwnerAbandonTime = DateTime.MinValue;
+
+			bc.IsStabled = true;
+		}
+
 	}
 }
