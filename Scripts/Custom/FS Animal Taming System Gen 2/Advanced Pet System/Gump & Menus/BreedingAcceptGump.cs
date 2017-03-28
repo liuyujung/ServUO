@@ -279,7 +279,9 @@ namespace Server.Gumps
 					if ( bc1 != null || bc2 != null )
 					{
 						bc1.MatingDelay = DateTime.Now + TimeSpan.FromHours( 144.0 );
+						bc1.MatingTimes -= 1;
 						bc2.MatingDelay = DateTime.Now + TimeSpan.FromHours( 144.0 );
+						bc2.MatingTimes -= 1;
 					}
 
 					shrink(bc1, cm1);
