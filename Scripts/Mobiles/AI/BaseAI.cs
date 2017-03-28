@@ -2975,11 +2975,6 @@ namespace Server.Mobiles
 							{
 								continue;
 							}
-							// Ignore any non-enemy (We are an Aggressive FightMode)
-							else if (!m_Mobile.IsEnemy(m))
-							{
-								continue;
-							}
 						}
 					}
 
