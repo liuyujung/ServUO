@@ -260,10 +260,6 @@ namespace Server
 
             if (totalDamage > 0)
             {
-<<<<<<< HEAD
-                Spells.Mysticism.SpellPlagueSpell.OnMobileDamaged(m);
-=======
->>>>>>> master
                 Spells.Mysticism.SleepSpell.OnDamage(m);
             }
             #endregion

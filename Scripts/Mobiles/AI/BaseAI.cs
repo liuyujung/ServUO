@@ -2913,13 +2913,8 @@ namespace Server.Mobiles
 								continue;
 							}
 */
-<<<<<<< HEAD
-							if (acqType == FightMode.Aggressor || acqType == FightMode.Evil || acqType == FightMode.Good 
-								|| ((m is BaseCreature) && ((BaseCreature)m).Summoned && ((BaseCreature)m).GetMaster() == null))
-=======
 							if (acqType == FightMode.Aggressor || acqType == FightMode.Evil || acqType == FightMode.Good
                                 || (m is BaseCreature && ((BaseCreature)m).Summoned))
->>>>>>> master
 							{
 
 								//Ignore anyone under EtherealVoyage
@@ -2966,25 +2961,6 @@ namespace Server.Mobiles
 										{
 											bValid = (m.Karma > 0);
 										}
-<<<<<<< HEAD
-									}
-									else if (acqType == FightMode.Enemy)
-									{
-										if (!m_Mobile.IsEnemy(m))
-											continue;
-									}
-									else if (acqType == FightMode.Aggressor)
-									{
-										bValid = m_Mobile.Aggressors.FirstOrDefault(agg => agg.Attacker == m) != null;
-									}
-
-									// Ignore Invalid targets
-									if (!bValid)
-									{
-										continue;
-									}
-								}
-=======
 									}
 
 									// Ignore Invalid targets
@@ -2998,7 +2974,6 @@ namespace Server.Mobiles
 							else if (!m_Mobile.IsEnemy(m))
 							{
 								continue;
->>>>>>> master
 							}
 							// Ignore any non-enemy (We are an Aggressive FightMode)
 							else if (!m_Mobile.IsEnemy(m))

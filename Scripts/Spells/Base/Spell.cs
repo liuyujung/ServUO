@@ -21,10 +21,7 @@ using Server.Spells.Spellweaving;
 using Server.Targeting;
 using Server.Spells.SkillMasteries;
 using System.Reflection;
-<<<<<<< HEAD
 using daat99;
-=======
->>>>>>> master
 using Server.Spells.Mysticism;
 #endregion
 
