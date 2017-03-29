@@ -1550,11 +1550,16 @@ namespace Server.Items
 
 				if (m_AbilityPoints != 0)
 				{
-					list.Add(1060662, "Ability Points\t{0}, Level: {1}/{2}, Generation: {3}", m_AbilityPoints, m_Level, m_MaxLevel, m_Gen);
+					list.Add(1060662, "Ability Points\t{0}, Level: {1}/{2}, Generation: {3}, {4}", m_AbilityPoints, m_Level, m_MaxLevel, m_Gen, m_Gen < 10 && m_MatingTimes > 0 ? "Can Breed " + m_MatingTimes + (m_MatingTimes > 1 ? " Times" : " Time") : "Can't Breed");
 				}
 				else
 				{
-					list.Add(1060662, "Level\t{0}/{1}, Generation: {2}", m_Level, m_MaxLevel, m_Gen);
+					list.Add(1060662, "Level\t{0}/{1}, Generation: {2}, {3}", m_Level, m_MaxLevel, m_Gen, m_Gen < 10 && m_MatingTimes > 0 ? "Can Breed " + m_MatingTimes + (m_MatingTimes > 1 ? " Times" : " Time") : "Can't Breed");
+				}
+
+				if (m_MatingDelay >= DateTime.Now)
+				{
+					list.Add(1060658, "Mating Delay\t{0}", m_MatingDelay);
 				}
 			}
 		}
