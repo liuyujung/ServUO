@@ -1547,6 +1547,8 @@ namespace Server.Items
 				list.Add( 1060659, "Stats\tStrength {0}, Dexterity {1}, Intelligence {2}, Hit Points {3}, Stamina {4}, Mana {5}", m_PetStr, m_PetDex, m_PetInt, m_PetHits, m_PetStam, m_PetMana );
 				list.Add( 1060660, "Combat Skills\tWrestling {0}, Tactics {1}, Anatomy {2}, Poisoning {3}", m_PetWrestling, m_PetTactics, m_PetAnatomy, m_PetPoisoning );
 				list.Add( 1060661, "Magic Skills\tMagery {0}, Eval Intel {1}, Magic Resist {2}, Meditation {3}", m_PetMagery, m_PetEvalInt, m_PetResist, m_PetMed );
+				list.Add(1060661, "Resists (AR/F/C/P/E)\t{0}/{1}/{2}/{3}/{4} (Total {5}/375) Armor Rating: {6}", m_PetPhysicalResist, m_PetFireResist, m_PetColdResist, m_PetPoisonResist, m_PetEnergyResist,
+				        m_PetPhysicalResist + m_PetFireResist + m_PetColdResist + m_PetPoisonResist + m_PetEnergyResist, m_PetVArmor);
 
 				if (m_AbilityPoints != 0)
 				{
