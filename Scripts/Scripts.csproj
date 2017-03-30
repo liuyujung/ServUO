@@ -13055,6 +13055,8 @@
     <Compile Include="Custom\ItemRelayerDeeds\RelayerWaistDeed.cs" />
     <Compile Include="Custom\Misc\Items\BankBell.cs" />
     <Compile Include="Custom\Misc\Items\BankCrystal.cs" />
+    <Compile Include="Custom\Misc\Items\PlayersHouseTeleporter.cs" />
+    <Compile Include="Custom\Misc\Items\RemoveMatingDelayDeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

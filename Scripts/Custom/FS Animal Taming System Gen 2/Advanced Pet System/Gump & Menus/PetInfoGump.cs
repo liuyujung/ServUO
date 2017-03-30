@@ -40,7 +40,7 @@ namespace Server.Gumps
 			AddLabel(35, 165, 1149, @"Can Mate:");
 			AddImageTiled(27, 185, 342, 10, 5121);
 			AddImageTiled(27, 275, 342, 10, 5121);
-			if ( m_From == cm && bc.AllowMating == true && bc.MatingTimes > 0 && FSATS.EnablePetBreeding == true )
+			if ( m_From == cm && bc.AllowMating == true && FSATS.EnablePetBreeding == true )
 			{
 				AddButton(36, 281, 4008, 4009, 1, GumpButtonType.Reply, 0);
 				AddLabel(71, 282, 1160, @"Mate this pet with another.");
@@ -178,11 +178,11 @@ namespace Server.Gumps
 				{
 					from.SendMessage( "That creature has no master." );
 				}
-				else if ( bc.MatingDelay >= DateTime.Now )
+				/*else if ( bc.MatingDelay >= DateTime.Now )
 				{
 					from.SendMessage( "That creature has mating in that last six days, It cannot mate again so soon." );
 				}
-				/*else if ( bc.ControlMaster == from )
+				else if ( bc.ControlMaster == from )
 				{
 					from.SendMessage( "You cannot breed two of your own pets together, You must find another player who has the same type of pet as your in order to breed." );
 				}*/

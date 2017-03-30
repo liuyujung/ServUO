@@ -34,11 +34,11 @@ namespace Server.Engines.Apiculture
 			AddItem(118, 89, 2330);   //beehive
 
 			//potions
-			AddItem(195, 46, 3848);
-			AddItem(195, 96, 3847);
-			AddItem(195, 71, 3850);
-			AddItem(195, 121, 3852);
-			AddItem(195, 146, 3849);
+			AddItem(193, 46, 3848);
+			AddItem(193, 96, 3847);
+			AddItem(193, 71, 3850);
+			AddItem(193, 121, 3852);
+			AddItem(193, 146, 3849);
 
 			//status icons
 			AddItem(-5, 76, 882); //little bug thing
@@ -60,8 +60,8 @@ namespace Server.Engines.Apiculture
 			AddImage(58, 146, 212); //flower
 
 			//potion lables
-			AddLabel(190, 47, 0x481,  hive.potAgility.ToString() );  //agility
-			AddLabel(190, 71, 0x481,  hive.potPoison.ToString() );   //poison
+			AddLabel(190, 46, 0x481,  hive.potAgility.ToString() );  //agility
+			AddLabel(190, 72, 0x481,  hive.potPoison.ToString() );   //poison
 			AddLabel(190, 96, 0x481,  hive.potCure.ToString() );     //cure
 			AddLabel(190, 121, 0x481, hive.potHeal.ToString() );     //heal
 			AddLabel(190, 146, 0x481, hive.potStrength.ToString() ); //strength	

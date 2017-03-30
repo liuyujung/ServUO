@@ -348,7 +348,10 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool AllowMating
 		{
-			get { return m_AllowMating; }
+			get
+			{
+				return m_AllowMating && m_MatingTimes > 0;
+			}
 			set { m_AllowMating = value; }
 		}
 
