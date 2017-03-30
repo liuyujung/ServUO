@@ -11,7 +11,7 @@ namespace Server.Items
 			Weight = 1.0;
 			Movable = true;
 			LootType = LootType.Blessed;
-			Name = "Remove Mating Delay Deed";
+			Name = "Mating Delay Removing Deed";
 		}
 
 		public RemoveMatingDelayDeed(Serial serial) : base(serial) { }
@@ -67,6 +67,7 @@ namespace Server.Items
 				{
 					item.MatingDelay = DateTime.MinValue;
 					from.SendMessage("The mating delay has been removed");
+					m_Deed.Delete();
 				}
 			}
 			else
