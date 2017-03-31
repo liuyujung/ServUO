@@ -431,12 +431,12 @@ namespace Server.Engines.Craft
 					//daat99 OWLTR end - craft from storage
 				}
 
-                this.AddButton(220, 70 + (index * 20), 4005, 4007, GetButtonID(5, i), GumpButtonType.Reply, 0);
+                this.AddButton(220, 60 + (index * 20), 4005, 4007, GetButtonID(5, i), GumpButtonType.Reply, 0);
 
                 if (subResource.NameNumber > 0)
-                    this.AddHtmlLocalized(255, 73 + (index * 20), 250, 18, subResource.NameNumber, resourceCount.ToString(), LabelColor, false, false);
+                    this.AddHtmlLocalized(255, 63 + (index * 20), 250, 18, subResource.NameNumber, resourceCount.ToString(), LabelColor, false, false);
                 else
-                    this.AddLabel(255, 70 + (index * 20), LabelHue, String.Format("{0} ({1})", subResource.NameString, resourceCount));
+                    this.AddLabel(255, 60 + (index * 20), LabelHue, String.Format("{0} ({1})", subResource.NameString, resourceCount));
             }
         }
 
