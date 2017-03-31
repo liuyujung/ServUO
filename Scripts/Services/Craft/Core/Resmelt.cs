@@ -107,6 +107,9 @@ namespace Server.Engines.Craft
             {
                 try
                 {
+					if (item.LootType == LootType.Blessed || item.Insured)
+						return SmeltResult.Invalid;
+
                     if (Ethics.Ethic.IsImbued(item))
                         return SmeltResult.Invalid;
 
