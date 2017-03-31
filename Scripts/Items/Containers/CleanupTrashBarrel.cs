@@ -59,17 +59,28 @@ namespace Server.Items
         {
             if (!base.OnDragDrop(from, dropped))
                 return false;
+			
+			if (dropped.LootType == LootType.Blessed)
+			{
+				this.PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, 1075256); // That is blessed; you cannot throw it away.
+				return false;
+			}
+			else if (dropped.Insured)
+			{
+				this.PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, true, "That is insured; you cannot throw it away.");
+				return false;
+			}
 
             if (!AddCleanupItem(from, dropped))
             {
-                if (dropped.LootType == LootType.Blessed)
+                /*if (dropped.LootType == LootType.Blessed)
                 {
                     this.PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, 1075256); // That is blessed; you cannot throw it away.
                 }
                 else
-                {
+                {*/
                     this.PublicOverheadMessage(Network.MessageType.Regular, 0x3B2, 1151271); // This item has no turn-in value for Clean Up Britannia.
-                }
+                //}
 
                 return false;
             }

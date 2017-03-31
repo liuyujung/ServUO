@@ -61,6 +61,11 @@ namespace Server.Items
                 from.SendMessage("It would be a good idea not to trash Blessed items!");
                 return false;
             }
+			if (dropped.Insured)
+			{
+				from.SendMessage("It would be a good idea not to trash Insured items!");
+				return false;
+			}
             List<Item> items = this.Items;
             if (items.Count > 0 && NextTrash <= DateTime.UtcNow)
             {

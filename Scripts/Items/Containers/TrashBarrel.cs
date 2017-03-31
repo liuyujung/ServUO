@@ -81,6 +81,11 @@ namespace Server.Items
                     from.SendLocalizedMessage(1075256); // That is blessed; you cannot throw it away.
                     return false;
                 }
+				if (dropped.Insured)
+				{
+					from.SendMessage("That is insured; you cannot throw it away.");
+					return false;
+				}
             }
 
             if (this.TotalItems >= 50)
