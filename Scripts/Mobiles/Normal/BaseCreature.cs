@@ -51,7 +51,7 @@ namespace Server.Mobiles
         Weakest, // Attack the weakest
         Closest, // Attack the closest
         Evil, // Only attack aggressor -or- negative karma
-        Good, // Only attack aggressor -or- positive karma
+        Good // Only attack aggressor -or- positive karma
     }
 
     public enum OrderType
@@ -1394,6 +1394,7 @@ namespace Server.Mobiles
         public const int MaxOwners = 5;
 
         public virtual OppositionGroup OppositionGroup { get { return null; } }
+        public virtual bool IsMilitiaFighter { get { return false; } }
 
         #region Friends
         public List<Mobile> Friends { get { return m_Friends; } }
@@ -1423,25 +1424,34 @@ namespace Server.Mobiles
             }
         }
 
-        public virtual bool IsFriend(Mobile m)
-        {
-            OppositionGroup g = OppositionGroup;
+		public virtual bool IsFriend(Mobile m)
+		{
+			OppositionGroup g = OppositionGroup;
 
-            if (g != null && g.IsEnemy(this, m))
-            {
-                return false;
-            }
+			if (g != null && g.IsEnemy(this, m))
+			{
+				return false;
+			}
 
-            if (!(m is BaseCreature))
-            {
-                return false;
-            }
+			if (!(m is BaseCreature))
+			{
+				return false;
+			}
 
-            BaseCreature c = (BaseCreature)m;
+			BaseCreature c = (BaseCreature)m;
 
-            return (m_iTeam == c.m_iTeam && ((m_bSummoned || m_bControlled) == (c.m_bSummoned || c.m_bControlled))
-                   /* && c.Combatant != this */);
-        }
+			if (m_iTeam != c.m_iTeam)
+			{
+				return false;
+			}
+/*
+			if (c.Combatant == this)
+			{
+				return false;
+			}
+*/
+			return ((m_bSummoned || m_bControlled) == (c.m_bSummoned || c.m_bControlled));
+		}
         #endregion
 
         #region Allegiance
@@ -1535,12 +1545,18 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			if (!(m is BaseCreature) || m is MilitiaFighter)
+			if (!(m is BaseCreature))
 			{
 				return true;
 			}
 
 			BaseCreature c = (BaseCreature)m;
+            
+			if (c.IsMilitiaFighter)
+			{
+				return true;
+			}
+
 			BaseCreature t = this;
 
 			// Summons should have same rules as their master
@@ -1559,18 +1575,16 @@ namespace Server.Mobiles
 			{
 				return true;
 			}
-
-			// If I'm summoned/controlled and they aren't summoned/controlled, they are my enemy
-			// If I'm not summoned/controlled and they are summoned/controlled, they are my enemy
-			return ((t.m_bSummoned || t.m_bControlled) != (c.m_bSummoned || c.m_bControlled));
 /*
-			// Note that this is unused, but would be before summoned/controlled check if it were
 			// Creatures attacking me are my enemies
 			if (c.Combatant == this)
 			{
 				return true;
 			}
 */
+			// If I'm summoned/controlled and they aren't summoned/controlled, they are my enemy
+			// If I'm not summoned/controlled and they are summoned/controlled, they are my enemy
+			return ((t.m_bSummoned || t.m_bControlled) != (c.m_bSummoned || c.m_bControlled));
 		}
 
         public override string ApplyNameSuffix(string suffix)
