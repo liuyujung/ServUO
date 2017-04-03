@@ -11,7 +11,7 @@ namespace Server.Items
 			Weight = 1.0;
 			Movable = true;
 			LootType = LootType.Blessed;
-			Name = "Mating Delay Removing Deed";
+			Name = "Mating Delay Removal Deed";
 		}
 
 		public RemoveMatingDelayDeed(Serial serial) : base(serial) { }

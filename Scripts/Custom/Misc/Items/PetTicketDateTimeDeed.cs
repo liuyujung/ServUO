@@ -11,7 +11,7 @@ namespace Server.Items
 			Weight = 1.0;
 			Movable = true;
 			LootType = LootType.Blessed;
-			Name = "Pet Claim Ticket Time Changing Deed";
+			Name = "Pet Claim Ticket Waiting Time Removal Deed";
 		}
 
 		public PetTicketDateTimeDeed(Serial serial) : base(serial) { }
