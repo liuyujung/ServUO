@@ -35,21 +35,24 @@ namespace Server.Items
         {
             if (!e.Handled && (this.IsChildOf(e.Mobile.Backpack) || e.Mobile.InRange(this.Location, 12)))
             {
-                int keyword = e.Keywords[0];
-                if(keyword == 0x0002)
-                {
-                    e.Handled = true;
-                    if(e.Mobile.Criminal)
-                    {
-                        e.Mobile.SendMessage("Thou art a criminal and cannot access thy bank box.");
-                    }
-                    else
-                    {
-                        BankBox box = e.Mobile.BankBox;
-                        if(box != null)
-                            box.Open();
-                    }
-                }
+				if (e.Keywords != null && e.Keywords.Length > 0)
+				{
+					int keyword = e.Keywords[0];
+					if (keyword == 0x0002)
+					{
+						e.Handled = true;
+						if (e.Mobile.Criminal)
+						{
+							e.Mobile.SendMessage("Thou art a criminal and cannot access thy bank box.");
+						}
+						else
+						{
+							BankBox box = e.Mobile.BankBox;
+							if (box != null)
+								box.Open();
+						}
+					}
+				}
             }
         }
  
