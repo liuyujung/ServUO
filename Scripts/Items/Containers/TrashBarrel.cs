@@ -74,7 +74,8 @@ namespace Server.Items
             if (!base.OnDragDrop(from, dropped))
                 return false;
 
-            if (!AddCleanupItem(from, dropped))
+			AddCleanupItem(from, dropped);
+            /*if (!AddCleanupItem(from, dropped))
             {
                 if (dropped.LootType == LootType.Blessed)
                 {
@@ -86,7 +87,7 @@ namespace Server.Items
 					from.SendMessage("That is insured; you cannot throw it away.");
 					return false;
 				}
-            }
+            }*/
 
             if (this.TotalItems >= 50)
             {
@@ -112,14 +113,20 @@ namespace Server.Items
             if (!base.OnDragDropInto(from, item, p))
                 return false;
 
-            if (!AddCleanupItem(from, item))
+			AddCleanupItem(from, item);
+            /*if (!AddCleanupItem(from, item))
             {
                 if (item.LootType == LootType.Blessed)
                 {
                     from.SendLocalizedMessage(1075256); // That is blessed; you cannot throw it away.
                     return false;
                 }
-            }
+				if (item.Insured)
+				{
+					from.SendMessage("That is insured; you cannot throw it away.");
+					return false;
+				}
+            }*/
 
             if (this.TotalItems >= 50)
             {
