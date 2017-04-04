@@ -13040,8 +13040,8 @@
     <Compile Include="Custom\Misc\Items\BankBell.cs" />
     <Compile Include="Custom\Misc\Items\BankCrystal.cs" />
     <Compile Include="Custom\Misc\Items\PlayersHouseTeleporter.cs" />
-    <Compile Include="Custom\Misc\Items\RemoveMatingDelayDeed.cs" />
-    <Compile Include="Custom\Misc\Items\PetTicketDateTimeDeed.cs" />
+    <Compile Include="Custom\Misc\Items\MatingDelayRemovalDeed.cs" />
+    <Compile Include="Custom\Misc\Items\PetTicketTimeRemovalDeed.cs" />
     <Compile Include="Custom\Misc\Items\WeightReductionContainer.cs" />
     <Compile Include="Custom\Misc\Items\CorpseRetrievalPackage.cs" />
   </ItemGroup>

@@ -3,10 +3,10 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class RemoveMatingDelayDeed : Item
+	public class MatingDelayRemovalDeed : Item
 	{
 		[Constructable]
-		public RemoveMatingDelayDeed(): base(0x14F0)
+		public MatingDelayRemovalDeed(): base(0x14F0)
 		{
 			Weight = 1.0;
 			Movable = true;
@@ -14,7 +14,7 @@ namespace Server.Items
 			Name = "Mating Delay Removal Deed";
 		}
 
-		public RemoveMatingDelayDeed(Serial serial) : base(serial) { }
+		public MatingDelayRemovalDeed(Serial serial) : base(serial) { }
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -23,7 +23,7 @@ namespace Server.Items
 			else
 			{
 				from.SendMessage("Which shrunken pet would you like to remove mating delay?");
-				from.Target = new RemoveMatingDelayTarget(this);
+				from.Target = new MatingDelayRemovalTarget(this);
 			}
 		}
 
@@ -41,11 +41,11 @@ namespace Server.Items
 		}
 	}
 
-	public class RemoveMatingDelayTarget : Target
+	public class MatingDelayRemovalTarget : Target
 	{
-		private RemoveMatingDelayDeed m_Deed;
+		private MatingDelayRemovalDeed m_Deed;
 
-		public RemoveMatingDelayTarget(RemoveMatingDelayDeed deed) : base(1, false, TargetFlags.None)
+		public MatingDelayRemovalTarget(MatingDelayRemovalDeed deed) : base(1, false, TargetFlags.None)
 		{
 			m_Deed = deed;
 		}
@@ -66,6 +66,7 @@ namespace Server.Items
 				else
 				{
 					item.MatingDelay = DateTime.MinValue;
+					item.InvalidateProperties();
 					from.SendMessage("The mating delay has been removed");
 					m_Deed.Delete();
 				}

@@ -3,10 +3,10 @@ using Server.Targeting;
 
 namespace Server.Items
 {
-	public class PetTicketDateTimeDeed : Item
+	public class PetTicketTimeRemovalDeed : Item
 	{
 		[Constructable]
-		public PetTicketDateTimeDeed(): base(0x14F0)
+		public PetTicketTimeRemovalDeed(): base(0x14F0)
 		{
 			Weight = 1.0;
 			Movable = true;
@@ -14,7 +14,7 @@ namespace Server.Items
 			Name = "Pet Claim Ticket Waiting Time Removal Deed";
 		}
 
-		public PetTicketDateTimeDeed(Serial serial) : base(serial) { }
+		public PetTicketTimeRemovalDeed(Serial serial) : base(serial) { }
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -23,7 +23,7 @@ namespace Server.Items
 			else
 			{
 				from.SendMessage("Which Pet Claim Ticket would you like to set?");
-				from.Target = new PetTicketDateTimeTarget(this);
+				from.Target = new PetTicketTimeRemovalTarget(this);
 			}
 		}
 
@@ -41,11 +41,11 @@ namespace Server.Items
 		}
 	}
 
-	public class PetTicketDateTimeTarget : Target
+	public class PetTicketTimeRemovalTarget : Target
 	{
-		private PetTicketDateTimeDeed m_Deed;
+		private PetTicketTimeRemovalDeed m_Deed;
 
-		public PetTicketDateTimeTarget(PetTicketDateTimeDeed deed) : base(1, false, TargetFlags.None)
+		public PetTicketTimeRemovalTarget(PetTicketTimeRemovalDeed deed) : base(1, false, TargetFlags.None)
 		{
 			m_Deed = deed;
 		}
@@ -66,6 +66,7 @@ namespace Server.Items
 				else
 				{
 					item.Time = DateTime.Now;
+					item.InvalidateProperties();
 					from.SendMessage("The Pet Claim Ticket time has been set to now");
 					m_Deed.Delete();
 				}
