@@ -1547,21 +1547,18 @@ namespace Server.Items
 				list.Add( 1060659, "Stats\tStrength {0}, Dexterity {1}, Intelligence {2}, Hit Points {3}, Stamina {4}, Mana {5}", m_PetStr, m_PetDex, m_PetInt, m_PetHits, m_PetStam, m_PetMana );
 				list.Add( 1060660, "Combat Skills\tWrestling {0}, Tactics {1}, Anatomy {2}, Poisoning {3}", m_PetWrestling, m_PetTactics, m_PetAnatomy, m_PetPoisoning );
 				list.Add( 1060661, "Magic Skills\tMagery {0}, Eval Intel {1}, Magic Resist {2}, Meditation {3}", m_PetMagery, m_PetEvalInt, m_PetResist, m_PetMed );
-				list.Add(1060661, "Resists (AR/F/C/P/E)\t{0}/{1}/{2}/{3}/{4} (Total {5}/375) Armor Rating: {6}", m_PetPhysicalResist, m_PetFireResist, m_PetColdResist, m_PetPoisonResist, m_PetEnergyResist,
+				list.Add( 1060658, "Resists (AR/F/C/P/E)\t{0}/{1}/{2}/{3}/{4} (Total {5}/375) Armor Rating: {6}", m_PetPhysicalResist, m_PetFireResist, m_PetColdResist, m_PetPoisonResist, m_PetEnergyResist,
 				        m_PetPhysicalResist + m_PetFireResist + m_PetColdResist + m_PetPoisonResist + m_PetEnergyResist, m_PetVArmor);
+				list.Add( 1060662, "Level\t{0}/{1}, Generation: {2}, {3}", m_Level, m_MaxLevel, m_Gen, m_Gen < 10 && m_MatingTimes > 0 ? "Can Breed " + m_MatingTimes + (m_MatingTimes > 1 ? " Times" : " Time") : "Can't Breed");
 
 				if (m_AbilityPoints != 0)
 				{
-					list.Add(1060662, "Ability Points\t{0}, Level: {1}/{2}, Generation: {3}, {4}", m_AbilityPoints, m_Level, m_MaxLevel, m_Gen, m_Gen < 10 && m_MatingTimes > 0 ? "Can Breed " + m_MatingTimes + (m_MatingTimes > 1 ? " Times" : " Time") : "Can't Breed");
-				}
-				else
-				{
-					list.Add(1060662, "Level\t{0}/{1}, Generation: {2}, {3}", m_Level, m_MaxLevel, m_Gen, m_Gen < 10 && m_MatingTimes > 0 ? "Can Breed " + m_MatingTimes + (m_MatingTimes > 1 ? " Times" : " Time") : "Can't Breed");
+					list.Add("<BASEFONT COLOR=#A335EE>Ability Points: {0}<BASEFONT COLOR=#FFFFFF>", m_AbilityPoints);
 				}
 
 				if (m_MatingDelay >= DateTime.Now)
 				{
-					list.Add(1060658, "Mating Delay\t{0}", m_MatingDelay);
+					list.Add("<BASEFONT COLOR=#FF8000>Mating Delay: {0}<BASEFONT COLOR=#FFFFFF>", m_MatingDelay);
 				}
 			}
 		}

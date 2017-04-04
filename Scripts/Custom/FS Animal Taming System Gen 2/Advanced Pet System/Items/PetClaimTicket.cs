@@ -185,8 +185,8 @@ namespace Server.Items
 		{
 			base.GetProperties( list );
 
-			list.Add( 1060658, "Return Date\t{0}", m_Time.ToLongDateString() );
-			list.Add( 1060659, "Return Time\t{0}", m_Time.ToLongTimeString() );
+			list.Add( 1060658, (m_Time > DateTime.Now ? "<BASEFONT COLOR=#FF8000>" : "<BASEFONT COLOR=#1EFF00>") + "Return Date\t{0}", m_Time.ToLongDateString() );
+			list.Add( 1060659, "Return Time\t{0}<BASEFONT COLOR=#FFFFFF>", m_Time.ToLongTimeString() );
 
 			if ( this.Pet != null )
 				list.Add( 1060662, "Pet That Is Breeding\t{0}", m_Pet.Name );
