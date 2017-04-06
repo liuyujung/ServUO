@@ -295,7 +295,7 @@ namespace Server.Items
         public abstract int ContainerMaxItems { get; }
 
         public virtual bool DisplayWeightReductionProperty { get { return true; } }
-        public virtual double ContainerWeight { get { return 3.0; } }
+        public virtual double ContainerWeight { get { return 1.0; } }
         public virtual LootType ContainerLootType { get { return LootType.Regular; } }
         public virtual int ContainerHue { get { return Utility.RandomMetalHue(); } }
         public virtual TimeSpan AccessDelay { get { return TimeSpan.FromMinutes(15.0); } }
