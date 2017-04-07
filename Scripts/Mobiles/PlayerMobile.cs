@@ -3717,12 +3717,6 @@ namespace Server.Mobiles
 		private TimeSpan m_ShortTermElapse;
 		private TimeSpan m_LongTermElapse;
 		private DateTime m_SessionStart;
-		private DateTime m_NextSmithBulkOrder;
-		private DateTime m_NextTailorBulkOrder;
-		//daat
-        private DateTime m_NextFletcherBulkOrder;
-		private DateTime m_NextCarpenterBulkOrder;
-		//daat
 		private DateTime m_SavagePaintExpiration;
 		private SkillName m_Learning = (SkillName)(-1);
 
@@ -3750,23 +3744,11 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				TimeSpan ts = m_NextSmithBulkOrder - DateTime.UtcNow;
-
-				if (ts < TimeSpan.Zero)
-				{
-					ts = TimeSpan.Zero;
-				}
-
-				return ts;
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Smith, this);
 			}
 			set
 			{
-				try
-				{
-					m_NextSmithBulkOrder = DateTime.UtcNow + value;
-				}
-				catch
-				{ }
+                BulkOrderSystem.SetNextBulkOrder(BODType.Smith, this, value);
 			}
 		}
 
@@ -3775,65 +3757,91 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				TimeSpan ts = m_NextTailorBulkOrder - DateTime.UtcNow;
-
-				if (ts < TimeSpan.Zero)
-				{
-					ts = TimeSpan.Zero;
-				}
-
-				return ts;
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Tailor, this);
 			}
 			set
 			{
-				try
-				{
-					m_NextTailorBulkOrder = DateTime.UtcNow + value;
-				}
-				catch
-				{ }
+                BulkOrderSystem.SetNextBulkOrder(BODType.Tailor, this, value);
 			}
 		}
 
-		//daat
         [CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan NextFletcherBulkOrder
-		{
-			get
-			{
-				TimeSpan ts = m_NextFletcherBulkOrder - DateTime.Now;
+        public TimeSpan NextAlchemyBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Alchemy, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Alchemy, this, value);
+            }
+        }
 
-				if (ts < TimeSpan.Zero)
-					ts = TimeSpan.Zero;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan NextInscriptionBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Inscription, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Inscription, this, value);
+            }
+        }
 
-				return ts;
-			}
-			set
-			{
-				try { m_NextFletcherBulkOrder = DateTime.Now + value; }
-				catch { }
-			}
-		}
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan NextTinkeringBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Tinkering, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Tinkering, this, value);
+            }
+        }
 
-		[CommandProperty(AccessLevel.GameMaster)]
-		public TimeSpan NextCarpenterBulkOrder
-		{
-			get
-			{
-				TimeSpan ts = m_NextCarpenterBulkOrder - DateTime.Now;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan NextFletchingBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Fletching, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Fletching, this, value);
+            }
+        }
 
-				if (ts < TimeSpan.Zero)
-					ts = TimeSpan.Zero;
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan NextCarpentryBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Carpentry, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Carpentry, this, value);
+            }
+        }
 
-				return ts;
-			}
-			set
-			{
-				try { m_NextCarpenterBulkOrder = DateTime.Now + value; }
-				catch { }
-			}
-		}
-		//daat
+        [CommandProperty(AccessLevel.GameMaster)]
+        public TimeSpan NextCookingBulkOrder
+        {
+            get
+            {
+                return BulkOrderSystem.GetNextBulkOrder(BODType.Cooking, this);
+            }
+            set
+            {
+                BulkOrderSystem.SetNextBulkOrder(BODType.Cooking, this, value);
+            }
+        }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime LastEscortTime { get; set; }
@@ -3860,7 +3868,7 @@ namespace Server.Mobiles
 			m_AntiMacroTable = new Hashtable();
 			m_RecentlyReported = new List<Mobile>();
 
-			m_BOBFilter = new BOBFilter();
+			//m_BOBFilter = new BOBFilter();
 
 			//FS:ATS start
 			m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter();
@@ -4131,13 +4139,17 @@ namespace Server.Mobiles
 			SetHairMods(-1, -1);
 		}
 
-		private BOBFilter m_BOBFilter;
-
 		//FS:ATS start
 		private Engines.BulkOrders.TamingBOBFilter m_TamingBOBFilter;
 		//FS:ATS end
 
-		public BOBFilter BOBFilter { get { return m_BOBFilter; } }
+		public BOBFilter BOBFilter 
+        { 
+            get
+            {
+                return BulkOrderSystem.GetBOBFilter(this);
+            } 
+        }
 
 		//FS:ATS start
 		public Engines.BulkOrders.TamingBOBFilter TamingBOBFilter
@@ -4154,30 +4166,20 @@ namespace Server.Mobiles
 			switch (version)
 			{
 				//FS:ATS start
-				case 37:
+				case 36:
 					{
 						m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter(reader);
-						goto case 36;
+						goto case 35;
 					}
-				case 36:
+				case 35:
 					{
 						m_Bioenginer = reader.ReadBool();
 						NextTamingBulkOrder = reader.ReadTimeSpan();
-						goto case 35;
-					}
-				//FS:ATS end
-				//daat
-				case 35:
-					{
-						NextFletcherBulkOrder = reader.ReadTimeSpan();
 						goto case 34;
 					}
-				case 34:
-					{
-						NextCarpenterBulkOrder = reader.ReadTimeSpan();
-						goto case 33;
-					}
-				//daat
+				//FS:ATS end
+                    // Version 34 - new BOD System
+                case 34:
                 case 33:
                     {
                         m_ExploringTheDeepQuest = (ExploringTheDeepQuestChain)reader.ReadInt();
@@ -4381,7 +4383,8 @@ namespace Server.Mobiles
 				case 13: // just removed m_PayedInsurance list
 				case 12:
 					{
-						m_BOBFilter = new BOBFilter(reader);
+                        if(version < 34)
+						    BulkOrderSystem.SetBOBFilter(this, new BOBFilter(reader));
 						goto case 11;
 					}
 				case 11:
@@ -4436,12 +4439,14 @@ namespace Server.Mobiles
 					}
 				case 6:
 					{
-						NextTailorBulkOrder = reader.ReadTimeSpan();
+                        if(version < 34)
+						    reader.ReadTimeSpan();
 						goto case 5;
 					}
 				case 5:
 					{
-						NextSmithBulkOrder = reader.ReadTimeSpan();
+                        if(version < 34)
+						    reader.ReadTimeSpan();
 						goto case 4;
 					}
 				case 4:
@@ -4490,13 +4495,6 @@ namespace Server.Mobiles
 				m_RecentlyReported = new List<Mobile>();
 			}
 
-			/*#region QueensLoyaltySystem
-			if (version < 29)
-			{
-				m_Exp = 0;
-			}
-			#endregion*/
-
 			#region Mondain's Legacy
 			if (m_Quests == null)
 			{
@@ -4538,11 +4536,6 @@ namespace Server.Mobiles
 			if (m_JusticeProtectors == null)
 			{
 				m_JusticeProtectors = new List<Mobile>();
-			}
-
-			if (m_BOBFilter == null)
-			{
-				m_BOBFilter = new BOBFilter();
 			}
 
 			if (m_GuildRank == null)
@@ -4609,20 +4602,13 @@ namespace Server.Mobiles
 			base.Serialize(writer);
 
 			//FS:ATS start
-			writer.Write(37);
+			writer.Write(36);
 			m_TamingBOBFilter.Serialize(writer);
 			writer.Write(m_Bioenginer);
 			writer.Write(NextTamingBulkOrder);
 			//FS:ATS end
 
-			//daat
-			//writer.Write(35);
-			writer.Write(NextFletcherBulkOrder);
-
-			writer.Write(NextCarpenterBulkOrder);
-
-			//writer.Write(33); // version
-			//daat
+			//writer.Write(34); // version
 
             writer.Write((int)m_ExploringTheDeepQuest);
 
@@ -4751,8 +4737,6 @@ namespace Server.Mobiles
 				writer.WriteDeltaTime(m_NextCompassionDay);
 			}
 
-			m_BOBFilter.Serialize(writer);
-
 			bool useMods = (m_HairModID != -1 || m_BeardModID != -1);
 
 			writer.Write(useMods);
@@ -4772,10 +4756,6 @@ namespace Server.Mobiles
 			writer.Write(m_NpcGuildGameTime);
 
 			writer.Write(m_PermaFlags, true);
-
-			writer.Write(NextTailorBulkOrder);
-
-			writer.Write(NextSmithBulkOrder);
 
 			writer.WriteDeltaTime(m_LastJusticeLoss);
 			writer.Write(m_JusticeProtectors, true);

@@ -10,21 +10,12 @@ namespace Server.Engines.BulkOrders
         private readonly int m_AmountMax;
         private readonly BOBLargeSubEntry[] m_Entries;
         private int m_Price;
+
         public BOBLargeEntry(LargeBOD bod)
         {
             this.m_RequireExceptional = bod.RequireExceptional;
 
-            if (bod is LargeTailorBOD)
-                this.m_DeedType = BODType.Tailor;
-            else if (bod is LargeSmithBOD)
-                this.m_DeedType = BODType.Smith;
-
-			//daat--<< Custom BODs Edit>>-------------------------------[Start 2 of 2]
-			else if (bod is LargeCarpenterBOD)
-				m_DeedType = BODType.Carpenter;
-			else if (bod is LargeFletcherBOD)
-				m_DeedType = BODType.Fletcher;
-			//daat--<< Custom BODs Edit>>-------------------------------[End 2 of 2]
+            m_DeedType = bod.BODType;
 
 			this.m_Material = bod.Material;
             this.m_AmountMax = bod.AmountMax;
@@ -111,17 +102,17 @@ namespace Server.Engines.BulkOrders
         {
             LargeBOD bod = null;
 
-            if (this.m_DeedType == BODType.Smith)
-                bod = new LargeSmithBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries());
-            else if (this.m_DeedType == BODType.Tailor)
-                bod = new LargeTailorBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries());
-
-			//daat--<< Custom BODs Edit>>-------------------------------[Start 1 of 2]
-			else if (m_DeedType == BODType.Carpenter)
-				bod = new LargeFletcherBOD(m_AmountMax, m_RequireExceptional, m_Material, ReconstructEntries());
-			else if (m_DeedType == BODType.Fletcher)
-				bod = new LargeCarpenterBOD(m_AmountMax, m_RequireExceptional, m_Material, ReconstructEntries());
-			//daat--<< Custom BODs Edit>>-------------------------------[End 1 of 2]
+            switch (m_DeedType)
+            {
+                case BODType.Smith: bod = new LargeSmithBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Tailor: bod = new LargeTailorBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Inscription: bod = new LargeInscriptionBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Alchemy: bod = new LargeAlchemyBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Carpentry: bod = new LargeCarpentryBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Fletching: bod = new LargeFletchingBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Tinkering: bod = new LargeTinkerBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+                case BODType.Cooking: bod = new LargeCookingBOD(this.m_AmountMax, this.m_RequireExceptional, this.m_Material, this.ReconstructEntries()); break;
+            }
 
 			for (int i = 0; bod != null && i < bod.Entries.Length; ++i)
                 bod.Entries[i].Owner = bod;
@@ -152,7 +143,7 @@ namespace Server.Engines.BulkOrders
 
             for (int i = 0; i < this.m_Entries.Length; ++i)
             {
-                entries[i] = new LargeBulkEntry(null, new SmallBulkEntry(this.m_Entries[i].ItemType, this.m_Entries[i].Number, this.m_Entries[i].Graphic));
+                entries[i] = new LargeBulkEntry(null, new SmallBulkEntry(this.m_Entries[i].ItemType, this.m_Entries[i].Number, this.m_Entries[i].Graphic, this.m_Entries[i].Hue));
                 entries[i].Amount = this.m_Entries[i].AmountCur;
             }
 

@@ -310,60 +310,153 @@ namespace Server.Engines.BulkOrders
                 case 0:
                     return true;
                 case 1:
-                    return (deedType == BODType.Smith);
+                    return deedType == BODType.Smith;
                 case 2:
-                    return (deedType == BODType.Tailor);
-
+                    return deedType == BODType.Tailor;
                 case 3:
-                    return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Iron);
+                    return deedType == BODType.Tinkering;
                 case 4:
-                    return (mat == BulkMaterialType.DullCopper);
+                    return deedType == BODType.Carpentry;
                 case 5:
-                    return (mat == BulkMaterialType.ShadowIron);
+                    return deedType == BODType.Fletching;
                 case 6:
-                    return (mat == BulkMaterialType.Copper);
+                    return deedType == BODType.Alchemy;
                 case 7:
-                    return (mat == BulkMaterialType.Bronze);
+                    return deedType == BODType.Inscription;
                 case 8:
-                    return (mat == BulkMaterialType.Gold);
+                    return deedType == BODType.Cooking;
                 case 9:
-                    return (mat == BulkMaterialType.Agapite);
+                    return (mat == BulkMaterialType.None && deedType == BODType.Smith);
                 case 10:
-                    return (mat == BulkMaterialType.Verite);
+                    return (mat == BulkMaterialType.DullCopper);
                 case 11:
-                    return (mat == BulkMaterialType.Valorite);
-
-				//daat
-				case 12: return (mat == BulkMaterialType.Blaze);
-				case 13: return (mat == BulkMaterialType.Ice);
-				case 14: return (mat == BulkMaterialType.Toxic);
-				case 15: return (mat == BulkMaterialType.Electrum);
-				case 16: return (mat == BulkMaterialType.Platinum);
-
-				case 17: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth);
-				case 18: return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather);
-				case 19: return (mat == BulkMaterialType.Spined);
-				case 20: return (mat == BulkMaterialType.Horned);
-				case 21: return (mat == BulkMaterialType.Barbed);
-				case 22: return (mat == BulkMaterialType.Polar);
-				case 23: return (mat == BulkMaterialType.Synthetic);
-				case 24: return (mat == BulkMaterialType.BlazeL);
-				case 25: return (mat == BulkMaterialType.Daemonic);
-				case 26: return (mat == BulkMaterialType.Shadow);
-				case 27: return (mat == BulkMaterialType.Frost);
-				case 28: return (mat == BulkMaterialType.Ethereal);
-				//daat
-
-                /*case 12:
-                    return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth);
+                    return (mat == BulkMaterialType.ShadowIron);
+                case 12:
+                    return (mat == BulkMaterialType.Copper);
                 case 13:
-                    return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather);
+                    return (mat == BulkMaterialType.Bronze);
                 case 14:
-                    return (mat == BulkMaterialType.Spined);
+                    return (mat == BulkMaterialType.Gold);
                 case 15:
-                    return (mat == BulkMaterialType.Horned);
+                    return (mat == BulkMaterialType.Agapite);
                 case 16:
-                    return (mat == BulkMaterialType.Barbed);*/
+                    return (mat == BulkMaterialType.Verite);
+                case 17:
+                    return (mat == BulkMaterialType.Valorite);
+				case 18:
+					return (mat == BulkMaterialType.Blaze);
+				case 19:
+					return (mat == BulkMaterialType.Ice);
+				case 20:
+					return (mat == BulkMaterialType.Toxic);
+				case 21:
+					return (mat == BulkMaterialType.Electrum);
+				case 22:
+					return (mat == BulkMaterialType.Platinum);
+					
+				case 23:
+					return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Cloth);
+				case 24:
+					return (mat == BulkMaterialType.None && BGTClassifier.Classify(deedType, itemType) == BulkGenericType.Leather);
+				case 25:
+					return (mat == BulkMaterialType.Spined);
+				case 26:
+					return (mat == BulkMaterialType.Horned);
+				case 27:
+					return (mat == BulkMaterialType.Barbed);
+				case 28:
+					return (mat == BulkMaterialType.Polar);
+				case 29:
+					return (mat == BulkMaterialType.Synthetic);
+				case 30:
+					return (mat == BulkMaterialType.Blaze);
+				case 31:
+					return (mat == BulkMaterialType.Daemonic);
+				case 32:
+					return (mat == BulkMaterialType.Shadow);
+				case 33:
+					return (mat == BulkMaterialType.Frost);
+				case 34:
+					return (mat == BulkMaterialType.Ethereal);
+
+                case 35: // Tinkering
+                    return (mat == BulkMaterialType.None && deedType == BODType.Tinkering);
+                case 36:
+                    return (mat == BulkMaterialType.DullCopper);
+                case 37:
+                    return (mat == BulkMaterialType.ShadowIron);
+                case 38:
+                    return (mat == BulkMaterialType.Copper);
+                case 39:
+                    return (mat == BulkMaterialType.Bronze);
+                case 40:
+                    return (mat == BulkMaterialType.Gold);
+                case 41:
+                    return (mat == BulkMaterialType.Agapite);
+                case 42:
+                    return (mat == BulkMaterialType.Verite);
+                case 43:
+                    return (mat == BulkMaterialType.Valorite);
+				case 44:
+					return (mat == BulkMaterialType.Blaze);
+				case 45:
+					return (mat == BulkMaterialType.Ice);
+				case 46:
+					return (mat == BulkMaterialType.Toxic);
+				case 47:
+					return (mat == BulkMaterialType.Electrum);
+				case 48:
+					return (mat == BulkMaterialType.Platinum);
+
+                case 49: // Carpentry
+                    return (mat == BulkMaterialType.None && deedType == BODType.Carpentry);
+                case 50:
+                    return (mat == BulkMaterialType.OakWood);
+                case 51:
+                    return (mat == BulkMaterialType.AshWood);
+                case 52:
+                    return (mat == BulkMaterialType.YewWood);
+                case 53:
+                    return (mat == BulkMaterialType.Bloodwood);
+                case 54:
+                    return (mat == BulkMaterialType.Heartwood);
+                case 55:
+                    return (mat == BulkMaterialType.Frostwood);
+				case 56:
+					return (mat == BulkMaterialType.Ebony);
+				case 57:
+					return (mat == BulkMaterialType.Bamboo);
+				case 58:
+					return (mat == BulkMaterialType.PurpleHeart);
+				case 59:
+					return (mat == BulkMaterialType.Redwood);
+				case 60:
+					return (mat == BulkMaterialType.Petrified);
+
+                case 61: // Fletching
+                    return (mat == BulkMaterialType.None && deedType == BODType.Fletching);
+                case 62:
+                    return (mat == BulkMaterialType.OakWood);
+                case 63:
+                    return (mat == BulkMaterialType.AshWood);
+                case 64:
+                    return (mat == BulkMaterialType.YewWood);
+                case 65:
+                    return (mat == BulkMaterialType.Bloodwood);
+                case 66:
+                    return (mat == BulkMaterialType.Heartwood);
+                case 67:
+                    return (mat == BulkMaterialType.Frostwood);
+				case 68:
+					return (mat == BulkMaterialType.Ebony);
+				case 69:
+					return (mat == BulkMaterialType.Bamboo);
+				case 70:
+					return (mat == BulkMaterialType.PurpleHeart);
+				case 71:
+					return (mat == BulkMaterialType.Redwood);
+				case 72:
+					return (mat == BulkMaterialType.Petrified);
             }
         }
 
@@ -472,36 +565,44 @@ namespace Server.Engines.BulkOrders
         {
             switch ( type )
             {
+                case BODType.Tinkering:
                 case BODType.Smith:
                     {
-                        switch ( mat )
+                        if (type == BODType.Tinkering && mat == BulkMaterialType.None && BGTClassifier.Classify(type, itemType) == BulkGenericType.Wood)
                         {
-                            case BulkMaterialType.None:
-                                return 1062226;
-                            case BulkMaterialType.DullCopper:
-                                return 1018332;
-                            case BulkMaterialType.ShadowIron:
-                                return 1018333;
-                            case BulkMaterialType.Copper:
-                                return 1018334;
-                            case BulkMaterialType.Bronze:
-                                return 1018335;
-                            case BulkMaterialType.Gold:
-                                return 1018336;
-                            case BulkMaterialType.Agapite:
-                                return 1018337;
-                            case BulkMaterialType.Verite:
-                                return 1018338;
-                            case BulkMaterialType.Valorite:
-                                return 1018339;
-							//daat9 OWLTR start - custom resources
-                            case BulkMaterialType.Blaze: return "Blaze";
-							case BulkMaterialType.Ice: return "Ice";
-							case BulkMaterialType.Toxic: return "Toxic";
-							case BulkMaterialType.Electrum: return "Electrum";
-							case BulkMaterialType.Platinum: return "Platinum";
-							//daat9 OWLTR end - custom resources
-						}
+                            return 1079435;
+                        }
+                        else
+                        {
+                            switch (mat)
+                            {
+                                case BulkMaterialType.None:
+                                    return 1062226;
+                                case BulkMaterialType.DullCopper:
+                                    return 1018332;
+                                case BulkMaterialType.ShadowIron:
+                                    return 1018333;
+                                case BulkMaterialType.Copper:
+                                    return 1018334;
+                                case BulkMaterialType.Bronze:
+                                    return 1018335;
+                                case BulkMaterialType.Gold:
+                                    return 1018336;
+                                case BulkMaterialType.Agapite:
+                                    return 1018337;
+                                case BulkMaterialType.Verite:
+                                    return 1018338;
+                                case BulkMaterialType.Valorite:
+                                    return 1018339;
+								//daat9 OWLTR start - custom resources
+                            	case BulkMaterialType.Blaze: return "Blaze";
+								case BulkMaterialType.Ice: return "Ice";
+								case BulkMaterialType.Toxic: return "Toxic";
+								case BulkMaterialType.Electrum: return "Electrum";
+								case BulkMaterialType.Platinum: return "Platinum";
+								//daat9 OWLTR end - custom resources
+                            }
+                        }
 
                         break;
                     }
@@ -535,9 +636,17 @@ namespace Server.Engines.BulkOrders
 
                         break;
                     }
+                case BODType.Carpentry:
+                case BODType.Fletching:
+                    {
+                        if (mat == BulkMaterialType.None)
+                            return 1079435;
+
+                        return 1071428 + (int)(mat - BulkMaterialType.OakWood);
+                    }
             }
 
-            return "Invalid";
+            return "";
         }
 
         public override void OnResponse(Server.Network.NetState sender, RelayInfo info)

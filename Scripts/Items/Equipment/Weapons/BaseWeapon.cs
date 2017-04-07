@@ -2094,7 +2094,7 @@ namespace Server.Items
             {
                 GetDamageTypes(attacker, out phys, out fire, out cold, out pois, out nrgy, out chaos, out direct);
 
-                if (m_Consecrated)
+                if (m_Consecrated && !OnslaughtSpell.HasOnslaught(attacker, defender))
                 {
                     phys = damageable.PhysicalResistance;
                     fire = damageable.FireResistance;
@@ -2427,6 +2427,13 @@ namespace Server.Items
 					attacker.SendLocalizedMessage(1061140); // Your attack was parried!
 				}
 			}
+
+            // Skill Masteries
+            if (WhiteTigerFormSpell.CheckEvasion(defender))
+            {
+                defender.Emote("*evades*"); // Is this right?
+                return;
+            }
 
 			#region Mondain's Legacy
 			if (m_Immolating)

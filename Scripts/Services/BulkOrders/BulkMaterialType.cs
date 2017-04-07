@@ -1,5 +1,6 @@
 using System;
 using Server.Items;
+using Server.Engines.Craft;
 
 namespace Server.Engines.BulkOrders
 {
@@ -14,18 +15,17 @@ namespace Server.Engines.BulkOrders
         Agapite,
         Verite,
         Valorite,
-		//daat
+		//daat start
         Blaze,
         Ice,
         Toxic,
         Electrum,
         Platinum,
-		//daat
+		//daat end
         Spined,
         Horned,
-        Barbed
-		//daat
-		,
+        Barbed,
+		//daat start
 		Polar,
 		Synthetic,
 		BlazeL,
@@ -33,12 +33,14 @@ namespace Server.Engines.BulkOrders
 		Shadow,
 		Frost,
 		Ethereal,
+		//daat end
 		OakWood,
 		AshWood,
 		YewWood,
 		Heartwood,
 		Bloodwood,
 		Frostwood,
+		//daat start
 		Ebony,
 		Bamboo,
 		PurpleHeart,
@@ -51,11 +53,8 @@ namespace Server.Engines.BulkOrders
     {
         Iron,
         Cloth,
-        Leather
-		//daat
-		,
-        RegularWood
-		//daat
+        Leather,
+        Wood
     }
 
     public class BGTClassifier
@@ -69,22 +68,25 @@ namespace Server.Engines.BulkOrders
 
                 return BulkGenericType.Cloth;
             }
-			//daat
-            else if (deedType == BODType.Fletcher)
-			{
-				if (itemType == null || itemType.IsSubclassOf(typeof(BaseRanged)))
-					return BulkGenericType.RegularWood;
+            else if (deedType == BODType.Tinkering && itemType != null)
+            {
+                if(itemType == typeof(Clock) || itemType.IsSubclassOf(typeof(Clock)))
+                    return BulkGenericType.Wood;
 
-				return BulkGenericType.RegularWood;
-			}
-			else if (deedType == BODType.Carpenter)
-			{
-				if (itemType == null || itemType.IsSubclassOf(typeof(BaseStaff)) || itemType.IsSubclassOf(typeof(BaseShield)))
-					return BulkGenericType.RegularWood;
+                CraftItem item = DefTinkering.CraftSystem.CraftItems.SearchFor(itemType);
 
-				return BulkGenericType.RegularWood;
-			}
-			//daat
+                if (item != null)
+                {
+                    Type typeRes = item.Resources.GetAt(0).ItemType;
+
+                    if (typeRes == typeof(Board) || typeRes == typeof(Log))
+                        return BulkGenericType.Wood;
+                }
+            }
+            else if (deedType == BODType.Fletching || deedType == BODType.Carpentry)
+            {
+                return BulkGenericType.Wood;
+            }
 
             return BulkGenericType.Iron;
         }

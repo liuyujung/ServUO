@@ -58,8 +58,7 @@ namespace Server.Mobiles
         }
 
 		//daat
-		#region Bulk Orders
-		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
+		/*public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
 		{
 			PlayerMobile pm = from as PlayerMobile;
 
@@ -105,11 +104,30 @@ namespace Server.Mobiles
 		{
 			if (Core.SE && from is PlayerMobile)
 				((PlayerMobile)from).NextFletcherBulkOrder = TimeSpan.Zero;
-		}
-		#endregion
+		}*/
 		//daat
+        #region Bulk Orders
+        public override BODType BODType { get { return BODType.Fletching; } }
 
-		public override void Serialize(GenericWriter writer)
+        public override bool IsValidBulkOrder(Item item)
+        {
+            return (item is SmallFletchingBOD || item is LargeFletchingBOD);
+        }
+
+        public override bool SupportsBulkOrders(Mobile from)
+        {
+            return BulkOrderSystem.NewSystemEnabled && from is PlayerMobile && from.Skills[SkillName.Fletching].Base > 0;
+        }
+
+        public override void OnSuccessfulBulkOrderReceive(Mobile from)
+        {
+            if (from is PlayerMobile)
+                ((PlayerMobile)from).NextFletchingBulkOrder = TimeSpan.Zero;
+        }
+
+        #endregion
+
+        public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
 
