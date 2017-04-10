@@ -109,11 +109,11 @@ namespace Server.Mobiles
                 double theirSkill = pm.Skills[SkillName.Blacksmith].Base;
 
                 if (theirSkill >= 70.1)
-                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BlacksmithHighWaitMins", 360));
+                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.HighWaitMins", 360));
                 else if (theirSkill >= 50.1)
-                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BlacksmithMidWaitMins", 120));
+                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.MidWaitMins", 120));
                 else
-                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.BlacksmithLowWaitMins", 60));
+                    pm.NextSmithBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.LowWaitMins", 60));
 
                 if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
                     return new LargeSmithBOD();

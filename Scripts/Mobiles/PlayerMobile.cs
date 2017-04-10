@@ -200,13 +200,13 @@ namespace Server.Mobiles
 		#endregion
 
 		//FS:ATS start
-		private DateTime m_NextTamingBulkOrder;
+		//private DateTime m_NextTamingBulkOrder;
 		private bool m_Bioenginer;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public TimeSpan NextTamingBulkOrder
 		{
-			get
+			/*get
 			{
 				TimeSpan ts = m_NextTamingBulkOrder - DateTime.Now;
 
@@ -219,6 +219,15 @@ namespace Server.Mobiles
 			{
 				try { m_NextTamingBulkOrder = DateTime.Now + value; }
 				catch { }
+			}*/
+
+			get
+			{
+				return BulkOrderSystem.GetNextBulkOrder(BODType.Taming, this);
+			}
+			set
+			{
+				BulkOrderSystem.SetNextBulkOrder(BODType.Taming, this, value);
 			}
 		}
 

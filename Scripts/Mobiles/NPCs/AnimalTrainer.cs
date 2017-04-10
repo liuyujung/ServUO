@@ -44,6 +44,8 @@ namespace Server.Mobiles
 		}
 
 		//FS:ATS start
+		public override BODType BODType { get { return BODType.Taming; } }
+
 		public override Item CreateBulkOrder(Mobile from, bool fromContextMenu)
 		{
 			PlayerMobile pm = from as PlayerMobile;
@@ -54,15 +56,15 @@ namespace Server.Mobiles
 
 				if (theirSkill >= 70.1)
 				{
-					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerHighWaitMins", 120));
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.HighWaitMins", 120));
 				}
 				else if (theirSkill >= 50.1)
 				{
-					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerMidWaitMins", 120));
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.MidWaitMins", 120));
 				}
 				else
 				{
-					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.AnimalTrainerLowWaitMins", 30));
+					pm.NextTamingBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.LowWaitMins", 30));
 				}
 				if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
 				{

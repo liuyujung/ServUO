@@ -17,7 +17,8 @@ namespace Server.Engines.BulkOrders
     public class BulkOrderSystem
     {
         public static readonly int MaxCachedDeeds = 3;
-        public static readonly int Delay = 6;
+        //public static readonly int Delay = 6;
+		public static readonly int DelayMins = Config.Get("BulkOrder.DelayMins", 360);
 
         public static bool NewSystemEnabled = Core.TOL;
         public static BulkOrderSystem Instance { get; set; }
@@ -160,11 +161,13 @@ namespace Server.Engines.BulkOrders
                 {
                     int tocache = 0;
 
-                    if (last + TimeSpan.FromHours(Delay) < DateTime.UtcNow)
+                    //if (last + TimeSpan.FromHours(Delay) < DateTime.UtcNow)
+					if (last + TimeSpan.FromMinutes(DelayMins) < DateTime.UtcNow)
                     {
                         int minutes = (int)(DateTime.UtcNow - last).TotalMinutes;
 
-                        tocache = (int)(minutes /  ((double)Delay * 60));
+                        //tocache = (int)(minutes /  ((double)Delay * 60));
+						tocache = (int)(minutes / ((double)DelayMins));
                     }
 
                     if (tocache > 0)
@@ -195,7 +198,8 @@ namespace Server.Engines.BulkOrders
                 {
                     DateTime last = context.Entries[type].LastBulkOrder;
 
-                    return (last + TimeSpan.FromHours(Delay)) - DateTime.UtcNow;
+                    //return (last + TimeSpan.FromHours(Delay)) - DateTime.UtcNow;
+					return (last + TimeSpan.FromMinutes(DelayMins)) - DateTime.UtcNow;
                 }
                 else if (context.Entries.ContainsKey(type))
                 {
@@ -221,7 +225,8 @@ namespace Server.Engines.BulkOrders
                 {
                     if (context.Entries.ContainsKey(type))
                     {
-                        context.Entries[type].LastBulkOrder = (DateTime.UtcNow + ts) - TimeSpan.FromHours(Delay);
+                        //context.Entries[type].LastBulkOrder = (DateTime.UtcNow + ts) - TimeSpan.FromHours(Delay);
+						context.Entries[type].LastBulkOrder = (DateTime.UtcNow + ts) - TimeSpan.FromMinutes(DelayMins);
                     }
                 }
                 else if (context.Entries.ContainsKey(type))
@@ -269,6 +274,9 @@ namespace Server.Engines.BulkOrders
                     case BODType.Carpentry:
                         if (doLarge) return new LargeCarpentryBOD();
                         else return SmallCarpentryBOD.CreateRandomFor(pm);
+					case BODType.Taming:
+						if (doLarge) return new LargeTamingBOD();
+						else return SmallTamingBOD.CreateRandomFor(pm);
                 }
             }
 
@@ -288,6 +296,7 @@ namespace Server.Engines.BulkOrders
                 case BODType.Cooking: return SkillName.Cooking;
                 case BODType.Fletching: return SkillName.Fletching;
                 case BODType.Carpentry: return SkillName.Carpentry;
+				case BODType.Taming: return SkillName.AnimalTaming;
             }
         }
 
@@ -587,6 +596,7 @@ namespace Server.Engines.BulkOrders
             Entries[BODType.Cooking] = new BODEntry();
             Entries[BODType.Alchemy] = new BODEntry();
             Entries[BODType.Inscription] = new BODEntry();
+			Entries[BODType.Taming] = new BODEntry();
         }
     }
 

@@ -62,11 +62,11 @@ namespace Server.Mobiles
                 double theirSkill = pm.Skills[SkillName.Tailoring].Base;
 
                 if (theirSkill >= 70.1)
-					pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.TailorHighWaitMins", 360));
+					pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.HighWaitMins", 360));
                 else if (theirSkill >= 50.1)
-                    pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.TailorMidWaitMins", 120));
+                    pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.MidWaitMins", 120));
                 else
-                    pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.TailorLowWaitMins", 60));
+                    pm.NextTailorBulkOrder = TimeSpan.FromMinutes(Config.Get("BulkOrder.LowWaitMins", 60));
 
                 if (theirSkill >= 70.1 && ((theirSkill - 40.0) / 300.0) > Utility.RandomDouble())
                     return new LargeTailorBOD();

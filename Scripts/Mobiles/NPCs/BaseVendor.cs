@@ -1225,7 +1225,7 @@ namespace Server.Mobiles
 
 				from.SendSound(0x3D);
 
-                if (BulkOrderSystem.NewSystemEnabled && from is PlayerMobile)
+				if (BulkOrderSystem.NewSystemEnabled && from is PlayerMobile && (dropped is SmallBOD || dropped is LargeBOD))
                 {
                     this.SayTo(from, 1157204, from.Name, 0x3B2); // Ho! Ho! Thank ye ~1_PLAYER~ for giving me a Bulk Order Deed!
 
