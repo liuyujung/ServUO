@@ -339,13 +339,13 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0xFAF, 1157100, 0, 625, ColoredAnvil));
                 RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, 0x481, 625, PowerScroll, 5));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157094, CraftResources.GetHue(CraftResource.Copper), 650, RunicHammer, 3));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, 0x481, 675, PowerScroll, 10));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 675, PowerScroll, 10));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157095, CraftResources.GetHue(CraftResource.Bronze), 700, RunicHammer, 4));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157101, 0x482, 750, AncientHammer, 10));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 800, PowerScroll, 15));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157107, 0x481, 800, PowerScroll, 15));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157102, 0x482, 850, AncientHammer, 15));
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, CraftResources.GetHue(CraftResource.Agapite), 850, HarvestMap, (int)CraftResource.Agapite));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 900, PowerScroll, 20));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157108, 0x481, 900, PowerScroll, 20));
                 RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157265, 0, 900, CraftsmanTalisman, 50));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157096, CraftResources.GetHue(CraftResource.Gold), 950, RunicHammer, 5));
                 RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, CraftResources.GetHue(CraftResource.Verite), 950, HarvestMap, (int)CraftResource.Verite));
@@ -1500,7 +1500,7 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, CraftResources.GetHue(CraftResource.Verite), 850, HarvestMap, (int)CraftResource.Verite));
             RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157265, 0, 900, CraftsmanTalisman, 50));
             RewardCollection.Add(new BODCollectionItem(0x9E7E, 1157216, 0, 950, RockHammer));
-            RewardCollection.Add(new BODCollectionItem(0x9CAA, 1157286, 0, 1000, CreateItem, 2));
+            RewardCollection.Add(new BODCollectionItem(0x9CAA, 1157286, 1175, 1000, CreateItem, 2));
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152677, CraftResources.GetHue(CraftResource.Valorite), 1050, SmeltersTalisman, (int)CraftResource.Valorite));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152668, CraftResources.GetHue(CraftResource.Valorite), 1100, HarvestMap, (int)CraftResource.Valorite));
             RewardCollection.Add(new BODCollectionItem(0x9DB1, 1157220, 1175, 1200, CreateItem, 3));
