@@ -103,8 +103,18 @@ namespace Server.Engines.BulkOrders
         public ConstructCallback Constructor { get; set; }
         public int RewardType { get; set; }
 
-        public BODCollectionItem(int itemID, int tooltip, int hue, double points, ConstructCallback constructor, int type = 0)
-            : base(null, itemID, tooltip, hue, points, false)
+		public BODCollectionItem(int itemID, string name, int hue, double points, ConstructCallback constructor, int type = 0)
+			: this(itemID, 0, name, hue, points, constructor, type)
+		{
+		}
+
+		public BODCollectionItem(int itemID, int tooltip, int hue, double points, ConstructCallback constructor, int type = 0)
+			: this(itemID, tooltip, null, hue, points, constructor, type)
+		{
+		}
+
+        public BODCollectionItem(int itemID, int tooltip, string name, int hue, double points, ConstructCallback constructor, int type = 0)
+            : base(null, itemID, tooltip, name, hue, points, false)
         {
             Constructor = constructor;
             RewardType = type;
@@ -355,55 +365,101 @@ namespace Server.Engines.BulkOrders
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157104, 0x482, 1100, AncientHammer, 60));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));
                 RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));*/
-
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 0, 0, 10, SturdySmithHammer)); //daat
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157219, 0, 10, SmithHammer));
-				RewardCollection.Add(new BODCollectionItem(0xF39, 1157084, 0x973, 10, SturdyShovel));
-				RewardCollection.Add(new BODCollectionItem(0xE86, 1157085, 0x973, 25, SturdyPickaxe));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 0, 0, 25, SturdySmithHammer)); //daat
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157181, 0, 25, RewardTitle, 0));
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157182, 0, 100, RewardTitle, 1));
-				RewardCollection.Add(new BODCollectionItem(0x13C6, 1157086, 0, 100, MiningGloves, 1));
-				RewardCollection.Add(new BODCollectionItem(0x13D5, 1157087, 0, 200, MiningGloves, 3));
-				RewardCollection.Add(new BODCollectionItem(0xFB4, 1157090, 0, 200, ProspectorsTool));
-				RewardCollection.Add(new BODCollectionItem(0xE86, 1157089, 0, 200, GargoylesPickaxe));
-				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152674, CraftResources.GetHue(CraftResource.Gold), 350, SmeltersTalisman, (int)CraftResource.Gold));
-				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157264, 0, 400, CraftsmanTalisman, 10));
-				RewardCollection.Add(new BODCollectionItem(0x13EB, 1157088, 0, 450, MiningGloves, 5));
-				RewardCollection.Add(new BODCollectionItem(4102, 1157091, 0, 450, PowderOfTemperament));
-				RewardCollection.Add(new BODCollectionItem(5053, 0, 0, 450, Deco)); //daat
-				RewardCollection.Add(new BODCollectionItem(5052, 0, 0, 450, Deco, 1)); //daat
-				RewardCollection.Add(new BODCollectionItem(5402, 0, 0, 450, Deco, 2)); //daat
-				RewardCollection.Add(new BODCollectionItem(5509, 0, 0, 450, Deco, 3)); //daat
-				RewardCollection.Add(new BODCollectionItem(7110, 0, 0, 450, Deco, 4)); //daat
-				RewardCollection.Add(new BODCollectionItem(10324, 0, 0, 450, Deco, 5)); //daat
-
-				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, CraftResources.GetHue(CraftResource.Agapite), 475, SmeltersTalisman, (int)CraftResource.Agapite));
-				RewardCollection.Add(new BODCollectionItem(0x9E7E, 1157216, 0, 500, RockHammer));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157092, CraftResources.GetHue(CraftResource.DullCopper), 500, RunicHammer, 1));
-				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152676, CraftResources.GetHue(CraftResource.Verite), 475, SmeltersTalisman, (int)CraftResource.Verite));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157093, CraftResources.GetHue(CraftResource.ShadowIron), 550, RunicHammer, 2));
-				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157218, 0, 550, CraftsmanTalisman, 25));
-				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152665, CraftResources.GetHue(CraftResource.Gold), 600, HarvestMap, (int)CraftResource.Gold));
-				RewardCollection.Add(new BODCollectionItem(0xFAF, 1157100, 0, 625, ColoredAnvil));
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, 0x481, 625, PowerScroll, 5));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157094, CraftResources.GetHue(CraftResource.Copper), 650, RunicHammer, 3));
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, 0x481, 675, PowerScroll, 10));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157095, CraftResources.GetHue(CraftResource.Bronze), 700, RunicHammer, 4));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157101, 0x482, 750, AncientHammer, 10));
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 800, PowerScroll, 15));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157102, 0x482, 850, AncientHammer, 15));
-				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, CraftResources.GetHue(CraftResource.Agapite), 850, HarvestMap, (int)CraftResource.Agapite));
-				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, 0x481, 900, PowerScroll, 20));
-				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157265, 0, 900, CraftsmanTalisman, 50));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157096, CraftResources.GetHue(CraftResource.Gold), 950, RunicHammer, 5));
-				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, CraftResources.GetHue(CraftResource.Verite), 950, HarvestMap, (int)CraftResource.Verite));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157103, 0x482, 1000, AncientHammer, 30));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157097, CraftResources.GetHue(CraftResource.Agapite), 1050, RunicHammer, 6));
-				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152668, CraftResources.GetHue(CraftResource.Valorite), 1050, HarvestMap, (int)CraftResource.Valorite));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157104, 0x482, 1100, AncientHammer, 60));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));
-				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));
+				
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157219, "Smith Hammer", 0, 10, SmithHammer));
+				RewardCollection.Add(new BODCollectionItem(0xF39, 1157084, "Sturdy Shovel", 0x973, 10, SturdyShovel));
+				RewardCollection.Add(new BODCollectionItem(0xE86, 1157085, "Sturdy Pickaxe", 0x973, 25, SturdyPickaxe));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157181, "Weaponsmith Reward Title", 0, 25, RewardTitle, 0));
+				RewardCollection.Add(new BODCollectionItem(0x13E4, "Sturdy Smith Hammer", 0, 25, SturdySmithHammer)); //daat
+				RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Mining Gloves", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Mining Cap", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Mining Tunic", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 3)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Mining Gorget", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 4)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Mining Arms", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 5)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Mining Leggings", CraftResources.GetHue(CraftResource.DullCopper), 50, ArmorOfMining, 6)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157182, "Armorer Reward Title", 0, 100, RewardTitle, 1));
+				RewardCollection.Add(new BODCollectionItem(0x13C6, 1157086, "Leather Gloves Of Mining", 0, 100, MiningGloves, 1));
+				RewardCollection.Add(new BODCollectionItem(0x13D5, 1157087, "Studded Gloves Of Mining", 0, 200, MiningGloves, 3));
+				RewardCollection.Add(new BODCollectionItem(0xFB4, 1157090, "Prospectors Tool", 0, 200, ProspectorsTool));
+				RewardCollection.Add(new BODCollectionItem(0xE86, 1157089, "Gargoyles Pickaxe", 0, 200, GargoylesPickaxe));
+				RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Smithing Gloves", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Smithing Cap", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Smithing Tunic", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 3)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Smithing Gorget", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 4)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Smithing Arms", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 5)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Smithing Leggings", CraftResources.GetHue(CraftResource.Valorite), 200, ArmorOfSmithing, 6)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152674, "Gold Smelters Talisman", CraftResources.GetHue(CraftResource.Gold), 350, SmeltersTalisman, (int)CraftResource.Gold));
+				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157264, "Craftsman Talisman 10 Charges", 0, 400, CraftsmanTalisman, 10));
+				RewardCollection.Add(new BODCollectionItem(0x13EB, 1157088, "Ringmail Gloves Of Mining", 0, 450, MiningGloves, 5));
+				RewardCollection.Add(new BODCollectionItem(4102, 1157091, "Powder Of Temperament", 0, 450, PowderOfTemperament));
+				RewardCollection.Add(new BODCollectionItem(5053, "Decorative Chainmail Tunic", 0, 450, Deco)); //daat
+				RewardCollection.Add(new BODCollectionItem(5052, "Decorative Chainmail Leggings", 0, 450, Deco, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(5402, "Decorative Armor", 0, 450, Deco, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(5509, "Decorative Shield And Sword", 0, 450, Deco, 3)); //daat
+				RewardCollection.Add(new BODCollectionItem(7110, "Decorative Scale Shield", 0, 450, Deco, 4)); //daat
+				RewardCollection.Add(new BODCollectionItem(10324, "Sword Display", 0, 450, Deco, 5)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152675, "Agapite Smelters Talisman", CraftResources.GetHue(CraftResource.Agapite), 475, SmeltersTalisman, (int)CraftResource.Agapite));
+				RewardCollection.Add(new BODCollectionItem(0x9E7E, 1157216, "Rock Hammer", 0, 500, RockHammer));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157092, "Dull Runic Hammer", CraftResources.GetHue(CraftResource.DullCopper), 500, RunicHammer, 1));
+				RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152676, "Verite Smelters Talisman", CraftResources.GetHue(CraftResource.Verite), 475, SmeltersTalisman, (int)CraftResource.Verite));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157093, "Shadow Runic Hammer", CraftResources.GetHue(CraftResource.ShadowIron), 550, RunicHammer, 2));
+				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157218, "Craftsman Talisman 25 Charges", 0, 550, CraftsmanTalisman, 25));
+				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152665, "Gold Harvest Map", CraftResources.GetHue(CraftResource.Gold), 600, HarvestMap, (int)CraftResource.Gold));
+				RewardCollection.Add(new BODCollectionItem(0xFB1, "Colored Forge", CraftResources.GetHue(CraftResource.DullCopper), 600, ColoredForgeDeed)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xFAF, 1157100, "Colored Anvil", 0, 625, ColoredAnvil));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, "A Wondrous Scroll Of Blacksmith", 0x481, 625, PowerScroll, 5));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157094, "Copper Runic Hammer", CraftResources.GetHue(CraftResource.Copper), 650, RunicHammer, 3));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157105, "An Exalted Scroll Of Blacksmith", 0x481, 675, PowerScroll, 10));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157095, "Bronze Runic Hammer", CraftResources.GetHue(CraftResource.Bronze), 700, RunicHammer, 4));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157101, "+10 Ancient Hammer", 0x482, 750, AncientHammer, 10));
+				RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Smithing Gloves", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 7)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Smithing Cap", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 8)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Smithing Tunic", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 9)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Smithing Gorget", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 10)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Smithing Arms", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 11)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Smithing Leggings", CraftResources.GetHue(CraftResource.Ice), 750, ArmorOfSmithing, 12)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, "A Mythical Scroll Of Blacksmith", 0x481, 800, PowerScroll, 15));
+				RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Mining Gloves", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 7)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Mining Cap", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 8)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Mining Tunic", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 9)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Mining Gorget", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 10)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Mining Arms", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 11)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Mining Leggings", CraftResources.GetHue(CraftResource.Blaze), 800, ArmorOfMining, 12)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157102, "+15 Ancient Hammer", 0x482, 850, AncientHammer, 15));
+				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152666, "Agapite Harvest Map", CraftResources.GetHue(CraftResource.Agapite), 850, HarvestMap, (int)CraftResource.Agapite));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157106, "A Legendary Scroll Of Blacksmith", 0x481, 900, PowerScroll, 20));
+				RewardCollection.Add(new BODCollectionItem(0x9E2A, 1157265, "Craftsman Talisman 50 Charges", 0, 900, CraftsmanTalisman, 50));
+				RewardCollection.Add(new BODCollectionItem(0xFAB, "Leather Armor Dye Tub", 0, 900, ChargedDyeTub)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157096, "Gold Runic Hammer", CraftResources.GetHue(CraftResource.Gold), 950, RunicHammer, 5));
+				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152667, "Verite Harvest Map", CraftResources.GetHue(CraftResource.Verite), 950, HarvestMap, (int)CraftResource.Verite));
+				RewardCollection.Add(new BODCollectionItem(0xFAB, "Metal Armor Dye Tub", 0, 950, ChargedDyeTub, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157103, "+30 Ancient Hammer", 0x482, 1000, AncientHammer, 30));
+				RewardCollection.Add(new BODCollectionItem(0xFAB, "Metal Weapon Dye Tub", 0, 1000, ChargedDyeTub, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157097, "Agapite Runic Hammer", CraftResources.GetHue(CraftResource.Agapite), 1050, RunicHammer, 6));
+				RewardCollection.Add(new BODCollectionItem(0x14EC, 1152668, "Valorite Harvest Map", CraftResources.GetHue(CraftResource.Valorite), 1050, HarvestMap, (int)CraftResource.Valorite));
+				RewardCollection.Add(new BODCollectionItem(0xE86, "Smithers Protector", 0, 1050, SmithersProtector)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157104, "+60 Ancient Hammer", 0x482, 1100, AncientHammer, 60));
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157098, "Verite Runic Hammer", CraftResources.GetHue(CraftResource.Verite), 1150, RunicHammer, 7));
+				RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Mining Gloves", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 13)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Mining Cap", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 14)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Mining Tunic", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 15)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Mining Gorget", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 16)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Mining Arms", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 17)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Mining Leggings", CraftResources.GetHue(CraftResource.Electrum), 1150, ArmorOfMining, 18)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, 1157099, "Valorite Runic Hammer", CraftResources.GetHue(CraftResource.Valorite), 1200, RunicHammer, 8));
+				RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Smithing Gloves", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 13)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Smithing Cap", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 14)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Smithing Tunic", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 15)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Smithing Gorget", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 16)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Smithing Arms", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 17)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Smithing Leggings", CraftResources.GetHue(CraftResource.Toxic), 1200, ArmorOfMining, 18)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, "Blaze Runic Hammer", CraftResources.GetHue(CraftResource.Blaze), 1250, RunicHammer, 9)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xE76, "Resources Bag", 0, 1300, ResourcesBag)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, "Ice Runic Hammer", CraftResources.GetHue(CraftResource.Ice), 1300, RunicHammer, 10)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, "Toxic Runic Hammer", CraftResources.GetHue(CraftResource.Toxic), 1350, RunicHammer, 11)); //daat
+				RewardCollection.Add(new BODCollectionItem(4731, "Sharpening Blade", 0, 1400, SharpeningBlade)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, "Electrum Runic Hammer", CraftResources.GetHue(CraftResource.Electrum), 1400, RunicHammer, 12)); //daat
+				RewardCollection.Add(new BODCollectionItem(0x13E3, "Platinum Runic Hammer", CraftResources.GetHue(CraftResource.Platinum), 1450, RunicHammer, 13)); //daat
             }
             else
             {
@@ -458,8 +514,8 @@ namespace Server.Engines.BulkOrders
 					new RewardGroup( 1150, new RewardItem( 1, RunicHammer, 7 ), new RewardItem( 1, ArmorOfMining, Utility.RandomMinMax(13,18) ) ),
 					new RewardGroup( 1200, new RewardItem( 1, RunicHammer, 8 ), new RewardItem( 1, ArmorOfSmithing, Utility.RandomMinMax(13,18) ) ),
 					new RewardGroup( 1250, new RewardItem( 1, RunicHammer, 9 ), new RewardItem( 1, ArmorOfSmithing, Utility.RandomMinMax(13,18) ) ),
-					new RewardGroup( 1300, new RewardItem( 1, RunicHammer, 10 ), new RewardItem( 1, BagOfResources ) ),
-					new RewardGroup( 1350, new RewardItem( 1, RunicHammer, 11 ), new RewardItem( 1, BagOfResources ) ),
+					new RewardGroup( 1300, new RewardItem( 1, RunicHammer, 10 ), new RewardItem( 1, ResourcesBag ) ),
+					new RewardGroup( 1350, new RewardItem( 1, RunicHammer, 11 ), new RewardItem( 1, ResourcesBag ) ),
 					new RewardGroup( 1400, new RewardItem( 1, RunicHammer, 12 ), new RewardItem( 1, SharpeningBlade ) ),
 					new RewardGroup( 1450, new RewardItem( 1, RunicHammer, 13 ), new RewardItem( 1, SharpeningBlade ) )
 					//daat99 OWLTR end - bod reward
@@ -486,7 +542,7 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback SharpeningBlade = new ConstructCallback(CreateSharpeningBlade);
 		private static readonly ConstructCallback ColoredForgeDeed = new ConstructCallback(CreateColoredForgeDeed);
 		private static readonly ConstructCallback ChargedDyeTub = new ConstructCallback(CreateChargedDyeTub);
-		private static readonly ConstructCallback BagOfResources = new ConstructCallback(CreateBagOfResources);
+		private static readonly ConstructCallback ResourcesBag = new ConstructCallback(CreateResourcesBag);
 		private static readonly ConstructCallback ArmorOfMining = new ConstructCallback(CreateArmorOfMining);
 		private static readonly ConstructCallback ArmorOfSmithing = new ConstructCallback(CreateArmorOfSmithing);
 
@@ -529,9 +585,9 @@ namespace Server.Engines.BulkOrders
 		}
 
 
-		private static Item CreateBagOfResources(int type)
+		private static Item CreateResourcesBag(int type)
 		{
-			return new BagOfResources();
+			return new ResourcesBag();
 		}
 
 		private static Item CreateArmorOfMining(int type)
