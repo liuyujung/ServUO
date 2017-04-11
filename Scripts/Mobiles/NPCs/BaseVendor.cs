@@ -149,7 +149,7 @@ namespace Server.Mobiles
 
                 if (m_Vendor.SupportsBulkOrders(m_From) && m_From is PlayerMobile)
                 {
-                    if (BulkOrderSystem.NewSystemEnabled)
+					if (BulkOrderSystem.NewSystemEnabled)
                     {
                         if (BulkOrderSystem.CanGetBulkOrder(m_From, m_Vendor.BODType))
                         {
@@ -163,7 +163,17 @@ namespace Server.Mobiles
                             {
                                 m_From.SendGump(new SmallBODAcceptGump(m_From, (SmallBOD)bulkOrder));
                             }
-                        }
+							//FS:ATS start
+							else if (bulkOrder is LargeMobileBOD)
+							{
+								m_From.SendGump(new LargeMobileBODAcceptGump(m_From, (LargeMobileBOD)bulkOrder));
+							}
+							else if (bulkOrder is SmallMobileBOD)
+							{
+								m_From.SendGump(new SmallMobileBODAcceptGump(m_From, (SmallMobileBOD)bulkOrder));
+							}
+							//FS:ATS end
+						}
                         else
                         {
                             TimeSpan ts = BulkOrderSystem.GetNextBulkOrder(m_Vendor.BODType, (PlayerMobile)m_From);
@@ -198,8 +208,17 @@ namespace Server.Mobiles
                                 else if (bulkOrder is SmallBOD)
                                 {
                                     m_From.SendGump(new SmallBODAcceptGump(m_From, (SmallBOD)bulkOrder));
-                                }
-                            }
+                                }//FS:ATS start
+								else if (bulkOrder is LargeMobileBOD)
+								{
+									m_From.SendGump(new LargeMobileBODAcceptGump(m_From, (LargeMobileBOD)bulkOrder));
+								}
+								else if (bulkOrder is SmallMobileBOD)
+								{
+									m_From.SendGump(new SmallMobileBODAcceptGump(m_From, (SmallMobileBOD)bulkOrder));
+								}
+								//FS:ATS end
+							}
                         }
                         else
                         {
@@ -228,30 +247,6 @@ namespace Server.Mobiles
             private readonly Mobile m_From;
 			private readonly BaseVendor m_Vendor;
 
-							/*if (bulkOrder is LargeBOD)
-							{
-								m_From.SendGump(new LargeBODAcceptGump(m_From, (LargeBOD)bulkOrder));
-							}
-							//FS:ATS start
-							else if (bulkOrder is LargeMobileBOD)
-							{
-								m_From.SendGump(new LargeMobileBODAcceptGump(m_From, (LargeMobileBOD)bulkOrder));
-							}
-							else if (bulkOrder is SmallMobileBOD)
-							{
-								m_From.SendGump(new SmallMobileBODAcceptGump(m_From, (SmallMobileBOD)bulkOrder));
-							}
-							//FS:ATS end
-							else if (bulkOrder is SmallBOD)
-							{
-								m_From.SendGump(new SmallBODAcceptGump(m_From, (SmallBOD)bulkOrder));
-							}
-						}
-					}
-					else
-					{
-						int oldSpeechHue = m_Vendor.SpeechHue;
-						m_Vendor.SpeechHue = 0x3B2;*/
             public ClaimRewardsEntry(Mobile from, BaseVendor vendor)
                 : base(1155593, 3)
 			{
