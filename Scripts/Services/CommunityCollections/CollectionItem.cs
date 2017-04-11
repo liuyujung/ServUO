@@ -16,8 +16,14 @@ namespace Server
         private readonly int m_Hue;
         private readonly double m_Points;
         private readonly bool m_QuestItem;
+		private readonly string m_Name;
 
-        public CollectionItem(Type type, int itemID, int tooltip, int hue, double points, bool questitem = false)
+		public CollectionItem(Type type, int itemID, int tooltip, int hue, double points, bool questitem = false)
+			: this(type, itemID, tooltip, null, hue, points, questitem)
+		{
+		}
+
+        public CollectionItem(Type type, int itemID, int tooltip, string name, int hue, double points, bool questitem = false)
         {
             this.m_Type = type;
             this.m_ItemID = itemID;
@@ -25,6 +31,7 @@ namespace Server
             this.m_Hue = hue;
             this.m_Points = points;
             this.m_QuestItem = questitem;
+			this.m_Name = name;
 
             Rectangle2D rec;
 
@@ -120,6 +127,13 @@ namespace Server
                 return this.m_Points;
             }
         }
+		public string Name
+		{
+			get
+			{
+				return this.m_Name;
+			}
+		}
 
         public bool QuestItem { get { return m_QuestItem; } }
 

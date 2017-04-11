@@ -127,7 +127,7 @@ namespace Server.Gumps
                 else if (item.Tooltip > 0)
                     AddTooltip(item.Tooltip);
 
-                AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString());
+				AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + (item.Name != null ? " " + item.Name : ""));
 				
                 offset += YDist + height;
                 Index++;
