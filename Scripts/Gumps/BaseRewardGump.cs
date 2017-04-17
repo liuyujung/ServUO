@@ -105,7 +105,8 @@ namespace Server.Gumps
 				if (Points >= item.Points)
                 {
                     AddButton(35, offset + (int)(height / 2) - 5, 0x837, 0x838, 200 + Index, GumpButtonType.Reply, 0);
-                    AddTooltip(item.Tooltip);
+                    if (item.Tooltip > 0)
+						AddTooltip(item.Tooltip);
                 }
 				
 				int y = offset - item.Y;
