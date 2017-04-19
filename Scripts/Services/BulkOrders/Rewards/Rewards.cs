@@ -584,7 +584,6 @@ namespace Server.Engines.BulkOrders
 			return new ChargedDyeTub(10, type);
 		}
 
-
 		private static Item CreateResourcesBag(int type)
 		{
 			return new ResourcesBag();
@@ -1004,31 +1003,94 @@ namespace Server.Engines.BulkOrders
             {
                 RewardCollection = new List<CollectionItem>();
 
-                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157219, 0, 10, SewingKit));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157183, 0, 10, RewardTitle, 2));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 10, Cloth, 0));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157184, 0, 25, RewardTitle, 3));
-                RewardCollection.Add(new BODCollectionItem(0x1761, 1157109, 0, 50, Cloth, 1));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157185, 0, 100, RewardTitle, 4));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 100, Cloth, 2));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 150, Cloth, 3));
-                RewardCollection.Add(new BODCollectionItem(0x170D, 1157110, 0, 150, Sandals, 3));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 200, Cloth, 4));
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157264, 0, 200, CraftsmanTalisman, 10)); // todo: Get id
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157111, 0, 300, StretchedHide));
-                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 300, Cloth, 5)); // TODO: Get other 4 colors
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157218, 0, 300, CraftsmanTalisman, 25)); // todo: Get id
-                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157115, CraftResources.GetHue(CraftResource.SpinedLeather), 350, RunicKit, 1));
-                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157265, 0, 350, CraftsmanTalisman, 50)); // todo: Get id
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157118, 0x481, 400, PowerScroll, 5));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157112, 0, 400, Tapestry));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157113, 0, 450, BearRug));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157119, 0x481, 500, PowerScroll, 10));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157114, 0, 550, ClothingBlessDeed));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157120, 0x481, 575, PowerScroll, 15));
-                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157116, CraftResources.GetHue(CraftResource.HornedLeather), 600, RunicKit, 2));
-                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157121, 0x481, 650, PowerScroll, 20));
-                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157117, CraftResources.GetHue(CraftResource.BarbedLeather), 700, RunicKit, 3));
+				/*RewardCollection.Add(new BODCollectionItem(0xF9D, 1157219, 0, 10, SewingKit));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157183, 0, 10, RewardTitle, 2));
+				RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 10, Cloth, 0));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157184, 0, 25, RewardTitle, 3));
+				RewardCollection.Add(new BODCollectionItem(0x1761, 1157109, 0, 50, Cloth, 1));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157185, 0, 100, RewardTitle, 4));
+				RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 100, Cloth, 2));
+				RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 150, Cloth, 3));
+				RewardCollection.Add(new BODCollectionItem(0x170D, 1157110, 0, 150, Sandals, 3));
+				RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 200, Cloth, 4));
+				RewardCollection.Add(new BODCollectionItem(0x9E25, 1157264, 0, 200, CraftsmanTalisman, 10)); // todo: Get id
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157111, 0, 300, StretchedHide));
+				RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, 0, 300, Cloth, 5)); // TODO: Get other 4 colors
+				RewardCollection.Add(new BODCollectionItem(0x9E25, 1157218, 0, 300, CraftsmanTalisman, 25)); // todo: Get id
+				RewardCollection.Add(new BODCollectionItem(0xF9D, 1157115, CraftResources.GetHue(CraftResource.SpinedLeather), 350, RunicKit, 1));
+				RewardCollection.Add(new BODCollectionItem(0x9E25, 1157265, 0, 350, CraftsmanTalisman, 50)); // todo: Get id
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157118, 0x481, 400, PowerScroll, 5));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157112, 0, 400, Tapestry));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157113, 0, 450, BearRug));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157119, 0x481, 500, PowerScroll, 10));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157114, 0, 550, ClothingBlessDeed));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157120, 0x481, 575, PowerScroll, 15));
+				RewardCollection.Add(new BODCollectionItem(0xF9D, 1157116, CraftResources.GetHue(CraftResource.HornedLeather), 600, RunicKit, 2));
+				RewardCollection.Add(new BODCollectionItem(0x14F0, 1157121, 0x481, 650, PowerScroll, 20));
+				RewardCollection.Add(new BODCollectionItem(0xF9D, 1157117, CraftResources.GetHue(CraftResource.BarbedLeather), 700, RunicKit, 3));*/
+
+                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157219, "Sewing Kit", 0, 10, SewingKit));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157183, "Weaver Reward Title", 0, 10, RewardTitle, 2));
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, "Cloth", 0, 10, Cloth, 0));
+				RewardCollection.Add(new BODCollectionItem(0x105F, "Colored Loom", 0, 10, ColoredLoom)); //daat
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157184, "Dressmaker Reward Title", 0, 25, RewardTitle, 3));
+                RewardCollection.Add(new BODCollectionItem(0x1761, 1157109, "Cloth", 0, 50, Cloth, 1));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157185, "Haberdasher Reward Title", 0, 100, RewardTitle, 4));
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, "Cloth", 0, 100, Cloth, 2));
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, "Cloth", 0, 150, Cloth, 3));
+                RewardCollection.Add(new BODCollectionItem(0x170D, 1157110, "Sandals", 0, 150, Sandals, 3));
+				RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Tailoring Gloves", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Tailoring Cap", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Tailoring Tunic", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 3)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Tailoring Gorget", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 4)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Tailoring Arms", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 5)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Tailoring Leggings", CraftResources.GetHue(CraftResource.SpinedLeather), 150, ArmorOfTailoring, 6)); //daat
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, "Cloth", 0, 200, Cloth, 4));
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157264, "Craftsman Talisman 10 Charges", 0, 200, CraftsmanTalisman, 10)); // todo: Get id
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157111, "Stretched Hide", 0, 300, StretchedHide));
+                RewardCollection.Add(new BODCollectionItem(0x1765, 1157109, "Cloth", 0, 300, Cloth, 5)); // TODO: Get other 4 colors
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157218, "Craftsman Talisman 25 Charges", 0, 300, CraftsmanTalisman, 25)); // todo: Get id
+				RewardCollection.Add(new BODCollectionItem(0xF9F, "Colored Scissors", 0, 300, ColoredScissors)); //daat
+                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157115, "Spined Runic Sewing Kit", CraftResources.GetHue(CraftResource.SpinedLeather), 350, RunicKit, 1));
+                RewardCollection.Add(new BODCollectionItem(0x9E25, 1157265, "Craftsman Talisman 50 Charges", 0, 350, CraftsmanTalisman, 50)); // todo: Get id
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157118, "A Wondrous Scroll Of Tailoring", 0x481, 400, PowerScroll, 5));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157112, "Tapestry", 0, 400, Tapestry));
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Sturdy Sewing Kit", 0, 400, SturdySewingKit)); //daat
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157113, "Bear Rug", 0, 450, BearRug));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157119, "An Exalted Scroll Of Tailoring", 0x481, 500, PowerScroll, 10));
+				RewardCollection.Add(new BODCollectionItem(0x13F6, "Masters Knife", 0x973, 500, MastersKnife)); //daat
+				RewardCollection.Add(new BODCollectionItem(4054, "Tapestry", 0, 500, Deco)); //daat
+				RewardCollection.Add(new BODCollectionItem(9036, "Rose of Trinsic", 0, 500, Deco, 1)); //daat
+				RewardCollection.Add(new BODCollectionItem(15721, "Deer Corspe", 0, 500, Deco, 2)); //daat
+				RewardCollection.Add(new BODCollectionItem(5610, "Banner", 0, 500, Deco, 3)); //daat
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157114, "Clothing Bless Deed", 0, 550, ClothingBlessDeed));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157120, "A Mythical Scroll Of Tailoring", 0x481, 575, PowerScroll, 15));
+                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157116, "Horned Runic Sewing Kit", CraftResources.GetHue(CraftResource.HornedLeather), 600, RunicKit, 2));
+                RewardCollection.Add(new BODCollectionItem(0x14F0, 1157121, "A Legendary Scroll Of Tailoring", 0x481, 650, PowerScroll, 20));
+				RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Tailoring Gloves", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 7)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Tailoring Cap", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 8)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Tailoring Tunic", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 9)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Tailoring Gorget", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 10)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Tailoring Arms", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 11)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Tailoring Leggings", CraftResources.GetHue(CraftResource.BlazeLeather), 650, ArmorOfTailoring, 12)); //daat
+                RewardCollection.Add(new BODCollectionItem(0xF9D, 1157117, "Barbed Runic Sewing Kit", CraftResources.GetHue(CraftResource.BarbedLeather), 700, RunicKit, 3));
+				RewardCollection.Add(new BODCollectionItem(0x13F6, "Gargoyles Knife", 0, 750, GargoylesKnife)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Polar Runic Sewing Kit", CraftResources.GetHue(CraftResource.PolarLeather), 800, RunicKit, 4)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xFAB, "Charged Dye Tub", 0, 800, ChargedDyeTub)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Synthetic Runic Sewing Kit", CraftResources.GetHue(CraftResource.SyntheticLeather), 900, RunicKit, 5)); //daat
+				RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Tailoring Gloves", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 13)); //daat
+				RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Tailoring Cap", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 14)); //daat
+				RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Tailoring Tunic", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 15)); //daat
+				RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Tailoring Gorget", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 16)); //daat
+				RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Tailoring Arms", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 17)); //daat
+				RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Tailoring Leggings", CraftResources.GetHue(CraftResource.BlazeLeather), 900, ArmorOfTailoring, 18)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Blaze Runic Sewing Kit", CraftResources.GetHue(CraftResource.BlazeLeather), 950, RunicKit, 6)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xEC3, "Tailors Protector", 0, 1000, TailorsProtector)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Daemonic Runic Sewing Kit", CraftResources.GetHue(CraftResource.DaemonicLeather), 1000, RunicKit, 7)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Shadow Runic Sewing Kit", CraftResources.GetHue(CraftResource.ShadowLeather), 1050, RunicKit, 8)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Frost Runic Sewing Kit", CraftResources.GetHue(CraftResource.FrostLeather), 1100, RunicKit, 9)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xE76, "Resources Bag", 0, 1100, ResourcesBag)); //daat
+				RewardCollection.Add(new BODCollectionItem(0xF9D, "Ethereal Runic Sewing Kit", CraftResources.GetHue(CraftResource.EtherealLeather), 1150, RunicKit, 10)); //daat
             }
             else
             {
@@ -1072,8 +1134,8 @@ namespace Server.Engines.BulkOrders
 					new RewardGroup(  950, new RewardItem( 1, RunicKit, 6 ), new RewardItem( 1, ArmorOfTailoring, Utility.RandomMinMax(13,18) ) ),
 					new RewardGroup( 1000, new RewardItem( 1, RunicKit, 7 ), new RewardItem( 1, TailorsProtector ), new RewardItem( 1, ArmorOfTailoring, Utility.RandomMinMax(13,18) ) ),
 					new RewardGroup( 1050, new RewardItem( 1, RunicKit, 8 ), new RewardItem( 1, TailorsProtector ) ),
-					new RewardGroup( 1100, new RewardItem( 1, RunicKit, 9 ), new RewardItem( 1, BagOfResources ) ),
-					new RewardGroup( 1150, new RewardItem( 1, RunicKit, 10 ), new RewardItem( 1, BagOfResources ) )
+					new RewardGroup( 1100, new RewardItem( 1, RunicKit, 9 ), new RewardItem( 1, ResourcesBag ) ),
+					new RewardGroup( 1150, new RewardItem( 1, RunicKit, 10 ), new RewardItem( 1, ResourcesBag ) )
 					//daat end
                 };
             }
@@ -1099,7 +1161,7 @@ namespace Server.Engines.BulkOrders
 		private static readonly ConstructCallback ColoredScissors = new ConstructCallback(CreateColoredScissors);
 		private static readonly ConstructCallback ColoredLoom = new ConstructCallback(CreateColoredLoom);
 		private static readonly ConstructCallback ChargedDyeTub = new ConstructCallback(CreateChargedDyeTub);
-		private static readonly ConstructCallback BagOfResources = new ConstructCallback(CreateBagOfResources);
+		private static readonly ConstructCallback ResourcesBag = new ConstructCallback(CreateResourcesBag);
 		private static readonly ConstructCallback Deco = new ConstructCallback(CreateDeco);
 
 		private static Item CreateArmorOfTailoring(int type)
@@ -1165,9 +1227,9 @@ namespace Server.Engines.BulkOrders
 			return new ChargedDyeTub(0);
 		}
 
-		private static Item CreateBagOfResources(int type)
+		private static Item CreateResourcesBag(int type)
 		{
-			return new BagOfResources();
+			return new ResourcesBag();
 		}
 
 		private static Item CreateDeco(int type)
