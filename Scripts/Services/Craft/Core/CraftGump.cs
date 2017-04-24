@@ -208,17 +208,17 @@ namespace Server.Engines.Craft
 					//daat99 OWLTR end - craft from storage
                 }
 
-                this.AddButton(15, 382, 4005, 4007, GetButtonID(6, 0), GumpButtonType.Reply, 0);
+                this.AddButton(15, 362, 4005, 4007, GetButtonID(6, 0), GumpButtonType.Reply, 0);
 
                 if (nameNumber > 0)
                 {
                     if (context.DoNotColor)
-                        AddLabel(50, 385, LabelHue, "*");
+                        AddLabel(50, 365, LabelHue, "*");
 
-                    AddHtmlLocalized(50 + (context.DoNotColor ? 13 : 0), 385, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
+                    AddHtmlLocalized(50 + (context.DoNotColor ? 13 : 0), 365, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
                 }
                 else
-                    AddLabel(50, 382, LabelHue, (context.DoNotColor ? "*" : "") + String.Format("{0} ({1} Available)", nameString, resourceCount));
+                    AddLabel(50, 362, LabelHue, (context.DoNotColor ? "*" : "") + String.Format("{0} ({1} Available)", nameString, resourceCount));
             }
             // ****************************************
 
@@ -262,12 +262,12 @@ namespace Server.Engines.Craft
 					//daat99 OWLTR end - craft from storage
                 }
 
-                this.AddButton(15, 402, 4005, 4007, GetButtonID(6, 7), GumpButtonType.Reply, 0);
+                this.AddButton(15, 382, 4005, 4007, GetButtonID(6, 7), GumpButtonType.Reply, 0);
 
                 if (nameNumber > 0)
-                    AddHtmlLocalized(50, 405, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
+                    AddHtmlLocalized(50, 385, 250, 18, nameNumber, resourceCount.ToString(), LabelColor, false, false);
                 else
-                    AddLabel(50, 405, LabelHue, String.Format("{0} ({1} Available)", nameString, resourceCount));
+                    AddLabel(50, 385, LabelHue, String.Format("{0} ({1} Available)", nameString, resourceCount));
             }
             // ****************************************
 
