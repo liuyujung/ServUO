@@ -1775,13 +1775,6 @@ namespace Server.Engines.Craft
 						item.Hue = resHue;
 					}
 
-
-                    if (item is IQuality)
-                    {
-                        ((IQuality)item).Quality = (ItemQuality)quality;
-                    }
-
-
 					if (maxAmount > 0)
 					{
 						if (!item.Stackable && item is IUsesRemaining)
