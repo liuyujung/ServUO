@@ -4970,7 +4970,7 @@ namespace Server.Items
                 }
             }
 			//daat
-			else if (m_Quality == WeaponQuality.Exceptional)
+			else if (m_Quality == ItemQuality.Exceptional)
 			{
 				if (level > 1 && !string.IsNullOrEmpty(oreType))
 					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~

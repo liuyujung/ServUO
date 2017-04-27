@@ -61,7 +61,7 @@ namespace Server.Items
 			{
 				BaseWeapon weap = o as BaseWeapon;
 				int i_DI = weap.Attributes.WeaponDamage;
-				if (weap.Quality == WeaponQuality.Exceptional)
+				if (weap.Quality == ItemQuality.Exceptional)
 					i_DI += 15;
 				if (i_DI >= 50)
 				{

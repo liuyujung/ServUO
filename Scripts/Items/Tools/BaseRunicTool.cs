@@ -588,7 +588,7 @@ namespace Server.Items
 		//daat99 OWLTR start - Jewlery resources
 		public void ApplyAttributesTo(BaseJewel jewelry)
 		{
-			CraftResourceInfo resInfo = CraftResources.GetInfo(m_Resource);
+			CraftResourceInfo resInfo = CraftResources.GetInfo(Resource);
 
 			if (resInfo == null)
 				return;
