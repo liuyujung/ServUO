@@ -71,7 +71,7 @@ namespace Server.Engines.BulkOrders
             }
         }
 
-        public static BODContext GetContext(Mobile m)
+        public static BODContext GetContext(Mobile m, bool create = true)
         {
             BODContext context = null;
 
@@ -83,7 +83,7 @@ namespace Server.Engines.BulkOrders
                 {
                     context = Instance.BODPlayerData[pm];
                 }
-                else
+                else if (create)
                 {
                     Instance.BODPlayerData[pm] = context = new BODContext();
                 }
