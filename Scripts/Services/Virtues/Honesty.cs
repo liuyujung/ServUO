@@ -48,7 +48,6 @@ namespace Server.Services.Virtues
 
 		public static void Initialize()
 		{
-			EventSink.ItemCreated += OnItemCreated;
 			EventSink.ItemDeleted += OnItemDeleted;
 			EventSink.AfterWorldSave += OnAfterSave;
 
@@ -66,6 +65,8 @@ namespace Server.Services.Virtues
                         }
                     }
                 }
+
+                GenerateHonestyItems();
             }
 		}
 
@@ -128,6 +129,16 @@ namespace Server.Services.Virtues
 
 		private static void GenerateHonestyItems()
 		{
+            bool initial = _Items.Count == 0;
+            long ticks = Core.TickCount;
+
+            if (initial)
+            {
+                Utility.PushColor(ConsoleColor.Yellow);
+                Console.Write("Honesty Items generating:");
+                Utility.PopColor();
+            }
+
 			try
 			{
 				var count = MaxGeneration - _Items.Count;
@@ -195,23 +206,6 @@ namespace Server.Services.Virtues
 							continue;
 						}
 
-						item.HonestyRegion = _Regions[Utility.Random(_Regions.Length)];
-
-						if (!String.IsNullOrWhiteSpace(item.HonestyRegion))
-						{
-							var attempts = BaseVendor.AllVendors.Count / 10;
-
-							BaseVendor m;
-
-							do
-							{
-								m = BaseVendor.AllVendors[Utility.Random(BaseVendor.AllVendors.Count)];
-							}
-							while ((m == null || m.Map != map || !m.Region.IsPartOf(item.HonestyRegion)) && --attempts >= 0);
-
-							item.HonestyOwner = m;
-						}
-
 						ItemFlags.SetTaken(item, false);
 
 						item.MoveToWorld(loc.Value, map);
@@ -228,9 +222,17 @@ namespace Server.Services.Virtues
 			catch (Exception e)
 			{
 				Utility.PushColor(ConsoleColor.Red);
+                Console.WriteLine(" Failed!");
 				Console.WriteLine(e);
 				Utility.PopColor();
 			}
+
+            if (initial)
+            {
+                Utility.PushColor(ConsoleColor.Green);
+                Console.WriteLine(" Done, took {0} milliseconds!", Core.TickCount - ticks);
+                Utility.PopColor();
+            }
 		}
 
 		private static Point3D? GetValidLocation(Map map)
@@ -287,6 +289,26 @@ namespace Server.Services.Virtues
 
 			return null;
 		}
+
+        public static void AssignOwner(Item item)
+        {
+            item.HonestyRegion = _Regions[Utility.Random(_Regions.Length)];
+
+            if (!String.IsNullOrWhiteSpace(item.HonestyRegion) && BaseVendor.AllVendors.Count >= 10)
+            {
+                var attempts = BaseVendor.AllVendors.Count / 10;
+
+                BaseVendor m;
+
+                do
+                {
+                    m = BaseVendor.AllVendors[Utility.Random(BaseVendor.AllVendors.Count)];
+                }
+                while ((m == null || m.Map != item.Map || !m.Region.IsPartOf(item.HonestyRegion)) && --attempts >= 0);
+
+                item.HonestyOwner = m;
+            }
+        }
 	}
 
 	public class HonestyChest : Container

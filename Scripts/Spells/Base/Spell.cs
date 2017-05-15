@@ -184,13 +184,6 @@ namespace Server.Spells
 
 			damage = AOS.Scale(damage, (int)(scalar * 100));
 
-            #region Skill Mastery
-            SkillMasterySpell spell = SkillMasterySpell.GetHarmfulSpell(Caster, typeof(TribulationSpell));
-
-            if (spell != null)
-                spell.AbsorbDamage(ref damage);
-            #endregion
-
 			return damage / 100;
 		}
 
