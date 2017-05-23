@@ -1458,8 +1458,8 @@ namespace daat99
         public SlayerName Slayer { get { return m_Slayer; } set { m_Slayer = value; } }
         public SlayerName Slayer2 { get { return m_Slayer2; } set { m_Slayer2 = value; } }
 
-        private InstrumentQuality m_Quality;
-        public InstrumentQuality Quality { get { return m_Quality; } set { m_Quality = value; } }
+        private ItemQuality m_Quality;
+        public ItemQuality Quality { get { return m_Quality; } set { m_Quality = value; } }
 
         private Mobile m_Crafter;
         public Mobile Crafter { get { return m_Crafter; } set { m_Crafter = value; } }
@@ -1467,7 +1467,7 @@ namespace daat99
         private int m_UsesRemaining;
         public int UsesRemaining { get { return m_UsesRemaining; } set { m_UsesRemaining = value; } }
 
-        public ItemInformation(string name, SlayerName[] slayers, InstrumentQuality quality, Mobile crafter, int uses)
+        public ItemInformation(string name, SlayerName[] slayers, ItemQuality quality, Mobile crafter, int uses)
         {
             m_name = name;
             if (slayers != null)
@@ -1504,7 +1504,7 @@ namespace daat99
             m_name = reader.ReadString();
             m_Slayer = (SlayerName)reader.ReadInt();
             m_Slayer2 = (SlayerName)reader.ReadInt();
-            m_Quality = (InstrumentQuality)reader.ReadInt();
+            m_Quality = (ItemQuality)reader.ReadInt();
             m_Crafter = reader.ReadMobile();
             m_UsesRemaining = reader.ReadInt();
         }

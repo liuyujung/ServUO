@@ -102,7 +102,7 @@ namespace Server.Items
 						sKey += " " + sTemp;
 				}
 			}
-			else if ( bi.Quality == InstrumentQuality.Exceptional )
+			else if ( bi.Quality == ItemQuality.Exceptional )
 				sKey = "Exceptional";
 			else
 				sKey = "Normal";
@@ -269,8 +269,8 @@ namespace Server.Items
 				inst.Weight = weight;
 				switch ( info.ButtonID )
 				{
-					case 100: inst.Quality = InstrumentQuality.Regular; break;
-					case 101: inst.Quality = InstrumentQuality.Exceptional; break;
+					case 100: inst.Quality = ItemQuality.Normal; break;
+					case 101: inst.Quality = ItemQuality.Exceptional; break;
 					case 102: inst.Slayer = SlayerName.Silver; break;
 					case 103: inst.Slayer = SlayerName.OrcSlaying; break;
 					case 104: inst.Slayer = SlayerName.TrollSlaughter; break;
