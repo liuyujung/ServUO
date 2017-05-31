@@ -1780,7 +1780,7 @@ namespace Server.Mobiles
 
         public virtual bool CanTransfer(Mobile m)
         {
-            return true;
+            return !Allured;
         }
 
         public virtual bool CanFriend(Mobile m)
@@ -3787,7 +3787,8 @@ namespace Server.Mobiles
             if (m_ControlMaster != null)
             {
                 m_ControlMaster.Followers += ControlSlots;
-                if (m_ControlMaster is PlayerMobile)
+
+                if (m_ControlMaster is PlayerMobile && !(this is PersonalAttendant))
                 {
                     ((PlayerMobile)m_ControlMaster).AllFollowers.Add(this);
                 }
@@ -8595,6 +8596,12 @@ namespace Server.Mobiles
 
             foreach (BaseCreature c in toRelease)
             {
+                if (c.IsDeadBondedPet)
+                {
+                    c.Delete();
+                    continue;
+                }
+
                 c.Say(1043255, c.Name); // ~1_NAME~ appears to have decided that is better off without a master!
                 c.Loyalty = BaseCreature.MaxLoyalty; // Wonderfully Happy
                 c.IsBonded = false;

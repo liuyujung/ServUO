@@ -1,14 +1,35 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/Rewards/Rewards.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/VendorInfo/GenericSell.cs">
     <Files>
-      <File FileName="Scripts/Services/BulkOrders/SmallBODs/SmallBODGump.cs" Line="121" Column="11" />
-      <File FileName="Scripts/Services/BulkOrders/LargeBODs/LargeBODGump.cs" Line="159" Column="77" />
-      <File FileName="Scripts/Services/BulkOrders/BulkMaterialType.cs" Line="57" Column="13" />
-      <File FileName="Scripts/Mobiles/NPCs/Bowyer.cs" Line="13" Column="17" />
-      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="272" Column="18" />
-      <File FileName="Scripts/Mobiles/NPCs/Carpenter.cs" Line="124" Column="61" />
-      <File FileName="Scripts/Services/BulkOrders/Rewards/Rewards.cs" Line="2498" Column="46" />
+      <File FileName="Scripts/Services/BulkOrders/Rewards/Rewards.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Misc/Items/WeaponTypeDeed.cs" Line="1" Column="1" />
+      <File FileName="Scripts/VendorInfo/GenericSell.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ServUO" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="Custom" expanded="True">
+                <Node name="ItemRelayerDeeds" expanded="True" />
+                <Node name="Misc" expanded="True">
+                  <Node name="Items" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="Services" expanded="True">
+                <Node name="BulkOrders" expanded="True">
+                  <Node name="Rewards" expanded="True" />
+                </Node>
+              </Node>
+              <Node name="VendorInfo" expanded="True">
+                <Node name="GenericSell.cs" selected="True" />
+              </Node>
+            </Node>
+            <Node name="Server" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />

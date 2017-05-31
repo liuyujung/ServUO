@@ -17,14 +17,14 @@ namespace Server.Mobiles
         {
             get
             {
-                return this.m_SellInfo;
+                return m_SellInfo;
             }
         }
         public override List<GenericBuyInfo> BuyInfo
         {
             get
             {
-                return this.m_BuyInfo;
+                return m_BuyInfo;
             }
         }
 
@@ -32,8 +32,8 @@ namespace Server.Mobiles
         {
             public InternalBuyInfo()
             {
-                this.Add(new GenericBuyInfo(typeof(JarHoney), 3, 20, 0x9EC, 0));
-                this.Add(new GenericBuyInfo(typeof(Beeswax), 2, 20, 0x1422, 0));
+                Add(new GenericBuyInfo(typeof(JarHoney), 3, 20, 0x9EC, 0));
+				Add(new GenericBuyInfo(typeof(Beeswax), 2, 20, 0x1422, 0));
 				//Apiculture start
 				Add(new GenericBuyInfo(typeof(apiBeeHiveDeed), 2000, 10, 2330, 0));
 				Add(new GenericBuyInfo(typeof(HiveTool), 100, 20, 2549, 0));
@@ -47,8 +47,8 @@ namespace Server.Mobiles
         {
             public InternalSellInfo()
             {
-                this.Add(typeof(JarHoney), 1);
-                this.Add(typeof(Beeswax), 1);
+                Add(typeof(JarHoney), 1);
+				Add(typeof(Beeswax), 1);
 				//Apiculture start
 				Add(typeof(apiBeeHiveDeed), 1000);
 				Add(typeof(HiveTool), 50);
