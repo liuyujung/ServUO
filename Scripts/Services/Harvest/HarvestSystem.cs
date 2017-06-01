@@ -196,7 +196,7 @@ namespace Server.Engines.Harvest
                             int feluccaRacialAmount = (int)Math.Ceiling(feluccaAmount * 1.1);
 
                             bool eligableForRacialBonus = (def.RaceBonus && from.Race == Race.Human);
-                            bool inFelucca = (map == Map.Felucca);
+                            bool inFelucca = map == Map.Felucca && !Siege.SiegeShard;
 
                             if (eligableForRacialBonus && inFelucca && bank.Current >= feluccaRacialAmount && 0.1 > Utility.RandomDouble())
                                 item.Amount = feluccaRacialAmount;
@@ -262,7 +262,6 @@ namespace Server.Engines.Harvest
 
 							if (this.Give(from, item, def.PlaceAtFeetIfFull))
                         {
-							
                             this.SendSuccessTo(from, item, resource);
                         }
                         else
@@ -296,7 +295,8 @@ namespace Server.Engines.Harvest
 							}
                         }
 
-                        if (tool is IUsesRemaining)
+                        // Siege rules will take into account axes and polearms used for lumberjacking
+                        if (tool is IUsesRemaining && (tool is BaseHarvestTool || Siege.SiegeShard))
                         {
                             IUsesRemaining toolWithUses = (IUsesRemaining)tool;
 
