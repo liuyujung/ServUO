@@ -1220,45 +1220,6 @@ namespace Server.Mobiles
 					return false;
 				}
 
-				/*Item reward;
-				int gold, fame;
-
-				if (dropped is SmallBOD)
-				{
-					((SmallBOD)dropped).GetRewards(out reward, out gold, out fame);
-				}
-				else if (dropped is LargeBOD) //FS:ATS
-				{
-					((LargeBOD)dropped).GetRewards(out reward, out gold, out fame);
-				}
-				//FS:ATS start
-				else if (dropped is LargeMobileBOD)
-				{
-					((LargeMobileBOD)dropped).GetRewards(out reward, out gold, out fame);
-				}
-				else
-				{
-					((SmallMobileBOD)dropped).GetRewards(out reward, out gold, out fame);
-				}
-				//FS:ATS end
-
-				from.SendSound(0x3D);
-
-				SayTo(from, 1045132); // Thank you so much!  Here is a reward for your effort.
-
-				if (reward != null)
-				{
-					from.AddToBackpack(reward);
-				}
-
-				if (gold > 1000)
-				{
-					from.AddToBackpack(new BankCheck(gold));
-				}
-				else if (gold > 0)
-				{
-					from.AddToBackpack(new Gold(gold));
-				}*/
                 Item reward;
                 int gold, fame;
 
