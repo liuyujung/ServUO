@@ -52,15 +52,18 @@ namespace Server.Items
 			UsesRemaining = 50;
 		}
 
-		public override void OnHit( Mobile attacker, Mobile defender )
+		public override void OnHit( Mobile attacker, IDamageable damageable )
 		{
-			base.OnHit( attacker, defender);
+			base.OnHit( attacker, damageable);
 			if (attacker.Skills[SkillName.Blacksmith].Value >= 100 && Utility.Random((int)attacker.Skills[SkillName.Blacksmith].Value - 40) >= 20)
 			{
 				int damage = Utility.RandomMinMax(10,25);
-				
-				defender.SendMessage( 33, "The Smithers Protector smelted you and you lost {0} HP", damage );
-				defender.Hits -= damage;
+
+				if (damageable is Mobile)
+				{
+					((Mobile)damageable).SendMessage(33, "The Smithers Protector smelted you and you lost {0} HP", damage);
+				}
+				damageable.Hits -= damage;
 				
 				attacker.SendMessage( 33, "The Smithers Protector smelted your opponent and delivered {0} extra damage", damage );
 				attacker.PlaySound( 0x308 );

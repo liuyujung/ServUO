@@ -49,15 +49,18 @@ namespace Server.Items
 			Weight = 2.0;
 		}
 
-		public override void OnHit( Mobile attacker, Mobile defender )
+		public override void OnHit( Mobile attacker, IDamageable damageable )
 		{
-			base.OnHit( attacker, defender );
+			base.OnHit( attacker, damageable );
 			if (attacker.Skills[SkillName.Tailoring].Value >= 100 && Utility.Random((int)attacker.Skills[SkillName.Tailoring].Value - 40) >= 20)
 			{
 				int damage = Utility.RandomMinMax(10,25);
 				
-				defender.Hits -= damage;
-				defender.SendMessage( 33, "The Tailors Protector skined you and you lost {0} HP.", damage );
+				damageable.Hits -= damage;
+				if (damageable is Mobile)
+				{
+					((Mobile)damageable).SendMessage(33, "The Tailors Protector skined you and you lost {0} HP.", damage);
+				}
 				
 				attacker.SendMessage( 33, "The Tailors Protector skined your target and delivered {0} extra damage", damage );
 				attacker.PlaySound( 0x308 );

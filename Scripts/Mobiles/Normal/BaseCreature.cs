@@ -1389,6 +1389,11 @@ namespace Server.Mobiles
 
         public virtual bool CheckFlee()
         {
+            if (HitsMax >= 500)
+            {
+                return false;
+            }
+
             if (m_EndFlee == DateTime.MinValue)
             {
                 return false;
@@ -5956,15 +5961,27 @@ namespace Server.Mobiles
         {
         }
 
+        
         public virtual void SetWearable(Item item, int hue = -1, double dropChance = 0.0)
         {
-            if (!EquipItem(item))
-                PackItem(item);
-
             if (hue > -1)
                 item.Hue = hue;
 
             item.Movable = dropChance > Utility.RandomDouble();
+
+            AddItem(item);
+        }
+
+        public override sealed void AddItem(Item item)
+        {
+            if (item == null || item.Deleted || !item.CanEquip(this) || !CheckEquip(item) || !OnEquip(item) || !item.OnEquip(this))
+            {
+                PackItem(item);
+            }
+            else
+            {
+                base.AddItem(item);
+            }
         }
 
         public override void OnDoubleClick(Mobile from)
