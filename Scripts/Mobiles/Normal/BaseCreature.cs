@@ -5974,7 +5974,10 @@ namespace Server.Mobiles
 
         public override sealed void AddItem(Item item)
         {
-            if (item == null || item.Deleted || !item.CanEquip(this) || !CheckEquip(item) || !OnEquip(item) || !item.OnEquip(this))
+            if (item == null || item.Deleted)
+                return;
+
+            if (!CheckEquip(item) || !OnEquip(item) || !item.OnEquip(this))
             {
                 PackItem(item);
             }
