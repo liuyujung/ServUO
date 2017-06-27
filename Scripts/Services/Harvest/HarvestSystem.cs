@@ -186,12 +186,11 @@ namespace Server.Engines.Harvest
                     }
                     else
                     {
+                        int amount = def.ConsumedPerHarvest;
+                        int feluccaAmount = def.ConsumedPerFeluccaHarvest;
                         //The whole harvest system is kludgy and I'm sure this is just adding to it.
                         if (item.Stackable)
                         {
-                            int amount = def.ConsumedPerHarvest;
-                            int feluccaAmount = def.ConsumedPerFeluccaHarvest;
-
                             int racialAmount = (int)Math.Ceiling(amount * 1.1);
                             int feluccaRacialAmount = (int)Math.Ceiling(feluccaAmount * 1.1);
 
@@ -211,7 +210,7 @@ namespace Server.Engines.Harvest
                             item.Amount += WoodsmansTalisman.CheckHarvest(from, type, this);
                         }
 
-                        bank.Consume(item.Amount, from);
+                        bank.Consume(amount, from);
 						EventSink.InvokeResourceHarvestSuccess(new ResourceHarvestSuccessEventArgs(from, tool,item, this));
 
 						//daat99 OWLTR start - custom harvesting
@@ -259,17 +258,16 @@ namespace Server.Engines.Harvest
 						else
 						{
 							//daat99 OWLTR end - custom harvesting
-
 							if (this.Give(from, item, def.PlaceAtFeetIfFull))
-                        {
-                            this.SendSuccessTo(from, item, resource);
-                        }
-                        else
-                        {
-                            this.SendPackFullTo(from, item, def, resource);
-                            item.Delete();
-                        }
-						//daat99 OWLTR start - custom harvesting
+                        	{
+                            	this.SendSuccessTo(from, item, resource);
+                        	}
+                        	else
+                        	{
+                            	this.SendPackFullTo(from, item, def, resource);
+                            	item.Delete();
+                        	}
+							//daat99 OWLTR start - custom harvesting
 						}
 						if (from.Map == Map.Felucca)
 							i_Tokens = (int)(i_Tokens * 1.5);
