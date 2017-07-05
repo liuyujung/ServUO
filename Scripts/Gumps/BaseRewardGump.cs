@@ -159,6 +159,9 @@ namespace Server.Gumps
 		}
 
         public abstract double GetPoints(Mobile m);
+        public virtual void RemovePoints(double points)
+        {
+        }
 
         public virtual void OnConfirmed(CollectionItem citem, int index)
         {
@@ -174,6 +177,7 @@ namespace Server.Gumps
                 else
                 {
                     User.SendLocalizedMessage(1073621); // Your reward has been placed in your backpack.
+                    RemovePoints(citem.Points);
                     User.PlaySound(0x5A7);
                 }
             }
@@ -204,27 +208,6 @@ namespace Server.Gumps
 
             return max;
         }
-
-        /*public virtual bool LastPage()
-        {
-            if (Index > Collection.Count - 1)
-                return true;
-
-            int offset = 110;
-
-            for (int i = Index; i < Collection.Count; i++)
-            {
-                CollectionItem item = Collection[i];
-
-                int next = Math.Max(item.Height, YDist);
-                offset += 5 + Math.Max(item.Height, YDist);
-
-                if (offset + next >= 320)
-                    return false;
-            }
-
-            return true;
-        }*/
 	}
 	
 	public class aConfirmRewardGump : BaseConfirmGump

@@ -1,13 +1,15 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/NPCs/BaseVendor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/Books/BOBGump.cs">
     <Files>
       <File FileName="Scripts/Services/BulkOrders/Rewards/Rewards.cs" Line="1" Column="1" />
       <File FileName="Scripts/Custom/Misc/Items/WeaponTypeDeed.cs" Line="1" Column="1" />
       <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="717" Column="26" />
       <File FileName="Scripts/Services/BulkOrders/Rewards/ConfirmBankPointsGump.cs" Line="16" Column="37" />
       <File FileName="Scripts/Services/BulkOrders/Rewards/RewardsGump.cs" Line="22" Column="39" />
       <File FileName="Scripts/Services/BulkOrders/SmallBODs/SmallBOD.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Services/BulkOrders/Books/BOBGump.cs" Line="285" Column="72" />
+      <File FileName="Scripts/Services/BulkOrders/Books/BulkOrderBook.cs" Line="70" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
