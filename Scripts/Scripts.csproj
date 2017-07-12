@@ -13105,6 +13105,8 @@
     <Compile Include="Custom\Misc\Items\CorpseRetrievalPackage.cs" />
     <Compile Include="Custom\Misc\Items\WeaponTypeDeed.cs" />
     <Compile Include="Custom\Misc\Items\MiracleGrow.cs" />
+    <Compile Include="Custom\Misc\Items\AncientBlazeOfDeath.cs" />
+    <Compile Include="Custom\Misc\Items\AncientBraceletOfHealth.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
