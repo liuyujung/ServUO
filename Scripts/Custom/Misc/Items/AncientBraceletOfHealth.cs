@@ -10,13 +10,13 @@ namespace Server.Items
         {
             this.Hue = 0x21;
 			this.Name = "Ancient Bracelet of Health";
+			this.LootType = LootType.Blessed;
 			this.Attributes.BonusStr = 500;
 			this.Attributes.BonusDex = 300;
 			this.Attributes.BonusInt = 300;
             this.Attributes.BonusHits = 500;
 			this.Attributes.BonusStam = 200;
 			this.Attributes.BonusMana = 200;
-			this.Attributes.ReflectPhysical = 1000;
 			this.Attributes.SpellDamage = 600;
             this.Attributes.RegenHits = 55;
 			this.Attributes.RegenMana = 35;
@@ -25,6 +25,12 @@ namespace Server.Items
 			this.Attributes.CastRecovery = 6;
 			this.Attributes.LowerRegCost = 100;
 			this.Attributes.LowerManaCost = 40;
+			this.Attributes.Luck = 6000;
+			this.Resistances.Physical = 70;
+			this.Resistances.Fire = 70;
+			this.Resistances.Cold = 70;
+			this.Resistances.Poison = 70;
+			this.Resistances.Energy = 70;
         }
 
         public AncientBraceletOfHealth(Serial serial)

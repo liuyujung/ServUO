@@ -10,6 +10,8 @@ namespace Server.Items
         {
             this.Hue = 0x501;
 			this.Name = "Ancient Blaze Of Death";
+			this.LootType = LootType.Blessed;
+			this.WeaponAttributes.SelfRepair = 5;
 			this.WeaponAttributes.HitPhysicalArea = 100;
             this.WeaponAttributes.HitFireArea = 100;
 			this.WeaponAttributes.HitColdArea = 100;
@@ -24,8 +26,10 @@ namespace Server.Items
 			this.WeaponAttributes.HitLeechMana = 100;
 			this.WeaponAttributes.HitLeechHits = 100;
             this.Attributes.WeaponSpeed = 25;
-            this.Attributes.WeaponDamage = 35;
+            this.Attributes.WeaponDamage = 100;
             this.WeaponAttributes.LowerStatReq = 100;
+			this.Attributes.SpellChanneling = 1;
+			this.Attributes.ReflectPhysical = 10000;
         }
 
         public AncientBlazeOfDeath(Serial serial)
