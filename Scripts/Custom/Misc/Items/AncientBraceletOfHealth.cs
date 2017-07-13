@@ -25,6 +25,8 @@ namespace Server.Items
 			this.Attributes.CastRecovery = 6;
 			this.Attributes.LowerRegCost = 100;
 			this.Attributes.LowerManaCost = 40;
+			this.Attributes.AttackChance = 80;
+			this.Attributes.DefendChance = 80;
 			this.Attributes.Luck = 6000;
 			this.Resistances.Physical = 70;
 			this.Resistances.Fire = 70;

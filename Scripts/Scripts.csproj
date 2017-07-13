@@ -13108,6 +13108,7 @@
     <Compile Include="Custom\Misc\Items\MiracleGrow.cs" />
     <Compile Include="Custom\Misc\Items\AncientBlazeOfDeath.cs" />
     <Compile Include="Custom\Misc\Items\AncientBraceletOfHealth.cs" />
+    <Compile Include="Custom\Misc\Items\AncientTitansHammer.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
