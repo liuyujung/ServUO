@@ -793,6 +793,8 @@ namespace Server.Spells
 						m_CastTimer.Tick();
 					}
 
+                    NegativeAttributes.OnCombatAction(Caster);
+
 					return true;
 				}
 				else
