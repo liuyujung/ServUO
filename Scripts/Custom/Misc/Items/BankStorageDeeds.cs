@@ -11,6 +11,7 @@ namespace Server.Items
             Weight = 1.0;
             Name = "Bank Box Storage Increase - Bonus 25 Items";
             Hue = 1175;
+			LootType = LootType.Blessed;
         }
 
         public BankStorage25Deed(Serial serial)
@@ -60,6 +61,7 @@ namespace Server.Items
             Weight = 1.0;
             Name = "Bank Box Storage Increase - Bonus 50 Items";
             Hue = 1175;
+			LootType = LootType.Blessed;
         }
 
         public BankStorage50Deed(Serial serial)
@@ -109,6 +111,7 @@ namespace Server.Items
             Weight = 1.0;
             Name = "Bank Box Storage Increase - Bonus 100 Items";
             Hue = 1175;
+			LootType = LootType.Blessed;
         }
 
         public BankStorage100Deed(Serial serial)

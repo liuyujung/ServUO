@@ -15,7 +15,8 @@ namespace Server.Items
 		{ 
 			Movable = true; 
 			Hue = 0x480; 
-			Name = "Bank Crystal"; 
+			Name = "Bank Crystal";
+			LootType = LootType.Blessed;
 		} 
 
 		public override void OnDoubleClick( Mobile from ) 

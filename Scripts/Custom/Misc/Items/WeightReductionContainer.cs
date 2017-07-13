@@ -296,7 +296,7 @@ namespace Server.Items
 
         public virtual bool DisplayWeightReductionProperty { get { return true; } }
         public virtual double ContainerWeight { get { return 1.0; } }
-        public virtual LootType ContainerLootType { get { return LootType.Regular; } }
+        public virtual LootType ContainerLootType { get { return LootType.Blessed; } }
         public virtual int ContainerHue { get { return Utility.RandomMetalHue(); } }
         public virtual TimeSpan AccessDelay { get { return TimeSpan.FromMinutes(15.0); } }
         public virtual string AccessDelayMessage { get { return "You cannot use that item yet"; } }
