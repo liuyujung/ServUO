@@ -327,8 +327,13 @@ here to suit your needs.
                 Timer.DelayCall( m_Warning, new TimerCallback( Save ) );
             }
         }
+
+		public static void Save()
+		{
+			AutoSave.Save(false);
+		}
         
-        public static void Save()
+        public static void Save(bool permitBackgroundWrite)
         {
             if ( AutoRestart.Restarting )
                 return;
@@ -470,7 +475,7 @@ wrapping it, so that should prevent a crash...
             if ( totalBytes > ( savesize * 2 ) )
             {
 #endif
-                World.Save();
+                World.Save(true, permitBackgroundWrite);
 #if CHECKFREEDISK
             }
             else
