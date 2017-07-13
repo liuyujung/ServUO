@@ -1765,77 +1765,53 @@ namespace Server.Engines.BulkOrders
 				new int[]{ 350, 700, 1050, 1400, 1750, 2100, 2450, 2800,  3150, 3500, 3850, 4200, 4550, 4900 },
 				new int[]{ 450, 900, 1350, 1800, 2250, 2700, 3150, 3600,  4050, 4500, 4950, 5400, 5850, 6300 }
 			},
-			new int[][] // Ringmail (regular)
+			new int[][] // 3-part (regular)
             {
 				new int[]{ 2000, 4000,  6000,  8000, 10000, 12000, 14000, 16000, 18000, 20000, 22000, 24000, 26000, 28000 },
 				new int[]{ 3000, 6000,  9000, 12000, 15000, 18000, 21000, 24000, 27000, 30000, 33000, 36000, 39000, 42000 },
 				new int[]{ 4000, 8000, 12000, 16000, 20000, 24000, 28000, 32000, 36000, 40000, 44000, 48000, 52000, 56000 }
 			},
-			new int[][] // Ringmail (exceptional)
+			new int[][] // 3-part (exceptional)
             {
 				new int[]{ 4000,  8000, 12000, 16000, 20000, 24000, 28000, 32000, 36000, 40000, 44000, 48000,  52000,  56000 },
 				new int[]{ 6000, 12000, 18000, 24000, 30000, 36000, 42000, 48000, 54000, 60000, 66000, 72000,  78000,  84000 },
 				new int[]{ 8000, 16000, 24000, 32000, 40000, 48000, 56000, 64000, 72000, 80000, 88000, 96000, 104000, 112000 }
 			},
-			new int[][] // Chainmail (regular)
+			new int[][] // 4-part (regular)
             {
 				new int[]{ 4000,  8000, 12000, 16000, 20000, 24000, 28000, 32000, 36000, 40000, 44000, 48000,  52000,  56000 },
 				new int[]{ 6000, 12000, 18000, 24000, 30000, 36000, 42000, 48000, 54000, 60000, 66000, 72000,  78000,  84000 },
 				new int[]{ 8000, 16000, 24000, 32000, 40000, 48000, 56000, 64000, 72000, 80000, 88000, 96000, 104000, 112000 }
 			},
-			new int[][] // Chainmail (exceptional)
+			new int[][] // 4-part (exceptional)
             {
 				new int[]{  7000, 14000, 21000, 28000, 35000, 42000,  49000,  56000,  63000,  70000,  77000,  84000,  91000,  98000 },
 				new int[]{ 10000, 20000, 30000, 40000, 50000, 60000,  70000,  80000,  90000, 100000, 110000, 120000, 130000, 140000 },
 				new int[]{ 15000, 30000, 45000, 60000, 75000, 90000, 105000, 120000, 135000, 150000, 165000, 180000, 195000, 210000 }
 			},
-			new int[][] // Platemail (regular)
+			new int[][] // 4-part (regular)
             {
 				new int[]{  5000, 10000, 15000, 20000, 25000, 30000,  35000,  40000,  45000,  50000,  55000,  60000,  65000,  70000 },
 				new int[]{  7500, 15000, 22500, 30000, 37500, 45000,  52500,  60000,  67500,  75000,  82500,  90000,  97500, 105000 },
 				new int[]{ 10000, 20000, 30000, 40000, 50000, 60000,  70000,  80000,  90000, 100000, 110000, 120000, 130000, 140000 }
 			},
-			new int[][] // Platemail (exceptional)
+			new int[][] // 4-part (exceptional)
             {
 				new int[]{ 10000, 20000, 30000, 40000,  50000,  60000,  70000,  80000,  90000, 100000, 110000, 120000, 130000, 140000 },
 				new int[]{ 15000, 30000, 45000, 60000,  75000,  90000, 105000, 120000, 135000, 150000, 165000, 180000, 195000, 210000 },
 				new int[]{ 20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000, 200000, 220000, 240000, 260000, 280000 }
 			},
-			new int[][] // 2-part weapons (regular)
+			new int[][] // 5-part (regular)
             {
-				new int[]{ 3000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 4500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 6000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				new int[]{ 10000, 20000, 30000, 40000,  50000,  60000,  70000,  80000,  90000, 100000, 110000, 120000, 130000, 140000 },
+				new int[]{ 15000, 30000, 45000, 60000,  75000,  90000, 105000, 120000, 135000, 150000, 165000, 180000, 195000, 210000 },
+				new int[]{ 20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000, 200000, 220000, 240000, 260000, 280000 }
 			},
-			new int[][] // 2-part weapons (exceptional)
+			new int[][] // 5-part (exceptional)
             {
-				new int[]{ 5000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 7500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 10000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-			},
-			new int[][] // 5-part weapons (regular)
-            {
-				new int[]{ 4000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 6000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 8000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-			},
-			new int[][] // 5-part weapons (exceptional)
-            {
-				new int[]{ 7500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 11250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 15000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-			},
-			new int[][] // 6-part weapons (regular)
-            {
-				new int[]{ 4000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 6000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 10000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-			},
-			new int[][] // 6-part weapons (exceptional)
-            {
-				new int[]{ 7500, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 11250, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				new int[]{ 15000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+				new int[]{ 10000, 20000, 30000, 40000,  50000,  60000,  70000,  80000,  90000, 100000, 110000, 120000, 130000, 140000 },
+				new int[]{ 15000, 30000, 45000, 60000,  75000,  90000, 105000, 120000, 135000, 150000, 165000, 180000, 195000, 210000 },
+				new int[]{ 20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000, 200000, 220000, 240000, 260000, 280000 }
 			}
 			//daat99 OWLTR start - custom gold reward
         };
@@ -1875,7 +1851,7 @@ namespace Server.Engines.BulkOrders
         {
             RewardCollection = new List<CollectionItem>();
 
-            RewardCollection.Add(new BODCollectionItem(0x1028, 1157219, 0, 10, DovetailSaw));
+            /*RewardCollection.Add(new BODCollectionItem(0x1028, 1157219, 0, 10, DovetailSaw));
             RewardCollection.Add(new BODCollectionItem(0x14F0, 1157191, 0, 25, RewardTitle, 10));
             RewardCollection.Add(new BODCollectionItem(0x14F0, 1157192, 0, 50, RewardTitle, 11));
             RewardCollection.Add(new BODCollectionItem(0x14F0, 1157193, 0, 250, RewardTitle, 12));
@@ -1901,45 +1877,144 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, CraftResources.GetHue(CraftResource.Frostwood), 1050, HarvestMap, (int)CraftResource.Frostwood));
             RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, RunicDovetailSaw, 3));
-            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));
+            RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));*/
 
-			/*Groups = new RewardGroup[]
+			// TODO finish runic dovetail saw
+
+			RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Lumberjack Axe", 0, 0, SturdyLumberjackAxe));
+			RewardCollection.Add(new BODCollectionItem(0x1028, 1157219, 0, 10, DovetailSaw));
+			RewardCollection.Add(new BODCollectionItem(0x13C6, "Leather Gloves Of Lumberjacking", 0, 10, LeatherGlovesOfLumberjacking, 2));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157191, 0, 25, RewardTitle, 10));
+			RewardCollection.Add(new BODCollectionItem(0x13C6, "Leather Gloves Of Lumberjacking", 0, 25, LeatherGlovesOfLumberjacking, 5));
+			RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Axe", 0, 25, SturdyAxe));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157192, 0, 50, RewardTitle, 11));
+			RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Carpentry Gloves", 0, 50, ArmorOfCarpentry, 1));
+			RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Carpentry Cap", 0, 50, ArmorOfCarpentry, 2));
+			RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Carpentry Tunic", 0, 50, ArmorOfCarpentry, 3));
+			RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Carpentry Gorget", 0, 50, ArmorOfCarpentry, 4));
+			RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Carpentry Arms", 0, 50, ArmorOfCarpentry, 5));
+			RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Carpentry Leggings", 0, 50, ArmorOfCarpentry, 6));
+			RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Lumberjacking Gloves", 0, 200, ArmorOfLumberjacking, 1));
+			RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Lumberjacking Cap", 0, 200, ArmorOfLumberjacking, 2));
+			RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Lumberjacking Tunic", 0, 200, ArmorOfLumberjacking, 3));
+			RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Lumberjacking Gorget", 0, 200, ArmorOfLumberjacking, 4));
+			RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Lumberjacking Arms", 0, 200, ArmorOfLumberjacking, 5));
+			RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Lumberjacking Leggings", 0, 200, ArmorOfLumberjacking, 6));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157193, 0, 250, RewardTitle, 12));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157264, 0, 300, CraftsmanTalisman, 10));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, CraftResources.GetHue(CraftResource.YewWood), 350, WoodsmansTalisman, (int)CraftResource.YewWood));
+			RewardCollection.Add(new BODCollectionItem(0xF44, "Lumberjacking Prospectors Tool", 0, 400, LumberjackingProspectorsTool));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157218, 0, 450, CraftsmanTalisman, 25));
+			RewardCollection.Add(new BODCollectionItem(6215, "Stain Of Durability", 0, 450, StainOfDurability));
+			RewardCollection.Add(new BODCollectionItem(0xf45, "Gargoyles Axe", 0, 450, GargoylesAxe));
+			RewardCollection.Add(new BODCollectionItem(6644, "Vise East", 0, 450, Deco, 0));
+			RewardCollection.Add(new BODCollectionItem(6648, "Vise South", 0, 450, Deco, 1));
+			RewardCollection.Add(new BODCollectionItem(7800, "Unfinished Chair East", 0, 450, Deco, 2));
+			RewardCollection.Add(new BODCollectionItem(7791, "Unfinished Chair South", 0, 450, Deco, 3));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157293, CraftResources.GetHue(CraftResource.DullCopper), 450, RunicMalletAndChisel, 1));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157294, CraftResources.GetHue(CraftResource.ShadowIron), 450, RunicMalletAndChisel, 2));
+			RewardCollection.Add(new BODCollectionItem(7802, "Unfinished Chest East", 0, 500, Deco, 4));
+			RewardCollection.Add(new BODCollectionItem(7793, "Unfinished Chest South", 0, 500, Deco, 5));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152669, CraftResources.GetHue(CraftResource.YewWood), 500, HarvestMap, (int)CraftResource.YewWood));
+			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, CraftResources.GetHue(CraftResource.OakWood), 550, RunicDovetailSaw, 0));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, CraftResources.GetHue(CraftResource.OakWood), 550, DovetailRunicSaw, 0));
+			RewardCollection.Add(new BODCollectionItem(0x0FBF, "Engraver", 0, 600, Engraver));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157295, CraftResources.GetHue(CraftResource.Copper), 600, RunicMalletAndChisel, 3));
+			RewardCollection.Add(new BODCollectionItem(7806, "Unfinished Shelves East", 0, 650, Deco, 6));
+			RewardCollection.Add(new BODCollectionItem(7798, "Unfinished Shelves South", 0, 650, Deco, 7));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157296, CraftResources.GetHue(CraftResource.Bronze), 650, RunicMalletAndChisel, 4));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152679, CraftResources.GetHue(CraftResource.Heartwood), 650, WoodsmansTalisman, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Carpentry", 0, 675, CarpenterPowerScroll, 5));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Lumberjacking", 0, 700, LumberjackingPowerScroll, 5));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152670, CraftResources.GetHue(CraftResource.Heartwood), 700, HarvestMap, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+10 Ancient Carpenter Hammer", 0, 750, AncientCarpenterHammer, 10));
+			RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Lumberjacking Gloves", 0, 750, ArmorOfLumberjacking, 7));
+			RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Lumberjacking Cap", 0, 750, ArmorOfLumberjacking, 8));
+			RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Lumberjacking Tunic", 0, 750, ArmorOfLumberjacking, 9));
+			RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Lumberjacking Gorget", 0, 750, ArmorOfLumberjacking, 10));
+			RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Lumberjacking Arms", 0, 750, ArmorOfLumberjacking, 11));
+			RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Lumberjacking Leggings", 0, 750, ArmorOfLumberjacking, 12));
+			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, CraftResources.GetHue(CraftResource.AshWood), 750, RunicDovetailSaw, 1));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, CraftResources.GetHue(CraftResource.AshWood), 750, DovetailRunicSaw, 1));
+			RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Carpentry Gloves", 0, 800, ArmorOfCarpentry, 7));
+			RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Carpentry Cap", 0, 800, ArmorOfCarpentry, 8));
+			RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Carpentry Tunic", 0, 800, ArmorOfCarpentry, 9));
+			RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Carpentry Gorget", 0, 800, ArmorOfCarpentry, 10));
+			RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Carpentry Arms", 0, 800, ArmorOfCarpentry, 11));
+			RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Carpentry Leggings", 0, 800, ArmorOfCarpentry, 12));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157265, 0, 800, CraftsmanTalisman, 50));
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+20 Ancient Carpenter Hammer", 0, 850, AncientCarpenterHammer, 20));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152680, CraftResources.GetHue(CraftResource.Bloodwood), 850, WoodsmansTalisman, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Exalted Scroll Of Carpentry", 0, 900, CarpenterPowerScroll, 10));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152671, CraftResources.GetHue(CraftResource.Bloodwood), 900, HarvestMap, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157297, CraftResources.GetHue(CraftResource.Gold), 900, RunicMalletAndChisel, 5));
+			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, CraftResources.GetHue(CraftResource.YewWood), 950, RunicDovetailSaw, 2));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, CraftResources.GetHue(CraftResource.YewWood), 950, DovetailRunicSaw, 2));
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+30 Ancient Carpenter Hammer", 0, 1000, AncientCarpenterHammer, 30));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, CraftResources.GetHue(CraftResource.Frostwood), 1000, WoodsmansTalisman, (int)CraftResource.Frostwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157298, CraftResources.GetHue(CraftResource.Agapite), 1000, RunicMalletAndChisel, 6));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Exalted Scroll Of Lumberjacking", 0, 1050, LumberjackingPowerScroll, 10));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, CraftResources.GetHue(CraftResource.Frostwood), 1050, HarvestMap, (int)CraftResource.Frostwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Mythical Scroll Of Lumberjacking", 0, 1150, LumberjackingPowerScroll, 15));
+			//RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, RunicDovetailSaw, 3));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, DovetailRunicSaw, 3));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));
+			RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Lumberjacking Gloves", 0, 1150, ArmorOfLumberjacking, 13));
+			RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Lumberjacking Cap", 0, 1150, ArmorOfLumberjacking, 14));
+			RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Lumberjacking Tunic", 0, 1150, ArmorOfLumberjacking, 15));
+			RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Lumberjacking Gorget", 0, 1150, ArmorOfLumberjacking, 16));
+			RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Lumberjacking Arms", 0, 1150, ArmorOfLumberjacking, 17));
+			RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Lumberjacking Leggings", 0, 1150, ArmorOfLumberjacking, 18));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Mythical Scroll Of Carpentry", 0, 1200, CarpenterPowerScroll, 15));
+			RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Carpentry Gloves", 0, 1200, ArmorOfCarpentry, 13));
+			RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Carpentry Cap", 0, 1200, ArmorOfCarpentry, 14));
+			RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Carpentry Tunic", 0, 1200, ArmorOfCarpentry, 15));
+			RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Carpentry Gorget", 0, 1200, ArmorOfCarpentry, 16));
+			RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Carpentry Arms", 0, 1200, ArmorOfCarpentry, 17));
+			RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Carpentry Leggings", 0, 1200, ArmorOfCarpentry, 18));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Legendary Scroll Of Lumberjacking", 0, 1250, LumberjackingPowerScroll, 20));
+			RewardCollection.Add(new BODCollectionItem(0xE76, "Resources Bag", 0, 1300, ResourcesBag));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Legendary Scroll Of Carpentry", 0, 1300, CarpenterPowerScroll, 20));
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+40 Ancient Carpenter Hammer", 0, 1450, AncientCarpenterHammer, 40));
+
+			Groups = new RewardGroup[]
 			{
-				new RewardGroup(    0, new RewardItem( 1, SturdyLumberjackAxe ),            new RewardItem( 10, LeatherGlovesOfLumberjacking, 1 ) ),
-				new RewardGroup(   25, new RewardItem( 1, LeatherGlovesOfLumberjacking, 3 ),            new RewardItem( 1, SturdyAxe ) ),
-				new RewardGroup(   50, new RewardItem( 90, SturdyLumberjackAxe ),           new RewardItem( 10, ArmorOfCarpentry, Utility.RandomMinMax(1,6) ) ),
-				new RewardGroup(  200, new RewardItem( 90, SturdyAxe ),                     new RewardItem( 10, ArmorOfLumberjacking, Utility.RandomMinMax(1,6) ) ),
-				new RewardGroup(  400, new RewardItem( 90, LumberjackingProspectorsTool ),  new RewardItem( 10, ArmorOfCarpentry, Utility.RandomMinMax(1,6) ) ),
-				new RewardGroup(  450, new RewardItem( 2, StainOfDurability ),              new RewardItem( 1, GargoylesAxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
-				new RewardGroup(  500, new RewardItem( 1, RunicDovetailSaw, 1 ),                    new RewardItem( 1, GargoylesAxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
-				new RewardGroup(  550, new RewardItem( 3, RunicDovetailSaw, 1 ),                    new RewardItem( 2, RunicDovetailSaw, 2 ) ),
-				new RewardGroup(  600, new RewardItem( 1, RunicDovetailSaw, 2 ),                    new RewardItem( 1, Engraver ) ),
-				new RewardGroup(  625, new RewardItem( 3, RunicDovetailSaw, 2 ),                    new RewardItem( 1, Engraver ) ),
-				new RewardGroup(  650, new RewardItem( 1, RunicDovetailSaw, 3 ),                     new RewardItem( 1, Deco, Utility.Random(7) )),
-				new RewardGroup(  675, new RewardItem( 1, Engraver ),                       new RewardItem( 1, RunicDovetailSaw, 3 ),                                   new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
-				new RewardGroup(  700, new RewardItem( 1, RunicDovetailSaw, 4 ),                    new RewardItem( 1, Deco, Utility.Random(7) ),                       new RewardItem( 6, LumberjackingPowerScroll, 5 ) ),
-				new RewardGroup(  750, new RewardItem( 1, AncientCarpenterHammer, 10 ),     new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(7,12) ),  new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
-				new RewardGroup(  800, new RewardItem( 1, RunicDovetailSaw, 4 ),                    new RewardItem( 1, ArmorOfCarpentry, Utility.RandomMinMax(7,12) ),  new RewardItem( 6, LumberjackingPowerScroll, 5 ) ),
-				new RewardGroup(  850, new RewardItem( 5, AncientCarpenterHammer, 20 ),     new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(7,12) ),  new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
-				new RewardGroup(  900, new RewardItem( 1, RunicDovetailSaw, 5 ),                    new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
-				new RewardGroup(  950, new RewardItem( 1, LeatherGlovesOfLumberjacking, 5 ),                    new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
-				new RewardGroup( 1000, new RewardItem( 5, AncientCarpenterHammer, 30 ),     new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
-				new RewardGroup( 1050, new RewardItem( 1, RunicDovetailSaw, 6 ),                    new RewardItem( 1, Engraver ),                                      new RewardItem( 6, LumberjackingPowerScroll, 10 ) ),
-				new RewardGroup( 1100, new RewardItem( 3, AncientCarpenterHammer, 30 ),     new RewardItem( 1, Engraver ),                                      new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
-				new RewardGroup( 1150, new RewardItem( 1, RunicDovetailSaw, 7 )), 			//		new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(13,18)), 	new RewardItem( 6, LumberjackingPowerScroll, 15 ) ),
-				new RewardGroup( 1200, new RewardItem( 1, RunicDovetailSaw, 8 )), 			//		new RewardItem( 1, ArmorOfCarpentry, Utility.RandomMinMax(13,18)), 	new RewardItem( 6, CarpenterPowerScroll, 15 ) ),
-				new RewardGroup( 1250, new RewardItem( 1, RunicDovetailSaw, 9 )), 			//		new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(13,18)), 	new RewardItem( 6, LumberjackingPowerScroll, 20 ) ),
-				new RewardGroup( 1300, new RewardItem( 1, RunicDovetailSaw, 10 ),                   new RewardItem( 1, BagOfResources ),                                new RewardItem( 6, CarpenterPowerScroll, 20 ) ),
-				new RewardGroup( 1350, new RewardItem( 1, RunicDovetailSaw, 11 ),                   new RewardItem( 1, BagOfResources ) ),
+				new RewardGroup(    0, new RewardItem( 1, SturdyLumberjackAxe ), new RewardItem( 10, LeatherGlovesOfLumberjacking, 1 ) ),
+				new RewardGroup(   25, new RewardItem( 1, LeatherGlovesOfLumberjacking, 3 ), new RewardItem( 1, SturdyAxe ) ),
+				new RewardGroup(   50, new RewardItem( 90, SturdyLumberjackAxe ), new RewardItem( 10, ArmorOfCarpentry, Utility.RandomMinMax(1,6) ) ),
+				new RewardGroup(  200, new RewardItem( 90, SturdyAxe ), new RewardItem( 10, ArmorOfLumberjacking, Utility.RandomMinMax(1,6) ) ),
+				new RewardGroup(  400, new RewardItem( 90, LumberjackingProspectorsTool ), new RewardItem( 10, ArmorOfCarpentry, Utility.RandomMinMax(1,6) ) ),
+				new RewardGroup(  450, new RewardItem( 2, StainOfDurability ), new RewardItem( 1, GargoylesAxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
+				new RewardGroup(  500, new RewardItem( 1, RunicDovetailSaw, 1 ), new RewardItem( 1, GargoylesAxe ), new RewardItem( 1, Deco, Utility.Random(6) ) ),
+				new RewardGroup(  550, new RewardItem( 3, RunicDovetailSaw, 1 ), new RewardItem( 2, RunicDovetailSaw, 2 ) ),
+				new RewardGroup(  600, new RewardItem( 1, RunicDovetailSaw, 2 ), new RewardItem( 1, Engraver ) ),
+				new RewardGroup(  625, new RewardItem( 3, RunicDovetailSaw, 2 ), new RewardItem( 1, Engraver ) ),
+				new RewardGroup(  650, new RewardItem( 1, RunicDovetailSaw, 3 ), new RewardItem( 1, Deco, Utility.Random(7) )),
+				new RewardGroup(  675, new RewardItem( 1, Engraver ), new RewardItem( 1, RunicDovetailSaw, 3 ), new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
+				new RewardGroup(  700, new RewardItem( 1, RunicDovetailSaw, 4 ), new RewardItem( 1, Deco, Utility.Random(7) ), new RewardItem( 6, LumberjackingPowerScroll, 5 ) ),
+				new RewardGroup(  750, new RewardItem( 1, AncientCarpenterHammer, 10 ), new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(1,6) ), new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
+				new RewardGroup(  800, new RewardItem( 1, RunicDovetailSaw, 4 ), new RewardItem( 1, ArmorOfCarpentry, Utility.RandomMinMax(7,12) ), new RewardItem( 6, LumberjackingPowerScroll, 5 ) ),
+				new RewardGroup(  850, new RewardItem( 5, AncientCarpenterHammer, 20 ), new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(7,12) ), new RewardItem( 6, CarpenterPowerScroll, 5 ) ),
+				new RewardGroup(  900, new RewardItem( 1, RunicDovetailSaw, 5 ), new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
+				new RewardGroup(  950, new RewardItem( 1, LeatherGlovesOfLumberjacking, 5 ), new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
+				new RewardGroup( 1000, new RewardItem( 5, AncientCarpenterHammer, 30 ), new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
+				new RewardGroup( 1050, new RewardItem( 1, RunicDovetailSaw, 6 ), new RewardItem( 1, Engraver ), new RewardItem( 6, LumberjackingPowerScroll, 10 ) ),
+				new RewardGroup( 1100, new RewardItem( 3, AncientCarpenterHammer, 30 ), new RewardItem( 1, Engraver ), new RewardItem( 6, CarpenterPowerScroll, 10 ) ),
+				new RewardGroup( 1150, new RewardItem( 1, RunicDovetailSaw, 7 )), //new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(13,18)), new RewardItem( 6, LumberjackingPowerScroll, 15 ) ),
+				new RewardGroup( 1200, new RewardItem( 1, RunicDovetailSaw, 8 )), //new RewardItem( 1, ArmorOfCarpentry, Utility.RandomMinMax(13,18)), new RewardItem( 6, CarpenterPowerScroll, 15 ) ),
+				new RewardGroup( 1250, new RewardItem( 1, RunicDovetailSaw, 9 )), //new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(13,18)), new RewardItem( 6, LumberjackingPowerScroll, 20 ) ),
+				new RewardGroup( 1300, new RewardItem( 1, RunicDovetailSaw, 10 ), new RewardItem( 1, ResourcesBag ), new RewardItem( 6, CarpenterPowerScroll, 20 ) ),
+				new RewardGroup( 1350, new RewardItem( 1, RunicDovetailSaw, 11 ), new RewardItem( 1, ResourcesBag ) ),
 				new RewardGroup( 1400, new RewardItem( 3, RunicDovetailSaw, 12 )),
 				new RewardGroup( 1450, new RewardItem( 3, AncientCarpenterHammer, 40 ))
-			};*/
+			};
         }
 
         #region Constructors
 
 		//daat start
-        //private static readonly ConstructCallback RunicDovetailSaw = new ConstructCallback( CreateRunicDovetailSaw );
+        private static readonly ConstructCallback DovetailRunicSaw = new ConstructCallback( CreateDovetailRunicSaw );
         private static readonly ConstructCallback SturdyLumberjackAxe = new ConstructCallback( CreateSturdyLumberjackAxe );
         private static readonly ConstructCallback SturdyAxe = new ConstructCallback( CreateSturdyAxe );
         private static readonly ConstructCallback ArmorOfCarpentry = new ConstructCallback( CreateArmorOfCarpentry );
@@ -1951,7 +2026,7 @@ namespace Server.Engines.BulkOrders
         private static readonly ConstructCallback AncientCarpenterHammer = new ConstructCallback( CreateAncientCarpenterHammer );
         private static readonly ConstructCallback LeatherGlovesOfLumberjacking = new ConstructCallback( CreateLeatherGlovesOfLumberjacking );
         private static readonly ConstructCallback CarpenterPowerScroll = new ConstructCallback( CreateCarpenterPowerScroll );
-        private static readonly ConstructCallback BagOfResources = new ConstructCallback( CreateBagOfResources );
+        private static readonly ConstructCallback ResourcesBag = new ConstructCallback( CreateResourcesBag );
         private static readonly ConstructCallback Deco = new ConstructCallback( CreateDeco );
         private static readonly ConstructCallback LumberjackingPowerScroll = new ConstructCallback( CreateLumberjackingPowerScroll );
         
@@ -1970,9 +2045,9 @@ namespace Server.Engines.BulkOrders
             }
         }
         
-        private static Item CreateRunicDovetailSaw( int type )
+        private static Item CreateDovetailRunicSaw( int type )
         {
-            if ( type >= 1 && type <= 11 )
+            if ( type >= 0 && type <= 11 )
                 return new RunicDovetailSaw( CraftResource.RegularWood + type, Core.AOS ? ( 100 - (type*5) ) : 50 );
             
             throw new InvalidOperationException();
@@ -2107,9 +2182,9 @@ namespace Server.Engines.BulkOrders
             throw new InvalidOperationException();
         }
         
-        private static Item CreateBagOfResources( int type )
+        private static Item CreateResourcesBag( int type )
         {
-            return new BagOfResources();
+            return new ResourcesBag();
         }
         
         private static Item CreateLumberjackingPowerScroll( int type )
@@ -2280,18 +2355,6 @@ namespace Server.Engines.BulkOrders
 				new int[]{ 375, 600,  600, 1125, 1125, 2250, 2250, 4500, 4500, 5000, 5000, 5500 },
 				new int[]{ 500, 800, 1200, 1500, 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }
 			},
-			new int[][] // 3-part (regular)
-			{
-				new int[]{ 1500,  3000,  4500,  6000,  7500, 10000, 12000, 14000, 16000, 18000, 20000, 24000 },
-				new int[]{ 3000,  4500,  6000,  7500, 10000, 12000, 14000, 16000, 18000, 20000, 24000, 28000},
-				new int[]{ 4000,  6000,  8000, 10000, 12000, 14000, 16000, 18000, 20000, 24000, 28000, 32000 }
-			},
-			new int[][] // 3-part (exceptional)
-			{
-				new int[]{ 3000,  5000,  5000,  7500,  7500,  8000,  8500,  9000, 10000, 11000, 12000, 13000 },
-				new int[]{ 4500,  7500,  7500, 11250, 11500, 15000, 15000, 22500, 22500, 30000, 30000, 35000 },
-				new int[]{ 6000, 10000, 15000, 15000, 20000, 20000, 30000, 30000, 50000, 60000, 60000, 70000 }
-			},
 			new int[][] // 4-part (regular)
             {
 				new int[]{ 3000,  5000,  5000,  7500,  7500,  8000,  8500,  9000, 10000, 11000, 12000, 13000 },
@@ -2303,6 +2366,18 @@ namespace Server.Engines.BulkOrders
 				new int[]{  5000, 10000, 15000, 20000, 25000, 30000,  35000,  40000,  45000,  50000,  60000,  70000 },
 				new int[]{  7500, 15000, 15000, 22500, 22500, 37500,  37500,  75000,  75000, 100000, 100000, 120000 },
 				new int[]{ 10000, 20000, 30000, 30000, 50000, 50000, 100000, 100000, 200000, 250000, 250000, 300000 }
+			},
+			new int[][] // 5-part (regular)
+            {
+				new int[] { 5000, 5000, 60000, 6000, 7500, 7500 },
+				new int[] { 7500, 7500, 7500, 11250, 11250, 11250 },
+				new int[] { 10000, 10000, 1250, 15000, 15000, 20000 }
+			},
+			new int[][] // 5-part (exceptional)
+            {
+				new int[] { 7500, 7500, 8500, 9500, 10000, 10000 },
+				new int[] { 11250, 11250, 1250, 1350, 15000, 15000 },
+				new int[] { 15000, 1750, 1750, 20000, 20000, 30000 }
 			}
 			//daat end
         };
@@ -2939,25 +3014,25 @@ namespace Server.Engines.BulkOrders
 				new int[]{ 375, 600,  600, 1125, 1125, 2250, 2250, 4500, 4500, 5000, 5000, 5500 },
 				new int[]{ 500, 800, 1200, 1500, 2500, 3000, 4000, 5000, 6000, 7000, 8000, 9000 }
 			},
-			new int[][] // 3-part (regular)
+			new int[][] // 4-part (regular)
             {
 				new int[]{ 2000, 4000,  6000,  8000, 10000, 12000, 14000, 16000, 18000, 20000, 22000, 25000 },
 				new int[]{ 3000, 6000,  9000, 12000, 15000, 18000, 21000, 24000, 27000, 30000, 33000, 37500 },
 				new int[]{ 4000, 8000, 12000, 16000, 20000, 24000, 28000, 32000, 36000, 40000, 44000, 50000 }
 			},
-			new int[][] // 3-part (exceptional)
+			new int[][] // 4-part (exceptional)
             {
 				new int[]{ 4000,  8000, 12000, 16000, 20000, 24000, 28000, 32000, 36000, 40000, 44000, 50000 },
 				new int[]{ 6000, 12000, 18000, 24000, 30000, 36000, 42000, 48000, 54000, 60000, 66000, 75000 },
 				new int[]{ 8000, 16000, 24000, 32000, 40000, 48000, 56000, 64000, 72000, 80000, 88000, 100000 }
 			},
-			new int[][] // 6-part (regular)
+			new int[][] // 5-part (regular)
             {
 				new int[]{ 3000,  5000,  5000,  7500,  7500,  8000,  8500,  9000, 10000, 11000, 12000, 13000 },
 				new int[]{ 4500,  7500,  7500, 11250, 11500, 15000, 15000, 22500, 22500, 30000, 30000, 35000 },
 				new int[]{ 6000, 10000, 15000, 15000, 20000, 20000, 30000, 30000, 50000, 60000, 60000, 70000 }
 			},
-			new int[][] // 6-part (exceptional)
+			new int[][] // 5-part (exceptional)
             {
 				new int[]{  5000, 10000, 15000, 20000, 25000, 30000,  35000,  40000,  45000,  50000,  60000,  70000 },
 				new int[]{  7500, 15000, 15000, 22500, 22500, 37500,  37500,  75000,  75000, 100000, 100000, 120000 },
