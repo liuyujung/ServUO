@@ -1855,10 +1855,11 @@ namespace Server.Mobiles
 					strBase = Str; //Str already includes GetStatOffset/str
 					strOffs = AosAttributes.GetValue(this, AosAttribute.BonusHits);
 
-					if (Core.ML && strOffs > 25 && IsPlayer())
+					// allan mod
+					/*if (Core.ML && strOffs > 25 && IsPlayer())
 					{
 						strOffs = 25;
-					}
+					}*/
 
 					if (AnimalForm.UnderTransformation(this, typeof(BakeKitsune)) ||
 						AnimalForm.UnderTransformation(this, typeof(GreyWolf)))
@@ -1898,10 +1899,11 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if (Core.ML && IsPlayer())
+				// allan mod
+				/*if (Core.ML && IsPlayer())
 				{
 					return Math.Min(base.Str, StrMaxCap);
-				}
+				}*/
 
 				return base.Str;
 			}
@@ -1913,10 +1915,11 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if (Core.ML && IsPlayer())
+				// allan mod
+				/*if (Core.ML && IsPlayer())
 				{
 					return Math.Min(base.Int, IntMaxCap);
-				}
+				}*/
 
 				return base.Int;
 			}
@@ -1928,10 +1931,11 @@ namespace Server.Mobiles
 		{
 			get
 			{
-				if (Core.ML && IsPlayer())
+				// allan mod
+				/*if (Core.ML && IsPlayer())
 				{
 					return Math.Min(base.Dex, DexMaxCap);
-				}
+				}*/
 
 				return base.Dex;
 			}
