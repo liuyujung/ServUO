@@ -676,7 +676,7 @@ namespace Server.Items
                     if (Core.AOS)
                     {
                         seconds = Math.Min(8, Math.Ceiling(11.0 - healer.Dex / 20));
-                        seconds = Math.Max(seconds, 4);
+                        //seconds = Math.Max(seconds, 4); // allan mod
                     }
                     else
                     {
