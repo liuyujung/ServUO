@@ -307,6 +307,25 @@ namespace Server.Engines.CannedEvil
             }
         }
 
+        private void RemoveSkulls()
+        {
+            if (m_WhiteSkulls != null)
+            {
+                for (int i = 0; i < m_WhiteSkulls.Count; ++i)
+                    m_WhiteSkulls[i].Delete();
+
+                m_WhiteSkulls.Clear();
+            }
+
+            if (m_RedSkulls != null)
+            {
+                for (int i = 0; i < m_RedSkulls.Count; i++)
+                    m_RedSkulls[i].Delete();
+
+                m_RedSkulls.Clear();
+            }
+        }
+
         public int MaxKills
         {
             get
@@ -409,6 +428,19 @@ namespace Server.Engines.CannedEvil
                 m_Platform.Hue = 0x452;
 
             PrimevalLichPuzzle.Update(this);
+
+            double chance = Utility.RandomDouble();
+
+            if (chance < 0.1)
+                Level = 4;
+            else if (chance < 0.25)
+                Level = 3;
+            else if (chance < 0.5)
+                Level = 2;
+            else if (Utility.RandomBool())
+                Level = 1;
+            else
+                Level = 0;
         }
 
         public void Stop()
@@ -445,6 +477,9 @@ namespace Server.Engines.CannedEvil
                 m_Platform.Hue = 0x497;
 
             PrimevalLichPuzzle.Update(this);
+
+            RemoveSkulls();
+            m_Kills = 0;
         }
 
         public void BeginRestart(TimeSpan ts)
@@ -1181,21 +1216,7 @@ namespace Server.Engines.CannedEvil
             if (m_Idol != null)
                 m_Idol.Delete();
 
-            if (m_RedSkulls != null)
-            {
-                for (int i = 0; i < m_RedSkulls.Count; ++i)
-                    m_RedSkulls[i].Delete();
-
-                m_RedSkulls.Clear();
-            }
-
-            if (m_WhiteSkulls != null)
-            {
-                for (int i = 0; i < m_WhiteSkulls.Count; ++i)
-                    m_WhiteSkulls[i].Delete();
-
-                m_WhiteSkulls.Clear();
-            }
+            RemoveSkulls();
 
             if (m_Creatures != null)
             {
