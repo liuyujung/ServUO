@@ -267,13 +267,13 @@ namespace Server.Engines.Craft
             #endregion
 
             #region TOL
-            index = AddCraft(typeof(CraftableHouseAddonDeed), 1044294, 1155850, 42.1, 77.7, typeof(Log), 1044041, 5, 1044351);
-            SetData(index, CraftableAddonType.LightWoodenSignHanger);
+            index = AddCraft(typeof(CraftableHouseItem), 1044294, 1155850, 42.1, 77.7, typeof(Log), 1044041, 5, 1044351);
+            SetData(index, CraftableItemType.LightWoodenSignHanger);
             SetDisplayID(index, 2969);
             SetNeededExpansion(index, Expansion.TOL);
 
-            index = AddCraft(typeof(CraftableHouseAddonDeed), 1044294, 1155849, 42.1, 77.7, typeof(Log), 1044041, 5, 1044351);
-            SetData(index, CraftableAddonType.DarkWoodenSignHanger);
+            index = AddCraft(typeof(CraftableHouseItem), 1044294, 1155849, 42.1, 77.7, typeof(Log), 1044041, 5, 1044351);
+            SetData(index, CraftableItemType.DarkWoodenSignHanger);
             SetDisplayID(index, 2967);
             SetNeededExpansion(index, Expansion.TOL);
             #endregion
