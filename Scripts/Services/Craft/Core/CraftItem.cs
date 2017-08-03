@@ -40,10 +40,18 @@ namespace Server.Engines.Craft
 
 	public class CraftItem
 	{
-        /*this delegate will handle all crafting functions, 
-         * such as resource check, actual crafting, etc. 
-         * For use for abnormal crafting, ie combine cloth, etc.*/
+        /// <summary>
+        /// this delegate will handle all crafting functions, 
+        /// such as resource check, actual crafting, etc. 
+        /// For use for abnormal crafting, ie combine cloth, etc.
+        /// </summary>
         public Action<Mobile, CraftItem, BaseTool> TryCraft { get; set; }
+
+        /// <summary>
+        /// this func will create complex items that may require args, or other
+        /// things to create that Activator may not be able to accomidate.
+        /// </summary>
+        public Func<Mobile, CraftItem, BaseTool, Item> CreateItem { get; set; }
 
 		private readonly CraftResCol m_arCraftRes;
 		private readonly CraftSkillCol m_arCraftSkill;
@@ -1569,8 +1577,6 @@ namespace Server.Engines.Craft
 					return;
 				}
 
-				tool.UsesRemaining--;
-
 				if (craftSystem is DefBlacksmithy)
 				{
 					AncientSmithyHammer hammer = from.FindItemOnLayer(Layer.OneHanded) as AncientSmithyHammer;
@@ -1602,28 +1608,6 @@ namespace Server.Engines.Craft
 					}
 				}
 
-				#region Mondain's Legacy
-				if (tool is HammerOfHephaestus)
-				{
-					if (tool.UsesRemaining < 1)
-					{
-						tool.UsesRemaining = 0;
-					}
-				}
-				else
-				{
-					if (tool.UsesRemaining < 1 && tool.BreakOnDepletion)
-					{
-						toolBroken = true;
-					}
-
-					if (toolBroken)
-					{
-						tool.Delete();
-					}
-				}
-				#endregion
-
 				int num = 0;
 
 				Item item;
@@ -1636,10 +1620,14 @@ namespace Server.Engines.Craft
 					item = new IndecipherableMap();
 					from.SendLocalizedMessage(1070800); // The map you create becomes mysteriously indecipherable.
 				}
-				else
-				{
-					item = Activator.CreateInstance(ItemType) as Item;
-				}
+                else if (CreateItem != null)
+                {
+                    item = CreateItem(from, this, tool);
+                }
+                else
+                {
+                    item = Activator.CreateInstance(ItemType) as Item;
+                }
 
 				if (item != null)
 				{
@@ -1770,6 +1758,30 @@ namespace Server.Engines.Craft
                     AutoCraftTimer.OnSuccessfulCraft(from);
 					//from.PlaySound( 0x57 );
 				}
+
+                tool.UsesRemaining--;
+
+                #region Mondain's Legacy
+                if (tool is HammerOfHephaestus)
+                {
+                    if (tool.UsesRemaining < 1)
+                    {
+                        tool.UsesRemaining = 0;
+                    }
+                }
+                #endregion
+                else
+                {
+                    if (tool.UsesRemaining < 1 && tool.BreakOnDepletion)
+                    {
+                        toolBroken = true;
+                    }
+
+                    if (toolBroken)
+                    {
+                        tool.Delete();
+                    }
+                }
 
 				if (num == 0)
 				{
