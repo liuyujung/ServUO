@@ -1199,7 +1199,7 @@ namespace Server.Items
             }
         }
 
-        /*public override int PhysicalResistance
+        public override int PhysicalResistance
         {
             get
             {
@@ -1237,15 +1237,15 @@ namespace Server.Items
             {
                 return BaseEnergyResistance + GetProtOffset() + m_EnergyBonus;
             }
-        }*/
+        }
 
 		//daat99 OWLTR start
-        private int m_PhysicalResistance = -1, m_FireResistance = -1, m_ColdResistance = -1, m_PoisonResistance = -1, m_EnergyResistance = -1;
-		public override int PhysicalResistance { get { return ((m_PhysicalResistance != -1) ? m_PhysicalResistance : (BasePhysicalResistance + GetProtOffset() + GetResourceAttrs().ArmorPhysicalResist + m_PhysicalBonus)); } }
-		public override int FireResistance { get { return ((m_FireResistance != -1) ? m_FireResistance : (BaseFireResistance + GetProtOffset() + GetResourceAttrs().ArmorFireResist + m_FireBonus)); } }
-		public override int ColdResistance { get { return ((m_ColdResistance != -1) ? m_ColdResistance : (BaseColdResistance + GetProtOffset() + GetResourceAttrs().ArmorColdResist + m_ColdBonus)); } }
-		public override int PoisonResistance { get { return ((m_PoisonResistance != -1) ? m_PoisonResistance : (BasePoisonResistance + GetProtOffset() + GetResourceAttrs().ArmorPoisonResist + m_PoisonBonus)); } }
-		public override int EnergyResistance { get { return ((m_EnergyResistance != -1) ? m_EnergyResistance : (BaseEnergyResistance + GetProtOffset() + GetResourceAttrs().ArmorEnergyResist + m_EnergyBonus)); } }
+        //private int m_PhysicalResistance = -1, m_FireResistance = -1, m_ColdResistance = -1, m_PoisonResistance = -1, m_EnergyResistance = -1;
+		//public override int PhysicalResistance { get { return ((m_PhysicalResistance != -1) ? m_PhysicalResistance : (BasePhysicalResistance + GetProtOffset() + GetResourceAttrs().ArmorPhysicalResist + m_PhysicalBonus)); } }
+		//public override int FireResistance { get { return ((m_FireResistance != -1) ? m_FireResistance : (BaseFireResistance + GetProtOffset() + GetResourceAttrs().ArmorFireResist + m_FireBonus)); } }
+		//public override int ColdResistance { get { return ((m_ColdResistance != -1) ? m_ColdResistance : (BaseColdResistance + GetProtOffset() + GetResourceAttrs().ArmorColdResist + m_ColdBonus)); } }
+		//public override int PoisonResistance { get { return ((m_PoisonResistance != -1) ? m_PoisonResistance : (BasePoisonResistance + GetProtOffset() + GetResourceAttrs().ArmorPoisonResist + m_PoisonBonus)); } }
+		//public override int EnergyResistance { get { return ((m_EnergyResistance != -1) ? m_EnergyResistance : (BaseEnergyResistance + GetProtOffset() + GetResourceAttrs().ArmorEnergyResist + m_EnergyBonus)); } }
 		//daat99 OWLTR end
 
 		public virtual int InitMinHits
@@ -1717,11 +1717,11 @@ namespace Server.Items
 
             writer.Write((int)13); // version
 			// daat99 OWLTR start -increase version and save resistance
-			writer.WriteEncodedInt((int)PhysicalResistance);
-			writer.WriteEncodedInt((int)FireResistance);
-			writer.WriteEncodedInt((int)ColdResistance);
-			writer.WriteEncodedInt((int)PoisonResistance);
-			writer.WriteEncodedInt((int)EnergyResistance);
+			//writer.WriteEncodedInt((int)PhysicalResistance);
+			//writer.WriteEncodedInt((int)FireResistance);
+			//writer.WriteEncodedInt((int)ColdResistance);
+			//writer.WriteEncodedInt((int)PoisonResistance);
+			//writer.WriteEncodedInt((int)EnergyResistance);
 			//daat99 OWLTR end
 
 			writer.Write(_VvVItem);
@@ -1938,11 +1938,11 @@ namespace Server.Items
 				case 13:
 				//daat99 OWLTR start - load resists version
 					{
-						m_PhysicalResistance = reader.ReadEncodedInt();
-						m_FireResistance = reader.ReadEncodedInt();
-						m_ColdResistance = reader.ReadEncodedInt();
-						m_PoisonResistance = reader.ReadEncodedInt();
-						m_EnergyResistance = reader.ReadEncodedInt();
+						//m_PhysicalResistance = reader.ReadEncodedInt();
+						//m_FireResistance = reader.ReadEncodedInt();
+						//m_ColdResistance = reader.ReadEncodedInt();
+						//m_PoisonResistance = reader.ReadEncodedInt();
+						//m_EnergyResistance = reader.ReadEncodedInt();
 						goto case 12;
 					}
 				//daat99 OWLTR end
