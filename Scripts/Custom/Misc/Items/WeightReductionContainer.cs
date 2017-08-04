@@ -45,9 +45,9 @@ namespace Server.Items
         public override int ContainerMaxItems { get { return 5; } }
 
         // Setup access messages to provide a roleplaying experience
-        public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
-        public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
-        public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
+        //public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
+        //public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
+        //public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
 
         [Constructable]
         public SmallBagofHolding()
@@ -87,9 +87,9 @@ namespace Server.Items
         public override int ContainerMaxItems { get { return 10; } }
 
         // Setup access messages to provide a roleplaying experience
-        public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
-        public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
-        public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
+        //public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
+        //public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
+        //public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
 
         [Constructable]
         public MediumBagofHolding()
@@ -129,9 +129,9 @@ namespace Server.Items
         public override int ContainerMaxItems { get { return 20; } }
 
         // Setup access messages to provide a roleplaying experience
-        public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
-        public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
-        public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
+        //public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
+        //public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
+        //public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
 
         [Constructable]
         public LargeBagofHolding()
@@ -171,9 +171,9 @@ namespace Server.Items
 		public override int ContainerMaxItems { get { return 40; } }
 
 		// Setup access messages to provide a roleplaying experience
-		public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
-		public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
-		public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
+		//public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
+		//public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
+		//public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
 
 		[Constructable]
 		public HugeBagofHolding()
@@ -207,9 +207,9 @@ namespace Server.Items
         public override double WeightReductionAmount { get { return 0.75; } }
         public override int ContainerMaxItems { get { return 125; } }
 
-        public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
-        public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
-        public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
+        //public override string AccessDelayMessage { get { return "The rift in the nether that separates the dimensions has that stabilized yet."; } }
+        //public override string AddAccessMessage { get { return "You slip your hand through the nether to place an item into another dimension."; } }
+        //public override string RemoveAccessMessage { get { return "You slip your hand through the nether to retrieve an item from another dimension."; } }
 
         [Constructable]
         public BagofWonder(double weightReductionAmount)
@@ -248,7 +248,7 @@ namespace Server.Items
         public override double WeightReductionAmount { get { return m_WeightReductionAmount; } }
         public override int ContainerMaxItems { get { return 125; } }
         public override int ContainerHue { get { return Utility.RandomNeutralHue(); } }
-        public override TimeSpan AccessDelay { get { return TimeSpan.Zero; } }
+        //public override TimeSpan AccessDelay { get { return TimeSpan.Zero; } }
 
         [Constructable]
         public MysticBox()
@@ -298,10 +298,10 @@ namespace Server.Items
         public virtual double ContainerWeight { get { return 1.0; } }
         public virtual LootType ContainerLootType { get { return LootType.Blessed; } }
         public virtual int ContainerHue { get { return Utility.RandomMetalHue(); } }
-        public virtual TimeSpan AccessDelay { get { return TimeSpan.FromMinutes(15.0); } }
-        public virtual string AccessDelayMessage { get { return "You cannot use that item yet"; } }
-        public virtual string AddAccessMessage { get { return ""; } }
-        public virtual string RemoveAccessMessage { get { return ""; } }
+        //public virtual TimeSpan AccessDelay { get { return TimeSpan.FromMinutes(15.0); } }
+        //public virtual string AccessDelayMessage { get { return "You cannot use that item yet"; } }
+        //public virtual string AddAccessMessage { get { return ""; } }
+        //public virtual string RemoveAccessMessage { get { return ""; } }
 
         public new int MaxItems { get { return ContainerMaxItems; } set { base.MaxItems = ContainerMaxItems; } }
         public override int DefaultMaxItems { get { return ContainerMaxItems; } }
@@ -324,7 +324,7 @@ namespace Server.Items
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            if (dropped is Container)
+            /*if (dropped is Container)
             {
                 from.SendMessage("That item is not allowed in this container");
                 return false;
@@ -344,7 +344,7 @@ namespace Server.Items
             if (AddAccessMessage != "")
                 from.SendMessage(Utility.RandomNeutralHue(), AddAccessMessage);
 
-            NextAccessTime = (DateTime.Now).Add(AccessDelay);
+            NextAccessTime = (DateTime.Now).Add(AccessDelay);*/
 
             return base.OnDragDrop(from, dropped);
         }
@@ -354,7 +354,7 @@ namespace Server.Items
             if (item == this)
                 return base.CheckLift(from, item, ref reject);
 
-            if (DateTime.Now < NextAccessTime)
+            /*if (DateTime.Now < NextAccessTime)
             {
                 if (AccessDelayMessage != "")
                     from.SendMessage(Utility.RandomNeutralHue(), AccessDelayMessage);
@@ -368,7 +368,7 @@ namespace Server.Items
             if (RemoveAccessMessage != "")
                 from.SendMessage(Utility.RandomNeutralHue(), RemoveAccessMessage);
 
-            NextAccessTime = (DateTime.Now).Add(AccessDelay);
+            NextAccessTime = (DateTime.Now).Add(AccessDelay);*/
 
             return base.CheckLift(from, item, ref reject);
         }
