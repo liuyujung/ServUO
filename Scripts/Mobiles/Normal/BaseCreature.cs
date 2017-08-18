@@ -209,7 +209,7 @@ namespace Server.Mobiles
         }
     }
 
-    public class BaseCreature : Mobile, IHonorTarget
+    public class BaseCreature : Mobile, IHonorTarget, IEngravable
     {
 		//FS:ATS start
 		private int m_RoarAttack;
@@ -684,6 +684,7 @@ namespace Server.Mobiles
 
         #region Monster Stealables
         private bool m_HasBeenStolen;
+
         [CommandProperty(AccessLevel.Administrator)]
         public bool HasBeenStolen
         {
@@ -898,6 +899,21 @@ namespace Server.Mobiles
             {
                 m_DeleteTimer.Stop();
                 m_DeleteTimer = null;
+            }
+        }
+        #endregion
+
+        #region IEngravable Members
+        private string m_EngravedText;
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string EngravedText
+        {
+            get { return m_EngravedText != null ? Utility.FixHtml(m_EngravedText) : null; }
+            set
+            {
+                m_EngravedText = value;
+                InvalidateProperties();
             }
         }
         #endregion
@@ -1407,7 +1423,7 @@ namespace Server.Mobiles
                 if (m is PlayerMobile)
                 {
                     PlayerMobile pm = m as PlayerMobile;
-                    toDrain = (int)drNO.ThieveItems.LifeShieldLotion.HandleLifeDrain(pm, toDrain);
+                    toDrain = (int)LifeShieldLotion.HandleLifeDrain(pm, toDrain);
                 }
                 //end
 
@@ -2799,7 +2815,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(23); // version
+            writer.Write(24); // version
 
             writer.Write((int)m_CurrentAI);
             writer.Write((int)m_DefaultAI);
@@ -2986,9 +3002,11 @@ namespace Server.Mobiles
 			writer.Write((int)m_PetPoisonAttack);
 			writer.Write((int)m_FireBreathAttack);
 			//FS:ATS end
-
+			// Pet Branding version 23
 			writer.Write((int)m_TotalExp);
 			writer.Write((int)m_MatingTimes);
+            // Pet Branding version 24
+            writer.Write(m_EngravedText);
         }
 
         private static readonly double[] m_StandardActiveSpeeds = new[] { 0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8 };
@@ -3324,6 +3342,11 @@ namespace Server.Mobiles
 				m_TotalExp = reader.ReadInt();
 				m_MatingTimes = reader.ReadInt();
 			}
+
+            if (version >= 24)
+            {
+                m_EngravedText = reader.ReadString();
+            }
 
             if (version <= 14 && m_Paragon && Hue == 0x31)
             {
@@ -6232,6 +6255,10 @@ namespace Server.Mobiles
 				}
 			}
 			//FS:ATS end
+            if (!String.IsNullOrEmpty(EngravedText))
+            {
+                list.Add(1157315, EngravedText); // <BASEFONT COLOR=#668cff>Branded: ~1_VAL~<BASEFONT COLOR=#FFFFFF>
+            }
 
             if (Core.ML)
             {
@@ -7656,7 +7683,7 @@ namespace Server.Mobiles
         public virtual int GetAuraDamage(Mobile from)
         {
             if(from is PlayerMobile)
-                return (int)drNO.ThieveItems.BalmOfProtection.HandleDamage((PlayerMobile)from, AuraBaseDamage);
+                return (int)BalmOfProtection.HandleDamage((PlayerMobile)from, AuraBaseDamage);
 
             return AuraBaseDamage;
         }

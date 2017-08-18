@@ -622,7 +622,12 @@ namespace Server.Mobiles
 		}
 		#endregion
 
-		private DateTime m_AnkhNextUse;
+        #region Reward Stable Slots
+        [CommandProperty(AccessLevel.GameMaster)]
+        public int RewardStableSlots { get; set; }
+        #endregion
+
+        private DateTime m_AnkhNextUse;
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public DateTime AnkhNextUse { get { return m_AnkhNextUse; } set { m_AnkhNextUse = value; } }
@@ -2350,6 +2355,11 @@ namespace Server.Mobiles
 				return false;
 			}
 
+            if (item is BaseBalmOrLotion || item is GemOfSalvation || item is SeedOfLife || item is ManaDraught)
+            {
+                return false;
+            }
+
 			if (item.Stackable)
 			{
 				return false;
@@ -3322,6 +3332,8 @@ namespace Server.Mobiles
 			}
 			#endregion
 
+            UndertakersStaff.TryRemoveTimer(this);
+
 			base.OnDamage(amount, from, willKill);
 		}
 
@@ -3623,16 +3635,13 @@ namespace Server.Mobiles
 
 		public override void OnDeath(Container c)
 		{
-			PlayerMobile killer = null;
 			Mobile m = FindMostRecentDamager(false);
-			killer = m as PlayerMobile;
-			if(killer == null)
-			{
-				if(m is BaseCreature)
-				{
-					killer = ((BaseCreature)m).ControlMaster as PlayerMobile;
-				}
-			}
+            PlayerMobile killer = m as PlayerMobile;
+
+            if (killer == null && m is BaseCreature)
+            {
+                killer = ((BaseCreature)m).GetMaster() as PlayerMobile;
+            }
 
 			// daat99 Master Looter start - keep / drop items on death
 			//NO WIPE RISK!!!
@@ -3693,33 +3702,31 @@ namespace Server.Mobiles
 				}
 			}
 
-			if(killer != null &&
-				Murderer &&
-				DateTime.UtcNow >= killer.m_NextJustAward)
-			{
-				// This scales 700.0 skill points to 1000 valor points
-				int pointsToGain = (int)(SkillsTotal / 7);
-				// This scales 700.0 skill points to 7 minutes wait
-				int minutesToWait = Math.Max(1, (int)(SkillsTotal / 1000));
+            if (killer != null && Murderer && DateTime.UtcNow >= killer.m_NextJustAward)
+            {
+                // This scales 700.0 skill points to 1000 valor points
+                int pointsToGain = (int)(SkillsTotal / 7);
+                // This scales 700.0 skill points to 7 minutes wait
+                int minutesToWait = Math.Max(1, (int)(SkillsTotal / 1000));
+                bool gainedPath = false;
 
-				bool gainedPath = false;
-				if (VirtueHelper.Award(m, VirtueName.Justice, pointsToGain, ref gainedPath))
-				{
-					if (gainedPath)
-					{
-						m.SendLocalizedMessage(1049367); // You have gained a path in Justice!
-					}
-					else
-					{
-						m.SendLocalizedMessage(1049363); // You have gained in Justice.
-					}
+                if (VirtueHelper.Award(m, VirtueName.Justice, pointsToGain, ref gainedPath))
+                {
+                    if (gainedPath)
+                    {
+                        m.SendLocalizedMessage(1049367); // You have gained a path in Justice!
+                    }
+                    else
+                    {
+                        m.SendLocalizedMessage(1049363); // You have gained in Justice.
+                    }
 
-					m.FixedParticles(0x375A, 9, 20, 5027, EffectLayer.Waist);
-					m.PlaySound(0x1F7);
+                    m.FixedParticles(0x375A, 9, 20, 5027, EffectLayer.Waist);
+                    m.PlaySound(0x1F7);
 
-					killer.m_NextJustAward = DateTime.UtcNow + TimeSpan.FromMinutes(minutesToWait);
-				}
-			}
+                    killer.m_NextJustAward = DateTime.UtcNow + TimeSpan.FromMinutes(minutesToWait);
+                }
+            }
 
 			if (m_InsuranceAward is PlayerMobile)
 			{
@@ -4284,11 +4291,12 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 37:
-					{
-						_BlessedItem = reader.ReadItem();
-						goto case 36;
-					}
+				case 38: // Reward Stable Slots
+					RewardStableSlots = reader.ReadInt();
+					goto case 37;
+				case 37: // Siege Blessed Item
+					_BlessedItem = reader.ReadItem();
+					goto case 36;
 				//FS:ATS start
 				case 36:
 					{
@@ -4302,7 +4310,7 @@ namespace Server.Mobiles
 						goto case 34;
 					}
 				//FS:ATS end
-                    // Version 34 - new BOD System
+                // Version 34 - new BOD System
                 case 34:
                 case 33:
                     {
@@ -4724,10 +4732,10 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(37); // version
+			writer.Write(38); // version
 
+			writer.Write(RewardStableSlots);
 			writer.Write(_BlessedItem);
-
 			//FS:ATS start
 			m_TamingBOBFilter.Serialize(writer);
 			writer.Write(m_Bioenginer);
