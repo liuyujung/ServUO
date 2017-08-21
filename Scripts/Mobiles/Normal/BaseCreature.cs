@@ -6255,7 +6255,7 @@ namespace Server.Mobiles
 				}
 			}
 			//FS:ATS end
-            if (!String.IsNullOrEmpty(EngravedText))
+            if (Controlled && !String.IsNullOrEmpty(EngravedText))
             {
                 list.Add(1157315, EngravedText); // <BASEFONT COLOR=#668cff>Branded: ~1_VAL~<BASEFONT COLOR=#FFFFFF>
             }
