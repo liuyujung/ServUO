@@ -292,14 +292,14 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this.
                 }
             }
             else if (e.HasKeyword(0x34)) // I ban thee
             {
                 if (!isFriend)
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this.
                 }
                 else if (!m_House.Public && m_House.IsAosRules)
                 {
@@ -324,7 +324,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this.
                 }
             }
             else if (e.HasKeyword(0x24)) // I wish to release this
@@ -340,7 +340,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this. 
                 }
             }
             else if (e.HasKeyword(0x25)) // I wish to secure this
@@ -352,7 +352,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this. 
                 }
             }
             else if (e.HasKeyword(0x26)) // I wish to unsecure this
@@ -364,7 +364,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this. 
                 }
             }
             else if (e.HasKeyword(0x27)) // I wish to place a strongbox
@@ -383,7 +383,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this. 
                 }
             }
             else if (e.HasKeyword(0x28)) // trash barrel
@@ -398,7 +398,7 @@ namespace Server.Regions
                 }
                 else
                 {
-                    from.SendLocalizedMessage(502094); // You must be in your house to do 
+                    from.SendLocalizedMessage(502094); // You must be in your house to do this. 
                 }
             }
         }

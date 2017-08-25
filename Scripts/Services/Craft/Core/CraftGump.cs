@@ -501,6 +501,10 @@ namespace Server.Engines.Craft
 
             CraftGroupCol craftGroupCol = this.m_CraftSystem.CraftGroups;
             CraftGroup craftGroup = craftGroupCol.GetAt(selectedGroup);
+
+            if (craftGroup == null)
+                return;
+
             CraftItemCol craftItemCol = craftGroup.CraftItems;
 
 			//daat99 OWLTR start - recipe craft
