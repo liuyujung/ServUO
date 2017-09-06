@@ -95,5 +95,37 @@ namespace Server.ContextMenus
 				return false;
 			}
 		}
+
+        /// <summary>
+        /// Returns the proper index of Enhanced Client Context Menu when sent from the icon on 
+        /// the vendors status bar. Only known are Bank, Bulk Order Info and Bribe
+        /// </summary>
+        /// <param name="index">pre-described index sent by client. Must be 0x64 or higher</param>
+        /// <returns>actual index of pre-desribed index from client</returns>
+        public int GetIndexEC(int index)
+        {
+            int number = index;
+
+            switch (index)
+            {
+                default: break;
+                case 0x0078: number = 3006105; break;     // Bank
+                case 0x0193: number = 3006152; break;     // Bulk Order Info
+                case 0x01A3: number = 1152294; break;   // Bribe
+            }
+
+            if (index >= 0x64)
+            {
+                for (int i = 0; i < m_Entries.Length; i++)
+                {
+                    if (m_Entries[i].Number == number)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return index;
+        }
 	}
 }
