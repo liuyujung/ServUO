@@ -188,9 +188,9 @@ namespace Server.Engines.BulkOrders
                 if (context.Entries[type].CachedDeeds > 0)
                 {
                     if (context.Entries[type].CachedDeeds == MaxCachedDeeds)
-                        context.Entries[type].LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(Delay * (MaxCachedDeeds));
+                        context.Entries[type].LastBulkOrder = DateTime.UtcNow - TimeSpan.FromMinutes(DelayMins * (MaxCachedDeeds));
 
-                    context.Entries[type].LastBulkOrder += TimeSpan.FromHours(Delay);
+					context.Entries[type].LastBulkOrder += TimeSpan.FromMinutes(DelayMins);
                     context.Entries[type].CachedDeeds--;
 
                     return true;
