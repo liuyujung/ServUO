@@ -2328,11 +2328,6 @@ namespace Server.Mobiles
             }
 			else
 			{
-				if (Core.TOL && from.InRange(this, 2))
-				{
-					list.Add(new CallbackEntry(1077728, () => OpenTrade(from))); // Trade
-				}
-
 				if (Alive && Core.Expansion >= Expansion.AOS)
 				{
 					Party theirParty = from.Party as Party;
@@ -2354,6 +2349,11 @@ namespace Server.Mobiles
 						}
 					}
 				}
+
+                if (Core.TOL && from.InRange(this, 10))
+                {
+                    list.Add(new CallbackEntry(1077728, () => OpenTrade(from))); // Trade
+                }
 
 				BaseHouse curhouse = BaseHouse.FindHouseAt(this);
 
