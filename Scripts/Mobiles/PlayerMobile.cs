@@ -3283,6 +3283,11 @@ namespace Server.Mobiles
 
 		protected override void OnMapChange(Map oldMap)
 		{
+            if (NetState != null && NetState.IsEnhancedClient)
+            {
+                Waypoints.OnMapChange(this, oldMap);
+            }
+
 			if ((Map != Faction.Facet && oldMap == Faction.Facet) || (Map == Faction.Facet && oldMap != Faction.Facet))
 			{
 				InvalidateProperties();
@@ -3418,37 +3423,7 @@ namespace Server.Mobiles
 
                 if (NetState != null && NetState.IsEnhancedClient)
                 {
-                    List<BaseHealer> listHealers = new List<BaseHealer>();
-                    List<MondainQuester> listQuesters = new List<MondainQuester>();
-
-                    foreach (var vendor in World.Mobiles.Values.OfType<BaseVendor>().Where(v => v is MondainQuester || v is BaseHealer))
-                    {
-                        if (vendor is MondainQuester)
-                            listQuesters.Add((MondainQuester)vendor);
-
-                        if (vendor is BaseHealer)
-                            listHealers.Add((BaseHealer)vendor);
-                    }
-
-                    if (Corpse != null && Corpse.Map != null)
-                    {
-                        NetState.Send(new DisplayWaypoint(Corpse.Serial, Corpse.X, Corpse.Y, Corpse.Z, Corpse.Map.MapID, WaypointType.Corpse, Name));
-                    }
-
-                    foreach (BaseHealer healer in listHealers)
-                    {
-                        NetState.Send(new RemoveWaypoint(healer.Serial));
-                    }
-
-                    foreach (MondainQuester quester in listQuesters)
-                    {
-                        string name = quester.Name;
-
-                        if (quester.Title != null)
-                            name += " " + quester.Title;
-
-                        Send(new DisplayWaypoint(quester.Serial, quester.X, quester.Y, quester.Z, quester.Map.MapID, WaypointType.QuestGiver, name));
-                    }
+                    Waypoints.RemoveHealers(this, Map);
                 }
 
                 #region Scroll of Alacrity
@@ -3595,6 +3570,11 @@ namespace Server.Mobiles
 
             RecoverAmmo();
 
+            if (NetState != null && NetState.IsEnhancedClient)
+            {
+                Waypoints.AddCorpse(this);
+            }
+
             return base.OnBeforeDeath();
         }
 
@@ -3696,6 +3676,11 @@ namespace Server.Mobiles
 
 		public override void OnDeath(Container c)
 		{
+            if (NetState != null && NetState.IsEnhancedClient)
+            {
+                Waypoints.OnDeath(this);
+            }
+
 			Mobile m = FindMostRecentDamager(false);
             PlayerMobile killer = m as PlayerMobile;
 
@@ -3822,44 +3807,6 @@ namespace Server.Mobiles
 				m_DuelContext.OnDeath(this, c);
 			}
             #endregion
-
-            if (NetState != null && NetState.IsEnhancedClient)
-            {
-                List<BaseHealer> listHealers = new List<BaseHealer>();
-                List<MondainQuester> listQuesters = new List<MondainQuester>();
-
-                foreach (var vendor in World.Mobiles.Values.OfType<BaseVendor>().Where(v => v is MondainQuester || v is BaseHealer))
-                {
-                    if (vendor is MondainQuester)
-                        listQuesters.Add((MondainQuester)vendor);
-
-                    if (vendor is BaseHealer)
-                        listHealers.Add((BaseHealer)vendor);
-                }
-
-                foreach (BaseHealer healer in listHealers)
-                {
-                    string name = healer.Name;
-
-                    if (healer.Title != null)
-                        name += " " + healer.Title;
-
-                    NetState.Send(new DisplayWaypoint(healer.Serial, healer.X, healer.Y, healer.Z, healer.Map.MapID, WaypointType.Resurrection, name));
-                }
-
-                foreach (MondainQuester quester in listQuesters)
-                {
-                    NetState.Send(new RemoveWaypoint(quester.Serial));
-                }
-
-                if (Corpse != null)
-                {
-                    NetState.Send(new RemoveWaypoint(Corpse.Serial));
-                }
-
-                ColUtility.Free(listHealers);
-                ColUtility.Free(listQuesters);
-            }
 
             if (m_BuffTable != null)
 			{
@@ -5311,6 +5258,11 @@ namespace Server.Mobiles
 
 		protected override bool OnMove(Direction d)
 		{
+            if (Party != null && NetState != null)
+            {
+                Waypoints.UpdateToParty(this);
+            }
+
 			if (!Core.SE)
 			{
 				return base.OnMove(d);
