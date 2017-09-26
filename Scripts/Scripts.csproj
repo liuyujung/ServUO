@@ -9990,7 +9990,6 @@
     <Compile Include="Services\Revamped Dungeons\TheExodusEncounter\Resources\GoldDust.cs" />
     <Compile Include="Services\Revamped Dungeons\TheExodusEncounter\Resources\NexusCore.cs" />
     <Compile Include="Services\Revamped Dungeons\TheExodusEncounter\Resources\SmallPieceofBlackrock.cs" />
-    <Compile Include="Services\Revamped Dungeons\WrongDungeon\EnchantedHotItem.cs" />
     <Compile Include="Services\Revamped Dungeons\WrongDungeon\Items\Soap.cs" />
     <Compile Include="Services\Revamped Dungeons\WrongDungeon\Items\Artifacts\TortureRackArtifact.cs" />
     <Compile Include="Services\Revamped Dungeons\WrongDungeon\Items\BedrollSpawner.cs" />
