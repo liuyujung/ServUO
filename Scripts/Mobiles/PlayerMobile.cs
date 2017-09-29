@@ -134,71 +134,26 @@ namespace Server.Mobiles
 		public override void ToggleFlying()
 		{
 			if (Race != Race.Gargoyle)
-			{
 				return;
-			}
-			else if (Flying)
-			{
-				Freeze(TimeSpan.FromSeconds(1));
-				Animate(61, 10, 1, true, false, 0);
-				Flying = false;
-				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
-				SendMessage("You have landed.");
 
-				BaseMount.Dismount(this);
-				return;
-			}
+            if (!Flying)
+            {
+                if (Spell == null)
+                {
+                    Spell spell = new FlySpell(this);
 
-			BlockMountType type = BaseMount.GetMountPrevention(this);
-
-			if (!Alive)
-			{
-				SendLocalizedMessage(1113082); // You may not fly while dead.
-			}
-			else if (IsBodyMod && !(BodyMod == 666 || BodyMod == 667))
-			{
-				SendLocalizedMessage(1112453); // You can't fly in your current form!
-			}
-			else if (type != BlockMountType.None)
-			{
-				switch (type)
-				{
-					case BlockMountType.Dazed:
-						SendLocalizedMessage(1112457);
-						break; // You are still too dazed to fly.
-					case BlockMountType.BolaRecovery:
-						SendLocalizedMessage(1112455);
-						break; // You cannot fly while recovering from a bola throw.
-					case BlockMountType.DismountRecovery:
-						SendLocalizedMessage(1112456);
-						break; // You cannot fly while recovering from a dismount maneuver.
-				}
-				return;
-			}
-			else if (Hits < 25) // TODO confirm
-			{
-				SendLocalizedMessage(1112454); // You must heal before flying.
-			}
-			else
-			{
-				if (!Flying)
-				{
-					// No message?
-					if (Spell is FlySpell)
-					{
-						FlySpell spell = (FlySpell)Spell;
-						spell.Stop();
-					}
-					new FlySpell(this).Cast();
-				}
-				else
-				{
-					Flying = false;
-					BuffInfo.RemoveBuff(this, BuffIcon.Fly);
-				}
-			}
+                    spell.Cast();
+                }
+            }
+            else if (IsValidLandLocation(Location, Map))
+            {
+                Animate(AnimationType.Land, 0);
+                Flying = false;
+                BuffInfo.RemoveBuff(this, BuffIcon.Fly);
+            }
+            else
+                LocalOverheadMessage(MessageType.Regular, 0x3B2, 1113081); // You may not land here.
 		}
-		#endregion
 
 		//FS:ATS start
 		//private DateTime m_NextTamingBulkOrder;
@@ -239,8 +194,13 @@ namespace Server.Mobiles
 			set { m_Bioenginer = value; }
 		}
 		//FS:ATS end
+        public static bool IsValidLandLocation(Point3D p, Map map)
+        {
+            return map.CanFit(p.X, p.Y, p.Z, 16, false, false);
+        }
+        #endregion
 
-		private class CountAndTimeStamp
+        private class CountAndTimeStamp
 		{
 			private int m_Count;
 			private DateTime m_Stamp;
@@ -794,11 +754,11 @@ namespace Server.Mobiles
 			return true;
 		}
 
-		public override int GetPacketFlags()
+        public override int GetPacketFlags()
 		{
 			int flags = base.GetPacketFlags();
 
-			return flags;
+            return flags;
 		}
 
 		public override int GetOldPacketFlags()
@@ -1261,6 +1221,18 @@ namespace Server.Mobiles
                 StormLevelGump menu = new StormLevelGump(from);
                 menu.BeginClose();
                 from.SendGump(menu);
+            }
+
+            if (from.NetState != null && from.NetState.IsEnhancedClient && from.Mount is EtherealMount)
+            {
+                Timer.DelayCall<EtherealMount>(TimeSpan.FromSeconds(1), mount =>
+                    {
+                        if (mount.IsChildOf(from.Backpack))
+                        {
+                            mount.Rider = from;
+                        }
+                    }, 
+                    (EtherealMount)from.Mount);
             }
         }
 

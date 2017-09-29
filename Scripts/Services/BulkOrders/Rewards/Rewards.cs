@@ -719,7 +719,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E2A, SkillName.Blacksmith);
+            return new MasterCraftsmanTalisman(type, 0x9E2A, TalismanSkill.Blacksmithy);
         }
         #endregion
 
@@ -1364,7 +1364,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CreateCraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E25, SkillName.Tailoring);
+            return new MasterCraftsmanTalisman(type, 0x9E25, TalismanSkill.Tailoring);
         }
 
         #endregion
@@ -1653,7 +1653,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E2B, SkillName.Tinkering);
+            return new MasterCraftsmanTalisman(type, 0x9E2B, TalismanSkill.Tinkering);
         }
         #endregion
 
@@ -2227,7 +2227,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E2C, SkillName.Carpentry);
+            return new MasterCraftsmanTalisman(type, 0x9E2C, TalismanSkill.Carpentry);
         }
         #endregion
 
@@ -2446,7 +2446,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E28, SkillName.Inscribe);
+            return new MasterCraftsmanTalisman(type, 0x9E28, TalismanSkill.Inscription);
         }
 
         private static Item ImprovementTalisman(int type)
@@ -2569,7 +2569,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E27, SkillName.Cooking);
+            return new MasterCraftsmanTalisman(type, 0x9E27, TalismanSkill.Cooking);
         }
 
         private static Item CreateItem(int type)
@@ -2899,7 +2899,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E29, SkillName.Fletching);
+            return new MasterCraftsmanTalisman(type, 0x9E29, TalismanSkill.Fletching);
         }
 
         private static Item CreateRunicFletcherTools(int type)
@@ -3124,7 +3124,7 @@ namespace Server.Engines.BulkOrders
 
         private static Item CraftsmanTalisman(int type)
         {
-            return new MasterCraftsmanTalisman(type, 0x9E26, SkillName.Alchemy);
+            return new MasterCraftsmanTalisman(type, 0x9E26, TalismanSkill.Alchemy);
         }
         #endregion
 

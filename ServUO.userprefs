@@ -1,15 +1,17 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/Books/BOBGump.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/Revamped Dungeons/WrongDungeon/EnchantedHotItem.cs">
     <Files>
-      <File FileName="Scripts/Services/BulkOrders/Rewards/Rewards.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/Misc/Items/WeaponTypeDeed.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="717" Column="26" />
-      <File FileName="Scripts/Services/BulkOrders/Rewards/ConfirmBankPointsGump.cs" Line="16" Column="37" />
-      <File FileName="Scripts/Services/BulkOrders/Rewards/RewardsGump.cs" Line="22" Column="39" />
-      <File FileName="Scripts/Services/BulkOrders/SmallBODs/SmallBOD.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BOBGump.cs" Line="285" Column="72" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BulkOrderBook.cs" Line="70" Column="26" />
+      <File FileName="Server/Mobile.cs" Line="10664" Column="1" />
+      <File FileName="Scripts/Misc/LootPack.cs" Line="513" Column="35" />
+      <File FileName="Scripts/Misc/Loot.cs" Line="137" Column="40" />
+      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="3369" Column="65" />
+      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="280" Column="22" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawn.cs" Line="15" Column="18" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="15" Column="45" />
+      <File FileName="Scripts/Services/MiniChampionSystem/OldSystem/MiniChampionSpawn.cs" Line="30" Column="9" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawnController/ChampionSpawnController.cs" Line="63" Column="6" />
+      <File FileName="../../../../../../Library/Frameworks/Mono.framework/Versions/5.2.0/lib/mono/msbuild/15.0/bin/Roslyn/Microsoft.CSharp.Core.targets" Line="86" Column="39" />
+      <File FileName="Scripts/Services/Revamped Dungeons/WrongDungeon/EnchantedHotItem.cs" Line="71" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

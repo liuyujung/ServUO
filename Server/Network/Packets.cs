@@ -3501,14 +3501,14 @@ m_Stream.Write( (int) renderMode );
 
 	public sealed class NewMobileAnimation : Packet
 	{
-		public NewMobileAnimation(Mobile m, int action, int frameCount, int delay)
+        public NewMobileAnimation(Mobile m, AnimationType type, int action, int delay)
 			: base(0xE2, 10)
 		{
-			m_Stream.Write(m.Serial);
-			m_Stream.Write((short)action);
-			m_Stream.Write((short)frameCount);
-			m_Stream.Write((byte)delay);
-		}
+            m_Stream.Write(m.Serial);
+            m_Stream.Write((short)type);
+            m_Stream.Write((short)action);
+            m_Stream.Write((byte)delay);
+        }
 	}
 
 	public sealed class MobileStatusCompact : Packet
@@ -3810,6 +3810,54 @@ m_Stream.Write( (int) renderMode );
 			}
 		}
 	}
+
+    public sealed class HealthbarYellowEC : Packet
+    {
+        public HealthbarYellowEC(Mobile m)
+            : base(0x16)
+        {
+            EnsureCapacity(12);
+
+            m_Stream.Write(m.Serial);
+
+            m_Stream.Write((short)1);
+            m_Stream.Write((short)2);
+
+            if (m.Blessed || m.YellowHealthbar)
+            {
+                m_Stream.Write((byte)1);
+            }
+            else
+            {
+                m_Stream.Write((byte)0);
+            }
+        }
+    }
+
+    public sealed class HealthbarPoisonEC : Packet
+    {
+        public HealthbarPoisonEC(Mobile m)
+            : base(0x16)
+        {
+            EnsureCapacity(12);
+
+            m_Stream.Write(m.Serial);
+
+            m_Stream.Write((short)1);
+            m_Stream.Write((short)1);
+
+            Poison p = m.Poison;
+
+            if (p != null)
+            {
+                m_Stream.Write((byte)(p.Level + 1));
+            }
+            else
+            {
+                m_Stream.Write((byte)0);
+            }
+        }
+    }
 
 	public sealed class MobileUpdate : Packet
 	{
