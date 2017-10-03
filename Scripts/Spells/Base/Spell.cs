@@ -61,6 +61,9 @@ namespace Server.Spells
 		public virtual bool ShowHandMovement { get { return true; } }
 
 		public virtual bool DelayedDamage { get { return false; } }
+        public virtual Type[] DelayDamageFamily { get { return null; } }
+        // DelayDamageFamily can define spells so they don't stack, even though they are different spells
+        // Right now, magic arrow and nether bolt are the only ones that have this functionality
 
 		public virtual bool DelayedDamageStacking { get { return true; } }
 		//In reality, it's ANY delayed Damage spell Post-AoS that can't stack, but, only 
@@ -105,8 +108,18 @@ namespace Server.Spells
 
 			if (!m_ContextTable.TryGetValue(GetType(), out contexts))
 			{
-				contexts = new DelayedDamageContextWrapper();
-				m_ContextTable.Add(GetType(), contexts);
+                contexts = new DelayedDamageContextWrapper();
+                Type type = GetType();
+
+                m_ContextTable.Add(type, contexts);
+
+                if (DelayDamageFamily != null)
+                {
+                    foreach (var familyType in DelayDamageFamily)
+                    {
+                        m_ContextTable.Add(familyType, contexts);
+                    }
+                }
 			}
 
 			contexts.Add(d, t);
@@ -115,13 +128,25 @@ namespace Server.Spells
 		public void RemoveDelayedDamageContext(IDamageable d)
 		{
 			DelayedDamageContextWrapper contexts;
+            Type type = GetType();
 
-			if (!m_ContextTable.TryGetValue(GetType(), out contexts))
+            if (!m_ContextTable.TryGetValue(type, out contexts))
 			{
 				return;
 			}
 
 			contexts.Remove(d);
+
+            if (DelayDamageFamily != null)
+            {
+                foreach (var t in DelayDamageFamily)
+                {
+                    if (m_ContextTable.TryGetValue(t, out contexts))
+                    {
+                        contexts.Remove(d);
+                    }
+                }
+            }
 		}
 
         public void HarmfulSpell(IDamageable d)
@@ -278,6 +303,11 @@ namespace Server.Spells
 			FinishSequence();
 		}
 
+        /// <summary>
+        /// Pre-ML code where mobile can change directions, but doesn't move
+        /// </summary>
+        /// <param name="d"></param>
+        /// <returns></returns>
 		public virtual bool OnCasterMoving(Direction d)
 		{
             if (IsCasting && BlocksMovement && (!(m_Caster is BaseCreature) || ((BaseCreature)m_Caster).FreezeOnCast))
@@ -291,6 +321,21 @@ namespace Server.Spells
 
 			return true;
 		}
+
+        /// <summary>
+        /// Post ML code where player is frozen in place while casting.
+        /// </summary>
+        /// <param name="caster"></param>
+        /// <returns></returns>
+        public virtual bool CheckMovement(Mobile caster)
+        {
+            if (IsCasting && BlocksMovement && (!(m_Caster is BaseCreature) || ((BaseCreature)m_Caster).FreezeOnCast))
+            {
+                return false;
+            }
+
+            return true;
+        }
 
 		public virtual bool OnCasterEquiping(Item item)
 		{
@@ -561,6 +606,7 @@ namespace Server.Spells
 
 				m_State = SpellState.None;
 				m_Caster.Spell = null;
+                Caster.Delta(MobileDelta.Flags);
 
 				OnDisturb(type, true);
 
@@ -590,6 +636,7 @@ namespace Server.Spells
 
 				m_State = SpellState.None;
 				m_Caster.Spell = null;
+                Caster.Delta(MobileDelta.Flags);
 
 				OnDisturb(type, false);
 
@@ -747,6 +794,8 @@ namespace Server.Spells
 				{
 					m_State = SpellState.Casting;
 					m_Caster.Spell = this;
+
+                    Caster.Delta(MobileDelta.Flags);
 
 					if (!(m_Scroll is BaseWand) && RevealOnCast)
 					{
@@ -1043,7 +1092,14 @@ namespace Server.Spells
 
 		public virtual void FinishSequence()
 		{
+            SpellState oldState = m_State;
+
 			m_State = SpellState.None;
+
+            if (oldState == SpellState.Casting)
+            {
+                Caster.Delta(MobileDelta.Flags);
+            }
 
 			if (m_Caster.Spell == this)
 			{
@@ -1294,12 +1350,15 @@ namespace Server.Spells
 					m_Spell.m_State = SpellState.Sequencing;
 					m_Spell.m_CastTimer = null;
 					m_Spell.m_Caster.OnSpellCast(m_Spell);
+
+                    m_Spell.Caster.Delta(MobileDelta.Flags);
+
 					if (m_Spell.m_Caster.Region != null)
 					{
 						m_Spell.m_Caster.Region.OnSpellCast(m_Spell.m_Caster, m_Spell);
 					}
+
 					m_Spell.m_Caster.NextSpellTime = Core.TickCount + (int)m_Spell.GetCastRecovery().TotalMilliseconds;
-						// Spell.NextSpellDelay;
 
 					Target originalTarget = m_Spell.m_Caster.Target;
 
