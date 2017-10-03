@@ -1081,7 +1081,7 @@ namespace Knives.TownHouses
 				new TownHouseSetupGump( m, this );
 			else if ( !Visible )
 				return;
-			else if ( CanBuyHouse( m ) && !BaseHouse.HasAccountHouse( m ) )
+			else if ( CanBuyHouse( m ) && !BaseHouse.HasHouse( m ) )
 				new TownHouseConfirmGump( m, this );
 			else
 				m.SendMessage( "You cannot purchase this house." );
