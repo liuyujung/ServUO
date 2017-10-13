@@ -104,14 +104,14 @@ namespace Server.Items
 
         public static void SendLocalizedMessage(this Item item, int number, string args)
         {
-            if (item == null)
+            if (item == null || item.Map == null)
                 return;
 
             IPooledEnumerable eable = item.Map.GetClientsInRange(item.Location, 12);
 
             foreach (NetState ns in eable)
             {
-                ns.Send(new MessageLocalized(item.Serial, item.ItemID, MessageType.Regular, 0x3B2, 3, number, "", args));
+                ns.Send(new MessageLocalized(item.Serial, item.ItemID, MessageType.Regular, 0x3B2, 3, number, item.Name, args));
             }
             
             eable.Free();
@@ -119,7 +119,7 @@ namespace Server.Items
 
         public static void SendLocalizedMessage(this Item item, MessageType type, int number, AffixType affixType, string affix, string args)
         {
-            if (item == null)
+            if (item == null || item.Map == null)
                 return;
 
             IPooledEnumerable eable = item.Map.GetClientsInRange(item.Location, 12);

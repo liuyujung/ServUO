@@ -500,7 +500,16 @@ namespace Server.Engines.Harvest
             from.Direction = from.GetDirectionTo(loc);
 
             if (!from.Mounted)
-                from.Animate(Utility.RandomList(def.EffectActions), 5, 1, true, false, 0);
+            {
+                if (Core.SA)
+                {
+                    from.Animate(AnimationType.Attack, Utility.RandomList(def.EffectActions));
+                }
+                else
+                {
+                    from.Animate(Utility.RandomList(def.EffectActions), 5, 1, true, false, 0);
+                }
+            }
         }
 
         public virtual HarvestDefinition GetDefinition(int tileID)
