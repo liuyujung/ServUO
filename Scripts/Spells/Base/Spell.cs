@@ -70,6 +70,8 @@ namespace Server.Spells
 		//the possibility of stacking 'em.  Note that a MA & an Explosion will stack, but
 		//of course, two MA's won't.
 
+        public virtual DamageType SpellDamageType { get { return DamageType.Spell; } }
+
 		private static readonly Dictionary<Type, DelayedDamageContextWrapper> m_ContextTable =
 			new Dictionary<Type, DelayedDamageContextWrapper>();
 
@@ -749,17 +751,7 @@ namespace Server.Spells
 				#region Stygian Abyss
 				if (m_Caster.Race == Race.Gargoyle && m_Caster.Flying)
 				{
-					var tiles = Caster.Map.Tiles.GetStaticTiles(Caster.X, Caster.Y, true);
-					ItemData itemData;
-					bool cancast = true;
-
-					for (int i = 0; i < tiles.Length && cancast; ++i)
-					{
-						itemData = TileData.ItemTable[tiles[i].ID & TileData.MaxItemValue];
-						cancast = !(itemData.Name == "hover over");
-					}
-
-					if (!cancast)
+                    if (BaseMount.OnFlightPath(m_Caster))
 					{
 						if (m_Caster.IsPlayer())
 						{
