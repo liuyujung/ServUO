@@ -159,7 +159,6 @@ namespace Server.Engines.Harvest
 
             Type type = null;
 
-<<<<<<< HEAD
 			//daat99 OWLTR start - daat99 harvesting
 			type = GetResourceType(from, tool, def, map, loc, resource);
 			bool daatHarvesting = false;
@@ -167,7 +166,7 @@ namespace Server.Engines.Harvest
 				daatHarvesting = true;
 			else if (daat99.OWLTROptionsManager.IsEnabled(daat99.OWLTROptionsManager.OPTIONS_ENUM.DAAT99_LUMBERJACKING) && type.IsSubclassOf(typeof(BaseLog)))
 				daatHarvesting = true;
-			if (daatHarvesting || (skillBase >= resource.ReqSkill && from.CheckSkill(def.Skill, resource.MinSkill, resource.MaxSkill)))
+			if (daatHarvesting || (CheckHarvestSkill(map, loc, from, resource, def)))
 			{
 				type = GetResourceType(from, tool, def, map, loc, resource);
 
@@ -175,14 +174,11 @@ namespace Server.Engines.Harvest
 					type = MutateType(type, from, tool, def, map, loc, resource);
 				if (daatHarvesting)
 				{
-					type = ResourceHelper.GetDaat99HarvestedType(type, bank.Vein.IsProspected, skillValue);
+					type = ResourceHelper.GetDaat99HarvestedType(type, bank.Vein.IsProspected, from.Skills[def.Skill].Value);
 					from.CheckSkill(def.Skill, 0.0, from.Skills[def.Skill].Cap + (vein.IsProspected ? 10.0 : 0.0));
 				}
 				//daat99 OWLTR end - daat99 harvesting
-            /*if (skillBase >= resource.ReqSkill && from.CheckSkill(def.Skill, resource.MinSkill, resource.MaxSkill))
-=======
-            if(CheckHarvestSkill(map, loc, from, resource, def))
->>>>>>> ServUO/master
+            /*if(CheckHarvestSkill(map, loc, from, resource, def))
             {
                 type = GetResourceType(from, tool, def, map, loc, resource);
 
