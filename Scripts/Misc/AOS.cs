@@ -312,6 +312,8 @@ namespace Server
 
             m.Damage(totalDamage, from, true, false);
 
+            SpiritSpeak.CheckDisrupt(m);
+
             #region Skill Mastery Spells
             ManaShieldSpell.CheckManaShield(m, ref totalDamage);
             SkillMasterySpell.OnDamaged(m, from, ref totalDamage);
@@ -325,6 +327,8 @@ namespace Server
 
             if (ManaPhasingOrb.IsInManaPhase(m))
                 ManaPhasingOrb.RemoveFromTable(m);
+
+            SoulChargeContext.CheckHit(from, m, totalDamage);
 
             Spells.Mysticism.SleepSpell.OnDamage(m);
             Spells.Mysticism.PurgeMagicSpell.OnMobileDoDamage(from);
@@ -571,9 +575,6 @@ namespace Server
                     value -= 30;
 
                 #region SA
-                if (TransformationSpellHelper.UnderTransformation(m, typeof(Spells.Mysticism.StoneFormSpell)))
-                    value -= 10;
-
                 if (m is PlayerMobile && m.Race == Race.Gargoyle)
                 {
                     value += ((PlayerMobile)m).GetRacialBerserkBuff(false);

@@ -601,7 +601,7 @@ namespace Server.Multis
             {
                 foreach (Item item in Addons.Keys)
                 {
-                    if (item is BaseAddonContainer || item is RaisedGardenSmallAddon || item is RaisedGardenLargeAddon || item is RaisedGardenEastAddon || item is RaisedGardenSouthAddon)
+                    if (item is BaseAddonContainer || item is RaisedGardenAddon)
                         return true;
                 }
 
@@ -628,7 +628,19 @@ namespace Server.Multis
 
         public override int GetUpdateRange(Mobile m)
         {
-            return Core.GlobalMaxUpdateRange;
+            int min = m.NetState != null ? m.NetState.UpdateRange : 18;
+            int max = Core.GlobalMaxUpdateRange;
+
+            int w = Components.Width;
+            int h = Components.Height - 1;
+            int v = min + ((w > h ? w : h) / 2);
+
+            if (v > max)
+                v = max;
+            else if (v < min)
+                v = min;
+
+            return v;
         }
 
         public List<Mobile> AvailableVendorsFor(Mobile m)
@@ -1837,7 +1849,7 @@ namespace Server.Multis
                 bool valid = m_House != null && Sextant.Format(m_House.Location, m_House.Map, ref xLong, ref yLat, ref xMins, ref yMins, ref xEast, ref ySouth);
 
                 if (valid)
-                    location = String.Format("{0}� {1}'{2}, {3}� {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
+                    location = String.Format("{0}° {1}'{2}, {3}° {4}'{5}", yLat, yMins, ySouth ? "S" : "N", xLong, xMins, xEast ? "E" : "W");
                 else
                     location = "unknown";
 
@@ -2855,7 +2867,7 @@ namespace Server.Multis
                 case 10: // just a signal for updates
                 case 9:
                     {
-                        if (version == 18)
+                        if (version <= 18)
                         {
                             reader.ReadInt();
                         }
@@ -4596,6 +4608,9 @@ namespace Server.Multis
 
                 if (!isOwned)
                     isOwned = house.IsLockedDown(item);
+
+                if (!isOwned)
+                    isOwned = item is BaseAddon;
 
                 if (isOwned)
                     sec = (ISecurable)item;
