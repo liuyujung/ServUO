@@ -2799,7 +2799,7 @@ namespace Server.Items
         {
             CraftAttributeInfo attrInfo = GetResourceAttrs(Resource);
 
-            if (attrInfo == null)
+            if (attrInfo == null || Resource == CraftResource.Heartwood)
                 return 0;
 
             return attrInfo.ArmorLuck;
@@ -2967,6 +2967,9 @@ namespace Server.Items
             if (Core.ML && (prop = m_AosAttributes.IncreasedKarmaLoss) != 0)
                 list.Add(1075210, prop.ToString()); // Increased Karma Loss ~1val~%
 
+            if ((prop = m_AosArmorAttributes.SoulCharge) != 0)
+                list.Add(1113630, prop.ToString()); // Soul Charge ~1_val~%
+
             if ((prop = m_SAAbsorptionAttributes.EaterFire) != 0)
                 list.Add(1113593, prop.ToString()); // Fire Eater ~1_Val~%
 
@@ -3000,11 +3003,11 @@ namespace Server.Items
             if ((prop = m_SAAbsorptionAttributes.ResonanceKinetic) != 0)
                 list.Add(1113695, prop.ToString()); // Kinetic Resonance ~1_val~%
 
+            if((prop = m_AosArmorAttributes.ReactiveParalyze) != 0)
+                list.Add(1112364); // reactive paralyze
+
             if ((prop = m_SAAbsorptionAttributes.CastingFocus) != 0)
                 list.Add(1113696, prop.ToString()); // Casting Focus ~1_val~%
-
-			if ((prop = m_AosArmorAttributes.SoulCharge) != 0)
-				list.Add(1113630, prop.ToString()); // Soul Charge ~1_val~%
 
             if (this is SurgeShield && ((SurgeShield)this).Surge > SurgeType.None)
                 list.Add(1153098, ((SurgeShield)this).Charges.ToString());
@@ -3262,17 +3265,17 @@ namespace Server.Items
                 m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage;
                 m_AosAttributes.AttackChance += attrInfo.ArmorHitChance;
                 m_AosAttributes.RegenHits += attrInfo.ArmorRegenHits;
-                m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
+                //m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage;
             }
             else
             {
-                switch (Utility.Random(5))
+                switch (Utility.Random(4))
                 {
                     case 0: m_AosAttributes.WeaponDamage += attrInfo.ArmorDamage; break;
                     case 1: m_AosAttributes.AttackChance += attrInfo.ArmorHitChance; break;
-                    case 2: m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage; break;
-                    case 3: m_AosAttributes.Luck += attrInfo.ArmorLuck; break;
-                    case 4: m_AosArmorAttributes.LowerStatReq += attrInfo.ArmorLowerRequirements; break;
+                    //case 2: m_AosArmorAttributes.MageArmor += attrInfo.ArmorMage; break;
+                    case 2: m_AosAttributes.Luck += attrInfo.ArmorLuck; break;
+                    case 3: m_AosArmorAttributes.LowerStatReq += attrInfo.ArmorLowerRequirements; break;
                 }
             }
         }

@@ -164,8 +164,13 @@ namespace Server.Spells
 
             NegativeAttributes.OnCombatAction(Caster);
 
-            if (d is Mobile && (Mobile)d != m_Caster)
-                NegativeAttributes.OnCombatAction((Mobile)d);
+            if (d is Mobile)
+            {
+                if((Mobile)d != m_Caster)
+                    NegativeAttributes.OnCombatAction((Mobile)d);
+
+                EvilOmenSpell.TryEndEffect((Mobile)d);
+            }
 		}
 
 		public Spell(Mobile caster, Item scroll, SpellInfo info)
@@ -438,7 +443,7 @@ namespace Server.Spells
 
 		public virtual double GetResistSkill(Mobile m)
 		{
-			return m.Skills[SkillName.MagicResist].Value;
+			return m.Skills[SkillName.MagicResist].Value - EvilOmenSpell.GetResistMalus(m);
 		}
 
 		public virtual double GetDamageScalar(Mobile target)
@@ -734,7 +739,7 @@ namespace Server.Spells
 			{
 				m_Caster.SendLocalizedMessage(502643); // You can not cast a spell while frozen.
 			}
-			else if (m_Caster.Spell != null && m_Caster.Spell.IsCasting)
+            else if (SkillHandlers.SpiritSpeak.IsInSpiritSpeak(m_Caster) || (m_Caster.Spell != null && m_Caster.Spell.IsCasting))
 			{
 				m_Caster.SendLocalizedMessage(502642); // You are already casting a spell.
 			}

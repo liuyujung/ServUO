@@ -145,8 +145,8 @@ namespace Server.SkillHandlers
             if (RunicReforging.GetArtifactRarity(item) > 0)
                 return true;
 
-			if (item.GetType() == typeof(SilverRing) || item.GetType() == typeof(SilverBracelet))
-				return false;
+            if (NonCraftableImbuable(item))
+                return false;
 
             foreach (CraftSystem system in CraftSystem.Systems)
             {
@@ -175,6 +175,27 @@ namespace Server.SkillHandlers
         {
             typeof(ClockworkLeggings), typeof(GargishClockworkLeggings)
         };
+
+        private static Type[] _NonCraftables =
+        {
+            typeof(SilverRing), typeof(SilverBracelet)
+        };
+
+        public static bool NonCraftableImbuable(Item item)
+        {
+            if (item is BaseWand)
+                return true;
+
+            Type type = item.GetType();
+
+            foreach (var t in _NonCraftables)
+            {
+                if (t == type)
+                    return true;
+            }
+
+            return false;
+        }
 
         public static double GetSuccessChance(Mobile from, Item item, int totalItemWeight, int propWeight, out double dif)
         {
@@ -711,11 +732,6 @@ namespace Server.SkillHandlers
                     return GetPropRange(item, attr)[1];
             }
 
-            if ((item is BaseArmor || item is BaseHat) && def.Attribute is AosElementAttribute)
-            {
-                return GetPropRange(item, (AosElementAttribute)def.Attribute)[1];
-            }
-
             return def.MaxIntensity;
         }
 
@@ -1162,9 +1178,15 @@ namespace Server.SkillHandlers
                 }
             }
             
-            if (item is BaseArmor && mod >= 51 && mod <= 55)
+            if (item is BaseArmor)
             {
-                weight += CheckResists((BaseArmor)item, mod);
+                var arm = (BaseArmor)item;
+
+                if (arm.PhysicalBonus > arm.PhysNonImbuing) { if (mod != 51) { weight += ((double)(100.0 / 15) * (double)(arm.PhysicalBonus - arm.PhysNonImbuing)); } }
+                if (arm.FireBonus > arm.FireNonImbuing) { if (mod != 52) { weight += ((double)(100.0 / 15) * (double)(arm.FireBonus - arm.FireNonImbuing)); } }
+                if (arm.ColdBonus > arm.ColdNonImbuing) { if (mod != 53) { weight += ((double)(100.0 / 15) * (double)(arm.ColdBonus - arm.ColdNonImbuing)); } }
+                if (arm.PoisonBonus > arm.PoisonNonImbuing) { if (mod != 54) { weight += ((double)(100.0 / 15) * (double)(arm.PoisonBonus - arm.PoisonNonImbuing)); } }
+                if (arm.EnergyBonus > arm.EnergyNonImbuing) { if (mod != 55) { weight += ((double)(100.0 / 15) * (double)(arm.EnergyBonus - arm.EnergyNonImbuing)); } }
             }
 
             if (aosAttrs != null)
@@ -1216,20 +1238,6 @@ namespace Server.SkillHandlers
                 if (skills.GetBonus(3) > 0) { if (mod < 167 || mod > 173) { weight += ((double)(140.0 / 15.0) * (double)skills.GetBonus(3)); } }
                 if (skills.GetBonus(4) > 0) { if (mod < 174 || mod > 180) { weight += ((double)(140.0 / 15.0) * (double)skills.GetBonus(4)); } }
             }
-
-            return (int)Math.Round(weight);
-        }
-
-        private static int CheckResists(BaseArmor i, int mod)
-        {
-            double weight = 0;
-            int max = GetMaxIntensity(i, Imbuing.Table[mod]);
-
-            if (i.PhysicalBonus > i.PhysNonImbuing) { if (mod != 51) { weight += ((double)(100.0 / max) * (double)(i.PhysicalBonus - i.PhysNonImbuing)); } }
-            if (i.FireBonus > i.FireNonImbuing) { if (mod != 52) { weight += ((double)(100.0 / max) * (double)(i.FireBonus - i.FireNonImbuing)); } }
-            if (i.ColdBonus > i.ColdNonImbuing) { if (mod != 53) { weight += ((double)(100.0 / max) * (double)(i.ColdBonus - i.ColdNonImbuing)); } }
-            if (i.PoisonBonus > i.PoisonNonImbuing) { if (mod != 54) { weight += ((double)(100.0 / max) * (double)(i.PoisonBonus - i.PoisonNonImbuing)); } }
-            if (i.EnergyBonus > i.EnergyNonImbuing) { if (mod != 55) { weight += ((double)(100.0 / max) * (double)(i.EnergyBonus - i.EnergyNonImbuing)); } }
 
             return (int)Math.Round(weight);
         }
@@ -1767,10 +1775,6 @@ namespace Server.SkillHandlers
                 {
                     max = GetPropRange((BaseWeapon)item, (AosWeaponAttribute)attr)[1];
                 }
-                else if(item is BaseArmor && attr is AosElementAttribute)
-                {
-                    max = GetPropRange((BaseArmor)item, (AosElementAttribute)attr)[1];
-                }
                 else if (item is BaseJewel && attr is AosAttribute && (AosAttribute)attr == AosAttribute.WeaponDamage)
                 {
                     max = 25;
@@ -2179,11 +2183,26 @@ namespace Server.SkillHandlers
             return new int[] { 1, 15 };
         }
 
-        public static int[] GetPropRange(Item item, AosElementAttribute attr)
+        /*public static int[] GetPropRange(Item item, AosElementAttribute attr)
         {
+            return new int[] { 1, 15 };
             int index = GetArmorIndex(item);
 
-            if (index < 0 || index > _MaxResistArmorTable.Length) // Default Value
+            if (item is BaseArmor)
+            {
+                BaseArmor ar = item as BaseArmor;
+
+                switch (attr)
+                {
+                    default:
+                    case AosElementAttribute.Physical: return new int[] { ar.BasePhysicalResistance + 1, ar.BasePhysicalResistance + 15 };
+                    case AosElementAttribute.Fire: return new int[] { ar.BaseFireResistance + 1, ar.BaseFireResistance + 15 };
+                    case AosElementAttribute.Cold: return new int[] { ar.BaseColdResistance + 1, ar.BaseColdResistance + 15 };
+                    case AosElementAttribute.Poison: return new int[] { ar.BasePoisonResistance + 1, ar.BasePoisonResistance + 15 };
+                    case AosElementAttribute.Energy: return new int[] { ar.BaseEnergyResistance + 1, ar.BaseEnergyResistance + 15 };
+                }
+            }*/
+            /*if (index < 0 || index > _MaxResistArmorTable.Length) // Default Value
                 return new int[] { 1, 15 };
 
             int attrIndex;
@@ -2199,7 +2218,7 @@ namespace Server.SkillHandlers
             }
 
             return new int[] { 1, _MaxResistArmorTable[index][attrIndex] };
-        }
+        }*/
 
         public static int[] GetPropRange(Item item, ExtendedWeaponAttribute attr)
         {
@@ -2213,7 +2232,7 @@ namespace Server.SkillHandlers
             }
         }
 
-        private static int GetArmorIndex(Item item)
+        /*private static int GetArmorIndex(Item item)
         {
             if (item is BaseHat)
                 return 0;
@@ -2283,7 +2302,7 @@ namespace Server.SkillHandlers
             new int[] { 18, 18, 18, 18, 18 }, // dragon
             new int[] { 22, 17, 17, 17, 17 }, // helmets
 
-        };
+        };*/
         #endregion
     }
 }        
