@@ -819,7 +819,7 @@ namespace Server.Mobiles
             Mobile to = World.FindMobile(e.Target.Serial);
             Item toItem = World.FindItem(e.Target.Serial);
 
-            if (from != null)
+            if (from != null && e.Mobile.Target != null)
             {
                 if (to != null)
                 {
@@ -849,7 +849,7 @@ namespace Server.Mobiles
             {
                 from.TargetLocked = true;
 
-                if (from.UseSkill(e.SkillID))
+                if (from.UseSkill(e.SkillID) && from.Target != null)
                     from.Target.Invoke(from, to);
 
                 from.TargetLocked = false;
@@ -858,7 +858,7 @@ namespace Server.Mobiles
             {
                 from.TargetLocked = true;
 
-                if (from.UseSkill(e.SkillID))
+                if (from.UseSkill(e.SkillID) && from.Target != null)
                     from.Target.Invoke(from, toItem);
 
                 from.TargetLocked = false;

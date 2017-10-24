@@ -80,7 +80,7 @@ namespace Server
 
         public static int Damage(IDamageable m, Mobile from, int damage, bool ignoreArmor, int phys, int fire, int cold, int pois, int nrgy, int chaos, int direct, bool keepAlive, bool archer, bool deathStrike)
         {
-            return Damage(m, from, damage, false, phys, fire, cold, pois, nrgy, 0, 0, keepAlive, archer ? DamageType.Ranged : DamageType.Melee); // old deathStrike damage, kept for compatibility
+            return Damage(m, from, damage, false, phys, fire, cold, pois, nrgy, chaos, direct, keepAlive, archer ? DamageType.Ranged : DamageType.Melee); // old deathStrike damage, kept for compatibility
         }
 
         public static int Damage(IDamageable m, Mobile from, int damage, int phys, int fire, int cold, int pois, int nrgy, DamageType type)
@@ -184,8 +184,13 @@ namespace Server
                 if (m != null)
                     BaseFishPie.ScaleDamage(m, ref totalDamage, phys, fire, cold, pois, nrgy, direct);
 
+                if (Core.HS && ArmorPierce.IsUnderEffects(m))
+                {
+                    totalDamage += (int)((double)totalDamage * .1);
+                }
+
                 if (totalDamage < 1)
-                    totalDamage = 1;
+                    totalDamage = 1;           
             }
             else if (Core.ML && m is PlayerMobile && from is PlayerMobile)
             {
@@ -209,13 +214,13 @@ namespace Server
                 return totalDamage;
             }
 
-            #region Evil Omen and Blood Oath
+            #region Evil Omen, Blood Oath and reflect physical
             if (EvilOmenSpell.TryEndEffect(m))
             {
                 totalDamage = (int)(totalDamage * 1.25);
             }
 
-            if (from != null)
+            if (from != null && !from.Deleted && from.Alive && !from.IsDeadBondedPet)
             {
                 Mobile oath = BloodOathSpell.GetBloodOath(from);
 
@@ -239,6 +244,24 @@ namespace Server
                     else
                     {
                         from.Damage(totalDamage, m);
+                    }
+                }
+                else if (!ignoreArmor)
+                {
+                    int reflectPhys = Math.Min(105, AosAttributes.GetValue(m, AosAttribute.ReflectPhysical));
+
+                    if (reflectPhys != 0)
+                    {
+                        if (from is ExodusMinion && ((ExodusMinion)from).FieldActive || from is ExodusOverseer && ((ExodusOverseer)from).FieldActive)
+                        {
+                            from.FixedParticles(0x376A, 20, 10, 0x2530, EffectLayer.Waist);
+                            from.PlaySound(0x2F4);
+                            m.SendAsciiMessage("Your weapon cannot penetrate the creature's magical barrier");
+                        }
+                        else
+                        {
+                            from.Damage(Scale((damage * phys * (100 - (ignoreArmor ? 0 : m.PhysicalResistance))) / 10000, reflectPhys), m);
+                        }
                     }
                 }
             }
@@ -287,25 +310,6 @@ namespace Server
 
             SpiritualityVirtue.GetDamageReduction(m, ref totalDamage);
 
-            if (from != null && !from.Deleted && from.Alive)
-            {
-                int reflectPhys = Math.Min(105, AosAttributes.GetValue(m, AosAttribute.ReflectPhysical));
-
-                if (reflectPhys != 0)
-                {
-                    if (from is ExodusMinion && ((ExodusMinion)from).FieldActive || from is ExodusOverseer && ((ExodusOverseer)from).FieldActive)
-                    {
-                        from.FixedParticles(0x376A, 20, 10, 0x2530, EffectLayer.Waist);
-                        from.PlaySound(0x2F4);
-                        m.SendAsciiMessage("Your weapon cannot penetrate the creature's magical barrier");
-                    }
-                    else
-                    {
-                        from.Damage(Scale((damage * phys * (100 - (ignoreArmor ? 0 : m.PhysicalResistance))) / 10000, reflectPhys), m);
-                    }
-                }
-            }
-
             #region Berserk
             BestialSetHelper.OnDamage(m, from, ref totalDamage);
             #endregion
@@ -336,7 +340,9 @@ namespace Server
 
             if (Core.ML && type == DamageType.SpellAOE)
             {
-                if (m.Hidden && Utility.RandomBool())
+                double shadow = Server.Spells.SkillMasteries.ShadowSpell.GetDifficultyFactor(m);
+
+                if (m.Hidden && (Utility.RandomBool() || Utility.RandomDouble() > shadow))
                 {
                     m.RevealingAction();
                     m.NextSkillTime = Core.TickCount + (12000 - ((int)m.Skills[SkillName.Hiding].Value) * 100);
@@ -742,8 +748,9 @@ namespace Server
                 if (DivineFurySpell.UnderEffect(m))
                     value -= DivineFurySpell.GetDefendMalus(m);
 
-                if (HitLower.IsUnderDefenseEffect(m))
-                    value -= 25; // Under Hit Lower Defense effect -> 25% malus
+                //if (HitLower.IsUnderDefenseEffect(m))
+                //    value -= 25; // Under Hit Lower Defense effect -> 25% malus
+                value -= HitLower.GetDefenseMalus(m);
 
                 int discordanceEffect = 0;
                 int surpriseMalus = 0;
