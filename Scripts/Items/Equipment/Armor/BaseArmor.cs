@@ -2751,25 +2751,25 @@ namespace Server.Items
                     RunicReforging.AddSuffixName(list, m_ReforgedSuffix, GetNameString());
                 }
             }
-			//daat99
-			else if (m_Quality == ItemQuality.Exceptional)
-			{
-				if (level > 1 && !string.IsNullOrEmpty(oreType))
-					list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
-				else
-					list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
-			}
-			else
-			{
-				if (level > 1 && !string.IsNullOrEmpty(oreType))
-					list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
-				else
-					list.Add(GetNameString());
+	    //daat99
+	    else if (m_Quality == ItemQuality.Exceptional)
+	    {
+		if (level > 1 && !string.IsNullOrEmpty(oreType))
+		    list.Add(1053100, "{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
+		else
+		    list.Add(1050040, GetNameString()); // exceptional ~1_ITEMNAME~
+	    }
+	    else
+	    {
+		if (level > 1 && !string.IsNullOrEmpty(oreType))
+		    list.Add(1053099, "{0}\t{1}", oreType, GetNameString()); // ~1_oretype~ ~2_armortype~
+		else
+		    list.Add(GetNameString());
 
-			}
-			//daat99 OWLTR end - add custom resources to name
+	    }
+	    //daat99 OWLTR end - add custom resources to name
 
-			/*else if (m_Quality == ItemQuality.Exceptional)
+	    /*else if (m_Quality == ItemQuality.Exceptional)
             {
                 if (oreType != 0)
                     list.Add(1053100, "#{0}\t{1}", oreType, GetNameString()); // exceptional ~1_oretype~ ~2_armortype~
@@ -2785,7 +2785,7 @@ namespace Server.Items
                 else
                     list.Add(Name);
             }*/
-		}
+	}
 
         public override bool AllowEquipedCast(Mobile from)
         {
@@ -2820,18 +2820,16 @@ namespace Server.Items
             if (OwnerName != null)
             {
                 list.Add(1153213, OwnerName);
-            }
-
-            #region Stygian Abyss
-            if (IsImbued)
-                list.Add(1080418); // (Imbued)
-
-            if (m_GorgonLenseCharges > 0)
-                list.Add(1112590, m_GorgonLenseCharges.ToString()); //Gorgon Lens Charges: ~1_val~
-            #endregion
+            }            
 
             if (m_Crafter != null)
 				list.Add(1050043, m_Crafter.TitleName); // crafted by ~1_NAME~
+
+            if (m_Quality == ItemQuality.Exceptional)
+                list.Add(1060636); // Exceptional
+           
+            if (IsImbued)
+                list.Add(1080418); // (Imbued)
 
             if (m_Altered)
                 list.Add(1111880); // Altered
@@ -2840,6 +2838,9 @@ namespace Server.Items
             if (m_FactionState != null)
                 list.Add(1041350); // faction item
             #endregion
+
+            if (m_GorgonLenseCharges > 0)
+                list.Add(1112590, m_GorgonLenseCharges.ToString()); //Gorgon Lens Charges: ~1_val~         
 
             #region Mondain's Legacy Sets
             if (IsSetItem)
@@ -3013,10 +3014,7 @@ namespace Server.Items
                 list.Add(1153098, ((SurgeShield)this).Charges.ToString());
 
             AddResistanceProperties(list);
-
-            if ((prop = GetDurabilityBonus()) > 0)
-                list.Add(1060410, prop.ToString()); // durability ~1_val~%
-
+            
             if ((prop = ComputeStatReq(StatType.Str)) > 0)
                 list.Add(1061170, prop.ToString()); // strength requirement ~1_val~
 
