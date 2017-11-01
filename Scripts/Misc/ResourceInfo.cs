@@ -946,6 +946,8 @@ namespace Server.Items
             ash.WeaponSwingSpeed = 10;
             ash.WeaponLowerRequirements = 20;
 
+            ash.OtherLowerRequirements = 20;
+
             ash.RunicMinAttributes = 2;
             ash.RunicMaxAttributes = 3;
             ash.RunicMinIntensity = 35;
@@ -964,6 +966,8 @@ namespace Server.Items
 
             yew.WeaponHitChance = 5;
             yew.WeaponDamage = 10;
+
+            yew.OtherRegenHits = 2;
 
             yew.RunicMinAttributes = 3;
             yew.RunicMaxAttributes = 3;
@@ -1022,6 +1026,9 @@ namespace Server.Items
             bloodwood.WeaponRegenHits = 2;
             bloodwood.WeaponHitLifeLeech = 16;
 
+            bloodwood.OtherLuck = 20;
+            bloodwood.OtherRegenHits = 2;
+
             CraftAttributeInfo frostwood = Frostwood = new CraftAttributeInfo();
 
             frostwood.ArmorPhysicalResist = 2;
@@ -1035,6 +1042,8 @@ namespace Server.Items
 
             frostwood.WeaponColdDamage = 40;
             frostwood.WeaponDamage = 12;
+
+            frostwood.OtherSpellChanneling = 1;
             #endregion
 
 			//daat99 OWLTR start - custom resources
