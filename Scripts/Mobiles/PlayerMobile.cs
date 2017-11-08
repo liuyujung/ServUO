@@ -3342,6 +3342,11 @@ namespace Server.Mobiles
 				disruptThreshold = 26;
 			}
 
+            if (Core.SA)
+            {
+                disruptThreshold += Dex / 12;
+            }
+
 			if (amount > disruptThreshold)
 			{
 				BandageContext c = BandageContext.GetContext(this);
