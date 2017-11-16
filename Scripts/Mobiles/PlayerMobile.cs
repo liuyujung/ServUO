@@ -2207,6 +2207,14 @@ namespace Server.Mobiles
                     list.Add(new Server.Engines.VendorSearching.SearchVendors(this));
                 }
 
+                BaseHouse house = BaseHouse.FindHouseAt(this);
+
+                if (house != null)
+                {
+                    if (house.IsCoOwner(this) && !Region.IsPartOf<SafeZone>())
+                        list.Add(new CallbackEntry(6205, ReleaseCoOwnership));
+                }
+
                 if (Core.SA)
                 {
                     list.Add(new TitlesMenuEntry(this));
@@ -2265,23 +2273,22 @@ namespace Server.Mobiles
                     list.Add(new CallbackEntry(3006168, SiegeBlessItem));
                 }
 
+                if (house != null)
+                {
+
+                    if (Alive && house.InternalizedVendors.Count > 0 && house.IsOwner(this))
+                    {
+                        list.Add(new CallbackEntry(6204, GetVendor));
+                    }
+
+                    if (house.IsAosRules && !Region.IsPartOf<SafeZone>()) // Dueling
+                    {
+                        list.Add(new CallbackEntry(6207, LeaveHouse));
+                    }
+                }
+
                 if (Core.HS)
-                    list.Add(new CallbackEntry(RefuseTrades ? 1154112 : 1154113, new ContextCallback(ToggleTrades))); // Allow Trades / Refuse Trades
-
-				BaseHouse house = BaseHouse.FindHouseAt(this);
-
-				if (house != null)
-				{
-					if (Alive && house.InternalizedVendors.Count > 0 && house.IsOwner(this))
-					{
-						list.Add(new CallbackEntry(6204, GetVendor));
-					}
-
-					if (house.IsAosRules && !Region.IsPartOf<SafeZone>()) // Dueling
-					{
-						list.Add(new CallbackEntry(6207, LeaveHouse));
-					}
-				}
+                    list.Add(new CallbackEntry(RefuseTrades ? 1154112 : 1154113, new ContextCallback(ToggleTrades))); // Allow Trades / Refuse Trades				
 
 				if (m_JusticeProtectors.Count > 0)
 				{
@@ -2882,15 +2889,41 @@ namespace Server.Mobiles
 			}
 		}
 
-		private void LeaveHouse()
+        private void LeaveHouse()
+        {
+            BaseHouse house = BaseHouse.FindHouseAt(this);
+
+            if (house != null)
+            {
+                Location = house.BanLocation;
+            }
+        }
+
+        private void ReleaseCoOwnership()
 		{
 			BaseHouse house = BaseHouse.FindHouseAt(this);
 
-			if (house != null)
+			if (house != null && house.IsCoOwner(this))
 			{
-				Location = house.BanLocation;
-			}
+                SendGump(new WarningGump(1060635, 30720, 1062006, 32512, 420, 280, new WarningGumpCallback(ClearCoOwners_Callback), house));
+            }
 		}
+
+        public void ClearCoOwners_Callback(Mobile from, bool okay, object state)
+        {
+            BaseHouse house = (BaseHouse)state;
+
+            if (house.Deleted)
+                return;
+
+            if (okay && house.IsCoOwner(from))
+            {
+                if (house.CoOwners != null)
+                    house.CoOwners.Remove(from);
+
+                from.SendLocalizedMessage(501300); // You have been removed as a house co-owner.
+            }
+        }
 
         private void EnablePvpWarning()
         {
@@ -5736,6 +5769,16 @@ namespace Server.Mobiles
 					// You have successfully obtained a respectable skill level, and have outgrown your status as a young player!
 				}
 			}
+
+            if (Skills.CurrentMastery == skill)
+            {
+                SendLocalizedMessage(1156236, String.Format("{0}\t{1}", MasteryInfo.MinSkillRequirement.ToString(), Skills[skill].Info.Name)); // You need at least ~1_SKILL_REQUIREMENT~ ~2_SKILL_NAME~ skill to use that mastery.
+
+                SkillName mastery = Skills.CurrentMastery;
+                Skills.CurrentMastery = SkillName.Alchemy;
+
+                Server.Spells.SkillMasteries.MasteryInfo.OnMasteryChanged(this, mastery);
+            }
 
 			InvalidateMyRunUO();
 		}

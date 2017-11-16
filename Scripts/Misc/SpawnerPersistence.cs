@@ -10,6 +10,7 @@ using System.Xml;
 using System.Data;
 using Server.Commands;
 using Server.Gumps;
+using Server.Multis;
 
 namespace Server
 {
@@ -63,7 +64,7 @@ namespace Server
                 FilePath,
                 writer =>
                 {
-                    writer.Write((int)3);
+                    writer.Write((int)5);
                     writer.Write(false);
                     writer.Write(_SpawnsConverted);
                 });
@@ -92,6 +93,12 @@ namespace Server
         {
             switch (_Version)
             {
+                case 4:
+                    BrigandsVersion4();
+                    break;
+                case 3:
+                    FixCampSpawnersVersion3();
+                    break;
                 case 2: // Nothing
                     break;
                 case 1:
@@ -111,8 +118,39 @@ namespace Server
             Utility.PopColor();
         }
 
+        #region Version 4
+        public static void BrigandsVersion4()
+        {
+            Replace("humanbrigand", "brigand", null);
+            Replace("humanbrigandcamp", "brigandcamp", null);
+        }
+        #endregion
+
+        #region Version 3
+        private static void FixCampSpawnersVersion3()
+        {
+            ActionOnSpawner(typeof(BaseCamp), null, null, null, spawner =>
+            {
+                if (spawner is XmlSpawner)
+                {
+                    var s = spawner as XmlSpawner;
+
+                    s.MinDelay = TimeSpan.FromMinutes(5);
+                    s.MaxDelay = TimeSpan.FromMinutes(10);
+                }
+                else if (spawner is Spawner)
+                {
+                    var s = spawner as Spawner;
+
+                    s.MinDelay = TimeSpan.FromMinutes(5);
+                    s.MaxDelay = TimeSpan.FromMinutes(10);
+                }
+            }, true);
+        }
+        #endregion
+
         #region Version 1
-        public static void RemoveSpawnVersion1()
+        private static void RemoveSpawnVersion1()
         {
             Remove("SeaHorse");
             Delete("Valem");
@@ -120,7 +158,7 @@ namespace Server
         #endregion
 
         #region Version 0
-        public static Dictionary<Type, Type[]> QuestQuesterTypes;
+        private static Dictionary<Type, Type[]> QuestQuesterTypes;
 
         /// <summary>
         /// Any quests that have questers as null, will assign the quester. Some quests don't have questers...
@@ -276,7 +314,7 @@ namespace Server
         {
             int count = 0;
 
-            foreach (var spawner in World.Items.Values.OfType<XmlSpawner>())
+            foreach (var spawner in World.Items.Values.OfType<ISpawner>())
             {
                 if (Replace(spawner, current, replace, check))
                     count++;
@@ -296,7 +334,7 @@ namespace Server
         {
             int count = 0;
 
-            foreach (var spawner in World.Items.Values.OfType<XmlSpawner>().Where(s => s.Name != null && s.Name.ToLower().IndexOf(name.ToLower()) >= 0))
+            foreach (var spawner in World.Items.Values.OfType<ISpawner>().Where(s => s is Item && ((Item)s).Name != null && ((Item)s).Name.ToLower().IndexOf(name.ToLower()) >= 0))
             {
                 if (Replace(spawner, current, replace, check))
                     count++;
@@ -305,26 +343,52 @@ namespace Server
             ToConsole(String.Format("Spawn Replacement: {0} spawners named {1} replaced [{2} replaced with {3}].", count.ToString(), name, current, replace));
         }
 
-        public static bool Replace(XmlSpawner spawner, string current, string replace, string check)
+        public static bool Replace(ISpawner spwner, string current, string replace, string check)
         {
             bool replaced = false;
 
-            foreach (var obj in spawner.SpawnObjects)
+            if (spwner is XmlSpawner)
             {
-                if (obj == null || obj.TypeName == null)
-                    continue;
+                XmlSpawner spawner = (XmlSpawner)spwner;
 
-                string typeName = obj.TypeName.ToLower();
-                string lookingFor = current.ToLower();
-
-                if (typeName != null && typeName.IndexOf(lookingFor) >= 0)
+                foreach (var obj in spawner.SpawnObjects)
                 {
-                    if (String.IsNullOrEmpty(check) || typeName.IndexOf(check) < 0)
-                    {
-                        obj.TypeName = typeName.Replace(lookingFor, replace);
+                    if (obj == null || obj.TypeName == null)
+                        continue;
 
-                        if (!replaced)
-                            replaced = true;
+                    string typeName = obj.TypeName.ToLower();
+                    string lookingFor = current.ToLower();
+
+                    if (typeName != null && typeName.IndexOf(lookingFor) >= 0)
+                    {
+                        if (String.IsNullOrEmpty(check) || typeName.IndexOf(check) < 0)
+                        {
+                            obj.TypeName = typeName.Replace(lookingFor, replace);
+
+                            if (!replaced)
+                                replaced = true;
+                        }
+                    }
+                }
+            }
+            else if (spwner is Spawner)
+            {
+                Spawner spawner = (Spawner)spwner;
+
+                for(int i = 0; i < spawner.SpawnNames.Count; i++)
+                {
+                    string typeName = spawner.SpawnNames[i].ToLower();
+                    string lookingFor = current.ToLower();
+
+                    if (typeName != null && typeName.IndexOf(lookingFor) >= 0)
+                    {
+                        if (String.IsNullOrEmpty(check) || typeName.IndexOf(check) < 0)
+                        {
+                            spawner.SpawnNames[i] = typeName.Replace(lookingFor, replace);
+
+                            if (!replaced)
+                                replaced = true;
+                        }
                     }
                 }
             }
@@ -389,7 +453,7 @@ namespace Server
         /// <param name="nameCheck">Condition for the spawner name</param>
         /// <param name="exempt">Condition to prevent action being performed on spawner</param>
         /// <param name="action">action to be performed, setup in calling method</param>
-        public static void ActionOnSpawner(string lineCheck, string nameCheck, string exempt, Action<XmlSpawner> action)
+        /*public static void ActionOnSpawner(string lineCheck, string nameCheck, string exempt, Action<XmlSpawner> action, bool inherits = false)
         {
             int count = 0;
 
@@ -399,7 +463,7 @@ namespace Server
 
                 foreach (var spawner in list)
                 {
-                    if (ActionOnSpawner(spawner, lineCheck, exempt, action))
+                    if (ActionOnSpawner(spawner, lineCheck, exempt, action, inherits))
                         count++;
                 }
 
@@ -409,7 +473,7 @@ namespace Server
             ToConsole(String.Format("Spawner Action: Performed action to {0} spawners{1}.", count.ToString(), lineCheck != null ? " containing " + lineCheck + "." : "."));
         }
 
-        public static bool ActionOnSpawner(XmlSpawner spawner, string lineCheck, string exempt, Action<XmlSpawner> action)
+        public static bool ActionOnSpawner(XmlSpawner spawner, string lineCheck, string exempt, Action<XmlSpawner> action, bool inherits)
         {
             foreach (var obj in spawner.SpawnObjects.Where(o => !String.IsNullOrEmpty(o.TypeName)))
             {
@@ -427,8 +491,109 @@ namespace Server
             }
 
             return false;
+        }*/
+
+        /// <summary>
+        /// performs a pre-specified action (use lamba with action) if the conditions are met
+        /// </summary>
+        /// <param name="lineCheck">Condition for a specific string in the spawn object line</param>
+        /// <param name="nameCheck">Condition for the spawner name</param>
+        /// <param name="exempt">Condition to prevent action being performed on spawner</param>
+        /// <param name="action">action to be performed, setup in calling method</param>
+        public static void ActionOnSpawner(Type typeCheck, string lineCheck, string nameCheck, string exempt, Action<ISpawner> action, bool inherits = false)
+        {
+            int count = 0;
+
+            if (action != null)
+            {
+                List<ISpawner> list = World.Items.Values.OfType<ISpawner>().Where(s => 
+                    nameCheck == null ||  (s is Item && ((Item)s).Name != null && ((Item)s).Name.ToLower().IndexOf(nameCheck.ToLower()) >= 0)).ToList();
+
+                foreach (ISpawner spawner in list)
+                {
+                    if (ActionOnSpawner(spawner, typeCheck, lineCheck, exempt, action, inherits))
+                        count++;
+                }
+
+                ColUtility.Free(list);
+            }
+
+            ToConsole(String.Format("Spawner Action: Performed action to {0} spawners{1}", 
+                count.ToString(), lineCheck != null ? " containing " + lineCheck + "." : typeCheck != null ? " containing " + typeCheck.Name + "." : "."));
         }
 
+        public static bool ActionOnSpawner(ISpawner spawner, Type typeCheck, string lineCheck, string exempt, Action<ISpawner> action, bool inherits)
+        {
+            string[] list = GetSpawnList(spawner);
+
+            if (list == null)
+                return false;
+
+            foreach (var str in list)
+            {
+                if (string.IsNullOrEmpty(str))
+                    continue;
+
+                string spawnObject = str.ToLower();
+
+                if (typeCheck != null)
+                {
+                    Type t;
+
+                    if (spawner is Spawner)
+                        t = ScriptCompiler.FindTypeByName(spawnObject);
+                    else
+                        t = ScriptCompiler.FindTypeByName(BaseXmlSpawner.ParseObjectType(spawnObject));
+
+                    if (t == typeCheck || (t != null && inherits && t.IsSubclassOf(typeCheck)))
+                    {
+                        if (action != null)
+                            action(spawner);
+
+                        return true;
+                    }
+                }
+                else
+                {
+                    string lookFor = lineCheck != null ? lineCheck.ToLower() : null;
+
+                    if ((lookFor == null || spawnObject.IndexOf(lookFor) >= 0) && (exempt == null || spawnObject.IndexOf(exempt.ToLower()) <= 0))
+                    {
+                        if (action != null)
+                            action(spawner);
+
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static string[] GetSpawnList(ISpawner spawner)
+        {
+            string[] list = null;
+
+            if (spawner is XmlSpawner && ((XmlSpawner)spawner).SpawnObjects != null && ((XmlSpawner)spawner).SpawnObjects.Length > 0)
+            {
+                list = ((XmlSpawner)spawner).SpawnObjects.Select(obj => obj.TypeName).ToArray();
+            }
+            else if (spawner is Spawner && ((Spawner)spawner).SpawnNames != null && ((Spawner)spawner).SpawnNames.Count > 0)
+            {
+                List<string> names = ((Spawner)spawner).SpawnNames;
+
+                list = new string[names.Count];
+
+                for (int i = 0; i < names.Count; i++)
+                {
+                    list[i] = names[i];
+                }
+            }
+
+            return list;
+        }
+
+        #region XmlSpawner to Spawner Conversion
         public static void ConvertXmlToSpanwers()
         {
             string filename = "Spawns";
@@ -630,5 +795,6 @@ namespace Server
         {
             "/", "<", ">", ",", "{", "}"
         };
+        #endregion
     }
 }
