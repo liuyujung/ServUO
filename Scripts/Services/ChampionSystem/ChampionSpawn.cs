@@ -1630,6 +1630,7 @@ namespace Server.Engines.CannedEvil
         public static void Initialize()
         {
             EventSink.Logout += OnLogout;
+            EventSink.Login += OnLogin;
         }
 
         public override bool YoungProtected
