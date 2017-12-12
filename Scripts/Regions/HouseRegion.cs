@@ -5,6 +5,7 @@ using Server.Mobiles;
 using Server.Multis;
 using System.Collections.Generic;
 using Server.ContextMenus;
+using System.Linq;
 
 namespace Server.Regions
 {
@@ -297,14 +298,10 @@ namespace Server.Regions
             }
             else if (e.HasKeyword(0x23)) // I wish to lock this down
             {
-                if (isCoOwner)
+                if (isFriend)
                 {
                     from.SendLocalizedMessage(502097); // Lock what down?
                     from.Target = new LockdownTarget(false, m_House);
-                }
-                else if (isFriend)
-                {
-                    from.SendLocalizedMessage(1010587); // You are not a co-owner of this house.
                 }
                 else
                 {
@@ -313,14 +310,10 @@ namespace Server.Regions
             }
             else if (e.HasKeyword(0x24)) // I wish to release this
             {
-                if (isCoOwner)
+                if (isFriend)
                 {
                     from.SendLocalizedMessage(502100); // Choose the item you wish to release
                     from.Target = new LockdownTarget(true, m_House);
-                }
-                else if (isFriend)
-                {
-                    from.SendLocalizedMessage(1010587); // You are not a co-owner of this house.
                 }
                 else
                 {

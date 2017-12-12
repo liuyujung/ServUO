@@ -3296,7 +3296,7 @@ namespace Server.Mobiles
 
 		public override bool CheckShove(Mobile shoved)
 		{
-			if (TransformationSpellHelper.UnderTransformation(shoved, typeof(WraithFormSpell)) || shoved is Clone)
+			if (TransformationSpellHelper.UnderTransformation(shoved, typeof(WraithFormSpell)))
 			{
 				return true;
 			}
@@ -6837,8 +6837,7 @@ namespace Server.Mobiles
 
 			if (!Alive)
 			{
-				SendLocalizedMessage(1076251);
-				// Your pet was unable to join you while you are a ghost.  Please re-login once you have ressurected to claim your pets.
+                SendGump(new ReLoginClaimGump());
 				return;
 			}
 
