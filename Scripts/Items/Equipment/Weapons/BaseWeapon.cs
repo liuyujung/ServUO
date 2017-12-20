@@ -4958,8 +4958,15 @@ namespace Server.Items
 			#endregion
 
 			m_AosSkillBonuses = new AosSkillBonuses(this);
-            
-            m_UsesRemaining = 150;
+
+            if (this is ITool)
+            {
+                m_UsesRemaining = Utility.RandomMinMax(25, 75);
+            }
+            else
+            {
+                m_UsesRemaining = 150;
+            }
 			// Xml Spawner XmlSockets - SOF
 			// mod to randomly add sockets and socketability features to armor. These settings will yield
 			// 2% drop rate of socketed/socketable items
@@ -5272,6 +5279,11 @@ namespace Server.Items
 		{
 			base.GetProperties(list);
 
+            if (this is IUsesRemaining && ((IUsesRemaining)this).ShowUsesRemaining)
+            {
+                list.Add(1060584, ((IUsesRemaining)this).UsesRemaining.ToString()); // uses remaining: ~1_val~
+            }
+
             if (OwnerName != null)
             {
                 list.Add(1153213, OwnerName);
@@ -5361,11 +5373,6 @@ namespace Server.Items
 			if (ArtifactRarity > 0)
 			{
 				list.Add(1061078, ArtifactRarity.ToString()); // artifact rarity ~1_val~
-			}
-
-			if (this is IUsesRemaining && ((IUsesRemaining)this).ShowUsesRemaining)
-			{
-				list.Add(1060584, ((IUsesRemaining)this).UsesRemaining.ToString()); // uses remaining: ~1_val~
 			}
 
             if (m_Poison != null && m_PoisonCharges > 0 && CanShowPoisonCharges())
@@ -6099,7 +6106,7 @@ namespace Server.Items
 			Mobile from,
 			CraftSystem craftSystem,
 			Type typeRes,
-			BaseTool tool,
+			ITool tool,
 			CraftItem craftItem,
 			int resHue)
 		{
