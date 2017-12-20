@@ -84,11 +84,11 @@ namespace Server.Engines.Craft
 			}
 		}
 
-		public override int CanCraft( Mobile from, BaseTool tool, Type typeItem )
+		public override int CanCraft( Mobile from, ITool tool, Type typeItem )
 		{
 			if ( tool.Deleted || tool.UsesRemaining < 0 )
 				return 1044038; // You have worn out your tool!
-			else if ( !BaseTool.CheckAccessible( tool, from ) )
+			else if ( tool is Item && !BaseTool.CheckAccessible( (Item)tool, from ) )
 				return 1044263; // The tool must be on your person to use.
 
 			bool waxpot;
