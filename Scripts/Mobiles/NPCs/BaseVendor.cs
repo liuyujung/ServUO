@@ -1312,7 +1312,7 @@ namespace Server.Mobiles
 
 				if (Core.ML && pm != null)
 				{
-					pm.NextBODTurnInTime = DateTime.UtcNow + TimeSpan.FromSeconds(Config.Get("BulkOrder.TurnInTimeSeconds", 10.0));
+					pm.NextBODTurnInTime = DateTime.UtcNow + TimeSpan.FromSeconds(Config.Get("BulkOrder.TurnInTimeSeconds", 2.0));
 				}
 
 				dropped.Delete();
@@ -2481,13 +2481,13 @@ namespace Server.Mobiles
 
                     if (!Deleted && ar != null && armor.IsChildOf(m.Backpack) && CanConvertArmor(m, ar))
                     {
-                        if (!Banker.Withdraw(m, 250000, true))
-                        {
-                            m.SendLocalizedMessage(1019022); // You do not have enough gold.
-                        }
-                        else if (!InRange(m.Location, 3))
+                        if (!InRange(m.Location, 3))
                         {
                             m.SendLocalizedMessage(1149654); // You are too far away.
+                        }
+                        else if (!Banker.Withdraw(m, 250000, true))
+                        {
+                            m.SendLocalizedMessage(1019022); // You do not have enough gold.
                         }
                         else
                         {

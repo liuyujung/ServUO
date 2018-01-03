@@ -43,6 +43,7 @@ using Server.Spells.Sixth;
 using Server.Spells.Spellweaving;
 using Server.Targeting;
 using System.Linq;
+using Server.Engines.VoidPool;
 using Server.Spells.SkillMasteries;
 
 using RankDefinition = Server.Guilds.RankDefinition;
@@ -2298,7 +2299,10 @@ namespace Server.Mobiles
                 Region r = Region.Find(Location, Map);
 
                 #region Void Pool
-                list.Add(new Server.Engines.Points.VoidPoolInfo(this));
+                var controller = Map == Map.Trammel ? VoidPoolController.InstanceTram : VoidPoolController.InstanceFel;
+
+                if (controller != null)
+                    list.Add(new Server.Engines.Points.VoidPoolInfo(this));
                 #endregion
 
                 #region TOL Shadowguard
