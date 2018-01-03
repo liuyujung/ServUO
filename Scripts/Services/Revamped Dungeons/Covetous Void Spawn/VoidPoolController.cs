@@ -56,6 +56,12 @@ namespace Server.Engines.VoidPool
                         Region.Unregister();
                         Region = null;
                     }
+
+                    if (Level3Spawner != null)
+                    {
+                        Level3Spawner.Deactivate();
+                        Level3Spawner = null;
+                    }
 				}
 				else
 				{
@@ -75,6 +81,11 @@ namespace Server.Engines.VoidPool
                         if(Region != null)
 						    Region.SendRegionMessage(1152526, RestartSpan.ToString()); // The battle for the Void Pool will begin in ~1_VALUE~ minutes.
 					}
+
+                    if (Level3Spawner == null)
+                    {
+                        Level3Spawner = new Level3Spawner(this);
+                    }
 				}
 				
 				_Active = value; 
@@ -91,7 +102,7 @@ namespace Server.Engines.VoidPool
             {
                 if (Wave < 2)
                     return 0;
-                //TODO: Make this like EA?
+
                 return Math.Max(1, Wave / 5); 
             } 
         }
@@ -127,6 +138,7 @@ namespace Server.Engines.VoidPool
         [CommandProperty(AccessLevel.GameMaster)]
         public int RespawnMax { get; set; }
 
+        [CommandProperty(AccessLevel.GameMaster)]
         public Level3Spawner Level3Spawner { get; set; }
 
         public VoidPoolController(Map map)
@@ -166,6 +178,8 @@ namespace Server.Engines.VoidPool
 
             ClearSpawners();
 			Active = true;
+
+            ResetLevel3Spawners();
 		}
 
         public override void OnDoubleClick(Mobile from)
@@ -579,6 +593,12 @@ namespace Server.Engines.VoidPool
             foreach (var wp in WaypointsB.Where(w => w != null && !w.Deleted))
                 wp.Delete();
 
+            if (Level3Spawner != null)
+            {
+                Level3Spawner.Deactivate();
+                Level3Spawner = null;
+            }
+
             base.Delete();
 		}
 
@@ -589,9 +609,17 @@ namespace Server.Engines.VoidPool
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);
-			writer.Write((int)1);
+			writer.Write((int)2);
 
-            Level3Spawner.Serialize(writer);
+            if (Level3Spawner != null)
+            {
+                writer.Write(0);
+                Level3Spawner.Serialize(writer);
+            }
+            else
+            {
+                writer.Write(1);
+            }
 
             writer.Write(RespawnMin);
             writer.Write(RespawnMax);
@@ -611,8 +639,12 @@ namespace Server.Engines.VoidPool
 
             switch (version)
             {
+                case 2:
                 case 1:
-                    Level3Spawner = new Level3Spawner(reader, this);
+                    if (version == 1 || reader.ReadInt() == 0)
+                    {
+                        Level3Spawner = new Level3Spawner(reader, this);
+                    }
                     goto case 0;
                 case 0:
                     if (version == 0)
