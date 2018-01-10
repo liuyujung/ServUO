@@ -2406,13 +2406,6 @@ namespace Server.Mobiles
             }
             #endregion
 
-            #region Skill Mastery
-            SkillMasterySpell spell = SkillMasterySpell.GetHarmfulSpell(this, typeof(TribulationSpell));
-
-            if (spell != null)
-                spell.DoDamage(this, amount);
-            #endregion
-
             base.OnDamage(amount, from, willKill);
         }
 
@@ -7109,7 +7102,7 @@ namespace Server.Mobiles
             }
 
             #region SA
-            if(!c.Deleted)
+            if(!c.Deleted && !Controlled)
                 IngredientDropEntry.CheckDrop(this, c);
 
             if (LastKiller is BaseVoidCreature)

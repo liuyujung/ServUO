@@ -1410,6 +1410,8 @@ namespace Server.Items
             }
             #endregion
 
+            AddHonestyProperty(list);
+
             if (m_ItemPower != ItemPower.None)
             {
                 if (m_ItemPower <= ItemPower.LegendaryArtifact)
