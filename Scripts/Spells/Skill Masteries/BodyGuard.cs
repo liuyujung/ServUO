@@ -7,9 +7,6 @@ using Server.Gumps;
 using System.Collections.Generic;
 using Server.Items;
 
-/*The shield user chooses a protectee to absorb a percentage of damage done to the protectee based on parry skill, 
-  best weapon skill, and mastery level.*/
-
 namespace Server.Spells.SkillMasteries
 {
     public class BodyGuardSpell : SkillMasterySpell
@@ -161,7 +158,12 @@ namespace Server.Spells.SkillMasteries
         public override void EndEffects()
         {
             if (Target != null)
+            {
+                Target.SendLocalizedMessage(1156103); // Bodyguard has expired.
                 BuffInfo.RemoveBuff(Target, BuffIcon.Bodyguard);
+            }
+
+            Caster.SendLocalizedMessage(1156103); // Bodyguard has expired.
             BuffInfo.RemoveBuff(Caster, BuffIcon.Bodyguard);
         }
 
@@ -173,14 +175,12 @@ namespace Server.Spells.SkillMasteries
             RemoveGumpTimer(protectee, Caster);
             FinishSequence();
         }
-		
-		public static void CheckBodyGuard(Mobile attacker, Mobile defender, DamageType type, ref int damage)
+
+        public override void OnTargetDamaged(Mobile attacker, Mobile defender, DamageType type, ref int damage)
 		{
-			BodyGuardSpell spell = GetSpell(s => s.GetType() == typeof(BodyGuardSpell) && s.Target == defender) as BodyGuardSpell;
-			
-			if(spell != null && spell.Caster.InRange(spell.Target, 2))
+            if (defender == Target && Caster.InRange(defender, 2))
 			{
-				double mod = (double)spell.PropertyBonus() / 100.0;
+				double mod = (double)PropertyBonus() / 100.0;
 				
 				damage = damage - (int)((double)damage * mod);
                 int casterDamage = damage - (int)((double)damage * (mod - .05));
@@ -188,7 +188,7 @@ namespace Server.Spells.SkillMasteries
                 if (type >= DamageType.Spell)
                     casterDamage /= 2;
 
-                spell.Caster.Damage(casterDamage, attacker);
+                Caster.Damage(casterDamage, attacker);
 			}
 		}
 
