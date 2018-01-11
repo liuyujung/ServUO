@@ -136,6 +136,8 @@ namespace Server.Engines.CannedEvil
 		public static void Initialize()
 		{
 			CommandSystem.Register("ChampionInfo", AccessLevel.GameMaster, new CommandEventHandler(ChampionInfo_OnCommand));
+            CommandSystem.Register("ChampionRotate", AccessLevel.GameMaster, new CommandEventHandler(ChampionRotate_OnCommand));
+            CommandSystem.Register("ChampionRestart", AccessLevel.GameMaster, new CommandEventHandler(ChampionRestart_OnCommand));
 
 			if (!m_Enabled || m_ForceGenerate)
 			{
@@ -227,6 +229,45 @@ namespace Server.Engines.CannedEvil
 				return;
 			}
 			e.Mobile.SendGump(new ChampionSystemGump());
+		}
+
+		[Usage("ChampionRotate")]
+		[Description("Opens a UI that displays information about the champion system")]
+		private static void ChampionRotate_OnCommand(CommandEventArgs e)
+		{
+			if (!m_Enabled)
+			{
+				e.Mobile.SendMessage("The champion system is not enabled.");
+				return;
+			}
+			if (m_AllSpawns.Count <= 0)
+			{
+				e.Mobile.SendMessage("The champion system is enabled but no altars exist");
+				return;
+			}
+			Rotate();
+		}
+
+		[Usage("ChampionRestart")]
+		[Description("Opens a UI that displays information about the champion system")]
+		private static void ChampionRestart_OnCommand(CommandEventArgs e)
+		{
+			if (!m_Enabled)
+			{
+				e.Mobile.SendMessage("The champion system is not enabled.");
+				return;
+			}
+			if (m_AllSpawns.Count <= 0)
+			{
+				e.Mobile.SendMessage("The champion system is enabled but no altars exist");
+				return;
+			}
+			foreach (ChampionSpawn spawn in m_AllSpawns.Where(spawn => spawn != null && !spawn.Deleted))
+			{
+				spawn.AutoRestart = true;
+                if (!spawn.Active)
+                    spawn.BeginRestart(spawn.RestartDelay);
+			}
 		}
 
 		private static void Rotate()

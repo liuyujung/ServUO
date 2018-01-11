@@ -185,6 +185,7 @@ namespace Server.Engines.CannedEvil
         {
             get
             {
+                m_RestartDelay = TimeSpan.FromHours(Utility.RandomMinMax(4, 9));
                 return m_RestartDelay;
             }
             set
@@ -528,7 +529,8 @@ namespace Server.Engines.CannedEvil
 					case 10:
 						Type = ChampionSpawnType.Infuse; break;
 					//daat99 OWLTR start - Master of the Arts
-					case 11: Type = ChampionSpawnType.Crafter; break;
+					case 11:
+                        Type = ChampionSpawnType.Crafter; break;
 					//daat99 OWLTR end - Master of the Arts
 				}
 				//daat99 champ
@@ -638,10 +640,9 @@ namespace Server.Engines.CannedEvil
 
                     m_DamageEntries.Clear();
 
-		    //daat99 OWLTR start - no gate for MotA
-		    if (m_Type != ChampionSpawnType.Crafter)
-		    //daat99 OWLTR end - no gate for MotA
-
+        		    //daat99 OWLTR start - no gate for MotA
+        		    if (m_Type != ChampionSpawnType.Crafter)
+        		    //daat99 OWLTR end - no gate for MotA
                     if (m_Altar != null)
                     {
                         m_Altar.Hue = 0x455;
@@ -656,7 +657,7 @@ namespace Server.Engines.CannedEvil
                     Stop();
 
 					if(AutoRestart)
-						BeginRestart(m_RestartDelay);
+                        BeginRestart(RestartDelay);
                 }
                 else if (m_Champion.Alive && m_Champion.GetDistanceToSqrt(this) > MaxStrayDistance)
                 {
@@ -1022,6 +1023,12 @@ namespace Server.Engines.CannedEvil
                 // They didn't even get 20%, go back a level
                 if (Level > 0)
                     --Level;
+                else
+                {
+                    Stop();
+                    if (AutoRestart)
+                        BeginRestart(RestartDelay);
+                }
 
                 InvalidateProperties();
             }
