@@ -107,14 +107,17 @@ namespace Server.Gumps
 
                 int hue = GetItemHue(i, item);
 
-                AddItem(55 - item.X + max / 2 - item.Width / 2, y, item.ItemID, hue);
+                //AddItem(55 - item.X + max / 2 - item.Width / 2, y, item.ItemID, hue);
+                AddItem(45 - item.X + max / 2 - item.Width / 2, y, item.ItemID, hue);
 
                 if (i != null)
                     AddItemProperty(i.Serial);
                 else if (item.Tooltip > 0)
                     AddTooltip(item.Tooltip);
 
-				AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + (item.Name != null ? " " + item.Name : ""));
+				//AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + (item.Name != null ? " " + item.Name : ""));
+                AddLabel(45 + max, offset + (int)(height / 2) - 15, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + " Points");
+                AddLabel(45 + max, offset + (int)(height / 2), Points >= item.Points ? 0x64 : 0x21, item.Name != null ? item.Name : "");
 				
                 offset += YDist + height;
                 Index++;
