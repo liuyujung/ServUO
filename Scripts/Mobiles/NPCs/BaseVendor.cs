@@ -286,7 +286,7 @@ namespace Server.Mobiles
 
 			public override void OnClick()
 			{
-                if (!m_From.InRange(m_Vendor.Location, 3) || !(m_From is PlayerMobile))
+                if (!m_From.InRange(m_Vendor.Location, Config.Get("BulkOrder.InRangeTiles", 3)) || !(m_From is PlayerMobile))
                     return;
 
                 if (!BulkOrderSystem.CanClaimRewards(m_From, m_Vendor.BODType))
