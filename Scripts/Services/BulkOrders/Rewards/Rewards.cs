@@ -1601,13 +1601,13 @@ namespace Server.Engines.BulkOrders
             RewardCollection = new List<CollectionItem>();
 
             RewardCollection.Add(new BODCollectionItem(0x1EBC, 1157219, 0, 10, TinkerTools));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157186, 0, 25, RewardTitle, 5));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157187, 0, 50, RewardTitle, 6));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157190, 0, 210, RewardTitle, 9));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157186, 0, 25, RewardTitle, 5)); // metallurgist
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157187, 0, 50, RewardTitle, 6)); // dabbler
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157190, 0, 210, RewardTitle, 9)); // fixer
             RewardCollection.Add(new BODCollectionItem(0x2831, 1157288, 0, 225, Recipe, 0));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157188, 0, 250, RewardTitle, 7));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157188, 0, 250, RewardTitle, 7)); // clockmaker
             RewardCollection.Add(new BODCollectionItem(0x2831, 1157287, 0, 310, Recipe, 1));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157189, 0, 225, RewardTitle, 8));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157189, 0, 225, RewardTitle, 8)); // mechanic
             RewardCollection.Add(new BODCollectionItem(0x2831, 1157289, 0, 350, Recipe, 2));
             RewardCollection.Add(new BODCollectionItem(0x9E2B, 1157264, 0, 400, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x2F5B, 1152674, CraftResources.GetHue(CraftResource.Gold), 450, SmeltersTalisman, (int)CraftResource.Gold));
@@ -1880,15 +1880,13 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, RunicDovetailSaw, 3));
             RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));*/
 
-			// TODO finish runic dovetail saw
-
 			RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Lumberjack Axe", 0, 0, SturdyLumberjackAxe));
-			RewardCollection.Add(new BODCollectionItem(0x1028, 1157219, 0, 10, DovetailSaw));
+			RewardCollection.Add(new BODCollectionItem(0x1028, 1157219, "Dovetail Saw", 0, 10, DovetailSaw));
 			RewardCollection.Add(new BODCollectionItem(0x13C6, "Leather Gloves Of Lumberjacking", 0, 10, LeatherGlovesOfLumberjacking, 2));
-			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157191, 0, 25, RewardTitle, 10));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157191, "Woodworker Reward Title", 0, 25, RewardTitle, 10));
 			RewardCollection.Add(new BODCollectionItem(0x13C6, "Leather Gloves Of Lumberjacking", 0, 25, LeatherGlovesOfLumberjacking, 5));
 			RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Axe", 0, 25, SturdyAxe));
-			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157192, 0, 50, RewardTitle, 11));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157192, "Builder Reward Title", 0, 50, RewardTitle, 11));
 			RewardCollection.Add(new BODCollectionItem(5062, "+1 Armor Of Carpentry Gloves", 0, 50, ArmorOfCarpentry, 1));
 			RewardCollection.Add(new BODCollectionItem(7609, "+1 Armor Of Carpentry Cap", 0, 50, ArmorOfCarpentry, 2));
 			RewardCollection.Add(new BODCollectionItem(5068, "+1 Armor Of Carpentry Tunic", 0, 50, ArmorOfCarpentry, 3));
@@ -1901,33 +1899,35 @@ namespace Server.Engines.BulkOrders
 			RewardCollection.Add(new BODCollectionItem(5063, "+1 Armor Of Lumberjacking Gorget", 0, 200, ArmorOfLumberjacking, 4));
 			RewardCollection.Add(new BODCollectionItem(5069, "+1 Armor Of Lumberjacking Arms", 0, 200, ArmorOfLumberjacking, 5));
 			RewardCollection.Add(new BODCollectionItem(5067, "+1 Armor Of Lumberjacking Leggings", 0, 200, ArmorOfLumberjacking, 6));
-			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157193, 0, 250, RewardTitle, 12));
-			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157264, 0, 300, CraftsmanTalisman, 10));
-			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, CraftResources.GetHue(CraftResource.YewWood), 350, WoodsmansTalisman, (int)CraftResource.YewWood));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157193, "Craftsman Reward Title", 0, 250, RewardTitle, 12));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157264, "Craftsman Talisman 10 Charges", 0, 300, CraftsmanTalisman, 10));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, "Yew Woodsmans Talisman", CraftResources.GetHue(CraftResource.YewWood), 350, WoodsmansTalisman, (int)CraftResource.YewWood));
 			RewardCollection.Add(new BODCollectionItem(0xF44, "Lumberjacking Prospectors Tool", 0, 400, LumberjackingProspectorsTool));
-			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157218, 0, 450, CraftsmanTalisman, 25));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157218, "Craftsman Talisman 25 Charges", 0, 450, CraftsmanTalisman, 25));
 			RewardCollection.Add(new BODCollectionItem(6215, "Stain Of Durability", 0, 450, StainOfDurability));
 			RewardCollection.Add(new BODCollectionItem(0xf45, "Gargoyles Axe", 0, 450, GargoylesAxe));
 			RewardCollection.Add(new BODCollectionItem(6644, "Vise East", 0, 450, Deco, 0));
 			RewardCollection.Add(new BODCollectionItem(6648, "Vise South", 0, 450, Deco, 1));
 			RewardCollection.Add(new BODCollectionItem(7800, "Unfinished Chair East", 0, 450, Deco, 2));
 			RewardCollection.Add(new BODCollectionItem(7791, "Unfinished Chair South", 0, 450, Deco, 3));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157293, CraftResources.GetHue(CraftResource.DullCopper), 450, RunicMalletAndChisel, 1));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157294, CraftResources.GetHue(CraftResource.ShadowIron), 450, RunicMalletAndChisel, 2));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157293, "DullCopper Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.DullCopper), 450, RunicMalletAndChisel, 1));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157294, "Shadow Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.ShadowIron), 450, RunicMalletAndChisel, 2));
 			RewardCollection.Add(new BODCollectionItem(7802, "Unfinished Chest East", 0, 500, Deco, 4));
 			RewardCollection.Add(new BODCollectionItem(7793, "Unfinished Chest South", 0, 500, Deco, 5));
 			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152669, CraftResources.GetHue(CraftResource.YewWood), 500, HarvestMap, (int)CraftResource.YewWood));
-			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, CraftResources.GetHue(CraftResource.OakWood), 550, RunicDovetailSaw, 0));
-			RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, CraftResources.GetHue(CraftResource.OakWood), 550, DovetailRunicSaw, 0));
+            RewardCollection.Add(new BODCollectionItem(0x1029, "Runic Dovetail Saw", CraftResources.GetHue(CraftResource.RegularWood), 500, RunicDovetailSaw, 0));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157223, "Oak Runic Dovetail Saw", CraftResources.GetHue(CraftResource.OakWood), 600, RunicDovetailSaw, 1));
 			RewardCollection.Add(new BODCollectionItem(0x0FBF, "Engraver", 0, 600, Engraver));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157295, CraftResources.GetHue(CraftResource.Copper), 600, RunicMalletAndChisel, 3));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157295, "Copper Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Copper), 600, RunicMalletAndChisel, 3));
 			RewardCollection.Add(new BODCollectionItem(7806, "Unfinished Shelves East", 0, 650, Deco, 6));
 			RewardCollection.Add(new BODCollectionItem(7798, "Unfinished Shelves South", 0, 650, Deco, 7));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157296, CraftResources.GetHue(CraftResource.Bronze), 650, RunicMalletAndChisel, 4));
-			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152679, CraftResources.GetHue(CraftResource.Heartwood), 650, WoodsmansTalisman, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, "Ashwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.AshWood), 650, RunicDovetailSaw, 2));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157296, "Bronze Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Bronze), 650, RunicMalletAndChisel, 4));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152679, "Heartwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Heartwood), 650, WoodsmansTalisman, (int)CraftResource.Heartwood));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Carpentry", 0, 675, CarpenterPowerScroll, 5));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, "Yew Runic Dovetail Saw", CraftResources.GetHue(CraftResource.YewWood), 700, RunicDovetailSaw, 3));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Lumberjacking", 0, 700, LumberjackingPowerScroll, 5));
-			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152670, CraftResources.GetHue(CraftResource.Heartwood), 700, HarvestMap, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152670, "Heartwood Harvest Map", CraftResources.GetHue(CraftResource.Heartwood), 700, HarvestMap, (int)CraftResource.Heartwood));
 			RewardCollection.Add(new BODCollectionItem(0x13E4, "+10 Ancient Carpenter Hammer", 0, 750, AncientCarpenterHammer, 10));
 			RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Lumberjacking Gloves", 0, 750, ArmorOfLumberjacking, 7));
 			RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Lumberjacking Cap", 0, 750, ArmorOfLumberjacking, 8));
@@ -1935,38 +1935,37 @@ namespace Server.Engines.BulkOrders
 			RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Lumberjacking Gorget", 0, 750, ArmorOfLumberjacking, 10));
 			RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Lumberjacking Arms", 0, 750, ArmorOfLumberjacking, 11));
 			RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Lumberjacking Leggings", 0, 750, ArmorOfLumberjacking, 12));
-			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, CraftResources.GetHue(CraftResource.AshWood), 750, RunicDovetailSaw, 1));
-			RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, CraftResources.GetHue(CraftResource.AshWood), 750, DovetailRunicSaw, 1));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157224, "Ashwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.AshWood), 750, RunicDovetailSaw, 1));
 			RewardCollection.Add(new BODCollectionItem(5062, "+3 Armor Of Carpentry Gloves", 0, 800, ArmorOfCarpentry, 7));
 			RewardCollection.Add(new BODCollectionItem(7609, "+3 Armor Of Carpentry Cap", 0, 800, ArmorOfCarpentry, 8));
 			RewardCollection.Add(new BODCollectionItem(5068, "+3 Armor Of Carpentry Tunic", 0, 800, ArmorOfCarpentry, 9));
 			RewardCollection.Add(new BODCollectionItem(5063, "+3 Armor Of Carpentry Gorget", 0, 800, ArmorOfCarpentry, 10));
 			RewardCollection.Add(new BODCollectionItem(5069, "+3 Armor Of Carpentry Arms", 0, 800, ArmorOfCarpentry, 11));
 			RewardCollection.Add(new BODCollectionItem(5067, "+3 Armor Of Carpentry Leggings", 0, 800, ArmorOfCarpentry, 12));
-			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157265, 0, 800, CraftsmanTalisman, 50));
+			RewardCollection.Add(new BODCollectionItem(0x9E2C, 1157265, "Craftsman Talisman 50 Charges", 0, 800, CraftsmanTalisman, 50));
 			RewardCollection.Add(new BODCollectionItem(0x13E4, "+20 Ancient Carpenter Hammer", 0, 850, AncientCarpenterHammer, 20));
-			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152680, CraftResources.GetHue(CraftResource.Bloodwood), 850, WoodsmansTalisman, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152680, "Bloodwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Bloodwood), 850, WoodsmansTalisman, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x1029, 1157226, "Heartwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Heartwood), 900, RunicDovetailSaw, 4));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Exalted Scroll Of Carpentry", 0, 900, CarpenterPowerScroll, 10));
-			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152671, CraftResources.GetHue(CraftResource.Bloodwood), 900, HarvestMap, (int)CraftResource.Bloodwood));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157297, CraftResources.GetHue(CraftResource.Gold), 900, RunicMalletAndChisel, 5));
-			//RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, CraftResources.GetHue(CraftResource.YewWood), 950, RunicDovetailSaw, 2));
-			RewardCollection.Add(new BODCollectionItem(0x1029, 1157225, CraftResources.GetHue(CraftResource.YewWood), 950, DovetailRunicSaw, 2));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152671, "Bloodwood Harvest Map", CraftResources.GetHue(CraftResource.Bloodwood), 900, HarvestMap, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157297, "Gold Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Gold), 900, RunicMalletAndChisel, 5));
 			RewardCollection.Add(new BODCollectionItem(0x13E4, "+30 Ancient Carpenter Hammer", 0, 1000, AncientCarpenterHammer, 30));
-			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, CraftResources.GetHue(CraftResource.Frostwood), 1000, WoodsmansTalisman, (int)CraftResource.Frostwood));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157298, CraftResources.GetHue(CraftResource.Agapite), 1000, RunicMalletAndChisel, 6));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, "Frostwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Frostwood), 1000, WoodsmansTalisman, (int)CraftResource.Frostwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157298, "Agapite Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Agapite), 1000, RunicMalletAndChisel, 6));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Bloodwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Bloodwood), 1050, RunicDovetailSaw, 5));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Exalted Scroll Of Lumberjacking", 0, 1050, LumberjackingPowerScroll, 10));
-			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, CraftResources.GetHue(CraftResource.Frostwood), 1050, HarvestMap, (int)CraftResource.Frostwood));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, "Frostwood Harvest Map", CraftResources.GetHue(CraftResource.Frostwood), 1050, HarvestMap, (int)CraftResource.Frostwood));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157299, "Verite Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Verite), 1100, RunicMalletAndChisel, 7));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Frostwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Frostwood), 1150, RunicDovetailSaw, 6));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Mythical Scroll Of Lumberjacking", 0, 1150, LumberjackingPowerScroll, 15));
-			//RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, RunicDovetailSaw, 3));
-			RewardCollection.Add(new BODCollectionItem(0x14EC, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1150, DovetailRunicSaw, 3));
-			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));
+			RewardCollection.Add(new BODCollectionItem(0x12B3, 1157300, "Valorite Runic Mallet And Chisel", CraftResources.GetHue(CraftResource.Valorite), 1150, RunicMalletAndChisel, 8));
 			RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Lumberjacking Gloves", 0, 1150, ArmorOfLumberjacking, 13));
 			RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Lumberjacking Cap", 0, 1150, ArmorOfLumberjacking, 14));
 			RewardCollection.Add(new BODCollectionItem(5068, "+5 Armor Of Lumberjacking Tunic", 0, 1150, ArmorOfLumberjacking, 15));
 			RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Lumberjacking Gorget", 0, 1150, ArmorOfLumberjacking, 16));
 			RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Lumberjacking Arms", 0, 1150, ArmorOfLumberjacking, 17));
 			RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Lumberjacking Leggings", 0, 1150, ArmorOfLumberjacking, 18));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Ebony Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Ebony), 1200, RunicDovetailSaw, 7));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Mythical Scroll Of Carpentry", 0, 1200, CarpenterPowerScroll, 15));
 			RewardCollection.Add(new BODCollectionItem(5062, "+5 Armor Of Carpentry Gloves", 0, 1200, ArmorOfCarpentry, 13));
 			RewardCollection.Add(new BODCollectionItem(7609, "+5 Armor Of Carpentry Cap", 0, 1200, ArmorOfCarpentry, 14));
@@ -1974,12 +1973,16 @@ namespace Server.Engines.BulkOrders
 			RewardCollection.Add(new BODCollectionItem(5063, "+5 Armor Of Carpentry Gorget", 0, 1200, ArmorOfCarpentry, 16));
 			RewardCollection.Add(new BODCollectionItem(5069, "+5 Armor Of Carpentry Arms", 0, 1200, ArmorOfCarpentry, 17));
 			RewardCollection.Add(new BODCollectionItem(5067, "+5 Armor Of Carpentry Leggings", 0, 1200, ArmorOfCarpentry, 18));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Bamboo Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Bamboo), 1250, RunicDovetailSaw, 8));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Legendary Scroll Of Lumberjacking", 0, 1250, LumberjackingPowerScroll, 20));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Purple Heart Runic Dovetail Saw", CraftResources.GetHue(CraftResource.PurpleHeart), 1300, RunicDovetailSaw, 9));
 			RewardCollection.Add(new BODCollectionItem(0xE76, "Resources Bag", 0, 1300, ResourcesBag));
 			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Legendary Scroll Of Carpentry", 0, 1300, CarpenterPowerScroll, 20));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Redwood Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Redwood), 1350, RunicDovetailSaw, 10));
+			RewardCollection.Add(new BODCollectionItem(0x1029, "Petrified Runic Dovetail Saw", CraftResources.GetHue(CraftResource.Petrified), 1400, RunicDovetailSaw, 11));
 			RewardCollection.Add(new BODCollectionItem(0x13E4, "+40 Ancient Carpenter Hammer", 0, 1450, AncientCarpenterHammer, 40));
 
-			Groups = new RewardGroup[]
+			/*Groups = new RewardGroup[]
 			{
 				new RewardGroup(    0, new RewardItem( 1, SturdyLumberjackAxe ), new RewardItem( 10, LeatherGlovesOfLumberjacking, 1 ) ),
 				new RewardGroup(   25, new RewardItem( 1, LeatherGlovesOfLumberjacking, 3 ), new RewardItem( 1, SturdyAxe ) ),
@@ -2009,13 +2012,13 @@ namespace Server.Engines.BulkOrders
 				new RewardGroup( 1350, new RewardItem( 1, RunicDovetailSaw, 11 ), new RewardItem( 1, ResourcesBag ) ),
 				new RewardGroup( 1400, new RewardItem( 3, RunicDovetailSaw, 12 )),
 				new RewardGroup( 1450, new RewardItem( 3, AncientCarpenterHammer, 40 ))
-			};
+			};*/
         }
 
         #region Constructors
 
 		//daat start
-        private static readonly ConstructCallback DovetailRunicSaw = new ConstructCallback( CreateDovetailRunicSaw );
+        private static readonly ConstructCallback RunicDovetailSaw = new ConstructCallback( CreateDovetailRunicSaw );
         private static readonly ConstructCallback SturdyLumberjackAxe = new ConstructCallback( CreateSturdyLumberjackAxe );
         private static readonly ConstructCallback SturdyAxe = new ConstructCallback( CreateSturdyAxe );
         private static readonly ConstructCallback ArmorOfCarpentry = new ConstructCallback( CreateArmorOfCarpentry );
@@ -2213,17 +2216,17 @@ namespace Server.Engines.BulkOrders
             return null;
         }
 
-        private static Item RunicDovetailSaw(int type)
+        /*private static Item RunicDovetailSaw(int type)
         {
             switch (type)
             {
                 default:
-                case 0: return new RunicDovetailSaw(CraftResource.OakWood, 50);
+				case 0: return new RunicDovetailSaw(CraftResource.OakWood, 50);
                 case 1: return new RunicDovetailSaw(CraftResource.AshWood, 35);
                 case 2: return new RunicDovetailSaw(CraftResource.YewWood, 25);
                 case 3: return new RunicDovetailSaw(CraftResource.Heartwood, 15);
             }
-        }
+        }*/
 
         private static Item CraftsmanTalisman(int type)
         {
@@ -2419,9 +2422,9 @@ namespace Server.Engines.BulkOrders
             RewardCollection = new List<CollectionItem>();
 
             RewardCollection.Add(new BODCollectionItem(0x0FBF, 1157219, 0, 10, ScribesPen));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157194, 0, 25, RewardTitle, 13));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157195, 0, 50, RewardTitle, 14));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157196, 0, 210, RewardTitle, 15));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157194, 0, 25, RewardTitle, 13)); //clerk
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157195, 0, 50, RewardTitle, 14)); // transcriber
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157196, 0, 210, RewardTitle, 15)); // scrivener
             RewardCollection.Add(new BODCollectionItem(0x2831, 1156443, 0, 210, Recipe, 3));
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157205, 2741, 250, NaturalDye, 3));
             RewardCollection.Add(new BODCollectionItem(0x9E28, 1157264, 0, 275, CraftsmanTalisman, 10));
@@ -2543,10 +2546,10 @@ namespace Server.Engines.BulkOrders
             RewardCollection = new List<CollectionItem>();
 
             RewardCollection.Add(new BODCollectionItem(0x97F, 1157219, 0, 10, Skillet));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157197, 0, 25, RewardTitle, 14));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157197, 0, 25, RewardTitle, 16)); // baker
             RewardCollection.Add(new BODCollectionItem(0x2831, 1031233, 0, 25, Recipe, 4));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157198, 0, 50, RewardTitle, 15));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157199, 0, 210, RewardTitle, 16));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157198, 0, 50, RewardTitle, 17)); // gourmet
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157199, 0, 210, RewardTitle, 18)); // culinarian
             RewardCollection.Add(new BODCollectionItem(0x9E27, 1157264, 0, 250, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x9E27, 1157218, 0, 300, CraftsmanTalisman, 25));
             RewardCollection.Add(new BODCollectionItem(0x9E27, 1157265, 0, 350, CraftsmanTalisman, 50));
@@ -2676,7 +2679,7 @@ namespace Server.Engines.BulkOrders
         {
             RewardCollection = new List<CollectionItem>();
 
-            RewardCollection.Add(new BODCollectionItem(0x1022, 1157219, 0, 10, FletcherTools));
+			/*RewardCollection.Add(new BODCollectionItem(0x1022, 1157219, 0, 10, FletcherTools));
             RewardCollection.Add(new BODCollectionItem(0x14F0, 1157200, 0, 25, RewardTitle, 17));
             RewardCollection.Add(new BODCollectionItem(0x9E29, 1157264, 0, 210, CraftsmanTalisman, 10));
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, CraftResources.GetHue(CraftResource.YewWood), 225, WoodsmansTalisman, (int)CraftResource.YewWood));
@@ -2692,7 +2695,92 @@ namespace Server.Engines.BulkOrders
             RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, CraftResources.GetHue(CraftResource.Frostwood), 750, WoodsmansTalisman, (int)CraftResource.Frostwood));
             RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, CraftResources.GetHue(CraftResource.Frostwood), 950, HarvestMap, (int)CraftResource.Frostwood));
             RewardCollection.Add(new BODCollectionItem(0x1022, 1157225, CraftResources.GetHue(CraftResource.YewWood), 1000, CreateRunicFletcherTools, 2));
-            RewardCollection.Add(new BODCollectionItem(0x1022, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1100, CreateRunicFletcherTools, 3));
+            RewardCollection.Add(new BODCollectionItem(0x1022, 1157226, CraftResources.GetHue(CraftResource.Heartwood), 1100, CreateRunicFletcherTools, 3));*/
+
+            RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Axe", 0, 10, SturdyAxe)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, 1157219, "Fletcher Tools", 0, 10, FletcherTools));
+			RewardCollection.Add(new BODCollectionItem(0x14F0, 1157200, "Fletcher Reward Title", 0, 25, RewardTitle, 19));
+			RewardCollection.Add(new BODCollectionItem(0xF49, "Sturdy Lumberjack Axe", 0, 50, SturdyLumberjackAxe)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13C6, "+1 Leather Gloves Of Lumberjacking", 0, 50, LeatherGlovesOfLumberjacking, 1)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13C6, "+3 Leather Gloves Of Lumberjacking", 0, 200, LeatherGlovesOfLumberjacking, 3)); // daat
+			RewardCollection.Add(new BODCollectionItem(0xf45, "Gargoyles Axe", 0, 200, GargoylesAxe)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x9E29, 1157264, "Craftsman Talisman 10 Charges", 0, 210, CraftsmanTalisman, 10));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152678, "Yew Woodsmans Talisman", CraftResources.GetHue(CraftResource.YewWood), 225, WoodsmansTalisman, (int)CraftResource.YewWood));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152669, "Yew Harvest Map", CraftResources.GetHue(CraftResource.YewWood), 310, HarvestMap, (int)CraftResource.YewWood));
+			RewardCollection.Add(new BODCollectionItem(0x9E29, 1157218, "Craftsman Talisman 25 Charges", 0, 325, CraftsmanTalisman, 25));
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152679, "Heartwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Heartwood), 360, WoodsmansTalisman, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152670, "Heartwood Harvest Map", CraftResources.GetHue(CraftResource.Heartwood), 375, HarvestMap, (int)CraftResource.Heartwood));
+			RewardCollection.Add(new BODCollectionItem(6215, "Stain Of Durability", 0, 400, StainOfDurability)); // daat
+            RewardCollection.Add(new BODCollectionItem(4107, "Archery Butte North", 0, 400, Deco, 0)); // daat
+            RewardCollection.Add(new BODCollectionItem(4106, "Archery Butte West", 0, 400, Deco, 1)); // daat
+            RewardCollection.Add(new BODCollectionItem(3905, "Stack of Arrows", 0, 400, Deco, 2)); // daat
+            RewardCollection.Add(new BODCollectionItem(7135, "Stack of Logs West", 0, 400, Deco, 3)); // daat
+            RewardCollection.Add(new BODCollectionItem(7138, "Stack of Logs North", 0, 400, Deco, 4)); // daat
+            RewardCollection.Add(new BODCollectionItem(7129, "Stack of Boards West", 0, 400, Deco, 5)); // daat
+			RewardCollection.Add(new BODCollectionItem(7132, "Stack of Boards North", 0, 400, Deco, 6)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x9E29, 1157265, "Craftsman Talisman 50 Charges", 0, 410, CraftsmanTalisman, 50));
+			RewardCollection.Add(new BODCollectionItem(5062, "Apprentices Gloves Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 1)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Apprentices Cap Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 2)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Apprentices Tunic Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 3)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Apprentices Gorget Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 4)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Apprentices Arms Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 5)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Apprentices Leggings Of Lumberjacking", 0, 450, ArmorOfLumberjacking, 6)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Oak Runic Fletcher Tools", 0, 500, RunicFletcherTools, 1)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152680, "Bloodwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Bloodwood), 510, WoodsmansTalisman, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x14EC, 1152671, "Bloodwood Harvest Map", CraftResources.GetHue(CraftResource.Bloodwood), 525, HarvestMap, (int)CraftResource.Bloodwood));
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Ash Runic Fletcher Tools", 0, 550, RunicFletcherTools, 2)); // daat
+			RewardCollection.Add(new BODCollectionItem(5062, "Apprentices Gloves Of Bow Fletching", 0, 550, ArmorOfBowFletching, 1)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Apprentices Cap Of Bow Fletching", 0, 550, ArmorOfBowFletching, 2)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Apprentices Tunic Of Bow Fletching", 0, 550, ArmorOfBowFletching, 3)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Apprentices Gorget Of Bow Fletching", 0, 550, ArmorOfBowFletching, 4)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Apprentices Arms Of Bow Fletching", 0, 550, ArmorOfBowFletching, 5)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Apprentices Leggings Of Bow Fletching", 0, 550, ArmorOfBowFletching, 6)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Yew Runic Fletcher Tools", 0, 600, RunicFletcherTools, 3)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Heartwood Runic Fletcher Tools", 0, 650, RunicFletcherTools, 4)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Bloodwood Runic Fletcher Tools", 0, 700, RunicFletcherTools, 5)); // daat
+            RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Lumberjacking", 0, 700, LumberjackingPowerScroll, 5)); // daat
+            RewardCollection.Add(new BODCollectionItem(0x14F0, "A Wondrous Scroll Of Bowcraft And Fletching", 0, 700, FletchingPowerScroll, 5)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Frostwood Runic Fletcher Tools", 0, 750, RunicFletcherTools, 6)); // daat
+            RewardCollection.Add(new BODCollectionItem(0x2F5A, 1152681, "Frostwood Woodsmans Talisman", CraftResources.GetHue(CraftResource.Frostwood), 750, WoodsmansTalisman, (int)CraftResource.Frostwood));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, "A Exalted Scroll Of Bowcraft And Fletching", 0, 800, FletchingPowerScroll, 10)); // daat
+			RewardCollection.Add(new BODCollectionItem(5062, "Novices Gloves Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 7)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Novices Cap Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 8)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Novices Tunic Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 9)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Novices Gorget Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 10)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Novices Arms Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 11)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Novices Leggings Of Lumberjacking", 0, 800, ArmorOfLumberjacking, 12)); // daat
+			RewardCollection.Add(new BODCollectionItem(5062, "Novices Gloves Of Bow Fletching", 0, 850, ArmorOfBowFletching, 7)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Novices Cap Of Bow Fletching", 0, 850, ArmorOfBowFletching, 8)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Novices Tunic Of Bow Fletching", 0, 850, ArmorOfBowFletching, 9)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Novices Gorget Of Bow Fletching", 0, 850, ArmorOfBowFletching, 10)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Novices Arms Of Bow Fletching", 0, 850, ArmorOfBowFletching, 11)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Novices Leggings Of Bow Fletching", 0, 850, ArmorOfBowFletching, 12)); // daat
+            RewardCollection.Add(new BODCollectionItem(0x14EC, 1152672, "Frostwood Harvest Map", CraftResources.GetHue(CraftResource.Frostwood), 950, HarvestMap, (int)CraftResource.Frostwood));
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+10 Ancient Fletcher's Hammer", 0, 900, AncientFletcherHammer, 10)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Ebony Runic Fletcher Tools", 0, 900, RunicFletcherTools, 7)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Bamboo Runic Fletcher Tools", 0, 950, RunicFletcherTools, 8)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13C6, "+5 Leather Gloves Of Lumberjacking", 0, 950, LeatherGlovesOfLumberjacking, 5)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+15 Ancient Fletcher's Hammer", 0, 1000, AncientFletcherHammer, 15)); // daat
+			RewardCollection.Add(new BODCollectionItem(5062, "Masters Gloves Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 13)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Masters Cap Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 14)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Masters Tunic Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 15)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Masters Gorget Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 16)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Masters Arms Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 17)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Masters Leggings Of Lumberjacking", 0, 1000, ArmorOfLumberjacking, 18)); // daat
+			RewardCollection.Add(new BODCollectionItem(5062, "Masters Gloves Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 13)); // daat
+			RewardCollection.Add(new BODCollectionItem(7609, "Masters Cap Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 14)); // daat
+			RewardCollection.Add(new BODCollectionItem(5068, "Masters Tunic Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 15)); // daat
+			RewardCollection.Add(new BODCollectionItem(5063, "Masters Gorget Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 16)); // daat
+			RewardCollection.Add(new BODCollectionItem(5069, "Masters Arms Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 17)); // daat
+			RewardCollection.Add(new BODCollectionItem(5067, "Masters Leggings Of Bow Fletching", 0, 1050, ArmorOfBowFletching, 18)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Purple Heart Runic Fletcher Tools", 0, 1050, RunicFletcherTools, 9)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+20 Ancient Fletcher's Hammer", 0, 1100, AncientFletcherHammer, 20)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Mythical Scroll Of Bowcraft And Fletching", 0, 1100, FletchingPowerScroll, 15)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+30 Ancient Fletcher's Hammer", 0, 1200, AncientFletcherHammer, 30)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Redwood Runic Fletcher Tools", 0, 1200, RunicFletcherTools, 10)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x13E4, "+40 Ancient Fletcher's Hammer", 0, 1250, AncientFletcherHammer, 40)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x1022, "Petrified Runic Fletcher Tools", 0, 1250, RunicFletcherTools, 11)); // daat
+			RewardCollection.Add(new BODCollectionItem(0x14F0, "A Legendary Scroll Of Bowcraft And Fletching", 0, 1250, FletchingPowerScroll, 20)); // daat
 
 			//daat start
 			/*this.Groups = new RewardGroup[]
@@ -2711,11 +2799,11 @@ namespace Server.Engines.BulkOrders
 				new RewardGroup(  800, new RewardItem( 1, FletchingPowerScroll, 10 ),           new RewardItem( 1, ArmorOfBowFletching, Utility.RandomMinMax(7,12)) ),
 				new RewardGroup(  850, new RewardItem( 1, FletchingPowerScroll, 10 ) ,          new RewardItem( 1, ArmorOfLumberjacking, Utility.RandomMinMax(7,12)) ),
 				new RewardGroup(  900, new RewardItem( 1, AncientFletcherHammer, 10 ) ,         new RewardItem( 2, RunicFletcherTools, 7 ) ),
-				new RewardGroup(  950, new RewardItem( 1, LeatherGlovesOfLumberjacking, 5 ) ,           new RewardItem( 1, RunicFletcherTools, 8 ) ),
+				new RewardGroup(  950, new RewardItem( 1, LeatherGlovesOfLumberjacking, 5 ) ,   new RewardItem( 1, RunicFletcherTools, 8 ) ),
 				new RewardGroup( 1000, new RewardItem( 1, AncientFletcherHammer, 15 ) ,         new RewardItem( 1, ArmorOfBowFletching, Utility.RandomMinMax(13,18)) ),
 				new RewardGroup( 1050, new RewardItem( 2, AncientFletcherHammer, 15 ) ,         new RewardItem( 1, RunicFletcherTools, 9 ), new RewardItem( 1, ArmorOfBowFletching, Utility.RandomMinMax(13,18)) ),
 				new RewardGroup( 1100, new RewardItem( 60, AncientFletcherHammer, 20 ) ,        new RewardItem( 30, RunicFletcherTools, 9 ), new RewardItem( 10, FletchingPowerScroll, 15 ) ),
-				new RewardGroup( 1150, new RewardItem( 1, AncientFletcherHammer, 20 ),          new RewardItem( 2, RunicFletcherTools, 9 ) ),
+                new RewardGroup( 1150, new RewardItem( 1, AncientFletcherHammer, 20 ),          new RewardItem( 2, RunicFletcherTools, 9 ) ),
 				new RewardGroup( 1200, new RewardItem( 1, AncientFletcherHammer, 30 ) ,         new RewardItem( 2, RunicFletcherTools, 10 ) ),
 				new RewardGroup( 1250, new RewardItem( 30, AncientFletcherHammer, 40 ) ,        new RewardItem( 60, RunicFletcherTools, 11 ), new RewardItem( 10, FletchingPowerScroll, 20 ) )
 			};*/
@@ -2854,7 +2942,8 @@ namespace Server.Engines.BulkOrders
         
         private static Item CreateDeco( int type )
         {
-            switch ( Utility.Random( 7 ) )
+            //switch ( Utility.Random( 7 ) )
+            switch (type)
             {
                 default:
                     case 0: return new Deco( 4107, "Archery Butte North" );
@@ -3078,9 +3167,9 @@ namespace Server.Engines.BulkOrders
             RewardCollection = new List<CollectionItem>();
 
             RewardCollection.Add(new BODCollectionItem(0xE9B, 1157219, 0, 10, MortarAndPestle));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157183, 0, 25, RewardTitle, 20));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157202, 0, 50, RewardTitle, 21));
-            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157203, 0, 210, RewardTitle, 22));
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157183, 0, 25, RewardTitle, 20)); // brewer
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157202, 0, 50, RewardTitle, 21)); // concoctor
+            RewardCollection.Add(new BODCollectionItem(0x14F0, 1157203, 0, 210, RewardTitle, 22)); // distiller
             RewardCollection.Add(new BODCollectionItem(0x182B, 1157278, 2741, 225, NaturalDye, 0));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152660, CraftResources.GetHue(CraftResource.AshWood), 250, Cauldron, 0));
             RewardCollection.Add(new BODCollectionItem(0x975, 1152656, CraftResources.GetHue(CraftResource.Bronze), 260, Cauldron, 1));
