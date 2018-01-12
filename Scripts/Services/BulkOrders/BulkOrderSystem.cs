@@ -627,16 +627,39 @@ namespace Server.Engines.BulkOrders
                 case BulkMaterialType.Agapite: worth += 400; break;
                 case BulkMaterialType.Verite: worth += 500; break;
                 case BulkMaterialType.Valorite: worth += 600; break;
+                //daat start
+                case BulkMaterialType.Blaze: worth += 700; break;
+                case BulkMaterialType.Ice: worth += 800; break;
+                case BulkMaterialType.Toxic: worth += 900; break;
+                case BulkMaterialType.Electrum: worth += 1000; break;
+                case BulkMaterialType.Platinum: worth += 1100; break;
+                //daat ened
                 case BulkMaterialType.Spined: worth += 100; break;
                 case BulkMaterialType.Horned: worth += 250; break;
                 case BulkMaterialType.Barbed: worth += 500; break;
+                //daat start
+                case BulkMaterialType.Polar: worth += 600; break;
+                case BulkMaterialType.Synthetic: worth += 700; break;
+                case BulkMaterialType.BlazeL: worth += 800; break;
+                case BulkMaterialType.Daemonic: worth += 900; break;
+                case BulkMaterialType.Shadow: worth += 1000; break;
+                case BulkMaterialType.Frost: worth += 1100; break;
+                case BulkMaterialType.Ethereal: worth += 1200; break;
+                //daat end
                 case BulkMaterialType.OakWood: worth += 100; break;
                 case BulkMaterialType.AshWood: worth += 200; break;
                 case BulkMaterialType.YewWood: worth += 300; break;
                 case BulkMaterialType.Heartwood: worth += 400; break;
                 case BulkMaterialType.Bloodwood: worth += 500; break;
-                case BulkMaterialType.Frostwood: worth += 600; break;
-            }
+				case BulkMaterialType.Frostwood: worth += 600; break;
+				//daat start
+                case BulkMaterialType.Ebony: worth += 700; break;
+                case BulkMaterialType.Bamboo: worth += 800; break;
+                case BulkMaterialType.PurpleHeart: worth += 900; break;
+                case BulkMaterialType.Redwood: worth += 1000; break;
+                case BulkMaterialType.Petrified: worth += 1100; break;
+                //daat end
+			}
 
             switch (bod.AmountMax)
             {
