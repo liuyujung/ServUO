@@ -9,6 +9,7 @@ namespace Server.Engines.BulkOrders
 
         public static double[] m_CarpentryingMaterialChances = new double[]
         {
+            /*
             0.513718750, // None
             0.292968750, // Oak
             0.117187500, // Ash
@@ -16,6 +17,22 @@ namespace Server.Engines.BulkOrders
             0.018750000, // Heartwood
             0.007500000, // Bloodwood
             0.003000000 // Frostwood
+            */
+
+            //daat99 OWLTR start - custom resources
+            0.140, // None
+            0.130, // OakWood
+            0.120, // AshWood
+            0.110, // YewWood
+            0.100, // Heartwood
+            0.090, // Bloodwood
+            0.080, // Frostwood
+            0.070, // Ebony
+            0.060, // Bamboo
+            0.050, // PurpleHeart
+            0.030, // Redwood
+            0.020  // Petrified
+            //daat99 OWLTR end - custom resources
         };
 
         [Constructable]

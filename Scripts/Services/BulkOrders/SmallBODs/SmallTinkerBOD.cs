@@ -11,7 +11,8 @@ namespace Server.Engines.BulkOrders
 
         public static double[] m_TinkerMaterialChances = new double[]
         {
-            /*0.501953125, // None
+            /*
+            0.501953125, // None
             0.250000000, // Dull Copper
             0.125000000, // Shadow Iron
             0.062500000, // Copper
@@ -19,7 +20,8 @@ namespace Server.Engines.BulkOrders
             0.015625000, // Gold
             0.007812500, // Agapite
             0.003906250, // Verite
-            0.001953125  // Valorite*/
+            0.001953125  // Valorite
+            */
 
 			//daat99 OWLTR start - custom resources
 			0.120, // None

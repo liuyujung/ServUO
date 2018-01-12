@@ -9,13 +9,15 @@ namespace Server.Engines.BulkOrders
     {
         public static double[] m_FletchingMaterialChances = new double[]
         {
-            /*0.513718750, // None
+            /*
+            0.513718750, // None
             0.292968750, // Oak
             0.117187500, // Ash
             0.046875000, // Yew
             0.018750000, // Heartwood
             0.007500000, // Bloodwood
-            0.003000000 // Frostwood*/
+            0.003000000 // Frostwood
+            */
 
 			//daat99 OWLTR start - custom resources
 			0.140, // None
