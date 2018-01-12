@@ -151,7 +151,8 @@ namespace Server.Engines.CannedEvil
 			if (!m_Enabled)
 				return;
 
-			m_Timer = new InternalTimer();
+			//m_Timer = new InternalTimer();
+            //m_Timer.Start();
 
 			if (m_Initialized)
 				return;
