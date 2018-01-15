@@ -9,7 +9,7 @@ namespace Server.Items
         public AncientBraceletOfHealth()
         {
             this.Hue = 0x21;
-			this.Name = "Ancient Bracelet of Health";
+			this.Name = "Ancient Staff Bracelet of Health";
 			this.LootType = LootType.Blessed;
 			this.Attributes.BonusStr = 500;
 			this.Attributes.BonusDex = 300;
@@ -52,7 +52,7 @@ namespace Server.Items
         {
             get
             {
-                return 99;
+                return 100;
             }
         }
         public override void Serialize(GenericWriter writer)

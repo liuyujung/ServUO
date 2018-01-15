@@ -9,7 +9,7 @@ namespace Server.Items
         public AncientBlazeOfDeath()
         {
             this.Hue = 0x501;
-			this.Name = "Ancient Blaze Of Death";
+			this.Name = "Ancient Staff Blaze Of Death";
 			this.LootType = LootType.Blessed;
 			this.WeaponAttributes.SelfRepair = 5;
 			this.WeaponAttributes.HitPhysicalArea = 100;
@@ -70,7 +70,7 @@ namespace Server.Items
 		{
 			get
 			{
-				return 99;
+				return 100;
 			}
 		}
 

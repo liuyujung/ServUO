@@ -9,7 +9,7 @@ namespace Server.Items
         public AncientTitansHammer()
         {
             this.Hue = 0x482;
-			this.Name = "Ancient Titans Hammer";
+			this.Name = "Ancient Staff Titans Hammer";
 			this.LootType = LootType.Blessed;
 			this.WeaponAttributes.SelfRepair = 5;
 			this.WeaponAttributes.HitLightning = 100;
@@ -36,7 +36,7 @@ namespace Server.Items
         {
             get
             {
-                return 99;
+                return 100;
             }
         }
         public override int InitMinHits

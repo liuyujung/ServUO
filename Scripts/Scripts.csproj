@@ -13142,10 +13142,11 @@
     <Compile Include="Custom\Misc\Items\CorpseRetrievalPackage.cs" />
     <Compile Include="Custom\Misc\Items\WeaponTypeDeed.cs" />
     <Compile Include="Custom\Misc\Items\MiracleGrow.cs" />
-    <Compile Include="Custom\Misc\Items\AncientBlazeOfDeath.cs" />
-    <Compile Include="Custom\Misc\Items\AncientBraceletOfHealth.cs" />
-    <Compile Include="Custom\Misc\Items\AncientTitansHammer.cs" />
     <Compile Include="Services\Revamped Dungeons\WrongDungeon\EnchantedHotItem.cs" />
+    <Compile Include="Custom\Misc\Staff\Items\AncientStaffBlazeOfDeath.cs" />
+    <Compile Include="Custom\Misc\Staff\Items\AncientStaffBraceletOfHealth.cs" />
+    <Compile Include="Custom\Misc\Staff\Items\AncientStaffTitansHammer.cs" />
+    <Compile Include="Custom\Misc\Staff\Items\AncientStaffYumi.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
@@ -13303,6 +13304,9 @@
     <Content Include="Spells\Mysticism\Blank.txt" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Custom\Misc\Staff\Items\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
