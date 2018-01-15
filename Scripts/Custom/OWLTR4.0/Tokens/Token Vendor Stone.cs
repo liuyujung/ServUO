@@ -267,7 +267,7 @@ namespace Server.Items
 			Movable = false; 
 			Hue = 1173; 
 			Name = "Vendor Stone";
-			Currency = "daat99tokens";
+			Currency = "Tokens";
 		} 
 
 		public override void OnDoubleClick( Mobile from ) 
@@ -474,7 +474,7 @@ namespace Server.Gumps
 				AddHtml( 10, 10, 510, 20, Color( Center( "Vendor Stone" ), 0xFFFFFF ), false, false );
 
 			AddLabel( 420, 60, 5, "Stone Currency:" );
-			if ( m_Stone.Currency.ToLower() == "daat99tokens"  )
+			if ( m_Stone.Currency.ToLower() == "Tokens"  )
 				AddLabel( 420, 80, 5, "Token Ledger" );
 			else if ( m_Stone.Currency != null  )
 				AddLabel( 420, 80, 5, m_Stone.Currency );
@@ -636,7 +636,7 @@ namespace Server.Gumps
 				string blessbond = (vsi.BlessBond ? "(B)" : "");
 
 				AddButton( 13, 40 + ((i % 5) * 20), 0x26AF, 0x26B1, i+2, GumpButtonType.Reply, 0 ); 
-				if ( m_Stone.Currency.ToLower() == "daat99tokens" )
+				if ( m_Stone.Currency.ToLower() == "Tokens" )
 					AddLabel( 40, 40 + ((i % 5) * 20), 1152, vsi.Amount+" "+vsi.Name+" "+blessbond+" "+vsi.Price+" Token Ledger Tokens" );
 				else
 					AddLabel( 40, 40 + ((i % 5) * 20), 1152, vsi.Amount+" "+vsi.Name+" "+blessbond+" "+vsi.Price+" "+m_Stone.Currency );
@@ -663,7 +663,7 @@ namespace Server.Gumps
 					from.SendMessage( "You did not select anything to buy." );
 					from.SendGump( new TokenVendorStoneBuyGump( m_Shopper, m_Stone ) );
 				}
-				else if ( m_Stone.Currency.ToLower() == "daat99tokens" )
+				else if ( m_Stone.Currency.ToLower() == "Tokens" )
 				{
 					if (!TokenSystem.TakePlayerTokens(from as PlayerMobile, m_Shopper.TotalPrice(), true))
 						return;
@@ -1402,7 +1402,7 @@ namespace Server.Gumps
 			}
 			if ( info.ButtonID == 1 )
 			{
-				if ( m_Stone.Currency.ToLower() == "daat99tokens" )
+				if ( m_Stone.Currency.ToLower() == "Tokens" )
 				{
 					if (!TokenSystem.TakePlayerTokens(from as PlayerMobile, m_VSI.BBPrice, true))
 						return;

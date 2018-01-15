@@ -498,7 +498,7 @@ namespace Server.Items
 			AddPage(0);
 			AddBackground(3, 3, 365, 430, 2600);
 			
-			AddHtml(45, 25, 280, 20, String.Format("<basefont color=#0000ff><center>{0}</basefont></center>", mOwner.Name + "'s Daat99 Holder"), false, false);
+			AddHtml(45, 25, 280, 20, String.Format("<basefont color=#0000ff><center>{0}</basefont></center>", mOwner.Name + "'s Holder"), false, false);
 			AddLabel(30, 50, 33, "Level");
 			AddImage(120, 50, 2225);
 			AddImage(150, 50, 2226);

@@ -105,7 +105,7 @@ namespace daat99
 
 			if (filter == null)
 				filter = ItemStorage.Storage;
-			AddHtml(250, 15, 450, 20, "<basefont color=#ff0000>Daat99's Master Storage </basefont> Showing: " + filter.Name, false, false);
+			AddHtml(250, 15, 450, 20, "<basefont color=#ff0000>Master Storage </basefont> Showing: " + filter.Name, false, false);
 
 			AddLabel(15, 15, 2, @"====================");
 			AddLabel(58, 30, 2, @" /\");
@@ -169,7 +169,7 @@ namespace daat99
 			if (page > 0)
 				AddButton(15, 160, 4014, 4016, (int)BUTTONS_ENUM.PREVIOUS_PAGE, GumpButtonType.Reply, 0);
 
-			AddButton(45, 159, 5526, 5527, (int)BUTTONS_ENUM.WEBSITE, GumpButtonType.Reply, 0);
+			//AddButton(45, 159, 5526, 5527, (int)BUTTONS_ENUM.WEBSITE, GumpButtonType.Reply, 0);
 
 			if (items[items.Length - 1] != null)
 				AddButton(110, 160, 4005, 4007, (int)BUTTONS_ENUM.NEXT_PAGE, GumpButtonType.Reply, 0);
@@ -181,8 +181,8 @@ namespace daat99
 				return;
 			if (info.ButtonID == (int)BUTTONS_ENUM.OK)
 				CloseGump(player);
-			else if (info.ButtonID == (int)BUTTONS_ENUM.WEBSITE)
-				player.LaunchBrowser("http://daat99.home.dyndns.org/index.html");
+			//else if (info.ButtonID == (int)BUTTONS_ENUM.WEBSITE)
+			//	player.LaunchBrowser("http://daat99.home.dyndns.org/index.html");
 			else if (info.ButtonID == (int)BUTTONS_ENUM.RESET_FILTER)
 				SendGump(player, backpack, page, NoFilter);
 			else if (info.ButtonID == (int)BUTTONS_ENUM.PREVIOUS_PAGE)
@@ -494,7 +494,7 @@ namespace daat99
 			
 			this.AddImage(25, 150+offset, 7012);
 			this.AddImage(250, 150+offset, 7012);
-			this.AddLabel(150, 160+offset, 38, "Daat99's");
+			//this.AddLabel(150, 160+offset, 38, "Daat99's");
 			this.AddLabel(130, 185+offset, 38, "Master Storage");
 		}
 		public override void OnResponse( NetState state, RelayInfo info )
