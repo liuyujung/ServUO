@@ -266,8 +266,9 @@ namespace Server.Engines.CannedEvil
 			foreach (ChampionSpawn spawn in m_AllSpawns.Where(spawn => spawn != null && !spawn.Deleted))
 			{
 				spawn.AutoRestart = true;
-                if (!spawn.Active)
-                    spawn.BeginRestart(spawn.RestartDelay);
+                if (spawn.Active)
+                    spawn.Stop();
+                spawn.BeginRestart(spawn.RestartDelay);
 			}
 		}
 

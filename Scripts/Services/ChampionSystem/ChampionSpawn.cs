@@ -185,7 +185,7 @@ namespace Server.Engines.CannedEvil
         {
             get
             {
-                m_RestartDelay = TimeSpan.FromHours(Utility.RandomMinMax(4, 9));
+                m_RestartDelay = TimeSpan.FromHours(Utility.RandomMinMax(4, 10));
                 return m_RestartDelay;
             }
             set
