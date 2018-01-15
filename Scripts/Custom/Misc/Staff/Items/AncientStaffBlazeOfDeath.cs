@@ -2,11 +2,11 @@ using System;
 
 namespace Server.Items
 {
-    public class AncientBlazeOfDeath : Halberd
+    public class AncientStaffBlazeOfDeath : Halberd
 	{
 		public override bool IsArtifact { get { return true; } }
         [Constructable]
-        public AncientBlazeOfDeath()
+        public AncientStaffBlazeOfDeath()
         {
             this.Hue = 0x501;
 			this.Name = "Ancient Staff Blaze Of Death";
@@ -32,7 +32,7 @@ namespace Server.Items
 			this.Attributes.ReflectPhysical = 10000;
         }
 
-        public AncientBlazeOfDeath(Serial serial)
+        public AncientStaffBlazeOfDeath(Serial serial)
             : base(serial)
         {
         }
@@ -70,7 +70,7 @@ namespace Server.Items
 		{
 			get
 			{
-				return 100;
+				return 1000;
 			}
 		}
 

@@ -2,11 +2,11 @@ using System;
 
 namespace Server.Items
 {
-    public class AncientTitansHammer : WarHammer
+    public class AncientStaffTitansHammer : WarHammer
 	{
 		public override bool IsArtifact { get { return true; } }
         [Constructable]
-        public AncientTitansHammer()
+        public AncientStaffTitansHammer()
         {
             this.Hue = 0x482;
 			this.Name = "Ancient Staff Titans Hammer";
@@ -27,7 +27,7 @@ namespace Server.Items
             this.Attributes.BonusStr = 50;
         }
 
-        public AncientTitansHammer(Serial serial)
+        public AncientStaffTitansHammer(Serial serial)
             : base(serial)
         {
         }
@@ -36,7 +36,7 @@ namespace Server.Items
         {
             get
             {
-                return 100;
+                return 1000;
             }
         }
         public override int InitMinHits

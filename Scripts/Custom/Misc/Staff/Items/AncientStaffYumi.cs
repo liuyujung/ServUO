@@ -32,6 +32,14 @@ namespace Server.Custom.Misc.Staff.Items
         {
 		}
 
+		public override int ArtifactRarity
+		{
+			get
+			{
+				return 1000;
+			}
+		}
+
 		public override int InitMinHits
 		{
 			get
@@ -46,13 +54,21 @@ namespace Server.Custom.Misc.Staff.Items
 				return 255;
 			}
 		}
-		/*public override int LabelNumber
+        /*public override int LabelNumber
 		{
 			get
 			{
 				return 1070967;
 			}
 		}// The Horselord*/
+
+        public override bool OnFired(Mobile attacker, IDamageable damageable)
+        {
+			attacker.MovingEffect(damageable, EffectID, 18, 1, false, false);
+
+			return true;
+        }
+
 		public override void Serialize(GenericWriter writer)
 		{
 			base.Serialize(writer);

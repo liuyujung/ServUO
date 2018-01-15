@@ -216,6 +216,8 @@ namespace Server.Items
 
 			if (attacker.Player)
 			{
+                if (TryFireFromMasterStorage(attacker)) return true;
+
 				BaseQuiver quiver = attacker.FindItemOnLayer(Layer.Cloak) as BaseQuiver;
 				Container pack = attacker.Backpack;
 

@@ -2,11 +2,11 @@ using System;
 
 namespace Server.Items
 {
-    public class AncientBraceletOfHealth : GoldBracelet
+    public class AncientStaffBraceletOfHealth : GoldBracelet
 	{
 		public override bool IsArtifact { get { return true; } }
         [Constructable]
-        public AncientBraceletOfHealth()
+        public AncientStaffBraceletOfHealth()
         {
             this.Hue = 0x21;
 			this.Name = "Ancient Staff Bracelet of Health";
@@ -33,9 +33,10 @@ namespace Server.Items
 			this.Resistances.Cold = 70;
 			this.Resistances.Poison = 70;
 			this.Resistances.Energy = 70;
+            this.Attributes.NightSight = 1;
         }
 
-        public AncientBraceletOfHealth(Serial serial)
+        public AncientStaffBraceletOfHealth(Serial serial)
             : base(serial)
         {
         }
@@ -52,7 +53,7 @@ namespace Server.Items
         {
             get
             {
-                return 100;
+                return 1000;
             }
         }
         public override void Serialize(GenericWriter writer)
