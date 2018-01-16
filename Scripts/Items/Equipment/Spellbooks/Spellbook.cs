@@ -17,6 +17,7 @@ using Server.Spells;
 using Server.Targeting;
 using Server.Mobiles;
 using Server.Spells.Mysticism;
+using Server.LucidNagual;
 #endregion
 
 namespace Server.Items
@@ -32,6 +33,23 @@ namespace Server.Items
 		Arcanist,
 		Mystic,
         SkillMasteries
+
+		///////////////////////////
+		//  All Spells Edit 1/11 //
+		///////////////////////////
+        ,
+		Druid,
+		Ancient,
+		Cleric,
+		Song,
+		Undead,
+		Rogue,
+		SpellWeaving,
+		Avatar,
+		Ranger
+		///////////////////////////
+		//      End Edit 1/11    //
+		///////////////////////////
 	}
 
 	public enum BookQuality
@@ -81,6 +99,17 @@ namespace Server.Items
 			1 // 1 property   : 1/4 : 25%
 		};
 
+		///////////////////////////
+		//  All Spells Edit 2/11 //
+		///////////////////////////
+		private bool m_UseRestrictions;
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public bool UseRestrictions { get { return m_UseRestrictions; } set { m_UseRestrictions = value; } }
+		///////////////////////////
+		//      End Edit 2/11    //
+		///////////////////////////
+
 		private string m_EngravedText;
 		private BookQuality m_Quality;
 		private AosAttributes m_AosAttributes;
@@ -114,6 +143,14 @@ namespace Server.Items
 			LootType = LootType.Blessed;
 
 			Content = content;
+
+			///////////////////////////
+			//  All Spells Edit 7/11 //
+			///////////////////////////
+			m_UseRestrictions = ControlCenter.SetRestrictions;
+			///////////////////////////
+			//      End Edit 7/11    //
+			///////////////////////////
 		}
 
 		public Spellbook(Serial serial)
@@ -431,6 +468,36 @@ namespace Server.Items
                 return SpellbookType.SkillMasteries;
             }
 
+			///////////////////////////
+			//  All Spells Edit 4/11 //
+			///////////////////////////
+			else if (spellID >= 116 && spellID < 131)
+				return SpellbookType.Undead;
+
+			else if (spellID >= 150 && spellID < 155)
+				return SpellbookType.Rogue;
+
+			else if (spellID >= 210 && spellID < 214)
+				return SpellbookType.Avatar;
+
+			else if (spellID >= 551 && spellID < 570)
+				return SpellbookType.Druid;
+
+			else if (spellID >= 651 && spellID < 667)
+				return SpellbookType.Song;
+
+			else if (spellID >= 801 && spellID < 813)
+				return SpellbookType.Cleric;
+
+			else if (spellID >= 850 && spellID < 885)
+				return SpellbookType.Ancient;
+
+			else if (spellID >= 900 && spellID < 913)
+				return SpellbookType.Ranger;
+			///////////////////////////
+			//      End Edit 4/11    //
+			///////////////////////////
+
 			return SpellbookType.Invalid;
 		}
 
@@ -468,6 +535,55 @@ namespace Server.Items
 		{
 			return Find(from, -1, SpellbookType.Mystic);
 		}
+
+		///////////////////////////
+		//  All Spells Edit 5/11 //
+		///////////////////////////
+		public static Spellbook FindDruid(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Druid);
+		}
+
+		public static Spellbook FindAncient(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Ancient);
+		}
+
+		public static Spellbook FindCleric(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Cleric);
+		}
+
+		public static Spellbook FindSong(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Song);
+		}
+
+		public static Spellbook FindUndead(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Undead);
+		}
+
+		public static Spellbook FindRogue(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Rogue);
+		}
+
+		public static Spellbook FindSpellWeaving(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.SpellWeaving);
+		}
+		public static Spellbook FindAvatar(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Avatar);
+		}
+		public static Spellbook FindRanger(Mobile from)
+		{
+			return Find(from, -1, SpellbookType.Ranger);
+		}
+		///////////////////////////
+		//      End Edit 5/11    //
+		///////////////////////////
 
 		public static Spellbook Find(Mobile from, int spellID)
 		{
@@ -1014,6 +1130,17 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
+			///////////////////////////
+			//  All Spells Edit 9/11 //
+			///////////////////////////
+			if (UseRestrictions && !SpellRestrictions.CheckRestrictions(from, this))
+			{
+				return;
+			}
+			///////////////////////////
+			//      End Edit 9/11    //
+			///////////////////////////
+
 			Container pack = from.Backpack;
 
 			if (Parent == from || (pack != null && Parent == pack))
@@ -1053,6 +1180,14 @@ namespace Server.Items
 
 			m_AosAttributes.Serialize(writer);
 			m_AosSkillBonuses.Serialize(writer);
+
+			///////////////////////////
+			// All Spells Edit 10/11 //
+			///////////////////////////
+			writer.Write(m_UseRestrictions);
+			///////////////////////////
+			//     End Edit 10/11    //
+			///////////////////////////
 
 			writer.Write(m_Content);
 			writer.Write(m_Count);
@@ -1107,6 +1242,14 @@ namespace Server.Items
 					{
 						m_AosAttributes = new AosAttributes(this, reader);
 						m_AosSkillBonuses = new AosSkillBonuses(this, reader);
+
+						///////////////////////////
+						// All Spells Edit 11/11 //
+						///////////////////////////
+						m_UseRestrictions = reader.ReadBool();
+						///////////////////////////
+						//     End Edit 11/11    //
+						///////////////////////////
 
 						goto case 0;
 					}
@@ -1321,6 +1464,22 @@ namespace Server.Items
 				case 7:
 					type = SpellbookType.Mystic;
 					break;
+
+				///////////////////////////
+				//  All Spells Edit 3/11 //
+				///////////////////////////
+				case 8: type = SpellbookType.Druid; break;
+				case 9: type = SpellbookType.Ancient; break;
+				case 10: type = SpellbookType.Cleric; break;
+				case 11: type = SpellbookType.Song; break;
+				case 12: type = SpellbookType.Undead; break;
+				case 13: type = SpellbookType.Rogue; break;
+				case 14: type = SpellbookType.SpellWeaving; break;
+				case 15: type = SpellbookType.Avatar; break;
+				case 16: type = SpellbookType.Ranger; break;
+				///////////////////////////
+				//      End Edit 3/11    //
+				///////////////////////////
 			}
 
 			Spellbook book = Find(from, -1, type);
@@ -1342,6 +1501,40 @@ namespace Server.Items
 
 			Spellbook book = e.Spellbook as Spellbook;
 			int spellID = e.SpellID;
+
+			/*********************** Full Spellbook Addition 2/2 ***********************/
+			/*TomeOfKnowledge fsb = e.Spellbook as TomeOfKnowledge;
+			bool Found = false;
+
+			if (fsb == null)
+			{
+				foreach (Item item in from.Backpack.Items)
+				{
+					if (item is TomeOfKnowledge)
+					{
+						fsb = item as TomeOfKnowledge;
+						Found = true;
+					}
+				}
+				if (!Found)
+				{
+					Item item = from.FindItemOnLayer(Layer.OneHanded);
+					if (item is TomeOfKnowledge)
+						fsb = item as TomeOfKnowledge;
+				}
+			}
+
+			if (fsb != null && fsb.ContainsSpell(spellID) && from == fsb.Owner)
+			{
+				Spell spell = SpellRegistry.NewSpell(spellID, from, null);
+
+				if (spell != null)
+					spell.Cast();
+				else
+					from.SendLocalizedMessage(502345); // This spell has been temporarily disabled.
+				return;
+			}*/
+			/********************* End Full Spellbook Addition 2/2 *********************/
 
 			if (book == null || !book.HasSpell(spellID))
 			{
