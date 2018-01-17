@@ -225,17 +225,21 @@ namespace Server.Network
 	{
 		internal class SafeNativeMethods
 		{
-			[DllImport("zlib32.dll")]
+			//[DllImport("zlib32.dll")]
+            [DllImport("zlibwapi32")]
 			internal static extern string zlibVersion();
 
-			[DllImport("zlib32.dll")]
+			//[DllImport("zlib32.dll")]
+            [DllImport("zlibwapi32")]
 			internal static extern ZLibError compress(byte[] dest, ref int destLength, byte[] source, int sourceLength);
 
-			[DllImport("zlib32.dll")]
+			//[DllImport("zlib32.dll")]
+            [DllImport("zlibwapi32")]
 			internal static extern ZLibError compress2(
 				byte[] dest, ref int destLength, byte[] source, int sourceLength, ZLibQuality quality);
 
-			[DllImport("zlib32.dll")]
+			//[DllImport("zlib32.dll")]
+            [DllImport("zlibwapi32")]
 			internal static extern ZLibError uncompress(byte[] dest, ref int destLen, byte[] source, int sourceLen);
 		}
 
@@ -261,17 +265,21 @@ namespace Server.Network
 	{
 		internal class SafeNativeMethods
 		{
-			[DllImport("zlib64.dll")]
+			//[DllImport("zlib64.dll")]
+            [DllImport("zlibwapi64")]
 			internal static extern string zlibVersion();
 
-			[DllImport("zlib64.dll")]
+			//[DllImport("zlib64.dll")]
+            [DllImport("zlibwapi64")]
 			internal static extern ZLibError compress(byte[] dest, ref int destLength, byte[] source, int sourceLength);
 
-			[DllImport("zlib64.dll")]
+			//[DllImport("zlib64.dll")]
+            [DllImport("zlibwapi64")]
 			internal static extern ZLibError compress2(
 				byte[] dest, ref int destLength, byte[] source, int sourceLength, ZLibQuality quality);
 
-			[DllImport("zlib64.dll")]
+			//[DllImport("zlib64.dll")]
+            [DllImport("zlibwapi64")]
 			internal static extern ZLibError uncompress(byte[] dest, ref int destLen, byte[] source, int sourceLen);
 		}
 
