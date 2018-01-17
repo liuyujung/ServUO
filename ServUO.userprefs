@@ -1,14 +1,45 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/ChampionSystem/ChampionSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Items/Equipment/Spellbooks/Spellbook.cs">
     <Files>
-      <File FileName="Server/Mobile.cs" Line="10665" Column="4" />
-      <File FileName="Scripts/Misc/LootPack.cs" Line="513" Column="35" />
-      <File FileName="Scripts/Misc/Loot.cs" Line="137" Column="40" />
-      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="3369" Column="14" />
-      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="280" Column="22" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="101" Column="6" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawn.cs" Line="477" Column="21" />
+      <File FileName="Scripts/Custom/Spells/Cleric/ClericSpellBookGump.cs" Line="54" Column="41" />
+      <File FileName="Scripts/Custom/Spells/Base/AllSpellCommands.cs" Line="62" Column="24" />
+      <File FileName="Scripts/Items/Equipment/Spellbooks/Spellbook.cs" Line="833" Column="15" />
+      <File FileName="Server/Network/Compression.cs" Line="288" Column="94" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ServUO" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="Context Menus" expanded="True" />
+              <Node name="Custom" expanded="True">
+                <Node name="Spells" expanded="True">
+                  <Node name="Base" expanded="True">
+                    <Node name="AS Control Center" expanded="True" />
+                  </Node>
+                  <Node name="Ranger" expanded="True">
+                    <Node name="Spells" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="Items" expanded="True">
+                <Node name="Equipment" expanded="True">
+                  <Node name="Spellbooks" expanded="True">
+                    <Node name="Spellbook.cs" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="Spells" expanded="True">
+                <Node name="Third" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Server" expanded="True">
+              <Node name="Network" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />
