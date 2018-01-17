@@ -9,7 +9,7 @@ using PSys= Server.Engines.PartySystem;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericSacrificeSpell : ClericSpell
+	public class SacrificeSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -28,7 +28,7 @@ namespace Server.Spells.Cleric
 			PlayerEvent.HitByWeapon += new PlayerEvent.OnWeaponHit( InternalCallback );
 		}
 		
-		public ClericSacrificeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public SacrificeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -44,9 +44,9 @@ namespace Server.Spells.Cleric
 		{
 			if ( CheckSequence() )
 			{
-				if ( !Caster.CanBeginAction( typeof( ClericSacrificeSpell ) ) )
+				if ( !Caster.CanBeginAction( typeof( SacrificeSpell ) ) )
 				{
-					Caster.EndAction( typeof( ClericSacrificeSpell ) );
+					Caster.EndAction( typeof( SacrificeSpell ) );
 					Caster.PlaySound( 0x244 );
 					Caster.FixedParticles( 0x3709, 1, 30, 9965, 1152, 0, EffectLayer.Waist );
 					Caster.FixedParticles( 0x376A, 1, 30, 9502, 1152, 0, EffectLayer.Waist );
@@ -54,7 +54,7 @@ namespace Server.Spells.Cleric
 				}
 				else
 				{
-					Caster.BeginAction( typeof( ClericSacrificeSpell ) );
+					Caster.BeginAction( typeof( SacrificeSpell ) );
 					Caster.FixedParticles( 0x3709, 1, 30, 9965, 1153, 7, EffectLayer.Waist );
 					Caster.FixedParticles( 0x376A, 1, 30, 9502, 1153, 3, EffectLayer.Waist );
 					Caster.PlaySound( 0x244 );
@@ -66,7 +66,7 @@ namespace Server.Spells.Cleric
 		
 		private static void InternalCallback( Mobile attacker, Mobile defender, int damage, WeaponAbility a )
 		{
-			if ( !defender.CanBeginAction( typeof( ClericSacrificeSpell ) ) )
+			if ( !defender.CanBeginAction( typeof( SacrificeSpell ) ) )
 			{
 				PSys.Party p = PSys.Party.Get( defender );
 				

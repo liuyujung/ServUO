@@ -8,7 +8,7 @@ using Server.Gumps;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericRestorationSpell : ClericSpell
+	public class RestorationSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -22,7 +22,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericRestorationSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public RestorationSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -88,9 +88,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericRestorationSpell m_Owner;
+			private RestorationSpell m_Owner;
 			
-			public InternalTarget( ClericRestorationSpell owner ) : base( 12, false, TargetFlags.Beneficial )
+			public InternalTarget( RestorationSpell owner ) : base( 12, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

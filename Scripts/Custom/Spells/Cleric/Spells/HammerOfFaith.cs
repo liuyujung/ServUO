@@ -8,7 +8,7 @@ using Server.Items;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericHammerOfFaithSpell : ClericSpell
+	public class HammerOfFaithSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -22,7 +22,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericHammerOfFaithSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public HammerOfFaithSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -87,7 +87,7 @@ namespace Server.Spells.Cleric
 				Slayer = SlayerName.Silver;
 				Name = "Hammer of Faith";
 				
-				double time = ( owner.Skills[SkillName.SpiritSpeak].Value / 20.0 ) * ClericDivineFocusSpell.GetScalar( owner );
+				double time = ( owner.Skills[SkillName.SpiritSpeak].Value / 20.0 ) * DivineFocusSpell.GetScalar( owner );
 				m_Expire = DateTime.Now + TimeSpan.FromMinutes( (int)time );
 				m_Timer = new InternalTimer( this, m_Expire );
 				

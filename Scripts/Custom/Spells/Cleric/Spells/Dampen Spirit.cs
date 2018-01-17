@@ -8,7 +8,7 @@ using Server.Items;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericDampenSpiritSpell : ClericSpell
+	public class DampenSpiritSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -24,7 +24,7 @@ namespace Server.Spells.Cleric
 		
 		private static Hashtable m_Table = new Hashtable();
 		
-		public ClericDampenSpiritSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public DampenSpiritSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -113,9 +113,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericDampenSpiritSpell m_Owner;
+			private DampenSpiritSpell m_Owner;
 			
-			public InternalTarget( ClericDampenSpiritSpell owner ) : base( 12, false, TargetFlags.Harmful )
+			public InternalTarget( DampenSpiritSpell owner ) : base( 12, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

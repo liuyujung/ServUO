@@ -9,7 +9,7 @@ using Server.Spells.Seventh;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericAngelicFaithSpell : ClericSpell
+	public class AngelicFaithSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -25,7 +25,7 @@ namespace Server.Spells.Cleric
 
 		private static Hashtable m_Table = new Hashtable();
 		
-		public ClericAngelicFaithSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public AngelicFaithSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -58,7 +58,7 @@ namespace Server.Spells.Cleric
 			
 			m_Table.Remove( m );
 			
-			m.EndAction( typeof( ClericAngelicFaithSpell ) );
+			m.EndAction( typeof( AngelicFaithSpell ) );
 			
 			m.BodyMod = 0;
 		}
@@ -69,7 +69,7 @@ namespace Server.Spells.Cleric
 			{
 				return false;
 			}
-			else if ( !Caster.CanBeginAction( typeof( ClericAngelicFaithSpell ) ) )
+			else if ( !Caster.CanBeginAction( typeof( AngelicFaithSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005559 );
 				return true;
@@ -100,9 +100,9 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if ( !Caster.CanBeginAction( typeof( ClericAngelicFaithSpell ) ) )
+			if ( !Caster.CanBeginAction( typeof( AngelicFaithSpell ) ) )
 			{
-				ClericAngelicFaithSpell.RemoveEffect( Caster );
+				AngelicFaithSpell.RemoveEffect( Caster );
 			}
 			else if ( TransformationSpellHelper.UnderTransformation( Caster ) )
 			{
@@ -141,7 +141,7 @@ namespace Server.Spells.Cleric
 				Caster.AddSkillMod( (SkillMod)mods[4] );
 				Caster.AddSkillMod( (SkillMod)mods[5] );
 				
-				double span = 10.0 * ClericDivineFocusSpell.GetScalar( Caster );
+				double span = 10.0 * DivineFocusSpell.GetScalar( Caster );
 				new InternalTimer( Caster, TimeSpan.FromMinutes( (int)span ) ).Start();
 				
 				IMount mount = Caster.Mount;
@@ -150,7 +150,7 @@ namespace Server.Spells.Cleric
 					mount.Rider = null;
 				
 				Caster.BodyMod = 123;
-				Caster.BeginAction( typeof( ClericAngelicFaithSpell ) );
+				Caster.BeginAction( typeof( AngelicFaithSpell ) );
 				Caster.PlaySound( 0x165 );
 				Caster.FixedParticles( 0x3728, 1, 13, 0x480, 92, 3, EffectLayer.Head );
 			}
@@ -172,7 +172,7 @@ namespace Server.Spells.Cleric
 			{
 				if ( DateTime.Now >= m_Expire )
 				{
-					ClericAngelicFaithSpell.RemoveEffect( m_Owner );
+					AngelicFaithSpell.RemoveEffect( m_Owner );
 					Stop();
 				}
 			}

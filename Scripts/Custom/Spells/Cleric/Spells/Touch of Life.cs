@@ -7,7 +7,7 @@ using Server.Mobiles;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericTouchOfLifeSpell : ClericSpell
+	public class TouchOfLifeSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -21,7 +21,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericTouchOfLifeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public TouchOfLifeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -54,7 +54,7 @@ namespace Server.Spells.Cleric
 				
 				double toHeal = Caster.Skills[SkillName.SpiritSpeak].Value / 2.0 + Utility.Random( 5 );
 				
-				toHeal *= ClericDivineFocusSpell.GetScalar( Caster );
+				toHeal *= DivineFocusSpell.GetScalar( Caster );
 				
 				m.Heal( (int)toHeal );
 			}
@@ -64,9 +64,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericTouchOfLifeSpell m_Owner;
+			private TouchOfLifeSpell m_Owner;
 			
-			public InternalTarget( ClericTouchOfLifeSpell owner ) : base( 12, false, TargetFlags.Beneficial )
+			public InternalTarget( TouchOfLifeSpell owner ) : base( 12, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

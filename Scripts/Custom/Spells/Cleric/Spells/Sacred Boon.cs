@@ -7,7 +7,7 @@ using Server.Mobiles;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericSacredBoonSpell : ClericSpell
+	public class SacredBoonSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -23,7 +23,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericSacredBoonSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public SacredBoonSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -86,9 +86,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericSacredBoonSpell m_Owner;
+			private SacredBoonSpell m_Owner;
 			
-			public InternalTarget( ClericSacredBoonSpell owner ) : base( 12, false, TargetFlags.Beneficial )
+			public InternalTarget( SacredBoonSpell owner ) : base( 12, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}
@@ -135,7 +135,7 @@ namespace Server.Spells.Cleric
 				if ( DateTime.Now >= NextTick )
 				{
 					double heal = Utility.RandomMinMax( 6, 9 ) + source.Skills[SkillName.Magery].Value / 50.0;
-					heal *= ClericDivineFocusSpell.GetScalar( source );
+					heal *= DivineFocusSpell.GetScalar( source );
 					
 					dest.Heal( (int)heal );
 					

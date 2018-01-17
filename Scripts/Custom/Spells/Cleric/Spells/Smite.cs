@@ -8,7 +8,7 @@ using Server.Items;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericSmiteSpell : ClericSpell
+	public class SmiteSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -22,7 +22,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericSmiteSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public SmiteSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -51,7 +51,7 @@ namespace Server.Spells.Cleric
 				
 				SpellHelper.Turn( Caster, m );
 				
-				double damage = Caster.Skills[SkillName.SpiritSpeak].Value * ClericDivineFocusSpell.GetScalar( Caster );
+				double damage = Caster.Skills[SkillName.SpiritSpeak].Value * DivineFocusSpell.GetScalar( Caster );
 				
 				if ( Core.AOS )
 				{
@@ -69,9 +69,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericSmiteSpell m_Owner;
+			private SmiteSpell m_Owner;
 			
-			public InternalTarget( ClericSmiteSpell owner ) : base( 12, false, TargetFlags.Harmful )
+			public InternalTarget( SmiteSpell owner ) : base( 12, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

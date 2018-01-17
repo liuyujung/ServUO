@@ -8,7 +8,7 @@ using Server.Spells.Necromancy;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericPurgeSpell : ClericSpell
+	public class PurgeSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -22,7 +22,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericPurgeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public PurgeSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -84,9 +84,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericPurgeSpell m_Owner;
+			private PurgeSpell m_Owner;
 			
-			public InternalTarget( ClericPurgeSpell owner ) : base( 12, false, TargetFlags.Beneficial )
+			public InternalTarget( PurgeSpell owner ) : base( 12, false, TargetFlags.Beneficial )
 			{
 				m_Owner = owner;
 			}

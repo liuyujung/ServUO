@@ -9,7 +9,7 @@ using Server.Gumps;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericBanishEvilSpell : ClericSpell
+	public class BanishEvilSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -23,7 +23,7 @@ namespace Server.Spells.Cleric
 		public override bool BlocksMovement { get { return false; } }
 		public override int RequiredMana { get { return 10; } }
 		
-		public ClericBanishEvilSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public BanishEvilSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -87,9 +87,9 @@ namespace Server.Spells.Cleric
 		
 		private class InternalTarget : Target
 		{
-			private ClericBanishEvilSpell m_Owner;
+			private BanishEvilSpell m_Owner;
 			
-			public InternalTarget( ClericBanishEvilSpell owner ) : base( 12, false, TargetFlags.Harmful )
+			public InternalTarget( BanishEvilSpell owner ) : base( 12, false, TargetFlags.Harmful )
 			{
 				m_Owner = owner;
 			}

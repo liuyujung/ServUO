@@ -8,7 +8,7 @@ using Server.Items;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericTrialByFireSpell : ClericSpell
+	public class TrialByFireSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -27,7 +27,7 @@ namespace Server.Spells.Cleric
 			PlayerEvent.HitByWeapon += new PlayerEvent.OnWeaponHit( InternalCallback );
 		}
 		
-		public ClericTrialByFireSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public TrialByFireSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -44,7 +44,7 @@ namespace Server.Spells.Cleric
 			if ( !base.CheckCast() )
 				return false;
 			
-			if ( !Caster.CanBeginAction( typeof(ClericTrialByFireSpell) ))
+			if ( !Caster.CanBeginAction( typeof(TrialByFireSpell) ))
 			{
 				Caster.SendLocalizedMessage( 501775 ); // This spell is already in effect
 				return false;
@@ -58,7 +58,7 @@ namespace Server.Spells.Cleric
 			if ( CheckSequence() )
 			{
 				Caster.SendMessage( "Your body is covered by holy flames." );
-				Caster.BeginAction( typeof( ClericTrialByFireSpell ) );
+				Caster.BeginAction( typeof( TrialByFireSpell ) );
 				
 				Caster.FixedParticles( 0x3709, 10, 30, 5052, 0x480, 0, EffectLayer.LeftFoot );
 				Caster.PlaySound( 0x208 );
@@ -72,7 +72,7 @@ namespace Server.Spells.Cleric
 		
 		private static void InternalCallback( Mobile attacker, Mobile defender, int damage, WeaponAbility a )
 		{
-			if ( !defender.CanBeginAction( typeof( ClericTrialByFireSpell ) ) && Utility.RandomBool() )
+			if ( !defender.CanBeginAction( typeof( TrialByFireSpell ) ) && Utility.RandomBool() )
 			{
 				defender.DoHarmful( attacker );
 				
@@ -114,7 +114,7 @@ namespace Server.Spells.Cleric
 			{
 				if ( DateTime.Now >= Expire || !Source.CheckAlive() )
 				{
-					Source.EndAction( typeof( ClericTrialByFireSpell ) );
+					Source.EndAction( typeof( TrialByFireSpell ) );
 					Stop();
 					Source.SendMessage( "The holy fire around you fades." );
 				}

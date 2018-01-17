@@ -8,7 +8,7 @@ using Server.Items;
 
 namespace Server.Spells.Cleric
 {
-	public class ClericDivineFocusSpell : ClericSpell
+	public class DivineFocusSpell : ClericSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo
 			(
@@ -24,7 +24,7 @@ namespace Server.Spells.Cleric
 		
 		private static Hashtable m_Table = new Hashtable();
 		
-		public ClericDivineFocusSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public DivineFocusSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -40,7 +40,7 @@ namespace Server.Spells.Cleric
 		{
 			double val = 1.0;
 			
-			if ( m.CanBeginAction( typeof( ClericDivineFocusSpell ) ) )
+			if ( m.CanBeginAction( typeof( DivineFocusSpell ) ) )
 				val = 1.5;
 			
 			return val;
@@ -52,7 +52,7 @@ namespace Server.Spells.Cleric
 			{
 				return false;
 			}
-			if ( !Caster.CanBeginAction( typeof( ClericDivineFocusSpell ) ) )
+			if ( !Caster.CanBeginAction( typeof( DivineFocusSpell ) ) )
 			{
 				Caster.SendMessage( "This spell is already in effect" );
 				return false;
@@ -63,7 +63,7 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if ( !Caster.CanBeginAction( typeof( ClericDivineFocusSpell ) ) )
+			if ( !Caster.CanBeginAction( typeof( DivineFocusSpell ) ) )
 			{
 				Caster.SendMessage( "This spell is already in effect" );
 				return;
@@ -71,7 +71,7 @@ namespace Server.Spells.Cleric
 			
 			if ( CheckSequence() )
 			{
-				Caster.BeginAction( typeof( ClericDivineFocusSpell ) );
+				Caster.BeginAction( typeof( DivineFocusSpell ) );
 				
 				Timer t = new InternalTimer( Caster );
 				m_Table[Caster] = t;
@@ -95,7 +95,7 @@ namespace Server.Spells.Cleric
 			{
 				if ( !m_Owner.CheckAlive() || m_Owner.Mana < 3 )
 				{
-					m_Owner.EndAction( typeof( ClericDivineFocusSpell ) );
+					m_Owner.EndAction( typeof( DivineFocusSpell ) );
 					m_Table.Remove( m_Owner );
 					m_Owner.SendMessage( "Your mind weakens and you are unable to maintain your divine focus." );
 					Stop();

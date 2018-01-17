@@ -9,9 +9,6 @@ namespace Server.Spells.Druid
 {
 	public class LureStoneSpell : DruidSpell
 	{
-		private LureStone m_Circlea;
-		private Item m_Circleb;
-
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Lure Stone", "En Kes Ohm Crur",
 		                                                269,

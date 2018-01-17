@@ -32,18 +32,18 @@ namespace Server.Spells.Cleric
 		{
 			if( Core.AOS )
 			{
-				Register( 801, typeof( ClericAngelicFaithSpell ) );
-				Register( 802, typeof( ClericBanishEvilSpell ) );
-				Register( 803, typeof( ClericDampenSpiritSpell ) );
-				Register( 804, typeof( ClericDivineFocusSpell ) );
-				Register( 805, typeof( ClericHammerOfFaithSpell ) );
-				Register( 806, typeof( ClericPurgeSpell ) );
-				Register( 807, typeof( ClericRestorationSpell ) );
-				Register( 808, typeof( ClericSacredBoonSpell ) );
-				Register( 809, typeof( ClericSacrificeSpell ) );
-				Register( 810, typeof( ClericSmiteSpell ) );
-				Register( 811, typeof( ClericTouchOfLifeSpell ) );
-				Register( 812, typeof( ClericTrialByFireSpell ) );
+				Register( 801, typeof( AngelicFaithSpell ) );
+				Register( 802, typeof( BanishEvilSpell ) );
+				Register( 803, typeof( DampenSpiritSpell ) );
+				Register( 804, typeof( DivineFocusSpell ) );
+				Register( 805, typeof( HammerOfFaithSpell ) );
+				Register( 806, typeof( PurgeSpell ) );
+				Register( 807, typeof( RestorationSpell ) );
+				Register( 808, typeof( SacredBoonSpell ) );
+				Register( 809, typeof( SacrificeSpell ) );
+				Register( 810, typeof( SmiteSpell ) );
+				Register( 811, typeof( TouchOfLifeSpell ) );
+				Register( 812, typeof( TrialByFireSpell ) );
 				
 				//RegDef( spellID, "Name", "Description", "Reagent1; Reagent2; Reagentn", "Skill; Mana; Tithe; Etc" );
 				RegDef( 801, "Angelic Faith",   "The caster calls upon the divine powers of the heavens to transform himself into a holy angel.  The caster gains better regeneration rates and increased stats and skills.", null, "Skill: 80; Tithing: 100" );
