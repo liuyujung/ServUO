@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Items/Equipment/Spellbooks/Spellbook.cs">
     <Files>
-      <File FileName="Scripts/Custom/Spells/Cleric/ClericSpellBookGump.cs" Line="54" Column="41" />
-      <File FileName="Scripts/Custom/Spells/Base/AllSpellCommands.cs" Line="62" Column="24" />
-      <File FileName="Scripts/Items/Equipment/Spellbooks/Spellbook.cs" Line="833" Column="15" />
-      <File FileName="Server/Network/Compression.cs" Line="288" Column="94" />
+      <File FileName="Scripts/Custom/Spells/Cleric/ClericSpellBookGump.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Spells/Base/AllSpellCommands.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Items/Equipment/Spellbooks/Spellbook.cs" Line="1" Column="1" />
+      <File FileName="Server/Network/Compression.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,29 +12,17 @@
           <Node name="ServUO" expanded="True">
             <Node name="Scripts" expanded="True">
               <Node name="Context Menus" expanded="True" />
-              <Node name="Custom" expanded="True">
-                <Node name="Spells" expanded="True">
-                  <Node name="Base" expanded="True">
-                    <Node name="AS Control Center" expanded="True" />
-                  </Node>
-                  <Node name="Ranger" expanded="True">
-                    <Node name="Spells" expanded="True" />
-                  </Node>
-                </Node>
-              </Node>
               <Node name="Items" expanded="True">
                 <Node name="Equipment" expanded="True">
                   <Node name="Spellbooks" expanded="True">
                     <Node name="Spellbook.cs" selected="True" />
                   </Node>
+                  <Node name="Weapons" expanded="True" />
                 </Node>
               </Node>
-              <Node name="Spells" expanded="True">
-                <Node name="Third" expanded="True" />
+              <Node name="Mobiles" expanded="True">
+                <Node name="Normal" expanded="True" />
               </Node>
-            </Node>
-            <Node name="Server" expanded="True">
-              <Node name="Network" expanded="True" />
             </Node>
           </Node>
         </State>

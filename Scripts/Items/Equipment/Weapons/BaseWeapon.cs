@@ -1585,18 +1585,6 @@ namespace Server.Items
 				}
 			}
 
-			#region Dueling
-			if (attacker is PlayerMobile)
-			{
-				PlayerMobile pm = (PlayerMobile)attacker;
-
-				if (pm.DuelContext != null && !pm.DuelContext.CheckItemEquip(attacker, this))
-				{
-					canSwing = false;
-				}
-			}
-			#endregion
-
             if (canSwing && attacker.HarmfulCheck(damageable))
 			{
 				attacker.DisruptiveAction();
@@ -2018,7 +2006,9 @@ namespace Server.Items
 
 			int inPack = 1;
 
-			foreach (Mobile m in defender.GetMobilesInRange(1))
+            IPooledEnumerable eable = defender.GetMobilesInRange(1);
+
+			foreach (Mobile m in eable)
 			{
 				if (m != attacker && m is BaseCreature)
 				{
@@ -2043,6 +2033,8 @@ namespace Server.Items
 				}
 			}
 
+            eable.Free();
+
 			if (inPack >= 5)
 			{
 				return 100;
@@ -2063,10 +2055,38 @@ namespace Server.Items
 			return 0;
 		}
 
-		private static bool m_InDoubleStrike;
-		public static bool InDoubleStrike { get { return m_InDoubleStrike; } set { m_InDoubleStrike = value; } }
+		private bool m_InDoubleStrike;
+        private bool m_ProcessingMultipleHits;
 
-		public DateTime NextSelfRepair { get; set; }
+		public bool InDoubleStrike 
+        {
+            get { return m_InDoubleStrike; }
+            set
+            { 
+                m_InDoubleStrike = value;
+
+                if (m_InDoubleStrike)
+                    ProcessingMultipleHits = true;
+                else
+                    ProcessingMultipleHits = false;
+            } 
+        }
+
+        public bool ProcessingMultipleHits
+        {
+            get { return m_ProcessingMultipleHits; }
+            set
+            {
+                m_ProcessingMultipleHits = value;
+
+                if (!m_ProcessingMultipleHits)
+                    BlockHitEffects = false;
+            }
+        }
+
+        public bool EndDualWield { get; set; }
+        public bool BlockHitEffects { get; set; }
+        public DateTime NextSelfRepair { get; set; }
 
 		//daat99 OWLTR start - make it virtual
 		//public virtual void OnHit(Mobile attacker, Mobile defender)
@@ -2084,6 +2104,12 @@ namespace Server.Items
 
         public virtual void OnHit(Mobile attacker, IDamageable damageable, double damageBonus)
 		{
+            if (EndDualWield)
+            {
+                ProcessingMultipleHits = false;
+                EndDualWield = false;
+            }
+
             Mobile defender = damageable as Mobile;
             Clone clone = null;
 
@@ -2721,7 +2747,7 @@ namespace Server.Items
 				}
 			}
 
-			if (Core.AOS)
+			if (Core.AOS && !BlockHitEffects)
 			{
 				int physChance = (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitPhysicalArea) * propertyBonus);
 				int fireChance = (int)(AosWeaponAttributes.GetValue(attacker, AosWeaponAttribute.HitFireArea) * propertyBonus);
@@ -2960,6 +2986,9 @@ namespace Server.Items
 			attacker.PlaySound(0x1E5);
 
 			SpellHelper.Damage(TimeSpan.FromSeconds(1.0), defender, attacker, damage, 0, 100, 0, 0, 0);
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoHarm(Mobile attacker, Mobile defender)
@@ -2986,6 +3015,9 @@ namespace Server.Items
 			defender.PlaySound(0x0FC);
 
 			SpellHelper.Damage(TimeSpan.Zero, defender, attacker, damage, 0, 0, 100, 0, 0);
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoFireball(Mobile attacker, Mobile defender)
@@ -3003,6 +3035,9 @@ namespace Server.Items
 			attacker.PlaySound(0x15E);
 
 			SpellHelper.Damage(TimeSpan.FromSeconds(1.0), defender, attacker, damage, 0, 100, 0, 0, 0);
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoLightning(Mobile attacker, Mobile defender)
@@ -3019,6 +3054,9 @@ namespace Server.Items
 			defender.BoltEffect(0);
 
 			SpellHelper.Damage(TimeSpan.Zero, defender, attacker, damage, 0, 0, 0, 0, 100);
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoDispel(Mobile attacker, Mobile defender)
@@ -3080,6 +3118,9 @@ namespace Server.Items
 
             Server.Spells.Fourth.CurseSpell.AddEffect(defender, duration, 10, 10, 10);
             BuffInfo.AddBuff(defender, new BuffInfo(BuffIcon.Curse, 1075835, 1075836, duration, defender, args));
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoFatigue(Mobile attacker, Mobile defender, int damagegiven)
@@ -3087,6 +3128,9 @@ namespace Server.Items
 			// Message?
 			// Effects?
 			defender.Stam -= (damagegiven * (100 - m_AosWeaponAttributes.HitFatigue)) / 100;
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 
 		public virtual void DoManaDrain(Mobile attacker, Mobile defender, int damagegiven)
@@ -3095,6 +3139,9 @@ namespace Server.Items
 			defender.FixedParticles(0x3789, 10, 25, 5032, EffectLayer.Head);
 			defender.PlaySound(0x1F8);
 			defender.Mana -= (damagegiven * (100 - m_AosWeaponAttributes.HitManaDrain)) / 100;
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 		}
 		#endregion
 
@@ -3127,7 +3174,9 @@ namespace Server.Items
 
 			var list = new List<Mobile>();
 
-			foreach (Mobile m in from.GetMobilesInRange(5))
+            IPooledEnumerable eable = from.GetMobilesInRange(5);
+
+			foreach (Mobile m in eable)
 			{
 				if (from != m && defender != m && SpellHelper.ValidIndirectTarget(from, m) && from.CanBeHarmful(m, false) &&
 					(!Core.ML || from.InLOS(m)))
@@ -3135,6 +3184,8 @@ namespace Server.Items
 					list.Add(m);
 				}
 			}
+
+            eable.Free();
 
             if (list.Count > 0)
             {
@@ -3149,6 +3200,9 @@ namespace Server.Items
                     AOS.Damage(m, from, (int)(damageGiven / 2), phys, fire, cold, pois, nrgy, Server.DamageType.SpellAOE);
                 }
             }
+
+            if (ProcessingMultipleHits)
+                BlockHitEffects = true;
 
             ColUtility.Free(list);
 		}

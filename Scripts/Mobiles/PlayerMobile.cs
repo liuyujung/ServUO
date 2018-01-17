@@ -13,7 +13,6 @@ using Server.Accounting;
 using Server.ContextMenus;
 using Server.Engines.BulkOrders;
 using Server.Engines.CannedEvil;
-using Server.Engines.ConPVP;
 using Server.Engines.Craft;
 using Server.Engines.Help;
 using Server.Engines.MyRunUO;
@@ -45,6 +44,7 @@ using Server.Targeting;
 using System.Linq;
 using Server.Engines.VoidPool;
 using Server.Spells.SkillMasteries;
+using Server.Engines.VvV;
 
 using RankDefinition = Server.Guilds.RankDefinition;
 #endregion
@@ -1712,6 +1712,26 @@ namespace Server.Mobiles
 			}
 		}
 
+        public override void DoHarmful(IDamageable damageable, bool indirect)
+        {
+            base.DoHarmful(damageable, indirect);
+
+            if (ViceVsVirtueSystem.Enabled && Map == Faction.Facet && damageable is Mobile)
+            {
+                ViceVsVirtueSystem.CheckHarmful(this, (Mobile)damageable);
+            }
+        }
+
+        public override void DoBeneficial(Mobile target)
+        {
+            base.DoBeneficial(target);
+
+            if (ViceVsVirtueSystem.Enabled && Map == Faction.Facet && target != null)
+            {
+                ViceVsVirtueSystem.CheckBeneficial(this, target);
+            }
+        }
+
 		public override bool CanBeHarmful(IDamageable damageable, bool message, bool ignoreOurBlessedness)
 		{
             Mobile target = damageable as Mobile;
@@ -2088,13 +2108,6 @@ namespace Server.Mobiles
 
 		public override bool AllowItemUse(Item item)
 		{
-			#region Dueling
-			if (m_DuelContext != null && !m_DuelContext.AllowItemUse(this, item))
-			{
-				return false;
-			}
-			#endregion
-
 			return DesignContext.Check(this);
 		}
 
@@ -2130,12 +2143,6 @@ namespace Server.Mobiles
 				}
 			}
 
-			#region Dueling
-			if (m_DuelContext != null && !m_DuelContext.AllowSkillUse(this, skill))
-			{
-				return false;
-			}
-			#endregion
 			//Xanthos start
 			if (null != SafeResContext)
 				return (DesignContext.Check(this) && SafeResContext.AllowSkillUse(this, skill));
@@ -2212,7 +2219,7 @@ namespace Server.Mobiles
 
                 if (house != null)
                 {
-                    if (house.IsCoOwner(this) && !Region.IsPartOf<SafeZone>())
+                    if (house.IsCoOwner(this))
                         list.Add(new CallbackEntry(6205, ReleaseCoOwnership));
                 }
 
@@ -2282,7 +2289,7 @@ namespace Server.Mobiles
                         list.Add(new CallbackEntry(6204, GetVendor));
                     }
 
-                    if (house.IsAosRules && !Region.IsPartOf<SafeZone>()) // Dueling
+                    if (house.IsAosRules)
                     {
                         list.Add(new CallbackEntry(6207, LeaveHouse));
                     }
@@ -3013,13 +3020,6 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			#region Dueling
-			if (m_DuelContext != null && !m_DuelContext.AllowItemEquip(this, item))
-			{
-				return false;
-			}
-			#endregion
-
             Region r = Region.Find(Location, Map);
 
             if (r is Server.Engines.ArenaSystem.ArenaRegion)
@@ -3167,7 +3167,7 @@ namespace Server.Mobiles
 
 		private static int CheckContentForTrade(Item item)
 		{
-			if (item is TrapableContainer && ((TrapableContainer)item).TrapType != TrapType.None)
+			if (item is TrapableContainer && ((TrapableContainer)item).TrapType != Server.Items.TrapType.None)
 			{
 				return 1004044; // You may not trade trapped items.
 			}
@@ -3231,13 +3231,6 @@ namespace Server.Mobiles
 		{
 			CheckLightLevels(false);
 
-			#region Dueling
-			if (m_DuelContext != null)
-			{
-				m_DuelContext.OnLocationChanged(this);
-			}
-			#endregion
-
 			DesignContext context = m_DesignContext;
 
 			if (context == null || m_NoRecursion)
@@ -3281,19 +3274,6 @@ namespace Server.Mobiles
 				return (!Alive || !m.Alive || IsDeadBondedPet || m.IsDeadBondedPet) || (Hidden && IsStaff());
 			}
 
-			#region Dueling
-			if (Region.IsPartOf<SafeZone>() && m is PlayerMobile)
-			{
-				PlayerMobile pm = (PlayerMobile)m;
-
-				if (pm.DuelContext == null || pm.DuelPlayer == null || !pm.DuelContext.Started || pm.DuelContext.Finished ||
-					pm.DuelPlayer.Eliminated)
-				{
-					return true;
-				}
-			}
-			#endregion
-
 			return base.OnMoveOver(m);
 		}
 
@@ -3321,13 +3301,8 @@ namespace Server.Mobiles
 				InvalidateProperties();
 			}
 
-			#region Dueling
-			if (m_DuelContext != null)
-			{
-				m_DuelContext.OnMapChanged(this);
-			}
-			#endregion
-
+            BaseGump.CheckCloseGumps(this);
+            
 			DesignContext context = m_DesignContext;
 
 			if (context == null || m_NoRecursion)
@@ -3623,14 +3598,6 @@ namespace Server.Mobiles
 					return true;
 				}
 
-				#region Dueling
-				if (m_DuelPlayer != null && m_DuelContext != null && m_DuelContext.Registered && m_DuelContext.Started &&
-					!m_DuelPlayer.Eliminated)
-				{
-					return true;
-				}
-                #endregion
-
                 int insuredAmount = item.GetInsuranceCost();
 				if (AutoRenewInsurance)
 				{
@@ -3818,7 +3785,7 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (Young && m_DuelContext == null)
+			if (Young)
 			{
 				if (YoungDeathTeleport())
 				{
@@ -3826,21 +3793,13 @@ namespace Server.Mobiles
 				}
 			}
 
-			if (m_DuelContext == null || !m_DuelContext.Registered || !m_DuelContext.Started || m_DuelPlayer == null ||
-				m_DuelPlayer.Eliminated || !XmlPoints.AreChallengers(this, killer))
+			if (!XmlPoints.AreChallengers(this, killer))
 			{
 				Faction.HandleDeath(this, killer);
 			}
 
 			Guilds.Guild.HandleDeath(this, killer);
-
-			#region Dueling
-			if (m_DuelContext != null)
-			{
-				m_DuelContext.OnDeath(this, c);
-			}
-            #endregion
-
+            
             if (m_BuffTable != null)
 			{
 				var list = new List<BuffInfo>();
@@ -4190,7 +4149,7 @@ namespace Server.Mobiles
 
 		public override bool CheckPoisonImmunity(Mobile from, Poison poison)
 		{
-			if (Young && (DuelContext == null || !DuelContext.Started || DuelContext.Finished))
+			if (Young)
 			{
 				return true;
 			}
@@ -4200,7 +4159,7 @@ namespace Server.Mobiles
 
 		public override void OnPoisonImmunity(Mobile from, Poison poison)
 		{
-			if (Young && (DuelContext == null || !DuelContext.Started || DuelContext.Finished))
+			if (Young)
 			{
 				SendLocalizedMessage(502808);
 				// You would have been poisoned, were you not new to the land of Britannia. Be careful in the future.
@@ -5022,29 +4981,6 @@ namespace Server.Mobiles
 				return true;
 			}
 
-			if (m_DuelContext != null && m_DuelPlayer != null && !m_DuelContext.Finished && m_DuelContext.m_Tournament != null &&
-				!m_DuelPlayer.Eliminated)
-			{
-				Mobile owner = m;
-
-				if (owner is BaseCreature)
-				{
-					BaseCreature bc = (BaseCreature)owner;
-
-					Mobile master = bc.GetMaster();
-
-					if (master != null)
-					{
-						owner = master;
-					}
-				}
-
-				if (m.IsPlayer() && owner is PlayerMobile && ((PlayerMobile)owner).DuelContext != m_DuelContext)
-				{
-					return false;
-				}
-			}
-
 			return base.CanSee(m);
 		}
 
@@ -5379,41 +5315,7 @@ namespace Server.Mobiles
 		#region Factions
 		public PlayerState FactionPlayerState { get; set; }
 		#endregion
-
-		#region Dueling
-		private DuelContext m_DuelContext;
-		private DuelPlayer m_DuelPlayer;
-
-		public DuelContext DuelContext { get { return m_DuelContext; } }
-
-		public DuelPlayer DuelPlayer
-		{
-			get { return m_DuelPlayer; }
-			set
-			{
-				bool wasInTourny = (m_DuelContext != null && !m_DuelContext.Finished && m_DuelContext.m_Tournament != null);
-
-				m_DuelPlayer = value;
-
-				if (m_DuelPlayer == null)
-				{
-					m_DuelContext = null;
-				}
-				else
-				{
-					m_DuelContext = m_DuelPlayer.Participant.Context;
-				}
-
-				bool isInTourny = (m_DuelContext != null && !m_DuelContext.Finished && m_DuelContext.m_Tournament != null);
-
-				if (wasInTourny != isInTourny)
-				{
-					SendEverything();
-				}
-			}
-		}
-		#endregion
-
+        
 		#region Quests
 		private QuestSystem m_Quest;
 		private List<QuestRestartInfo> m_DoneQuests;
