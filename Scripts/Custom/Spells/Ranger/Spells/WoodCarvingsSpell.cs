@@ -39,10 +39,7 @@ namespace Server.Spells.Ranger
 
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 6) == false) 
-				return;
-
-			else if ( CheckSequence() )
+            if ( CheckSequence() )
 			{
 				WoodItemInfo wooditemInfo = m_WoodItem[Utility.Random( m_WoodItem.Length )];
 				Item wooditem = wooditemInfo.Create();

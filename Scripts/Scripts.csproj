@@ -13186,21 +13186,10 @@
     <Compile Include="Custom\Spells\Base\BaseCGump.cs" />
     <Compile Include="Custom\Spells\Base\AllSpellCommands.cs" />
     <Compile Include="Custom\Spells\Druid\Items\GoodBerry.cs" />
-    <Compile Include="Custom\Spells\Base\Restrictions.cs" />
-    <Compile Include="Custom\Spells\Base\AS_Settings.cs" />
     <Compile Include="Custom\Spells\Base\MsgCenter.cs" />
     <Compile Include="Custom\Spells\Base\SpellDefRegistry.cs" />
     <Compile Include="Custom\Spells\Base\AS Control Center\ASControlCenter.cs" />
     <Compile Include="Custom\Spells\Base\AS Control Center\ClassExplainationGump.cs" />
-    <Compile Include="Custom\Spells\Base\AS Control Center\ClassSystemOptionGump.cs" />
-    <Compile Include="Custom\Spells\Base\AS Control Center\ControlCenterGump.cs" />
-    <Compile Include="Custom\Spells\Base\AS Control Center\FreeSkillsOptionGump.cs" />
-    <Compile Include="Custom\Spells\Base\AS Control Center\GiveBooksOptionGump.cs" />
-    <Compile Include="Custom\Spells\Base\AS Control Center\SkinHueOptionGump.cs" />
-    <Compile Include="Custom\Spells\Characterization System\ClassGump.cs" />
-    <Compile Include="Custom\Spells\Characterization System\ClassModule.cs" />
-    <Compile Include="Custom\Spells\Characterization System\OrcFace.cs" />
-    <Compile Include="Custom\Spells\Characterization System\RaceModule.cs" />
     <Compile Include="Custom\Spells\Cleric\ClericBag.cs" />
     <Compile Include="Custom\Spells\Cleric\ClericInitializer.cs" />
     <Compile Include="Custom\Spells\Cleric\ClericKeyWords.cs" />
@@ -13220,12 +13209,6 @@
     <Compile Include="Custom\Spells\Cleric\Spells\Smite.cs" />
     <Compile Include="Custom\Spells\Cleric\Spells\Touch of Life.cs" />
     <Compile Include="Custom\Spells\Cleric\Spells\Trial By Fire.cs" />
-    <Compile Include="Custom\Spells\Base\ACC.cs" />
-    <Compile Include="Custom\Spells\Base\ACCGump.cs" />
-    <Compile Include="Custom\Spells\Base\ACCSystem.cs" />
-    <Compile Include="Custom\Spells\Base\Central Memory\CentralMemory.cs" />
-    <Compile Include="Custom\Spells\Base\Central Memory\Module.cs" />
-    <Compile Include="Custom\Spells\Base\Central Memory\ModuleList.cs" />
     <Compile Include="Custom\Spells\Ranger\RangerBag.cs" />
     <Compile Include="Custom\Spells\Ranger\RangerInitializer.cs" />
     <Compile Include="Custom\Spells\Ranger\RangerSpell.cs" />
@@ -13308,6 +13291,7 @@
     <Compile Include="Custom\Spells\Items\Scrolls\Ranger\TreeStrideScroll.cs" />
     <Compile Include="Custom\Spells\Items\Scrolls\Ranger\WallOfAirScroll.cs" />
     <Compile Include="Custom\Spells\Items\Scrolls\Ranger\WoodCarvingsScroll.cs" />
+    <Compile Include="Custom\Spells\Items\OrcFace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

@@ -35,9 +35,6 @@ namespace Server.Spells.Druid
 
       public override void OnCast()
       {
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 4) == false) 
-				return;
-
          Caster.Target = new InternalTarget( this );
       }
 

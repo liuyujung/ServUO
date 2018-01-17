@@ -42,9 +42,6 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return;
-			
 			if ( CheckSequence() )
 			{
 				if ( !Caster.CanBeginAction( typeof( ClericSacrificeSpell ) ) )

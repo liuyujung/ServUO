@@ -54,10 +54,6 @@ namespace Server.Items
 					from.SendMessage( "The spellbook must be in your backpack [and not in a container within] to open." );
 					return;
 				}
-				else if( UseRestrictions && !SpellRestrictions.CheckRestrictions( from, this ) )
-				{
-					return;
-				}
 			}
 
 			from.CloseGump( typeof( DruidSpellbookGump ) );

@@ -42,9 +42,6 @@ namespace Server.Spells.Druid
 
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 4) == false)
-				return;
-
 			if ( CheckSequence() )
 			{
 				TimeSpan duration = TimeSpan.FromSeconds( Caster.Skills[SkillName.AnimalLore].Value * 0.2 ); 

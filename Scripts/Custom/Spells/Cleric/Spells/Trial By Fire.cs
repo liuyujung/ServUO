@@ -55,9 +55,6 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return;
-			
 			if ( CheckSequence() )
 			{
 				Caster.SendMessage( "Your body is covered by holy flames." );

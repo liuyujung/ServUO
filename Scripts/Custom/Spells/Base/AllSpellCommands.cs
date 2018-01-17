@@ -89,11 +89,6 @@ namespace Server.Scripts.Commands
 		{
 			Spellbook book = Spellbook.Find( from, spellID );
 
-			if( book != null && book.UseRestrictions && !SpellRestrictions.CheckRestrictions( from, book ) )
-			{
-				return false;
-			}
-
 			return ( book != null && book.HasSpell( spellID ) );
 		}
 	}

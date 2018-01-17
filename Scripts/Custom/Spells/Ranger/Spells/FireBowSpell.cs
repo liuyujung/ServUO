@@ -35,9 +35,6 @@ namespace Server.Spells.Ranger
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 6) == false) 
-				return;
-
 			if ( CheckSequence() )
 			{
 				if(this.Scroll!=null)

@@ -63,9 +63,6 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return;
-			
 			if ( !Caster.CanBeginAction( typeof( ClericDivineFocusSpell ) ) )
 			{
 				Caster.SendMessage( "This spell is already in effect" );

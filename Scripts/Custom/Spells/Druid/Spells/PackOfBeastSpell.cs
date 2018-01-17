@@ -47,9 +47,6 @@ namespace Server.Spells.Druid
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 4) == false) 
-				return;
-
 			if ( CheckSequence() )
 			{
 				try

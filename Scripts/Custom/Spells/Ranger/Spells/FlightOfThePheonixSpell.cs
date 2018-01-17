@@ -44,9 +44,6 @@ namespace Server.Spells.Ranger
 
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 6) == false) 
-				return;
-
 			if ( m_Entry == null )
 				Caster.Target = new InternalTarget( this );
 			else

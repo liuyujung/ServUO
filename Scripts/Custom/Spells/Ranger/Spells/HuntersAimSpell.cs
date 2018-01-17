@@ -76,9 +76,6 @@ namespace Server.Spells.Ranger
 
 		public override bool CheckCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 6) == false) 
-				return true;
-
 			if ( !base.CheckCast() )
 			{
 				return false;

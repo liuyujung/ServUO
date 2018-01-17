@@ -35,9 +35,6 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return;
-			
 			Caster.Target = new InternalTarget( this );
 		}
 		

@@ -99,17 +99,6 @@ namespace Server.Items
 			1 // 1 property   : 1/4 : 25%
 		};
 
-		///////////////////////////
-		//  All Spells Edit 2/11 //
-		///////////////////////////
-		private bool m_UseRestrictions;
-
-		[CommandProperty(AccessLevel.GameMaster)]
-		public bool UseRestrictions { get { return m_UseRestrictions; } set { m_UseRestrictions = value; } }
-		///////////////////////////
-		//      End Edit 2/11    //
-		///////////////////////////
-
 		private string m_EngravedText;
 		private BookQuality m_Quality;
 		private AosAttributes m_AosAttributes;
@@ -143,14 +132,6 @@ namespace Server.Items
 			LootType = LootType.Blessed;
 
 			Content = content;
-
-			///////////////////////////
-			//  All Spells Edit 7/11 //
-			///////////////////////////
-			m_UseRestrictions = ControlCenter.SetRestrictions;
-			///////////////////////////
-			//      End Edit 7/11    //
-			///////////////////////////
 		}
 
 		public Spellbook(Serial serial)
@@ -1130,17 +1111,6 @@ namespace Server.Items
 
 		public override void OnDoubleClick(Mobile from)
 		{
-			///////////////////////////
-			//  All Spells Edit 9/11 //
-			///////////////////////////
-			if (UseRestrictions && !SpellRestrictions.CheckRestrictions(from, this))
-			{
-				return;
-			}
-			///////////////////////////
-			//      End Edit 9/11    //
-			///////////////////////////
-
 			Container pack = from.Backpack;
 
 			if (Parent == from || (pack != null && Parent == pack))
@@ -1180,14 +1150,6 @@ namespace Server.Items
 
 			m_AosAttributes.Serialize(writer);
 			m_AosSkillBonuses.Serialize(writer);
-
-			///////////////////////////
-			// All Spells Edit 10/11 //
-			///////////////////////////
-			writer.Write(m_UseRestrictions);
-			///////////////////////////
-			//     End Edit 10/11    //
-			///////////////////////////
 
 			writer.Write(m_Content);
 			writer.Write(m_Count);
@@ -1242,15 +1204,6 @@ namespace Server.Items
 					{
 						m_AosAttributes = new AosAttributes(this, reader);
 						m_AosSkillBonuses = new AosSkillBonuses(this, reader);
-
-						///////////////////////////
-						// All Spells Edit 11/11 //
-						///////////////////////////
-						m_UseRestrictions = reader.ReadBool();
-						///////////////////////////
-						//     End Edit 11/11    //
-						///////////////////////////
-
 						goto case 0;
 					}
 				case 0:

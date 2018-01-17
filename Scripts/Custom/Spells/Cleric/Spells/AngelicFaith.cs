@@ -65,9 +65,6 @@ namespace Server.Spells.Cleric
 		
 		public override bool CheckCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return true;
-			
 			if ( !base.CheckCast() )
 			{
 				return false;
@@ -103,9 +100,6 @@ namespace Server.Spells.Cleric
 		
 		public override void OnCast()
 		{
-			if (Server.Spells.AllSpells.CheckRestriction(Caster, 5) == false)
-				return;
-			
 			if ( !Caster.CanBeginAction( typeof( ClericAngelicFaithSpell ) ) )
 			{
 				ClericAngelicFaithSpell.RemoveEffect( Caster );
