@@ -31,9 +31,9 @@ namespace Server.Engines.Points
 
         public override void ProcessKill(BaseCreature victim, Mobile damager, int index)
         {
-            if (!Enabled)
+            if (!Enabled || victim.Controlled || victim.Summoned)
                 return;
-
+                
             Region r = victim.Region;
 
             if (damager is PlayerMobile && r.IsPartOf("KotlCity"))
