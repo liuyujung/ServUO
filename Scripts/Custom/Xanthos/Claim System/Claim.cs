@@ -25,8 +25,8 @@ namespace Xanthos.Claim
 		{
 			if ( ClaimConfig.EnableClaim )
 			{
-				CommandHandlers.Register( "Claim", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
-				CommandHandlers.Register( "Cl", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
+				CommandHandlers.Register( "ClaimAll", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
+				CommandHandlers.Register( "ClA", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
 			}
 			if ( ClaimConfig.EnableGrab )
 			{
@@ -43,7 +43,7 @@ namespace Xanthos.Claim
 			Error
 		}
 
-		[Usage( "Claim [-c|-t]" )]
+		[Usage( "ClaimAll [-c|-t]" )]
 		[Description( "Claim a corpse for Gold; -c to carve the corpse first, -t to view or change the types to Loot." )]
 		public static void Claim_OnCommand( CommandEventArgs e )
 		{

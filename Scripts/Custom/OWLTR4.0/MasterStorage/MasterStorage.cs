@@ -787,8 +787,8 @@ namespace daat99
 				return AddGoldCheck(currency as BankCheck);
 
 #if USE_TOKENS
-			if (currency is Daat99Tokens && TokenLedger)
-				return AddTokensPile(currency as Daat99Tokens);
+			if (currency is Tokens && TokenLedger)
+				return AddTokensPile(currency as Tokens);
 
 			if (currency is TokenCheck && TokenLedger)
 				return AddTokenCheck(currency as TokenCheck);
@@ -837,7 +837,7 @@ namespace daat99
 		}
 
 #if USE_TOKENS
-		public bool AddTokensPile(Daat99Tokens tokens)
+		public bool AddTokensPile(Tokens tokens)
 		{
 			if ( !TokenLedger )
 				return false;
@@ -902,7 +902,7 @@ namespace daat99
 				return true;
 #if USE_TOKENS
 			List<Item> tokens;
-			Type tokensType = intoTokensCheck? typeof(TokenCheck) : typeof(Daat99Tokens);
+			Type tokensType = intoTokensCheck? typeof(TokenCheck) : typeof(Tokens);
 			tokens = TryExtractType(tokensType, (int)amount);
 			if (tokens.Count > 0)
 			{
@@ -1009,7 +1009,7 @@ namespace daat99
 				gold = true;
 			else 
 #if USE_TOKENS
-				if ( currencyType != typeof(Daat99Tokens) )
+				if ( currencyType != typeof(Tokens) )
 #endif
 			{
 				if ( informPlayer )
@@ -1121,7 +1121,7 @@ namespace daat99
 					return false;
 			}
 #if USE_TOKENS
-			else if ( currencyType == typeof(Daat99Tokens) )
+			else if ( currencyType == typeof(Tokens) )
 			{
 				if (HasTokens(amount))
 				{
@@ -1163,7 +1163,7 @@ namespace daat99
 				if ( currencyType == typeof(Gold) && HasGold(amounts[i]) ) //we have enough gold
 					continue;
 #if USE_TOKENS
-				if ( currencyType == typeof(Daat99Tokens) && HasTokens(amounts[i]) ) //we have enough tokens
+				if ( currencyType == typeof(Tokens) && HasTokens(amounts[i]) ) //we have enough tokens
 					continue;
 #endif
 				hasEnough = false; //we don't have that item
@@ -1207,7 +1207,7 @@ namespace daat99
 			if (currencyType == typeof(Gold))
 				return GoldLedger;
 #if USE_TOKENS
-			if (currencyType == typeof(Daat99Tokens))
+			if (currencyType == typeof(Tokens))
 				return TokenLedger;
 #endif
 			foreach (BaseStorage storage in StorageList)
@@ -1227,7 +1227,7 @@ namespace daat99
 				types.Add(currencyType, item.Amount);
 			}
 #if USE_TOKENS
-			else if (currencyType == typeof(Daat99Tokens))
+			else if (currencyType == typeof(Tokens))
 			{
 				if (!TokenLedger)
 					return types;
@@ -1319,7 +1319,7 @@ namespace daat99
 				if (type == typeof(Gold) && GoldAmount + usedAmount < GoldAmount)
 					return false;
 #if USE_TOKENS
-				else if (type == typeof(Daat99Tokens) && TokensAmount + usedAmount < TokensAmount)
+				else if (type == typeof(Tokens) && TokensAmount + usedAmount < TokensAmount)
 					return false;
 #endif
 				else if (StoredItems.ContainsKey(type) && usedAmount + StoredItems[type] < usedAmount)
@@ -1334,7 +1334,7 @@ namespace daat99
 				if (type == typeof(Gold))
 					GoldAmount += (ulong)usedAmount;
 #if USE_TOKENS
-				else if (type == typeof(Daat99Tokens))
+				else if (type == typeof(Tokens))
 					TokensAmount += (ulong)usedAmount;
 #endif
 				else
@@ -1363,7 +1363,7 @@ namespace daat99
 					return true;
 				}
 #if USE_TOKENS
-				if (currencyType == typeof(Daat99Tokens) && TokenLedger)
+				if (currencyType == typeof(Tokens) && TokenLedger)
 				{
 					TokensAmount += (ulong)amount;
 					return true;

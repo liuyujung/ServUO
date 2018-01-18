@@ -278,7 +278,8 @@ namespace daat99
 			Resizable=false;
 			AddPage(0);
 			AddBackground(0, 0, 390, 125, 3600);
-			AddLabel(110, 20, 89, @"daat99's OWLTR Bod Gump");
+			//AddLabel(110, 20, 89, @"daat99's OWLTR Bod Gump");
+            AddLabel(110, 20, 89, @"Buld Order Deeds");
 
 				
 			string s_BS = String.Format( "{0}:{1}:{2}", from.NextSmithBulkOrder.Hours, from.NextSmithBulkOrder.Minutes, from.NextSmithBulkOrder.Seconds );
@@ -390,7 +391,7 @@ namespace daat99
 			
 			AddPage(0);
 			AddBackground(0, 0, 450, 450, 9350);
-			AddLabel(40,  20, 2, @"===================");
+			/*AddLabel(40,  20, 2, @"===================");
 			AddLabel(80,  30, 2, @" /\");
 			AddLabel(41,  40, 2, @" -----/---\-----");
 			AddLabel(45,  50, 2, @" \ /     \ /");
@@ -399,20 +400,21 @@ namespace daat99
 			AddLabel(44,  70, 2, @" / \     / \");
 			AddLabel(42,  80, 2, @" -----\---/-----");
 			AddLabel(82,  90, 2, @" \/");
-			AddLabel(40, 100, 2, @"===================");
+			AddLabel(40, 100, 2, @"===================");*/
 			
-			AddButton(285, 80, 5526, 5527, 999, GumpButtonType.Reply, 0); //help
+			//AddButton(285, 80, 5526, 5527, 999, GumpButtonType.Reply, 0); //help
 			if (page != 0)
 				AddButton(235, 80, 4015, 4016, 1, GumpButtonType.Reply, 0);//previos
 			if (count + 30 < i_Limit)
-				AddButton(365, 80, 4006, 4007, 2, GumpButtonType.Reply, 0);//next
-			
+				//AddButton(365, 80, 4006, 4007, 2, GumpButtonType.Reply, 0);//next
+                AddButton(285, 80, 4006, 4007, 2, GumpButtonType.Reply, 0);//next
+
 			AddHtml( 180, 50, 240, 20, String.Format( "<basefont color=#000088><center>Missing Crafting Recipes:</center></font>" ), false, false );
 			if ( dh.ItemTypeList == null || dh.ItemTypeList.Count < 1 )
 				AddHtml( 180, 20, 240, 20, String.Format( "<basefont color=#008800><center>{0} don't need recipes.</center></font>", from.Name ), false, false );
 			else
 			{
-				AddHtml( 180, 20, 240, 20, String.Format( "<basefont color=#008800><center>{0} need {1} recipes.</center></font>", from.Name, dh.ItemTypeList.Count ), false, false );
+				AddHtml( 180, 20, 240, 20, String.Format( "<basefont color=#008800><center>{0} needs {1} recipes.</center></font>", from.Name, dh.ItemTypeList.Count ), false, false );
 				AddPage(1);
 				for (int i = 0; i < 15; i++)
 				{

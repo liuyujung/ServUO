@@ -55,8 +55,8 @@ namespace daat99
 					currencyTypes.Add(typeof(Gold), typeof(Gold));
 					currencyTypes.Add(typeof(BankCheck), typeof(Gold));
 #if USE_TOKENS
-					currencyTypes.Add(typeof(Daat99Tokens), typeof(Daat99Tokens));
-					currencyTypes.Add(typeof(TokenCheck), typeof(Daat99Tokens));
+					currencyTypes.Add(typeof(Tokens), typeof(Tokens));
+					currencyTypes.Add(typeof(TokenCheck), typeof(Tokens));
 #endif
 				}
 				return currencyTypes;
@@ -246,7 +246,7 @@ namespace daat99
 		public static bool GiveTokensToPlayer( PlayerMobile player, int amount, bool informPlayer )
 		{
 #if USE_TOKENS
-			return GiveTypeToPlayer(player, typeof(Daat99Tokens), amount, informPlayer);
+			return GiveTypeToPlayer(player, typeof(Tokens), amount, informPlayer);
 #else
 			return false;
 #endif
@@ -259,7 +259,7 @@ namespace daat99
 		public static bool TakeTokensFromPlayer(PlayerMobile player, int amount, bool informPlayer)
 		{
 #if USE_TOKENS
-			return TakeTypeFromPlayer(player, typeof(Daat99Tokens), amount, informPlayer);
+			return TakeTypeFromPlayer(player, typeof(Tokens), amount, informPlayer);
 #else
 			return false;
 #endif

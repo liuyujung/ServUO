@@ -68,24 +68,25 @@ namespace daat99
 		public static void Initialize()
 		{
 			OWLTROptionsManager.Manager.InitOwltrOptions();
-			bool found = false;
+			/*bool found = false;
 			foreach (Item item in World.Items.Values)
 				if (item is Daat99OWLTR && !((Daat99OWLTR)item).Deletable)
 					found = true;
 			if ( !found )
-				GenOWLTR();
+				GenOWLTR();*/
 			if ( StaticHolders == null )
 				StaticHolders = new Hashtable();
 			if ( TempHolders == null )
 				TempHolders = new Hashtable();
 
-			CommandSystem.Register( "OWLTR", AccessLevel.Player, new CommandEventHandler( OWLTR_OnCommand ) );
+			//CommandSystem.Register( "OWLTR", AccessLevel.Player, new CommandEventHandler( OWLTR_OnCommand ) );
+            CommandSystem.Register("OWLTR", AccessLevel.CoOwner, new CommandEventHandler(OWLTR_OnCommand));
 			if ( Core.AOS )
-				CommandSystem.Register( "OWLTRBOD", AccessLevel.Player, new CommandEventHandler( OWLTRBOD_OnCommand ) );
+				CommandSystem.Register( "BOD", AccessLevel.Player, new CommandEventHandler( OWLTRBOD_OnCommand ) );
 
 			if ( OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT) )
 				CommandSystem.Register( "MissingRecipes", AccessLevel.Player, new CommandEventHandler( MissingRecipes_OnCommand ) );
-			CommandSystem.Register( "Daat99Holder", AccessLevel.Administrator, new CommandEventHandler( Daat99HolderOnCommand ) );
+			CommandSystem.Register( "Holder", AccessLevel.Administrator, new CommandEventHandler( Daat99HolderOnCommand ) );
 
 			EventSink.Login += new LoginEventHandler( OnLogin );
 			EventSink.Disconnected += new DisconnectedEventHandler( EventSink_Disconnected );
@@ -97,13 +98,13 @@ namespace daat99
 		{
 			if (!(e.Mobile is PlayerMobile))
 				return;
-			if (e.Mobile.AccessLevel >= AccessLevel.Administrator)
+			if (e.Mobile.AccessLevel >= AccessLevel.CoOwner)
 				e.Mobile.SendGump(new Daat99CustomOWLTRGump((PlayerMobile)e.Mobile));
-			else
-				e.Mobile.SendGump(new Daat99CustomOWLTRGump((PlayerMobile)e.Mobile));
+			//else
+			//	e.Mobile.SendGump(new Daat99CustomOWLTRGump((PlayerMobile)e.Mobile));
 		}
 		
-		[Usage( "OWLTRBOD" )]
+		[Usage( "BOD" )]
 		[Description( "Open the bods request Gump." )]
 		public static void OWLTRBOD_OnCommand( CommandEventArgs e )
 		{
@@ -119,7 +120,7 @@ namespace daat99
 				e.Mobile.SendGump(new MissingRecipesGump((PlayerMobile)e.Mobile, 0));
 		}
 		
-		[Usage( "Daat99Holder" )]
+		[Usage( "Holder" )]
 		[Description( "Send the administrator the Daat99Holder gump of a specific player." )]
 		public static void Daat99HolderOnCommand( CommandEventArgs e )
 		{

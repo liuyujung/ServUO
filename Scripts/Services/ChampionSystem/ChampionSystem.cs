@@ -202,7 +202,8 @@ namespace Server.Engines.CannedEvil
 				}
 			}
 
-			Rotate();
+			//Rotate();
+            Restart();
 
 			m_Initialized = true;
 		}
@@ -263,14 +264,19 @@ namespace Server.Engines.CannedEvil
 				e.Mobile.SendMessage("The champion system is enabled but no altars exist");
 				return;
 			}
+            Restart();
+		}
+
+        private static void Restart()
+        {
 			foreach (ChampionSpawn spawn in m_AllSpawns.Where(spawn => spawn != null && !spawn.Deleted))
 			{
 				spawn.AutoRestart = true;
-                if (spawn.Active)
-                    spawn.Stop();
-                spawn.BeginRestart(spawn.RestartDelay);
+				if (spawn.Active)
+					spawn.Stop();
+				spawn.BeginRestart(spawn.RestartDelay);
 			}
-		}
+        }
 
 		private static void Rotate()
 		{

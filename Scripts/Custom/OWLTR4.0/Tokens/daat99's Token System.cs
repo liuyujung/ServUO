@@ -25,7 +25,7 @@ namespace Server.Items
 		}
 		public static bool GiveTokensToPlayer(PlayerMobile player, int amount, bool informPlayer)
 		{
-			return MasterStorageUtils.GiveTypeToPlayer(player, typeof(Daat99Tokens), amount, informPlayer);
+			return MasterStorageUtils.GiveTypeToPlayer(player, typeof(Tokens), amount, informPlayer);
 		}
 
 		public static bool TakePlayerTokens(PlayerMobile player, int amount)
@@ -34,7 +34,7 @@ namespace Server.Items
 		}
 		public static bool TakePlayerTokens(PlayerMobile player, int amount, bool informPlayer)
 		{
-			return MasterStorageUtils.TakeTypeFromPlayer(player, typeof(Daat99Tokens), amount, informPlayer);
+			return MasterStorageUtils.TakeTypeFromPlayer(player, typeof(Tokens), amount, informPlayer);
 		}
 	}
 	public class TokenCheck : Item
@@ -123,19 +123,19 @@ namespace Server.Items
 		}
 	}
 	
-	public class Daat99Tokens : Item
+	public class Tokens : Item
 	{
-		public Daat99Tokens( int min, int max ) : this( Utility.Random( min, max-min ) )
+		public Tokens( int min, int max ) : this( Utility.Random( min, max-min ) )
 		{
 		}
 
 		[Constructable]
-		public Daat99Tokens() : this( 1 )
+		public Tokens() : this( 1 )
 		{
 		}
 
 		[Constructable]
-		public Daat99Tokens( int amount ) : base( 0xEED )
+		public Tokens( int amount ) : base( 0xEED )
 		{
 			Stackable = true;
 			Name = "Tokens";
@@ -167,7 +167,7 @@ namespace Server.Items
 			}
 		}
 		
-		public Daat99Tokens( Serial serial ) : base( serial )
+		public Tokens( Serial serial ) : base( serial )
 		{
 		}
 
@@ -233,7 +233,7 @@ namespace Server.Items
 		{
 			if (amount < 1)
 				return;
-			MasterStorageUtils.GiveTypeToPlayer(m as PlayerMobile, typeof(Daat99Tokens), amount, true);
+			MasterStorageUtils.GiveTypeToPlayer(m as PlayerMobile, typeof(Tokens), amount, true);
 		}
 	}
 }

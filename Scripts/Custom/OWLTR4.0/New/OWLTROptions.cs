@@ -46,12 +46,12 @@ namespace daat99
 		{
 			if (options == null)
 				options = new Dictionary<OPTIONS_ENUM, OWLTROption>();
-			AddOption(OPTIONS_ENUM.UBBER_RESOURCES, new OWLTROption("Ubber Resources", "Enabling Ubber Resources will make the armor hold the max resists and the runics will be more powerfull. Disabling it will make the armor take random resists and less powerfull runics.", false));
+			AddOption(OPTIONS_ENUM.UBBER_RESOURCES, new OWLTROption("Ubber Resources", "Enabling Ubber Resources will make the armor hold the max resists and the runics will be more powerfull. Disabling it will make the armor take random resists and less powerfull runics.", true));
 			AddOption(OPTIONS_ENUM.DAAT99_MINING, new OWLTROption("Daat99 Mining", "Enabling Daat99 Mining will Make the players mine random ores (acording to their skills) everywhere. Disabling it will use the standard OSI vein mining system (they could camp platinum vein 24/7).", true));
 			AddOption(OPTIONS_ENUM.DAAT99_LUMBERJACKING, new OWLTROption("Daat99 Lumberjacking", "Enabling Daat99 Lumberjacking will Make the players lumberjack random woods (acording to their skills) everywhere. Disabling it will use the standard OSI vein lumberjacking system (they could camp petrified vein 24/7).", true));
 			AddOption(OPTIONS_ENUM.A_LI_N_CLEAN_CHAMP, new OWLTROption("A_Li_N CleanChamp", "Enabling A_Li_N CleanChamp will delete all the corpses every time a new white skull will be spawned in the champ. It will not delete players corpses or bonded pets.", true));
 			AddOption(OPTIONS_ENUM.SAVE_CLEAN_CHAMP_GOLD, new OWLTROption("Save CleanChamp Gold", "Enabling A_Li_N Save Clean Champ Gold will save the gold from the corpses it delete and spawn it when the champion spawns (need A_Li_N CleanChamp enabled to work).", true));
-			AddOption(OPTIONS_ENUM.RECIPE_CRAFT, new OWLTROption("Recipe Craft", "Enabling Recipe Craft will make the players need to learn how to craft items and how to harvest ores from crafting recipes.", false));
+			AddOption(OPTIONS_ENUM.RECIPE_CRAFT, new OWLTROption("Recipe Craft", "Enabling Recipe Craft will make the players need to learn how to craft items and how to harvest ores from crafting recipes.", true));
 			AddOption(OPTIONS_ENUM.CRAFTING_BANK_HIVE, new OWLTROption("Crafting BankHive", "Enabling Crafting Bank Hive will enable the bank hive to be craftable in the tinkering menu (need custom craftables to be enabled).", true));
 			AddOption(OPTIONS_ENUM.CRAFTING_STORAGE_DEEDS, new OWLTROption("Crafting Storage Deeds", "Enabling Crafting of all the storage deeds.", true));
 			AddOption(OPTIONS_ENUM.CRAFTING_MOBILE_FORGE, new OWLTROption("Crafting Mobile Forge", "Enabling Crafting Mobile Forge will enable the mobile forge to be craftable in the tinkering menu (need custom craftables to be enabled).", true));

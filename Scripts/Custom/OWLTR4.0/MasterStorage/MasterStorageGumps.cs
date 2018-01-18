@@ -107,7 +107,7 @@ namespace daat99
 				filter = ItemStorage.Storage;
 			AddHtml(250, 15, 450, 20, "<basefont color=#ff0000>Master Storage </basefont> Showing: " + filter.Name, false, false);
 
-			AddLabel(15, 15, 2, @"====================");
+			/*AddLabel(15, 15, 2, @"====================");
 			AddLabel(58, 30, 2, @" /\");
 			AddLabel(19, 40, 2, @" -----/---\-----");
 			AddLabel(23, 50, 2, @" \ /     \ /");
@@ -119,13 +119,17 @@ namespace daat99
 			AddLabel(15, 100, 2, @"====================");
 			
 			AddLabel(15, 120, 20, "Extract Amount:");
-			AddTextEntry(25, 140, 85, 20, 32, (int)BUTTONS_ENUM.AMOUNT_TEXT, 100.ToString());
+			AddTextEntry(25, 140, 85, 20, 32, (int)BUTTONS_ENUM.AMOUNT_TEXT, 100.ToString());*/
+
+			AddLabel(15, 40, 20, "Extract Amount:");
+			AddTextEntry(25, 60, 85, 20, 32, (int)BUTTONS_ENUM.AMOUNT_TEXT, 100.ToString());
 		}
 		private void drawFilters()
 		{
 			int filterIndex = 0;
 			int filterHeight = 20;
-			int topBuffer = 190;
+			//int topBuffer = 190;
+            int topBuffer = 110;
 
 			AddButton(15, topBuffer, 4033, 4033, (int)BUTTONS_ENUM.REFILL, GumpButtonType.Reply, 1);
 			AddLabel(35, topBuffer-2, 1263, "Refill");
@@ -543,7 +547,7 @@ namespace daat99
 						else if ( info.ButtonID == (int)BUTTONS.TOKENS && amount <= 60000 && amount <= backpack.TokensAmount )
 						{
 							backpack.TokensAmount -= amount;
-							from.AddToBackpack( new Daat99Tokens((int)amount) );
+							from.AddToBackpack( new Tokens((int)amount) );
 							from.SendMessage(1173, "You extracted {0} tokens from your Master Storage Backpack.", amount);
 						}
 						else if ( info.ButtonID == (int)BUTTONS.TOKENS_CHECK && amount <= 1000000 && amount <= backpack.TokensAmount )

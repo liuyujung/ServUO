@@ -46,7 +46,7 @@ namespace Server.Items
 
         public override bool OnDragDrop(Mobile from, Item dropped)
         {
-            if (dropped is Daat99Tokens || dropped is TokenCheck)
+            if (dropped is Tokens || dropped is TokenCheck)
             {
                 from.SendMessage("It would not be wise to trash tokens for tokens!");
                 return false;
@@ -80,7 +80,7 @@ namespace Server.Items
 
         public override bool OnDragDropInto(Mobile from, Item item, Point3D p)
         {
-            if (item is Daat99Tokens || item is TokenCheck)
+            if (item is Tokens || item is TokenCheck)
             {
                 from.SendMessage("It would not be wise to trash tokens for tokens!");
                 return false;
