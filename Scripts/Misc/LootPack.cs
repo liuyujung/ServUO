@@ -152,6 +152,106 @@ namespace Server
 
 		public static readonly LootPackItem[] GemItems = new[] {new LootPackItem(typeof(Amber), 1)};
 
+		//--<< All Spells Edit >>-------------------------------------------------[Start]
+		private static readonly LootPackItem[] NewScrollItems = new LootPackItem[]
+		{
+            //--<Undead Scrolls>------------------------------------------------------<Start>
+            /*new LootPackItem( typeof( PoisonMarkScroll ), 1),
+            new LootPackItem( typeof( TravelByPoisonScroll ), 1),
+            new LootPackItem( typeof( CurePoisonScroll ), 1),
+            new LootPackItem( typeof( NecroPoisonFieldScroll ), 1),
+            new LootPackItem( typeof( GraveyardGatewayScroll ), 1),
+            new LootPackItem( typeof( RevivalBySeanceScroll ), 1),
+            new LootPackItem( typeof( HordeMinionsEyesScroll ), 1),
+            new LootPackItem( typeof( WallOfSpikesScroll ), 1),
+            new LootPackItem( typeof( PoisonIvyPatchScroll ), 1),
+            new LootPackItem( typeof( BloodPactScroll ), 1),
+            new LootPackItem( typeof( NecroPoisonScroll ), 1),
+            new LootPackItem( typeof( NecroMassCurseScroll ), 1),
+            new LootPackItem( typeof( MisfitsOfMondainScroll ), 1),*/
+            //--<Undead Scrolls>--------------------------------------------------------<End>
+            
+            //--<Druid Scrolls>-------------------------------------------------------<Start>
+            new LootPackItem( typeof( BlendWithForestScroll ), 1),
+			new LootPackItem( typeof( EnchantedGroveScroll ), 1),
+			new LootPackItem( typeof( LeafWhirlwindScroll ), 1),
+			new LootPackItem( typeof( GraspingRootsScroll ), 1),
+			new LootPackItem( typeof( HollowReedScroll ), 1),
+			new LootPackItem( typeof( LureStoneScroll ), 1),
+			new LootPackItem( typeof( StoneCircleScroll ), 1),
+			new LootPackItem( typeof( MushroomGatewayScroll ), 1),
+			new LootPackItem( typeof( NaturesPassageScroll ), 1),
+			new LootPackItem( typeof( PackOfBeastScroll ), 1),
+			new LootPackItem( typeof( RestorativeSoilScroll ), 1),
+			new LootPackItem( typeof( ShieldOfEarthScroll ), 1),
+			new LootPackItem( typeof( SpringOfLifeScroll ), 1),
+			new LootPackItem( typeof( SwarmOfInsectsScroll ), 1),
+			new LootPackItem( typeof( DruidFamiliarScroll ), 1),
+			new LootPackItem( typeof( VolcanicEruptionScroll ), 1),
+            //--<Druid Scrolls>---------------------------------------------------------<End>
+            
+            //--<Bard Scrolls>--------------------------------------------------------<Start>
+            /*new LootPackItem( typeof( ArmysPaeonScroll ), 1),
+            new LootPackItem( typeof( EnchantingEtudeScroll ), 1),
+            new LootPackItem( typeof( EnergyCarolScroll ), 1),
+            new LootPackItem( typeof( EnergyThrenodyScroll ), 1),
+            new LootPackItem( typeof( FireCarolScroll ), 1),
+            new LootPackItem( typeof( FireThrenodyScroll ), 1),
+            new LootPackItem( typeof( FoeRequiemScroll ), 1),
+            new LootPackItem( typeof( IceCarolScroll ), 1),
+            new LootPackItem( typeof( IceThrenodyScroll ), 1),
+            new LootPackItem( typeof( KnightsMinneScroll ), 1),
+            new LootPackItem( typeof( MagesBalladScroll ), 1),
+            new LootPackItem( typeof( MagicFinaleScroll ), 1),
+            new LootPackItem( typeof( PoisonCarolScroll ), 1),
+            new LootPackItem( typeof( PoisonThrenodyScroll ), 1),
+            new LootPackItem( typeof( SheepfoeMamboScroll ), 1),
+            new LootPackItem( typeof( SinewyEtudeScroll ), 1),*/
+            //--<Bard Scrolls>----------------------------------------------------------<End>
+            
+            //--<Cleric Scrolls>------------------------------------------------------<Start>
+            new LootPackItem( typeof( ClericAngelicFaithScroll ), 1),
+			new LootPackItem( typeof( ClericBanishEvilScroll ), 1),
+			new LootPackItem( typeof( ClericDampenSpiritScroll ), 1),
+			new LootPackItem( typeof( ClericDivineFocusScroll ), 1),
+			new LootPackItem( typeof( ClericHammerOfFaithScroll ), 1),
+			new LootPackItem( typeof( ClericPurgeScroll ), 1),
+			new LootPackItem( typeof( ClericRestorationScroll ), 1),
+			new LootPackItem( typeof( ClericSacredBoonScroll ), 1),
+			new LootPackItem( typeof( ClericSacrificeScroll ), 1),
+			new LootPackItem( typeof( ClericSmiteScroll ), 1),
+			new LootPackItem( typeof( ClericTouchOfLifeScroll ), 1),
+			new LootPackItem( typeof( ClericTrialByFireScroll ), 1),
+            //--<Cleric Scrolls>--------------------------------------------------------<End>
+            
+            //--<Rogue Scrolls>-------------------------------------------------------<Start>
+            /*new LootPackItem( typeof( RogueFalseCoinScroll ), 1),
+            new LootPackItem( typeof( RogueCharmScroll ), 1),
+            new LootPackItem( typeof( SlyFoxScroll ), 1),
+            new LootPackItem( typeof( ShadowScroll ), 1),
+            new LootPackItem( typeof( IntimidationScroll ), 1),*/
+            
+            //--<Rogue Scrolls>---------------------------------------------------------<End>
+            
+            //--<Avatar Scrolls>------------------------------------------------------<Start>
+            /*new LootPackItem( typeof( HeavensGateScroll ), 1),
+            new LootPackItem( typeof( MarkOfGodsScroll ), 1),
+            new LootPackItem( typeof( HeavenlyLightScroll ), 1),*/
+            //--<Avatar Scrolls>--------------------------------------------------------<End>
+            
+            //--<Ranger Scrolls>------------------------------------------------------<Start>
+            new LootPackItem( typeof( RangerHuntersAimScroll ), 1),
+			new LootPackItem( typeof( RangerFlightOfThePheonixScroll ), 1),
+			new LootPackItem( typeof( RangerFamiliarScroll ), 1),
+			new LootPackItem( typeof( RangerFireBowScroll ), 1),
+			new LootPackItem( typeof( RangerIceBowScroll ), 1),
+			new LootPackItem( typeof( RangerLightningBowScroll ), 1),
+			new LootPackItem( typeof( RangerNoxBowScroll ), 1),
+			new LootPackItem( typeof( RangerSummonMountScroll ), 1)
+                //--<Ranger Scrolls>--------------------------------------------------------<End>
+        };
+		//--<< All Spells Edit >>-------------------------------------------------[End]
+
 		public static readonly LootPackItem[] PotionItems = new[]
 		{
 			new LootPackItem(typeof(AgilityPotion), 1), new LootPackItem(typeof(StrengthPotion), 1),
@@ -524,6 +624,13 @@ namespace Server
 
 		public static readonly LootPack Parrot = new LootPack(new[] {new LootPackEntry(false, ParrotItem, 10.00, 1)});
 		#endregion
+
+		//--<< All Spells Edit >>-------------------------------------------------[Start]
+		public static readonly LootPack NewScrolls = new LootPack(new LootPackEntry[]
+        {
+            new LootPackEntry( false, NewScrollItems, 100.00, 1 )
+        });
+		//--<< All Spells Edit >>-------------------------------------------------[End]
 	}
 
 	public class LootPackEntry

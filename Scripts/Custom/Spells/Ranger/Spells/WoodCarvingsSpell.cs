@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerWoodCarvingsSpell : RangerSpell
+	public class WoodCarvingsSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 				"Wood Carvings", "Kurwa Taur Nat'",
@@ -15,7 +15,7 @@ namespace Server.Spells.Ranger
 		public override double RequiredSkill{ get{ return 50.0; } }
 		public override int RequiredMana{ get{ return 10; } }			
 
-		public RangerWoodCarvingsSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public WoodCarvingsSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 

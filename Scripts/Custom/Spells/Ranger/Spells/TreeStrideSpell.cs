@@ -8,7 +8,7 @@ using Server.Regions;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerTreeStrideSpell : RangerSpell
+	public class TreeStrideSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		"Tree Stride", "Lema ed' Taur",
@@ -25,7 +25,7 @@ namespace Server.Spells.Ranger
 		
 		private RunebookEntry m_Entry;
 		
-		public RangerTreeStrideSpell( Mobile caster, Item scroll ) : this( caster, scroll, null )
+		public TreeStrideSpell( Mobile caster, Item scroll ) : this( caster, scroll, null )
 		{
 		}
 
@@ -37,7 +37,7 @@ namespace Server.Spells.Ranger
 			}
 		}
 		
-		public RangerTreeStrideSpell( Mobile caster, Item scroll, RunebookEntry entry ) : base( caster, scroll, m_Info )
+		public TreeStrideSpell( Mobile caster, Item scroll, RunebookEntry entry ) : base( caster, scroll, m_Info )
 		{
 			m_Entry = entry;
 		}
@@ -244,9 +244,9 @@ namespace Server.Spells.Ranger
 		
 		private class InternalTarget : Target
 		{
-			private RangerTreeStrideSpell m_Owner;
+			private TreeStrideSpell m_Owner;
 			
-			public InternalTarget( RangerTreeStrideSpell owner ) : base( 12, false, TargetFlags.None )
+			public InternalTarget( TreeStrideSpell owner ) : base( 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 				

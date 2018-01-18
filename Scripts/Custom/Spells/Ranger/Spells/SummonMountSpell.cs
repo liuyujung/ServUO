@@ -5,7 +5,7 @@ using Server.Targeting;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerSummonMountSpell : RangerSpell
+	public class SummonMountSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Call Mount", "*Blows Decreative Flute*",
@@ -20,7 +20,7 @@ namespace Server.Spells.Ranger
 		public override int RequiredMana{ get{ return 15; } }
 		public override double RequiredSkill{ get{ return 30; } }
 
-		public RangerSummonMountSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public SummonMountSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 

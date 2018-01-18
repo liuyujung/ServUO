@@ -7,7 +7,7 @@ using Server.Items;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerNoxBowSpell : RangerSpell
+	public class NoxBowSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Nox Bow", "Kurwa Kshapsa Cu",
@@ -21,7 +21,7 @@ namespace Server.Spells.Ranger
 		public override double RequiredSkill{ get{ return 95.0; } }
 		public override int RequiredMana{ get{ return 30; } }
 
-		public RangerNoxBowSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public NoxBowSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -92,7 +92,7 @@ namespace Server.Spells.Ranger
 				BlessedFor = owner;
 				Name = "Nox Bow";
 
-				double time = ( owner.Skills[SkillName.Archery].Value / 20.0 ) * RangerHuntersAimSpell.GetScalar( owner );
+				double time = ( owner.Skills[SkillName.Archery].Value / 20.0 ) * HuntersAimSpell.GetScalar( owner );
 				m_Expire = DateTime.Now + TimeSpan.FromMinutes( (int)time );
 				m_Timer = new InternalTimer( this, m_Expire );
 

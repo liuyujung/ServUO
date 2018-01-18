@@ -1,33 +1,12 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Items/Equipment/Spellbooks/Spellbook.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Spells/Ranger/Spells/IceBowSpell.cs">
     <Files>
-      <File FileName="Scripts/Custom/Spells/Cleric/ClericSpellBookGump.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/Spells/Base/AllSpellCommands.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Items/Equipment/Spellbooks/Spellbook.cs" Line="1" Column="1" />
-      <File FileName="Server/Network/Compression.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Misc/Loot.cs" Line="987" Column="25" />
+      <File FileName="Scripts/Custom/Spells/Ranger/RangerInitializer.cs" Line="48" Column="28" />
+      <File FileName="Scripts/Custom/Spells/Ranger/Spells/NoxBowSpell.cs" Line="95" Column="70" />
+      <File FileName="Scripts/Custom/Spells/Ranger/Spells/LightningBowSpell.cs" Line="96" Column="70" />
+      <File FileName="Scripts/Custom/Spells/Ranger/Spells/IceBowSpell.cs" Line="99" Column="70" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="ServUO" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="Context Menus" expanded="True" />
-              <Node name="Items" expanded="True">
-                <Node name="Equipment" expanded="True">
-                  <Node name="Spellbooks" expanded="True">
-                    <Node name="Spellbook.cs" selected="True" />
-                  </Node>
-                  <Node name="Weapons" expanded="True" />
-                </Node>
-              </Node>
-              <Node name="Mobiles" expanded="True">
-                <Node name="Normal" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Server PreferredExecutionTarget="MonoDevelop.Default" />

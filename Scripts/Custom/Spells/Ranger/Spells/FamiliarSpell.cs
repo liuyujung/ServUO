@@ -8,7 +8,7 @@ using Server.Mobiles;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerFamiliarSpell : RangerSpell
+	public class FamiliarSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Animal Companion", "Sinta Kurwa Ner Arda Moina",
@@ -23,7 +23,7 @@ namespace Server.Spells.Ranger
 		public override double RequiredSkill{ get{ return 30.0; } }
 		public override int RequiredMana{ get{ return 17; } }
 		
-		public RangerFamiliarSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public FamiliarSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -161,7 +161,7 @@ namespace Server.Spells.Ranger
 				double lore = m_From.Skills[SkillName.AnimalLore].Base;
 				double taming = m_From.Skills[SkillName.AnimalTaming].Base;
 				
-				BaseCreature check = (BaseCreature)RangerFamiliarSpell.Table[m_From];
+				BaseCreature check = (BaseCreature)FamiliarSpell.Table[m_From];
 				
 				if ( check != null && !check.Deleted )
 				{
@@ -173,14 +173,14 @@ namespace Server.Spells.Ranger
 					m_From.SendLocalizedMessage( 1061606, String.Format( "{0:F1}\t{1:F1}", entry.ReqAnimalLore, entry.ReqAnimalTaming ) );
 					
 					m_From.CloseGump( typeof( RangerFamiliarGump ) );
-					m_From.SendGump( new RangerFamiliarGump( m_From, RangerFamiliarSpell.Entries ) );
+					m_From.SendGump( new RangerFamiliarGump( m_From, FamiliarSpell.Entries ) );
 				}
 				else if ( entry.Type == null )
 				{
 					m_From.SendMessage( "That familiar has not yet been defined." );
 					
 					m_From.CloseGump( typeof( RangerFamiliarGump ) );
-					m_From.SendGump( new RangerFamiliarGump( m_From, RangerFamiliarSpell.Entries ) );
+					m_From.SendGump( new RangerFamiliarGump( m_From, FamiliarSpell.Entries ) );
 				}
 				else
 				{
@@ -194,7 +194,7 @@ namespace Server.Spells.Ranger
 						{
 							m_From.FixedParticles( 0x3728, 1, 10, 9910, EffectLayer.Head );
 							bc.PlaySound( bc.GetIdleSound() );
-							RangerFamiliarSpell.Table[m_From] = bc;
+							FamiliarSpell.Table[m_From] = bc;
 						}
 					}
 					catch

@@ -8,7 +8,7 @@ using Server.Spells.Ranger;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerWallOfAirSpell : RangerSpell
+	public class WallOfAirSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 				"Wall Of Air", "Kurwa Ner Vilya",
@@ -23,7 +23,7 @@ namespace Server.Spells.Ranger
 		public override int RequiredMana{ get{ return 30; } }
 		public override double RequiredSkill{ get{ return 20; } }
 		
-		public RangerWallOfAirSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public WallOfAirSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -273,9 +273,9 @@ namespace Server.Spells.Ranger
 
 		private class InternalTarget : Target
 		{
-			private RangerWallOfAirSpell m_Owner;
+			private WallOfAirSpell m_Owner;
 
-			public InternalTarget( RangerWallOfAirSpell owner ) : base( 12, true, TargetFlags.None )
+			public InternalTarget( WallOfAirSpell owner ) : base( 12, true, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

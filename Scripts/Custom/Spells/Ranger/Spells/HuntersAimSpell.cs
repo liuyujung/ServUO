@@ -11,7 +11,7 @@ using Server.Gumps;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerHuntersAimSpell : RangerSpell
+	public class HuntersAimSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Hunter's Aim", "Cu Ner Sinta",
@@ -29,7 +29,7 @@ namespace Server.Spells.Ranger
 
 		private static Hashtable m_Table = new Hashtable();
 
-		public RangerHuntersAimSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public HuntersAimSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -45,7 +45,7 @@ namespace Server.Spells.Ranger
 		{
 			double val = 1.0;
 
-			if ( m.CanBeginAction( typeof( RangerHuntersAimSpell ) ) )
+			if ( m.CanBeginAction( typeof( HuntersAimSpell ) ) )
 				val = 1.5;
 
 			return val;
@@ -69,7 +69,7 @@ namespace Server.Spells.Ranger
 
 			m_Table.Remove( m );
 
-			m.EndAction( typeof( RangerHuntersAimSpell ) );
+			m.EndAction( typeof( HuntersAimSpell ) );
 
 			m.BodyMod = 0;
 		}
@@ -80,7 +80,7 @@ namespace Server.Spells.Ranger
 			{
 				return false;
 			}
-			else if ( !Caster.CanBeginAction( typeof( RangerHuntersAimSpell ) ) )
+			else if ( !Caster.CanBeginAction( typeof( HuntersAimSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005559 );
 				return false;
@@ -92,7 +92,7 @@ namespace Server.Spells.Ranger
 
 		public override void OnCast()
 		{
-			if ( !Caster.CanBeginAction( typeof( RangerHuntersAimSpell ) ) )
+			if ( !Caster.CanBeginAction( typeof( HuntersAimSpell ) ) )
 			{
 				Caster.SendLocalizedMessage( 1005559 );
 			}
@@ -115,7 +115,7 @@ namespace Server.Spells.Ranger
 				Caster.AddSkillMod( (SkillMod)mods[2] );
 				Caster.AddSkillMod( (SkillMod)mods[3] );
 
-				double span = 1.0 * RangerHuntersAimSpell.GetScalar( Caster );
+				double span = 1.0 * HuntersAimSpell.GetScalar( Caster );
 				new InternalTimer( Caster, TimeSpan.FromMinutes( (int)span ) ).Start();
 
 				IMount mount = Caster.Mount;
@@ -124,7 +124,7 @@ namespace Server.Spells.Ranger
 					mount.Rider = null;
 
 
-				Caster.BeginAction( typeof( RangerHuntersAimSpell ) );
+				Caster.BeginAction( typeof( HuntersAimSpell ) );
 			}
 		}
 
@@ -145,7 +145,7 @@ namespace Server.Spells.Ranger
 			{
 				if ( DateTime.Now >= m_Expire )
 				{
-					RangerHuntersAimSpell.RemoveEffect( m_Owner );
+					HuntersAimSpell.RemoveEffect( m_Owner );
 					Stop();
 				}
 			}

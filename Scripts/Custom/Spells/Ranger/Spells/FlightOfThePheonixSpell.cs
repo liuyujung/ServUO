@@ -8,7 +8,7 @@ using Server.Mobiles;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerFlightOfThePheonixSpell : RangerSpell
+	public class FlightOfThePheonixSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Flight of the Phoenix", "Kurwa Vilya Thoron",
@@ -24,7 +24,7 @@ namespace Server.Spells.Ranger
 		private RunebookEntry m_Entry;
 		private Runebook m_Book;
 
-		public RangerFlightOfThePheonixSpell( Mobile caster, Item scroll ) : this( caster, scroll, null, null )
+		public FlightOfThePheonixSpell( Mobile caster, Item scroll ) : this( caster, scroll, null, null )
 		{
 		}
 
@@ -36,7 +36,7 @@ namespace Server.Spells.Ranger
 			}
 		}
 
-		public RangerFlightOfThePheonixSpell( Mobile caster, Item scroll, RunebookEntry entry, Runebook book ) : base( caster, scroll, m_Info )
+		public FlightOfThePheonixSpell( Mobile caster, Item scroll, RunebookEntry entry, Runebook book ) : base( caster, scroll, m_Info )
 		{
 			m_Entry = entry;
 			m_Book = book;
@@ -133,9 +133,9 @@ namespace Server.Spells.Ranger
 
 		private class InternalTarget : Target
 		{
-			private RangerFlightOfThePheonixSpell m_Owner;
+			private FlightOfThePheonixSpell m_Owner;
 
-			public InternalTarget( RangerFlightOfThePheonixSpell owner ) : base( 12, false, TargetFlags.None )
+			public InternalTarget( FlightOfThePheonixSpell owner ) : base( 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 

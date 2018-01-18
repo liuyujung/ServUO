@@ -7,7 +7,7 @@ using Server.Items;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerLightningBowSpell : RangerSpell
+	public class LightningBowSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Bow of Lightning", "Kurwa Vilya Cu",
@@ -21,7 +21,7 @@ namespace Server.Spells.Ranger
 		public override double RequiredSkill{ get{ return 90.0; } }
 		public override int RequiredMana{ get{ return 30; } }
 		
-		public RangerLightningBowSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public LightningBowSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -93,7 +93,7 @@ namespace Server.Spells.Ranger
 				BlessedFor = owner;
 				Name = "Bow of Lightning";
 				
-				double time = ( owner.Skills[SkillName.Archery].Value / 20.0 ) * RangerHuntersAimSpell.GetScalar( owner );
+				double time = ( owner.Skills[SkillName.Archery].Value / 20.0 ) * HuntersAimSpell.GetScalar( owner );
 				m_Expire = DateTime.Now + TimeSpan.FromMinutes( (int)time );
 				m_Timer = new InternalTimer( this, m_Expire );
 				

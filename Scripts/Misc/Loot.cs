@@ -300,9 +300,82 @@ namespace Server
 			typeof(BombardScroll), typeof(SpellPlagueScroll), typeof(HailStormScroll), typeof(NetherCycloneScroll),
 			typeof(RisingColossusScroll), typeof(SleepScroll), typeof(MassSleepScroll), typeof(EnchantScroll)
 		};
-        #endregion
+		#endregion
 
-        public static Type[] RegularScrollTypes { get { return m_RegularScrollTypes; } }
+		//--<< All Spells Edits >>-----------------------[Start]
+		private static Type[] m_DruidRegTypes = new Type[]
+		{
+			typeof( DestroyingAngel ),      typeof( PetrafiedWood ),        typeof( SpringWater )
+		};
+
+		public static Type[] DruidRegTypes { get { return m_DruidRegTypes; } }
+
+		/*private static Type[] m_UndeadScrollTypes = new Type[]
+		{
+			typeof( PoisonMarkScroll ),         typeof( TravelByPoisonScroll ),     typeof( CurePoisonScroll ),         typeof( NecroPoisonFieldScroll ),
+			typeof( GraveyardGatewayScroll ),   typeof( RevivalBySeanceScroll ),    typeof( HordeMinionsEyesScroll ),   typeof( WallOfSpikesScroll ),
+			typeof( PoisonIvyPatchScroll ),     typeof( BloodPactScroll ),          typeof( NecroPoisonScroll ),        typeof( NecroMassCurseScroll )
+		};
+
+		public static Type[] UndeadScrollTypes { get { return m_UndeadScrollTypes; } }*/
+
+		private static Type[] m_DruidScrollTypes = new Type[]
+		{
+			typeof( LeafWhirlwindScroll ),      typeof( HollowReedScroll ),         typeof( PackOfBeastScroll ),        typeof( SpringOfLifeScroll ),
+			typeof( GraspingRootsScroll ),      typeof( BlendWithForestScroll ),    typeof( SwarmOfInsectsScroll ),     typeof( VolcanicEruptionScroll ),
+			typeof( DruidFamiliarScroll ),      typeof( StoneCircleScroll ),        typeof( EnchantedGroveScroll ),     typeof( LureStoneScroll ),
+			typeof( NaturesPassageScroll ),     typeof( MushroomGatewayScroll ),    typeof( RestorativeSoilScroll ),    typeof( ShieldOfEarthScroll )
+		};
+
+		public static Type[] DruidScrollTypes { get { return m_DruidScrollTypes; } }
+
+		/*private static Type[] m_SongScrollTypes = new Type[]
+		{
+			typeof( ArmysPaeonScroll ),         typeof( EnchantingEtudeScroll ),    typeof( EnergyCarolScroll ),        typeof( EnergyThrenodyScroll ),
+			typeof( FireCarolScroll ),          typeof( FireThrenodyScroll ),       typeof( FoeRequiemScroll ),         typeof( IceCarolScroll ),
+			typeof( IceThrenodyScroll ),        typeof( KnightsMinneScroll ),       typeof( MagesBalladScroll ),        typeof( MagicFinaleScroll ),
+			typeof( PoisonCarolScroll ),        typeof( PoisonThrenodyScroll ),     typeof( SheepfoeMamboScroll ),      typeof( SinewyEtudeScroll )
+		};
+
+		public static Type[] SongScrollTypes { get { return m_SongScrollTypes; } }*/
+
+		private static Type[] m_ClericScrollTypes = new Type[]
+		{
+			typeof( ClericAngelicFaithScroll ),      typeof( ClericBanishEvilScroll ),      typeof( ClericDampenSpiritScroll ),       typeof( ClericDivineFocusScroll ),
+			typeof( ClericHammerOfFaithScroll ),     typeof( ClericPurgeScroll ),           typeof( ClericRestorationScroll ),        typeof( ClericSacredBoonScroll ),
+			typeof( ClericSacrificeScroll ),         typeof( ClericSmiteScroll ),           typeof( ClericTouchOfLifeScroll ),        typeof( ClericTrialByFireScroll )
+		};
+
+		public static Type[] ClericScrollTypes { get { return m_ClericScrollTypes; } }
+
+		/*private static Type[] m_AvatarScrollTypes = new Type[]
+		{
+			typeof( HeavensGateScroll ),             typeof( MarkOfGodsScroll ),            typeof( HeavenlyLightScroll )
+		};
+
+		public static Type[] AvatarScrollTypes { get { return m_AvatarScrollTypes; } }*/
+
+		private static Type[] m_RangerScrollTypes = new Type[]
+		{
+			typeof( RangerHuntersAimScroll ),    typeof( RangerFlightOfThePheonixScroll ),  typeof( RangerFamiliarScroll ),           typeof( RangerFireBowScroll ),
+			typeof( RangerIceBowScroll ),        typeof( RangerLightningBowScroll ),        typeof( RangerNoxBowScroll ),             typeof( RangerSummonMountScroll )
+		};
+
+		public static Type[] RangerScrollTypes { get { return m_RangerScrollTypes; } }
+
+		/*private static Type[] m_RogueScrollTypes = new Type[]
+		{
+			typeof( RogueFalseCoinScroll ),
+			typeof( RogueCharmScroll ),
+			typeof( SlyFoxScroll ),
+			typeof( ShadowScroll ),
+			typeof( IntimidationScroll )
+		};
+
+		public static Type[] RogueScrollTypes { get { return m_RogueScrollTypes; } }*/
+		//--<< All Spells Edits >>-----------------------[End]
+
+		public static Type[] RegularScrollTypes { get { return m_RegularScrollTypes; } }
         public static Type[] NecromancyScrollTypes { get { return m_NecromancyScrollTypes; } }
         public static Type[] SENecromancyScrollTypes { get { return m_SENecromancyScrollTypes; } }
         public static Type[] PaladinScrollTypes { get { return m_PaladinScrollTypes; } }
@@ -929,7 +1002,30 @@ namespace Server
                 case SpellbookType.Mystic:
                     types = m_MysticismScrollTypes;
                     break;
-            }
+				//--<< All Spells Edits >>-----------------------[Start]
+				/*case SpellbookType.Undead:
+                    types = m_UndeadScrollTypes;
+                    break;*/
+				case SpellbookType.Druid:
+                    types = m_DruidScrollTypes;
+                    break;
+				/*case SpellbookType.Song:
+                    types = m_SongScrollTypes;
+                    break;*/
+				case SpellbookType.Cleric:
+                    types = m_ClericScrollTypes;
+                    break;
+				/*case SpellbookType.Avatar:
+                    types = m_AvatarScrollTypes;
+                    break;*/
+				case SpellbookType.Ranger:
+                    types = m_RangerScrollTypes;
+                    break;
+				/*case SpellbookType.Rogue:
+                    types = m_RogueScrollTypes;
+                    break;*/
+				//--<< All Spells Edits >>-----------------------[End]
+			}
 
             return Construct(types, Utility.RandomMinMax(minIndex, maxIndex)) as SpellScroll;
         }

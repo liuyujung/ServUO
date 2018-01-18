@@ -33,19 +33,19 @@ namespace Server.Spells.Ranger
 		{
 			if( Core.AOS )
 			{
-				Register( 900, typeof( RangerHuntersAimSpell ) );
-				Register( 901, typeof( RangerFlightOfThePheonixSpell ) );
-				Register( 902, typeof( RangerFamiliarSpell ) );
-				Register( 903, typeof( RangerFireBowSpell ) );
-				Register( 904, typeof( RangerIceBowSpell ) );
-				Register( 905, typeof( RangerLightningBowSpell ) );
-				Register( 906, typeof( RangerNoxBowSpell ) );
-				Register( 907, typeof( RangerSummonMountSpell ) );
-				Register( 908, typeof( RangerNaturalHerbSpell ) );
-				Register( 909, typeof( RangerLandmarkSpell ) );
-				Register( 910, typeof( RangerTreeStrideSpell ) );
-				Register( 911, typeof( RangerWallOfAirSpell ) );
-				Register( 912, typeof( RangerWoodCarvingsSpell ) );
+				Register( 900, typeof( HuntersAimSpell ) );
+				Register( 901, typeof( FlightOfThePheonixSpell ) );
+				Register( 902, typeof( FamiliarSpell ) );
+				Register( 903, typeof( FireBowSpell ) );
+				Register( 904, typeof( IceBowSpell ) );
+				Register( 905, typeof( LightningBowSpell ) );
+				Register( 906, typeof( NoxBowSpell ) );
+				Register( 907, typeof( SummonMountSpell ) );
+				Register( 908, typeof( NaturalHerbSpell ) );
+				Register( 909, typeof( LandmarkSpell ) );
+				Register( 910, typeof( TreeStrideSpell ) );
+				Register( 911, typeof( WallOfAirSpell ) );
+				Register( 912, typeof( WoodCarvingsSpell ) );
 
 				//RegDef( spellID, "Name", "Description", "Reagent1; Reagent2; Reagentn", "Skill; Mana; Tithe; Etc" );
 				RegDef( 900, "Hunter's Aim", "Increases the Rangers archery, and tactics for a short period of time.", "Nightshade; Spring Water; Bloodmoss", "Skill: 50; Mana: 25" );

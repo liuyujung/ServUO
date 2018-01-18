@@ -7,7 +7,7 @@ using Server.Spells.Ranger;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerLandmarkSpell : RangerSpell
+	public class LandmarkSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 		                                                "Landmark", "Sinta Nat'",
@@ -21,7 +21,7 @@ namespace Server.Spells.Ranger
 		public override int RequiredMana{ get{ return 25; } }
 		public override double RequiredSkill{ get{ return 50; } }
 		
-		public RangerLandmarkSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public LandmarkSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
@@ -74,9 +74,9 @@ namespace Server.Spells.Ranger
 		
 		private class InternalTarget : Target
 		{
-			private RangerLandmarkSpell m_Owner;
+			private LandmarkSpell m_Owner;
 			
-			public InternalTarget( RangerLandmarkSpell owner ) : base( 12, false, TargetFlags.None )
+			public InternalTarget( LandmarkSpell owner ) : base( 12, false, TargetFlags.None )
 			{
 				m_Owner = owner;
 			}

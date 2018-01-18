@@ -3,7 +3,7 @@ using Server.Items;
 
 namespace Server.Spells.Ranger
 {
-	public class RangerNaturalHerbSpell : RangerSpell
+	public class NaturalHerbSpell : RangerSpell
 	{
 		private static SpellInfo m_Info = new SpellInfo(
 				"Nautral Herb", "Kurwa Poika",
@@ -17,7 +17,7 @@ namespace Server.Spells.Ranger
 		public override double RequiredSkill{ get{ return 60.0; } }
 		public override int RequiredMana{ get{ return 15; } }			
 
-		public RangerNaturalHerbSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
+		public NaturalHerbSpell( Mobile caster, Item scroll ) : base( caster, scroll, m_Info )
 		{
 		}
 
