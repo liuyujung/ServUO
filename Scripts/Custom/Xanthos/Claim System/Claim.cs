@@ -25,13 +25,12 @@ namespace Xanthos.Claim
 		{
 			if ( ClaimConfig.EnableClaim )
 			{
-				CommandHandlers.Register( "ClaimAll", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
-				CommandHandlers.Register( "ClA", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
+				CommandHandlers.Register( "Claim", AccessLevel.Player, new CommandEventHandler( Claim_OnCommand ) );
+                CommandHandlers.Register("ClaimAll", AccessLevel.Player, new CommandEventHandler(ClaimAll_OnCommand));
 			}
 			if ( ClaimConfig.EnableGrab )
 			{
 				CommandHandlers.Register( "Grab", AccessLevel.Player, new CommandEventHandler( Grab_OnCommand ) );
-				CommandHandlers.Register( "Gr", AccessLevel.Player, new CommandEventHandler( Grab_OnCommand ) );
 			}
 		}
 
@@ -43,7 +42,7 @@ namespace Xanthos.Claim
 			Error
 		}
 
-		[Usage( "ClaimAll [-c|-t]" )]
+		[Usage( "Claim [-c|-t]" )]
 		[Description( "Claim a corpse for Gold; -c to carve the corpse first, -t to view or change the types to Loot." )]
 		public static void Claim_OnCommand( CommandEventArgs e )
 		{
@@ -56,18 +55,47 @@ namespace Xanthos.Claim
 					return;
 
 				case ClaimOption.None:
-					e.Mobile.Target = new ClaimCmdTarget( option );
+					e.Mobile.Target = new ClaimCmdTarget( option, false );
 					e.Mobile.SendMessage( "Choose a corpse to claim for gold." );
 					break;
 
 				case ClaimOption.Carve:
-					e.Mobile.Target = new ClaimCmdTarget( option );
+					e.Mobile.Target = new ClaimCmdTarget( option, false );
 					e.Mobile.SendMessage( "Choose a corpse to carve and claim for gold." );
 					break;
 
 				case ClaimOption.SetTypes:
 					e.Mobile.Target = new SetLootBagTarget();
 					e.Mobile.SendMessage( "Choose a loot bag to set the items that will be collected." );
+					break;
+			}
+		}
+
+		[Usage("ClaimAll [-c|-t]")]
+		[Description("Claim a corpse for everything; -c to carve the corpse first, -t to view or change the types to Loot.")]
+		public static void ClaimAll_OnCommand(CommandEventArgs e)
+		{
+			ClaimOption option = GetOptions(e);
+
+			switch (option)
+			{
+				case ClaimOption.Error:
+					Misc.SendCommandDetails(e.Mobile, "ClaimAll");
+					return;
+
+				case ClaimOption.None:
+					e.Mobile.Target = new ClaimCmdTarget(option, true);
+					e.Mobile.SendMessage("Choose a corpse to claim for gold.");
+					break;
+
+				case ClaimOption.Carve:
+					e.Mobile.Target = new ClaimCmdTarget(option, true);
+					e.Mobile.SendMessage("Choose a corpse to carve and claim for gold.");
+					break;
+
+				case ClaimOption.SetTypes:
+					e.Mobile.Target = new SetLootBagTarget();
+					e.Mobile.SendMessage("Choose a loot bag to set the items that will be collected.");
 					break;
 			}
 		}
@@ -150,15 +178,15 @@ namespace Xanthos.Claim
 			int corpsesClaimed = 0;
 
 			foreach ( Item item in corpses )
-				corpsesClaimed = ClaimCorpse( from, item as Corpse, ClaimOption.None ) ? corpsesClaimed + 1 : corpsesClaimed;
+				corpsesClaimed = ClaimCorpse( from, item as Corpse, ClaimOption.None, false ) ? corpsesClaimed + 1 : corpsesClaimed;
 
 			if ( corpsesClaimed > 0 )
 				from.SendMessage( "You claim {0} and recieve a reward.", corpsesClaimed == 1 ? "a corpse" : "some corpses" );
 		}
 
-		public static void Reclaim( Mobile from, ClaimOption option )
+		public static void Reclaim( Mobile from, ClaimOption option, bool everything )
 		{
-			from.Target = new ClaimCmdTarget( option );
+			from.Target = new ClaimCmdTarget( option, everything );
 			from.SendMessage( "Choose another corpse to claim." );
 		}
 
@@ -180,7 +208,7 @@ namespace Xanthos.Claim
 			return option;
 		}
 
-		public static bool ClaimCorpse( Mobile from, Corpse corpse, ClaimOption option )
+		public static bool ClaimCorpse( Mobile from, Corpse corpse, ClaimOption option, bool everything )
 		{
 			if ( null == corpse || corpse.Owner == from )
 				return false;
@@ -195,22 +223,26 @@ namespace Xanthos.Claim
 			if ( ClaimOption.Carve == option && !(corpse.Owner is PlayerMobile) )
 				corpse.Carve( from, null );
 
-			LootCorpse( from, corpse, option, goldBag, silverBag, lootBag );
+			LootCorpse( from, corpse, option, goldBag, silverBag, lootBag, everything );
 			AwardGold( from, corpse, goldBag );
 			corpse.Delete();
 
 			return true;
 		}
 
-		public static void LootCorpse( Mobile from, Corpse corpse, ClaimOption option, Container goldBag, Container silverBag, Container lootBag )
+		public static void LootCorpse( Mobile from, Corpse corpse, ClaimOption option, Container goldBag, Container silverBag, Container lootBag, bool everything )
 		{
 			ArrayList items = new ArrayList( corpse.Items.Count );
 
 			foreach ( Item item in corpse.Items )
 			{
-				if ( item != null && LootBag.TypeIsLootable( lootBag, item ) )
-					items.Add( item );
-			}
+                if ( item != null )
+
+                    if ( !everything && LootBag.TypeIsLootable( lootBag, item ) )
+					    items.Add( item );
+                    else
+                        items.Add(item);
+            }
 
 			for ( int i = 0; i < items.Count; i++ )
 			{
@@ -383,9 +415,11 @@ namespace Xanthos.Claim
 		private class ClaimCmdTarget : Target
 		{
 			ClaimOption m_Option;
-			public ClaimCmdTarget( ClaimOption option ) : base( ClaimConfig.ClaimRadius, false, TargetFlags.None )
+            bool m_Everything;
+			public ClaimCmdTarget( ClaimOption option, bool everything ) : base( ClaimConfig.ClaimRadius, false, TargetFlags.None )
 			{
 				m_Option = option;
+                m_Everything = everything;
 			}
 
 			protected override void OnTarget( Mobile from, object target )
@@ -414,10 +448,10 @@ namespace Xanthos.Claim
 				}
 				else if ( CorpseIsLootable( from, corpse, true ) )
 				{
-					if ( Claim.ClaimCorpse( from, corpse, m_Option ) )
+					if ( Claim.ClaimCorpse( from, corpse, m_Option, m_Everything ) )
 						from.SendMessage( "You claim the corpse and recieve a reward." );
 
-					Reclaim( from, m_Option );
+					Reclaim( from, m_Option, m_Everything );
 				}
 			}
 		}
