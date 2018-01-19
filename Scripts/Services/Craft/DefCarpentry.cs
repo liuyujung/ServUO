@@ -1105,7 +1105,7 @@ namespace Server.Engines.Craft
             Repair = Core.AOS;
             CanEnhance = Core.ML;
 
-            SetSubRes(typeof(Board), 1072643);
+            //SetSubRes(typeof(Board), 1072643);
 
             // Add every material you want the player to be able to choose from
             // This will override the overridable material	TODO: Verify the required skill amount

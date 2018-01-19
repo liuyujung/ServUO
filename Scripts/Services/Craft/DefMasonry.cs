@@ -371,7 +371,7 @@ namespace Server.Engines.Craft
             Repair = Core.SA;
             CanEnhance = Core.SA;
 
-            SetSubRes(typeof(Granite), 1044525);
+            //SetSubRes(typeof(Granite), 1044525);
 
             /*AddSubRes(typeof(Granite), 1044525, 00.0, 1044514, 1044526);
             AddSubRes(typeof(DullCopperGranite), 1044023, 65.0, 1044514, 1044527);

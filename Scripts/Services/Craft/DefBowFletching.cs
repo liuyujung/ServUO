@@ -259,7 +259,7 @@ namespace Server.Engines.Craft
                 this.SetNeededExpansion(index, Expansion.ML);
             }
 
-            this.SetSubRes(typeof(Board), 1072643);
+            //this.SetSubRes(typeof(Board), 1072643);
 
 
             // Add every material you want the player to be able to choose from

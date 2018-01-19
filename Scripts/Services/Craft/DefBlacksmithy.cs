@@ -1067,7 +1067,7 @@ namespace Server.Engines.Craft
             #endregion
 
             // Set the overridable material
-            SetSubRes(typeof(IronIngot), 1044022);
+            //SetSubRes(typeof(IronIngot), 1044022);
 
             // Add every material you want the player to be able to choose from
             // This will override the overridable material

@@ -820,7 +820,7 @@ namespace Server.Engines.Craft
             #endregion
 
             // Set the overridable material
-            SetSubRes(typeof(Leather), 1049150);
+            //SetSubRes(typeof(Leather), 1049150);
 
             // Add every material you want the player to be able to choose from
             // This will override the overridable material
