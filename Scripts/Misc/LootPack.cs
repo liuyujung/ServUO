@@ -359,7 +359,8 @@ namespace Server
 				new[]
 				{
 					new LootPackEntry(true, Gold, 100.00, "2d10+20"), new LootPackEntry(false, AosMagicItemsPoor, 1.00, 1, 5, 0, 100),
-					new LootPackEntry(false, Instruments, 0.02, 1)
+					new LootPackEntry(false, Instruments, 0.02, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, 1)
 				});
 
 		public static readonly LootPack SeMeager =
@@ -369,7 +370,8 @@ namespace Server
 					new LootPackEntry(true, Gold, 100.00, "4d10+40"),
 					new LootPackEntry(false, AosMagicItemsMeagerType1, 20.40, 1, 2, 0, 50),
 					new LootPackEntry(false, AosMagicItemsMeagerType2, 10.20, 1, 5, 0, 100),
-					new LootPackEntry(false, Instruments, 0.10, 1)
+					new LootPackEntry(false, Instruments, 0.10, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(1, 2))
 				});
 
 		public static readonly LootPack SeAverage =
@@ -380,7 +382,8 @@ namespace Server
 					new LootPackEntry(false, AosMagicItemsAverageType1, 32.80, 1, 3, 0, 50),
 					new LootPackEntry(false, AosMagicItemsAverageType1, 32.80, 1, 4, 0, 75),
 					new LootPackEntry(false, AosMagicItemsAverageType2, 19.50, 1, 5, 0, 100),
-					new LootPackEntry(false, Instruments, 0.40, 1)
+					new LootPackEntry(false, Instruments, 0.40, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(1, 3))
 				});
 
 		public static readonly LootPack SeRich =
@@ -391,18 +394,20 @@ namespace Server
 					new LootPackEntry(false, AosMagicItemsRichType1, 76.30, 1, 4, 0, 75),
 					new LootPackEntry(false, AosMagicItemsRichType1, 76.30, 1, 4, 0, 75),
 					new LootPackEntry(false, AosMagicItemsRichType2, 61.70, 1, 5, 0, 100),
-					new LootPackEntry(false, Instruments, 1.00, 1)
+					new LootPackEntry(false, Instruments, 1.00, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(2, 3))
 				});
 
-		public static readonly LootPack SeFilthyRich =
-			new LootPack(
-				new[]
-				{
-					new LootPackEntry(true, Gold, 100.00, "3d100+400"),
-					new LootPackEntry(false, AosMagicItemsFilthyRichType1, 79.50, 1, 5, 0, 100),
-					new LootPackEntry(false, AosMagicItemsFilthyRichType1, 79.50, 1, 5, 0, 100),
-					new LootPackEntry(false, AosMagicItemsFilthyRichType2, 77.60, 1, 5, 25, 100),
-					new LootPackEntry(false, Instruments, 2.00, 1)
+        public static readonly LootPack SeFilthyRich =
+            new LootPack(
+                new[]
+                {
+                    new LootPackEntry(true, Gold, 100.00, "3d100+400"),
+                    new LootPackEntry(false, AosMagicItemsFilthyRichType1, 79.50, 1, 5, 0, 100),
+                    new LootPackEntry(false, AosMagicItemsFilthyRichType1, 79.50, 1, 5, 0, 100),
+                    new LootPackEntry(false, AosMagicItemsFilthyRichType2, 77.60, 1, 5, 25, 100),
+                    new LootPackEntry(false, Instruments, 2.00, 1),
+                    new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(2, 4))
 				});
 
 		public static readonly LootPack SeUltraRich =
@@ -416,7 +421,8 @@ namespace Server
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 25, 100),
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 25, 100),
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 33, 100),
-					new LootPackEntry(false, Instruments, 2.00, 1)
+					new LootPackEntry(false, Instruments, 2.00, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(3, 5))
 				});
 
 		public static readonly LootPack SeSuperBoss =
@@ -434,7 +440,8 @@ namespace Server
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 33, 100),
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 50, 100),
 					new LootPackEntry(false, AosMagicItemsUltraRich, 100.00, 1, 5, 50, 100),
-					new LootPackEntry(false, Instruments, 2.00, 1)
+					new LootPackEntry(false, Instruments, 2.00, 1),
+					new LootPackEntry(false, NewScrollItems, 100.00, Utility.RandomMinMax(4, 6))
 				});
 		#endregion
 

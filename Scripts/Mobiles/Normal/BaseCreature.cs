@@ -2732,6 +2732,8 @@ namespace Server.Mobiles
 			m_NextLevel = Utility.RandomMinMax(250, 500);
 			m_MaxLevel = Utility.RandomMinMax(10, 30);
 			m_MatingTimes = Utility.RandomMinMax(0, 4);
+
+            PackMagicItems(0, 5);
 			//FS:ATS end
 
             if (iRangePerception == OldRangePerception)
@@ -5536,7 +5538,7 @@ namespace Server.Mobiles
             }
         }
 
-		//daat
+		//daat - OWLTR Start
 		#region Pack & Loot
 
 		#region Mondain's Legacy
@@ -5613,9 +5615,65 @@ namespace Server.Mobiles
 				PackWeapon(minLevel, maxLevel, weaponChance);
 			}
 		}
-		//daat
 
-        public virtual void DropBackpack()
+		public bool PackArmor(int minLevel, int maxLevel)
+		{
+			return PackArmor(minLevel, maxLevel, 1.0);
+		}
+
+		public bool PackArmor(int minLevel, int maxLevel, double chance)
+		{
+			if (chance <= Utility.RandomDouble())
+			{
+				return false;
+			}
+
+			Cap(ref minLevel, 0, 5);
+			Cap(ref maxLevel, 0, 5);
+
+			if (Core.AOS)
+			{
+				Item item = Loot.RandomArmorOrShieldOrJewelry();
+
+				if (item == null)
+				{
+					return false;
+				}
+
+				int attributeCount, min, max;
+				GetRandomAOSStats(minLevel, maxLevel, out attributeCount, out min, out max);
+
+				if (item is BaseArmor)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseArmor)item, attributeCount, min, max);
+				}
+				else if (item is BaseJewel)
+				{
+					BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
+				}
+
+				PackItem(item);
+			}
+			else
+			{
+				BaseArmor armor = Loot.RandomArmorOrShield();
+
+				if (armor == null)
+				{
+					return false;
+				}
+
+				armor.ProtectionLevel = (ArmorProtectionLevel)RandomMinMaxScaled(minLevel, maxLevel);
+				armor.Durability = (ArmorDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
+
+				PackItem(armor);
+			}
+
+			return true;
+		}
+		//daat OWLTR - End
+
+		public virtual void DropBackpack()
         {
             if (Backpack != null)
             {
@@ -5719,64 +5777,6 @@ namespace Server.Mobiles
             pack.Generate(this, backpack, m_Spawning, m_KillersLuck);
         }
 
-		//daat
-		public bool PackArmor(int minLevel, int maxLevel)
-		{
-			return PackArmor(minLevel, maxLevel, 1.0);
-		}
-
-		public bool PackArmor(int minLevel, int maxLevel, double chance)
-		{
-			if (chance <= Utility.RandomDouble())
-			{
-				return false;
-			}
-
-			Cap(ref minLevel, 0, 5);
-			Cap(ref maxLevel, 0, 5);
-
-			if (Core.AOS)
-			{
-				Item item = Loot.RandomArmorOrShieldOrJewelry();
-
-				if (item == null)
-				{
-					return false;
-				}
-
-				int attributeCount, min, max;
-				GetRandomAOSStats(minLevel, maxLevel, out attributeCount, out min, out max);
-
-				if (item is BaseArmor)
-				{
-					BaseRunicTool.ApplyAttributesTo((BaseArmor)item, attributeCount, min, max);
-				}
-				else if (item is BaseJewel)
-				{
-					BaseRunicTool.ApplyAttributesTo((BaseJewel)item, attributeCount, min, max);
-				}
-
-				PackItem(item);
-			}
-			else
-			{
-				BaseArmor armor = Loot.RandomArmorOrShield();
-
-				if (armor == null)
-				{
-					return false;
-				}
-
-				armor.ProtectionLevel = (ArmorProtectionLevel)RandomMinMaxScaled(minLevel, maxLevel);
-				armor.Durability = (ArmorDurabilityLevel)RandomMinMaxScaled(minLevel, maxLevel);
-
-				PackItem(armor);
-			}
-
-			return true;
-		}
-		//daat
-
         public static void GetRandomAOSStats(int minLevel, int maxLevel, out int attributeCount, out int min, out int max)
         {
             int v = RandomMinMaxScaled(minLevel, maxLevel);
@@ -5867,7 +5867,7 @@ namespace Server.Mobiles
             return val;
         }
 
-		//daat
+		//daat - start
 		public bool PackSlayer()
 		{
 			return PackSlayer(0.05);
@@ -5965,7 +5965,7 @@ namespace Server.Mobiles
 
 			return true;
 		}
-		//daat
+		//daat - end
 
         public void PackGold(int amount)
         {
