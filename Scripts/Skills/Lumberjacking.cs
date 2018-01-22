@@ -3,6 +3,7 @@ using Server.Items;
 using Server.Network;
 using Server.Mobiles; //daat99 OWLTR
 using daat99;
+using System.Linq;
 
 namespace Server.Engines.Harvest
 {
@@ -276,6 +277,26 @@ namespace Server.Engines.Harvest
             this.m_Definition = lumber;
             this.Definitions.Add(lumber);
             #endregion
+        }
+
+        public override void SendSuccessTo(Mobile from, Item item, HarvestResource resource)
+        {
+            if (item != null)
+            {
+                foreach (var res in m_Definition.Resources.Where(r => r.Types != null))
+                {
+                    foreach (var type in res.Types)
+                    {
+                        if (item.GetType() == type)
+                        {
+                            res.SendSuccessTo(from);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            base.SendSuccessTo(from, item, resource);
         }
 
         public override bool CheckHarvest(Mobile from, Item tool)
