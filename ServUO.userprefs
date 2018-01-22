@@ -1,11 +1,10 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Server/Mobile.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs">
     <Files>
       <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="81" Column="34" />
-      <File FileName="Scripts/Custom/Xanthos/Claim System/ClaimConfig.cs" Line="55" Column="34" />
-      <File FileName="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs" Line="340" Column="54" />
-      <File FileName="Server/Mobile.cs" Line="2153" Column="25" />
+      <File FileName="Scripts/Custom/Xanthos/Claim System/ClaimConfig.cs" Line="65" Column="18" />
       <File FileName="Scripts/Custom/Xanthos/Claim System/LootBag.cs" Line="72" Column="48" />
+      <File FileName="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs" Line="338" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

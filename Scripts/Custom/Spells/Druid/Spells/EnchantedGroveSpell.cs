@@ -221,10 +221,11 @@ namespace Server.Spells.Druid
 				
 				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 30.0 ) );
 				m_Timer.Start();
-				m_Bless = new BlessTimer( this, m_Caster );
+
+                m_End = DateTime.Now + TimeSpan.FromSeconds(30.0);
+
+				m_Bless = new BlessTimer( this, m_Caster, m_End );
 				m_Bless.Start();
-				
-				m_End = DateTime.Now + TimeSpan.FromSeconds( 30.0 );
 			}
 			
 			public InternalItem( Serial serial ) : base( serial )
@@ -260,8 +261,6 @@ namespace Server.Spells.Druid
 			
 			private class InternalTimer : Timer
 			{
-				//private Timer m_Bless;
-				
 				private InternalItem m_Item;
 				
 				public InternalTimer( InternalItem item, TimeSpan duration ) : base( duration )
@@ -299,17 +298,18 @@ namespace Server.Spells.Druid
 		{
 			private Item m_EnchantedGrove;
 			private Mobile m_Caster;
-			private DateTime m_Duration;
+            private DateTime m_Duration;
 			
 			private static Queue m_Queue = new Queue();
 			
-			public BlessTimer( Item ap, Mobile ca ) : base( TimeSpan.FromSeconds( 0.5 ), TimeSpan.FromSeconds( 1.0 ) )
+			public BlessTimer( Item ap, Mobile ca, DateTime duration ) : base( TimeSpan.FromSeconds( 0.5 ), TimeSpan.FromSeconds( 1.0 ) )
 			{
 				Priority = TimerPriority.FiftyMS;
 				
 				m_EnchantedGrove = ap;
 				m_Caster=ca;
-				m_Duration = DateTime.Now + TimeSpan.FromSeconds( 15.0 + ( Utility.RandomDouble() * 15.0 ) );
+                //m_Duration = DateTime.Now + TimeSpan.FromSeconds( 15.0 + ( Utility.RandomDouble() * 15.0 ) );
+                m_Duration = duration;
 			}
 			
 			protected override void OnTick()
