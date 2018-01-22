@@ -218,11 +218,19 @@ namespace Server.Spells.Druid
 				
 				if ( Deleted )
 					return;
-				
-				m_Timer = new InternalTimer( this, TimeSpan.FromSeconds( 30.0 ) );
-				m_Timer.Start();
 
-                m_End = DateTime.Now + TimeSpan.FromSeconds(30.0);
+                if (caster.AccessLevel >= AccessLevel.GameMaster)
+                {
+					m_Timer = new InternalTimer(this, TimeSpan.FromMinutes(5));
+					m_Timer.Start();
+                    m_End = DateTime.Now + TimeSpan.FromMinutes(5);
+                }
+                else
+                {
+					m_Timer = new InternalTimer(this, TimeSpan.FromSeconds(30.0));
+					m_Timer.Start();
+                    m_End = DateTime.Now + TimeSpan.FromSeconds(30.0);
+                }
 
 				m_Bless = new BlessTimer( this, m_Caster, m_End );
 				m_Bless.Start();
@@ -314,12 +322,8 @@ namespace Server.Spells.Druid
 			
 			protected override void OnTick()
 			{
-				if ( m_EnchantedGrove.Deleted )
-					return;
-				
-				if ( DateTime.Now > m_Duration )
+				if ( m_EnchantedGrove.Deleted || DateTime.Now > m_Duration )
 				{
-					
 					Stop();
 				}
 				else

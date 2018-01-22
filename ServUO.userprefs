@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs">
     <Files>
       <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="81" Column="34" />
-      <File FileName="Scripts/Custom/Xanthos/Claim System/ClaimConfig.cs" Line="65" Column="18" />
+      <File FileName="Scripts/Custom/Xanthos/Claim System/ClaimConfig.cs" Line="66" Column="13" />
       <File FileName="Scripts/Custom/Xanthos/Claim System/LootBag.cs" Line="72" Column="48" />
-      <File FileName="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs" Line="338" Column="28" />
+      <File FileName="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs" Line="227" Column="68" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
