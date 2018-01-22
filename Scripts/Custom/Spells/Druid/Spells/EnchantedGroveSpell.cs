@@ -260,7 +260,7 @@ namespace Server.Spells.Druid
 			
 			private class InternalTimer : Timer
 			{
-				private Timer m_Bless;
+				//private Timer m_Bless;
 				
 				private InternalItem m_Item;
 				
@@ -346,10 +346,15 @@ namespace Server.Spells.Druid
 						if ( friendly )
 						{
 							m.FixedEffect( 0x37C4, 1, 12, 1109, 3 ); // At player
-							m.Mana += (1 + (m_Caster.Karma / 1000));
-							m.Hits += (1 + (m_Caster.Karma / 1000));
+							//m.Mana += (1 + (m_Caster.Karma / 1000));
+							//m.Hits += (1 + (m_Caster.Karma / 1000));
+                            m.Mana = m.ManaMax;
+                            m.Hits = m.HitsMax;
 						}
 					}
+
+					m_Caster.Mana = m_Caster.ManaMax;
+					m_Caster.Hits = m_Caster.HitsMax;
 				}
 			}
 		}
