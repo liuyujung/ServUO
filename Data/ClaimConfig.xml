@@ -20,9 +20,9 @@
 			<a type="string">Server.Factions.Silver</a>
 			<a type="string">Server.Items.Bandage</a>
 			<a type="string">Server.Items.Arrow</a>
-			<a type="string">Server.Items.Diamond</a>
-			<a type="string">Server.Items.BaseJewel</a>		<!-- jewelry: rings, bracelets, etc. -->
-			<!--<a type="string">Server.Items.BaseHides</a>
+			<!-- <a type="string">Server.Items.Diamond</a>
+			<a type="string">Server.Items.BaseJewel</a> -->		<!-- jewelry: rings, bracelets, etc. -->
+			<!-- <a type="string">Server.Items.BaseHides</a>
 			<a type="string">Server.Items.BaseScales</a>
 			<a type="string">Server.Items.BaseOre</a>
 			<a type="string">Server.Items.Feather</a>
@@ -34,7 +34,7 @@
 			<a type="string">Server.Items.Bone</a>
 			<a type="string">Server.Items.TreasureMap</a>
 			<a type="string">Server.Items.ParagonChest</a>
-			<a type="string">Server.Items.BaseWand</a>-->
+			<a type="string">Server.Items.BaseWand</a> -->
 			<a type="string">Server.SpellCrafting.Items.BaseSpellCraft</a>
 			<a type="string">Server.SpellCrafting.Items.BookOfSpellCrafts</a>
 			<a type="string">Server.Items.ChampionSkull</a>
