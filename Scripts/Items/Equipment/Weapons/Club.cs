@@ -10,6 +10,7 @@ namespace Server.Items
             : base(0x13B4)
         {
             this.Weight = 9.0;
+            this.Resource = CraftResource.RegularWood;
         }
 
         public Club(Serial serial)

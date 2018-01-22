@@ -7,6 +7,7 @@ namespace Server.Items
         public BaseStaff(int itemID)
             : base(itemID)
         {
+            this.Resource = CraftResource.RegularWood;
         }
 
         public BaseStaff(Serial serial)

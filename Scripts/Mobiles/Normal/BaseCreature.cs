@@ -2734,7 +2734,7 @@ namespace Server.Mobiles
 			m_MatingTimes = Utility.RandomMinMax(0, 4);
 
             PackSlayer();
-            PackMagicItems(0, 5);
+            PackMagicItems(0, 5, 0.45, 0.4);
 			//FS:ATS end
 
             if (iRangePerception == OldRangePerception)

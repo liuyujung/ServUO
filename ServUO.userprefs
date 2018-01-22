@@ -1,11 +1,9 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Skills/Lumberjacking.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/Normal/BaseCreature.cs">
     <Files>
       <File FileName="Scripts/Custom/OWLTR4.0/New/Resource Helper.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="2747" Column="30" />
-      <File FileName="Scripts/Misc/Loot.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Skills/Lumberjacking.cs" Line="143" Column="23" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="81" Column="34" />
+      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="5926" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
