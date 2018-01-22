@@ -2733,6 +2733,7 @@ namespace Server.Mobiles
 			m_MaxLevel = Utility.RandomMinMax(10, 30);
 			m_MatingTimes = Utility.RandomMinMax(0, 4);
 
+            PackSlayer();
             PackMagicItems(0, 5);
 			//FS:ATS end
 
@@ -5645,6 +5646,7 @@ namespace Server.Mobiles
 
 				if (item is BaseArmor)
 				{
+                    ResourceHelper.ApplyRandomCraftSource((BaseArmor)item);
 					BaseRunicTool.ApplyAttributesTo((BaseArmor)item, attributeCount, min, max);
 				}
 				else if (item is BaseJewel)
@@ -5933,6 +5935,7 @@ namespace Server.Mobiles
 
 				if (item is BaseWeapon)
 				{
+                    ResourceHelper.ApplyRandomCraftSource((BaseWeapon)item);
 					BaseRunicTool.ApplyAttributesTo((BaseWeapon)item, attributeCount, min, max);
 				}
 				else if (item is BaseJewel)

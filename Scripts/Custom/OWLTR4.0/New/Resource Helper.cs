@@ -327,6 +327,117 @@ namespace daat99
 			return CraftResource.None;
 		}
 
+		public static void ApplyRandomCraftSource(BaseArmor armor)
+		{
+            CraftResource resource = CraftResource.None;
+			switch (CraftResources.GetType(armor.DefaultResource))
+			{
+				case CraftResourceType.Metal:
+					resource = RandomMetalResource();
+					break;
+				case CraftResourceType.Leather:
+                    resource = RandomLeatherResource();
+					break;
+				case CraftResourceType.Wood:
+                    resource = RandomWoodResource();
+					break;
+				case CraftResourceType.Scales:
+                    resource = RandomScalesResource();
+					break;
+			}
+			if (resource != CraftResource.None)
+				armor.Resource = resource;
+		}
+
+		public static void ApplyRandomCraftSource(BaseWeapon weapon)
+		{
+			CraftResource resource = CraftResource.None;
+			switch (CraftResources.GetType(weapon.Resource))
+			{
+				case CraftResourceType.Metal:
+					resource = RandomMetalResource();
+					break;
+				case CraftResourceType.Leather:
+					resource = RandomLeatherResource();
+					break;
+				case CraftResourceType.Wood:
+					resource = RandomWoodResource();
+					break;
+				case CraftResourceType.Scales:
+					resource = RandomScalesResource();
+					break;
+			}
+			if (resource != CraftResource.None)
+				weapon.Resource = resource;
+		}
+
+		public static CraftResource RandomMetalResource()
+		{
+            List<ResourceData> list = new List<ResourceData>();
+			foreach (ResourceData data in Resources)
+			{
+				if (data.ResourceType == CraftResourceType.Metal)
+				{
+                    list.Add(data);
+				}
+			}
+            if (list.Count > 0) {
+                return list[Utility.RandomMinMax(0, list.Count - 1)].CraftResource;
+            }
+            return CraftResource.None;
+		}
+
+		public static CraftResource RandomLeatherResource()
+		{
+			List<ResourceData> list = new List<ResourceData>();
+			foreach (ResourceData data in Resources)
+			{
+                if (data.ResourceType == CraftResourceType.Leather)
+				{
+					list.Add(data);
+				}
+			}
+			if (list.Count > 0)
+			{
+				return list[Utility.RandomMinMax(0, list.Count - 1)].CraftResource;
+			}
+			return CraftResource.None;
+		}
+
+		public static CraftResource RandomWoodResource()
+		{
+			List<ResourceData> list = new List<ResourceData>();
+			foreach (ResourceData data in Resources)
+			{
+                if (data.ResourceType == CraftResourceType.Wood)
+				{
+					list.Add(data);
+				}
+			}
+			if (list.Count > 0)
+			{
+				return list[Utility.RandomMinMax(0, list.Count - 1)].CraftResource;
+			}
+			return CraftResource.None;
+		}
+
+		public static CraftResource RandomScalesResource()
+		{
+			List<ResourceData> list = new List<ResourceData>();
+			foreach (ResourceData data in Resources)
+			{
+				if (data.ResourceType == CraftResourceType.Scales)
+				{
+					list.Add(data);
+				}
+			}
+			if (list.Count > 0)
+			{
+				return list[Utility.RandomMinMax(0, list.Count - 1)].CraftResource;
+			}
+			return CraftResource.None;
+		}
+
 		public static Type[][] GetTypesTable()
 		{
 			return new Type[][]
