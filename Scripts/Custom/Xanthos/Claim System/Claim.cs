@@ -238,9 +238,9 @@ namespace Xanthos.Claim
 			{
                 if ( item != null )
 
-                    if ( !everything && LootBag.TypeIsLootable( lootBag, item ) )
-					    items.Add( item );
-                    else
+                    if (everything)
+					    items.Add(item);
+                    else if (LootBag.TypeIsLootable(lootBag, item))
                         items.Add(item);
             }
 
