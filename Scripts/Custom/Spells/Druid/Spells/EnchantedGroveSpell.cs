@@ -332,7 +332,8 @@ namespace Server.Spells.Druid
 					
 					foreach ( Mobile m in m_EnchantedGrove.GetMobilesInRange( 5 ) )
 					{
-						if ( m.Player && m.Karma >= 0 && m.Alive )
+						//if ( m.Player && m.Karma >= 0 && m.Alive )
+                        if (m.Player && m.Alive)
 							list.Add( m );
 					}
 					
@@ -356,9 +357,6 @@ namespace Server.Spells.Druid
                             m.Hits = m.HitsMax;
 						}
 					}
-
-					m_Caster.Mana = m_Caster.ManaMax;
-					m_Caster.Hits = m_Caster.HitsMax;
 				}
 			}
 		}
