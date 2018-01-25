@@ -2,9 +2,11 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/Books/BOBFilterGump.cs">
     <Files>
       <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="60" Column="5" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BulkOrderBook.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BOBFilterGump.cs" Line="201" Column="161" />
+      <File FileName="Scripts/Services/BulkOrders/Books/BulkOrderBook.cs" Line="16" Column="35" />
       <File FileName="Scripts/Custom/FS Animal Taming System Gen 2/Animal Taming BODs/Taming BOB/TamingBOBFilterGump.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Services/BulkOrders/Books/BOBFilterGump.cs" Line="409" Column="14" />
+      <File FileName="Scripts/Services/BulkOrders/Books/BOBGump.cs" Line="445" Column="81" />
+      <File FileName="Server/Gumps/Gump.cs" Line="228" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

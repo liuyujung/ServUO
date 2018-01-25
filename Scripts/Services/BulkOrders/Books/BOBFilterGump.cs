@@ -44,6 +44,13 @@ namespace Server.Engines.BulkOrders
             { 1018337, 15 }, // Agapite
             { 1018338, 16 }, // Verite
             { 1018339, 17 }, // Valorite
+            { -1, 18 }, // Blaze
+
+            { 0, 0 }, // --Blank--
+            { -1, 19 }, // Ice
+            { -1, 20 }, // Toxic
+            { -1, 21 }, // Electrum
+            { -1, 22 }, // Platinum
             { 0, 0 }, // --Blank--
 
             { 1044094, 2 }, // Tailoring
@@ -52,6 +59,21 @@ namespace Server.Engines.BulkOrders
             { 1062236, 25 }, // Spined
             { 1062237, 26 }, // Horned
             { 1062238, 27 }, // Barbed
+
+            { 0, 0 }, // --Blank--
+            { -1, 28 }, // Polar
+            { -1, 29 }, // Synthetic
+            { -1, 30 }, // Blaze
+            { -1, 31 }, // Daemonic
+            { -1, 32 }, // Shadow
+
+            { 0, 0 }, // --Blank--
+            { -1, 33 }, // Frost
+            { -1, 34 }, // Ethereal
+            { 0, 0 }, // --Blank--
+            { 0, 0 }, // --Blank--
+            { 0, 0 }, // --Blank--
+
 
             { 1044097, 3 }, // Tinkering
             { 1062226, 35 }, // Iron
@@ -65,6 +87,13 @@ namespace Server.Engines.BulkOrders
             { 1018337, 41 }, // Agapite
             { 1018338, 42 }, // Verite
             { 1018339, 43 }, // Valorite
+            { -1, 44 }, // Blaze
+
+            { 0, 0 }, // --Blank--
+            { -1, 45 }, // Ice
+            { -1, 46 }, // Toxic
+            { -1, 47 }, // Electrum
+            { -1, 48 }, // Platinum
             { 0, 0 }, // --Blank--
 
             { 1044071, 4 }, // Carpentry
@@ -78,6 +107,13 @@ namespace Server.Engines.BulkOrders
             { 1071431, 53 }, // Bloodwood
             { 1071432, 54 }, // Heartwood
             { 1071433, 55 }, // Frostwood
+            { -1, 56 }, // Ebony
+            { -1, 57 }, // Bamboo
+
+            { 0, 0 }, // --Blank--
+            { -1, 58 }, // PurpleHeart
+            { -1, 59 }, // Redwood
+            { -1, 60 }, // Petrified
             { 0, 0 }, // --Blank--
             { 0, 0 }, // --Blank--
 
@@ -92,6 +128,13 @@ namespace Server.Engines.BulkOrders
             { 1071431, 65 }, // Bloodwood
             { 1071432, 66 }, // Heartwood
             { 1071433, 67 }, // Frostwood
+            { -1, 68 }, // Ebony
+            { -1, 69 }, // Bamboo
+
+            { 0, 0 }, // --Blank--
+            { -1, 70 }, // PurpleHeart
+            { -1, 71 }, // Redwood
+            { -1, 72 }, // Petrified
             { 0, 0 }, // --Blank--
             { 0, 0 }, // --Blank--
 
@@ -179,15 +222,15 @@ namespace Server.Engines.BulkOrders
 
             AddPage(0);
 
-            AddBackground(10, 10, 600, 695, 5054);
+            AddBackground(10, 10, 600, 895, 5054); //695
 
-            AddImageTiled(18, 20, 583, 676, 2624);
-            AddAlphaRegion(18, 20, 583, 676);
+            AddImageTiled(18, 20, 583, 876, 2624); //676
+            AddAlphaRegion(18, 20, 583, 876); //676
 
             AddImage(5, 5, 10460);
             AddImage(585, 5, 10460);
-            AddImage(5, 690, 10460);
-            AddImage(585, 690, 10460);
+            AddImage(5, 890, 10460); //690
+            AddImage(585, 890, 10460); //690
 
             AddHtmlLocalized(270, 32, 200, 32, 1062223, LabelColor, false, false); // Filter Preference
 
@@ -200,21 +243,21 @@ namespace Server.Engines.BulkOrders
             AddHtmlLocalized(26, 130, 120, 32, 1062232, LabelColor, false, false); // Material Type
             AddFilterList(25, 162, m_XOffsets_Material, 35, BulkOrderSystem.NewSystemEnabled ? m_MaterialFiltersNew : m_MaterialFilters, m_XWidths_Large, f.Material, 2);
 
-            AddHtmlLocalized(26, 608, 120, 32, 1062217, LabelColor, false, false); // Amount
-            AddFilterList(25, 640, m_XOffsets_Amount, 40, m_AmountFilters, m_XWidths_Small, f.Quantity, 3);
+            AddHtmlLocalized(26, 808, 120, 32, 1062217, LabelColor, false, false); // Amount //608
+            AddFilterList(25, 840, m_XOffsets_Amount, 40, m_AmountFilters, m_XWidths_Small, f.Quantity, 3); //640
 
-            AddHtmlLocalized(75, 670, 120, 32, 1062477, (from.UseOwnFilter ? LabelColor : 16927), false, false); // Set Book Filter
-            AddButton(40, 670, 4005, 4007, 1, GumpButtonType.Reply, 0);
+            AddHtmlLocalized(75, 870, 120, 32, 1062477, (from.UseOwnFilter ? LabelColor : 16927), false, false); // Set Book Filter //670
+            AddButton(40, 870, 4005, 4007, 1, GumpButtonType.Reply, 0); //670
 
-            AddHtmlLocalized(235, 670, 120, 32, 1062478, (from.UseOwnFilter ? 16927 : LabelColor), false, false); // Set Your Filter
-            AddButton(200, 670, 4005, 4007, 2, GumpButtonType.Reply, 0);
+			AddHtmlLocalized(235, 870, 120, 32, 1062478, (from.UseOwnFilter ? 16927 : LabelColor), false, false); // Set Your Filter //670
+			AddButton(200, 870, 4005, 4007, 2, GumpButtonType.Reply, 0); //670
 
-            AddHtmlLocalized(405, 670, 120, 32, 1062231, LabelColor, false, false); // Clear Filter
-            AddButton(370, 670, 4005, 4007, 3, GumpButtonType.Reply, 0);
+			AddHtmlLocalized(405, 870, 120, 32, 1062231, LabelColor, false, false); // Clear Filter //670
+			AddButton(370, 870, 4005, 4007, 3, GumpButtonType.Reply, 0); //670
 
-            AddHtmlLocalized(540, 670, 50, 32, 1011046, LabelColor, false, false); // APPLY
-            AddButton(505, 670, 4017, 4018, 0, GumpButtonType.Reply, 0);
-        }
+			AddHtmlLocalized(540, 870, 50, 32, 1011046, LabelColor, false, false); // APPLY //670
+			AddButton(505, 870, 4017, 4018, 0, GumpButtonType.Reply, 0); //670
+		}
 
         public override void OnResponse(Server.Network.NetState sender, RelayInfo info)
         {
@@ -308,9 +351,82 @@ namespace Server.Engines.BulkOrders
                 if (!isSelected && (i % xOffsets.Length) == 0)
                     isSelected = (filterValue == 0);
 
-                AddHtmlLocalized(x + 35 + xOffsets[i % xOffsets.Length], y + ((i / xOffsets.Length) * yOffset), xWidths[i % xOffsets.Length], 32, number, isSelected ? 16927 : LabelColor, false, false);
+                if (number == -1)
+                {
+                    int materialValue = filters[i, 1];
+                    string text = GetMaterialName(materialValue);
+                    AddHtml(x + 35 + xOffsets[i % xOffsets.Length], y + ((i / xOffsets.Length) * yOffset), xWidths[i % xOffsets.Length], 32,
+                            "<BASEFONT COLOR=" + (isSelected ? 16927 : LabelColor) + ">" + text + "</FONT>", false, false);
+                }
+                else
+                {
+                    AddHtmlLocalized(x + 35 + xOffsets[i % xOffsets.Length], y + ((i / xOffsets.Length) * yOffset), xWidths[i % xOffsets.Length], 32, number, isSelected ? 16927 : LabelColor, false, false);
+                }
                 AddButton(x + xOffsets[i % xOffsets.Length], y + ((i / xOffsets.Length) * yOffset), 4005, 4007, 4 + filterIndex + (i * 4), GumpButtonType.Reply, 0);
             }
+        }
+
+        private static String GetMaterialName(int materialValue) {
+			switch (materialValue)
+			{
+				default:
+				case 0:
+					return "";
+				case 18:
+					return "Blaze";
+				case 19:
+					return "Ice";
+				case 20:
+					return "Toxic";
+				case 21:
+					return "Electrum";
+				case 22:
+					return "Platinum";
+				case 28:
+					return "Polar";
+				case 29:
+					return "Synthetic";
+				case 30:
+					return "Blaze";
+				case 31:
+					return "Daemonic";
+				case 32:
+					return "Shadow";
+				case 33:
+					return "Frost";
+				case 34:
+					return "Ethereal";
+				case 44:
+					return "Blaze";
+				case 45:
+					return "Ice";
+				case 46:
+					return "Toxic";
+				case 47:
+					return "Electrum";
+				case 48:
+					return "Platinum";
+				case 56:
+					return "Ebony";
+				case 57:
+					return "Bamboo";
+				case 58:
+					return "PurpleHeart";
+				case 59:
+					return "Redwood";
+				case 60:
+					return "Petrified";
+				case 68:
+					return "Ebony";
+				case 69:
+					return "Bamboo";
+				case 70:
+					return "PurpleHeart";
+				case 71:
+					return "Redwood";
+				case 72:
+					return "Petrified";
+			}
         }
     }
 }
