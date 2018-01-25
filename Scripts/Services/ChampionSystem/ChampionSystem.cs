@@ -138,6 +138,7 @@ namespace Server.Engines.CannedEvil
 			CommandSystem.Register("ChampionInfo", AccessLevel.GameMaster, new CommandEventHandler(ChampionInfo_OnCommand));
             CommandSystem.Register("ChampionRotate", AccessLevel.GameMaster, new CommandEventHandler(ChampionRotate_OnCommand));
             CommandSystem.Register("ChampionRestart", AccessLevel.GameMaster, new CommandEventHandler(ChampionRestart_OnCommand));
+            CommandSystem.Register("ChampionRegen", AccessLevel.CoOwner, new CommandEventHandler(ChampionRegen_OnCommand));
 
 			if (!m_Enabled || m_ForceGenerate)
 			{
@@ -265,6 +266,14 @@ namespace Server.Engines.CannedEvil
 				return;
 			}
             Restart();
+		}
+
+		[Usage("ChampionRegen")]
+		[Description("Forces to regenerate Champion Spawns")]
+		private static void ChampionRegen_OnCommand(CommandEventArgs e)
+		{
+            ChampionSystem.m_ForceGenerate = true;
+            ChampionSystem.Initialize();
 		}
 
         private static void Restart()
