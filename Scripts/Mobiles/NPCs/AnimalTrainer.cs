@@ -87,6 +87,11 @@ namespace Server.Mobiles
 			return (from is PlayerMobile && from.Skills[SkillName.AnimalTaming].Base > 0 && FSATS.EnableTamingBODs == true);
 		}
 
+        public override bool SupportsClaimRewards(Mobile from)
+        {
+            return false;
+        }
+
 		public override TimeSpan GetNextBulkOrder(Mobile from)
 		{
 			if (from is PlayerMobile)

@@ -95,6 +95,11 @@ namespace Server.Mobiles
 			return false;
 		}
 
+		public virtual bool SupportsClaimRewards(Mobile from)
+		{
+			return SupportsBulkOrders(from);
+		}
+
 		public virtual TimeSpan GetNextBulkOrder(Mobile from)
 		{
 			return TimeSpan.Zero;
@@ -2429,7 +2434,8 @@ namespace Server.Mobiles
                     if (BulkOrderSystem.NewSystemEnabled)
                     {
                         list.Add(new BribeEntry(from, this));
-                        list.Add(new ClaimRewardsEntry(from, this));
+                        if (SupportsClaimRewards(from))
+                            list.Add(new ClaimRewardsEntry(from, this));
                     }
 				}
 

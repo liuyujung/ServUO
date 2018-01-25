@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Xanthos/Claim System/Claim.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/NPCs/AnimalTrainer.cs">
     <Files>
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="81" Column="34" />
-      <File FileName="Scripts/Custom/Xanthos/Claim System/LootBag.cs" Line="72" Column="48" />
-      <File FileName="Scripts/Custom/Spells/Druid/Spells/EnchantedGroveSpell.cs" Line="359" Column="7" />
-      <File FileName="Scripts/Custom/Xanthos/Claim System/Claim.cs" Line="242" Column="26" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="60" Column="5" />
+      <File FileName="Scripts/Mobiles/NPCs/Tailor.cs" Line="85" Column="48" />
+      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="2425" Column="27" />
+      <File FileName="Scripts/Mobiles/NPCs/AnimalTrainer.cs" Line="85" Column="42" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
