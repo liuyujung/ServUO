@@ -25,7 +25,7 @@
         <location x="5557" y="824" z="65" map="Felucca" radius="30"/>
     </spawn>
     <spawn name="Destard" group="FelDungeons" type="ColdBlood">
-        <location x="5259" y="837" z="61" map="Felucca" radius="35"/>
+        <location x="5259" y="837" z="61" map="Felucca" radius="45"/>
     </spawn>
     <spawn name="Fire" group="FelDungeons" type="Abyss">
         <location x="5814" y="1350" z="2" map="Felucca" radius="25"/>
@@ -43,7 +43,7 @@
         <location x="5636" y="2916" z="37" map="Felucca" radius="30"/>
     </spawn>
     <spawn name="Tortoise" group="FelT2A" spawnMod="0.5">
-        <location x="5724" y="3991" z="42" map="Felucca" radius="20"/>
+        <location x="5724" y="3991" z="42" map="Felucca" radius="25"/>
     </spawn>
     <spawn name="Ice West" group="FelT2A">
         <location x="5511" y="2360" z="40" map="Felucca" radius="35"/>
@@ -76,10 +76,10 @@
         <location x="5207" y="3637" z="20" map="Felucca" radius="50"/>
     </spawn>
     <spawn name="Valor">
-        <location x="382" y="328" z="-30" map="Ilshenar" radius="100"/>
+        <location x="382" y="328" z="-30" map="Ilshenar" radius="50"/>
     </spawn>
     <spawn name="Humility">
-        <location x="462" y="926" z="-67" map="Ilshenar" radius="100"/>
+        <location x="462" y="926" z="-67" map="Ilshenar" radius="50"/>
     </spawn>
     <spawn name="Spirituality" type="ForestLord">
         <location x="1645" y="1107" z="8" map="Ilshenar" radius="50"/>

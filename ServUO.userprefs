@@ -1,12 +1,16 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/Books/BOBFilterGump.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelUpScroll.cs">
     <Files>
       <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="60" Column="5" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BulkOrderBook.cs" Line="16" Column="35" />
-      <File FileName="Scripts/Custom/FS Animal Taming System Gen 2/Animal Taming BODs/Taming BOB/TamingBOBFilterGump.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BOBFilterGump.cs" Line="409" Column="14" />
-      <File FileName="Scripts/Services/BulkOrders/Books/BOBGump.cs" Line="445" Column="81" />
-      <File FileName="Server/Gumps/Gump.cs" Line="228" Column="13" />
+      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="375" Column="28" />
+      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="1278" Column="62" />
+      <File FileName="Scripts/Services/BulkOrders/SmallBODs/SmallBOD.cs" Line="318" Column="29" />
+      <File FileName="Scripts/Services/BulkOrders/Rewards/ConfirmBankPointsGump.cs" Line="34" Column="75" />
+      <File FileName="Scripts/Gumps/ConfirmCallbackGump.cs" Line="10" Column="3" />
+      <File FileName="Scripts/Custom/ItemRelayerDeeds/RelayerGump.cs" Line="53" Column="39" />
+      <File FileName="Scripts/Custom/ItemRelayerDeeds/RelayerArmsDeed.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelItemDeed.cs" Line="58" Column="15" />
+      <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelUpScroll.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
