@@ -185,18 +185,24 @@ namespace Server.Engines.CannedEvil
 					spawn.KillsMod = XmlConvert.ToDouble(value);
 					foreach(XmlNode child in node.ChildNodes)
 					{
-						if (child.Name.Equals("location"))
-						{
-							int x = XmlConvert.ToInt32(GetAttr(child, "x", "0"));
-							int y = XmlConvert.ToInt32(GetAttr(child, "y", "0"));
-							int z = XmlConvert.ToInt32(GetAttr(child, "z", "0"));
-							int r = XmlConvert.ToInt32(GetAttr(child, "radius", "0"));
-							string mapName = GetAttr(child, "map", "Felucca");
-							Map map = Map.Parse(mapName);
+                        if (child.Name.Equals("location"))
+                        {
+                            int x = XmlConvert.ToInt32(GetAttr(child, "x", "0"));
+                            int y = XmlConvert.ToInt32(GetAttr(child, "y", "0"));
+                            int z = XmlConvert.ToInt32(GetAttr(child, "z", "0"));
+                            int r = XmlConvert.ToInt32(GetAttr(child, "radius", "0"));
+                            string mapName = GetAttr(child, "map", "Felucca");
+                            Map map = Map.Parse(mapName);
 
-							spawn.SpawnRadius = r;
-							spawn.MoveToWorld(new Point3D(x, y, z), map);
-						}
+                            spawn.SpawnRadius = r;
+                            spawn.MoveToWorld(new Point3D(x, y, z), map);
+                        }
+                        else if (child.Name.Equals("schedule"))
+                        {
+                            spawn.ExpireMinutesDelay = XmlConvert.ToDouble(GetAttr(child, "expire", "10.0"));
+                            spawn.RestartMinHoursDelay = XmlConvert.ToInt32(GetAttr(child, "min", "4"));
+                            spawn.RestartMaxHoursDelay = XmlConvert.ToInt32(GetAttr(child, "max", "4"));
+                        }
 					}
 					spawn.GroupName = GetAttr(node, "group", null);
 					m_AllSpawns.Add(spawn);

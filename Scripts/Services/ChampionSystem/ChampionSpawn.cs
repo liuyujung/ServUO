@@ -67,6 +67,15 @@ namespace Server.Engines.CannedEvil
 		public string SpawnName { get; set; }
 
 		[CommandProperty(AccessLevel.GameMaster)]
+		public int RestartMinHoursDelay { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public int RestartMaxHoursDelay { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
+		public double ExpireMinutesDelay { get; set; }
+
+		[CommandProperty(AccessLevel.GameMaster)]
         public bool ConfinedRoaming
         {
             get
@@ -107,7 +116,11 @@ namespace Server.Engines.CannedEvil
             m_Altar = new ChampionAltar(this);
             m_Idol = new IdolOfTheChampion(this);
 
-            m_ExpireDelay = TimeSpan.FromMinutes(10.0);
+            RestartMinHoursDelay = 4;
+            RestartMaxHoursDelay = 9;
+            ExpireMinutesDelay = 10.0;
+
+            m_ExpireDelay = TimeSpan.FromMinutes(ExpireMinutesDelay);
             m_RestartDelay = TimeSpan.FromMinutes(10.0);
 
             m_DamageEntries = new Dictionary<Mobile, int>();
@@ -185,7 +198,7 @@ namespace Server.Engines.CannedEvil
         {
             get
             {
-                m_RestartDelay = TimeSpan.FromHours(Utility.RandomMinMax(4, 10));
+                m_RestartDelay = TimeSpan.FromHours(Utility.RandomMinMax(RestartMinHoursDelay, RestartMaxHoursDelay));
                 return m_RestartDelay;
             }
             set

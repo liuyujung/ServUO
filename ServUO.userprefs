@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/ChampionSystem/ChampionSpawn.cs">
     <Files>
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="28" Column="4" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="1" Column="1" />
       <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="1" Column="1" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelItemDeed.cs" Line="58" Column="15" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelUpScroll.cs" Line="144" Column="18" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="196" Column="1" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawn.cs" Line="36" Column="39" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="286" Column="37" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawn.cs" Line="201" Column="68" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
