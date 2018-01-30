@@ -218,19 +218,10 @@ namespace Server.Spells.Druid
 				
 				if ( Deleted )
 					return;
-
-                if (caster.AccessLevel >= AccessLevel.GameMaster)
-                {
-					m_Timer = new InternalTimer(this, TimeSpan.FromMinutes(5));
-					m_Timer.Start();
-                    m_End = DateTime.Now + TimeSpan.FromMinutes(5);
-                }
-                else
-                {
-					m_Timer = new InternalTimer(this, TimeSpan.FromSeconds(30.0));
-					m_Timer.Start();
-                    m_End = DateTime.Now + TimeSpan.FromSeconds(30.0);
-                }
+                
+				m_Timer = new InternalTimer(this, TimeSpan.FromSeconds(30.0));
+				m_Timer.Start();
+                m_End = DateTime.Now + TimeSpan.FromSeconds(30.0);
 
 				m_Bless = new BlessTimer( this, m_Caster, m_End );
 				m_Bless.Start();
