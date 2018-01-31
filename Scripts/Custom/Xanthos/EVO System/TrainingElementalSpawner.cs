@@ -17,7 +17,7 @@ namespace Xanthos.Evo
 		[Constructable]
 		public TrainingElementalSpawner() : base( "TrainingElemental" )
 		{
-			HomeRange = 1;
+			HomeRange = 0;
 			MinDelay = TimeSpan.FromMinutes( 0 );
 			MaxDelay = TimeSpan.FromMinutes( 1 );
 			Spawn();
