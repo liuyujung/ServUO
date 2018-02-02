@@ -1,12 +1,11 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/ChampionSystem/ChampionSpawn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs">
     <Files>
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/BulkOrders/BulkOrderSystem.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelItemDeed.cs" Line="58" Column="15" />
-      <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelUpScroll.cs" Line="144" Column="18" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="286" Column="37" />
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSpawn.cs" Line="201" Column="68" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="85" Column="44" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ASControlCenter.cs" Line="165" Column="33" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="67" Column="142" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="189" Column="26" />
+      <File FileName="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs" Line="296" Column="39" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
