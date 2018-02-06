@@ -1,4 +1,4 @@
-MCS=mcs
+MCS=/Library/Frameworks/Mono.framework/Versions/4.8.0/bin/mcs
 CURPATH=`pwd`
 SRVPATH=${CURPATH}/Server
 SDKPATH=${CURPATH}/Ultima
@@ -7,7 +7,7 @@ NOWARNS=0618,0219,0414,1635
 
 # Detect whether we are on Mac OS X environment or not
 ifeq ($(shell uname -s),Darwin)
-  MONO=mono64
+  MONO=/Library/Frameworks/Mono.framework/Versions/4.8.0/bin/mono64
 else
   MONO=mono
 endif

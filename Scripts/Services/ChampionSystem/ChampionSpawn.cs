@@ -1339,7 +1339,11 @@ namespace Server.Engines.CannedEvil
         {
             base.Serialize(writer);
 
-            writer.Write((int)7); // version
+            writer.Write((int)8); // version
+
+            writer.Write(RestartMinHoursDelay);
+            writer.Write(RestartMaxHoursDelay);
+            writer.Write(ExpireMinutesDelay);
 
 			writer.Write(KillsMod);
 			writer.Write(GroupName);
@@ -1394,6 +1398,11 @@ namespace Server.Engines.CannedEvil
 
             switch( version )
             {
+                case 8:
+                    RestartMinHoursDelay = reader.ReadInt();
+                    RestartMaxHoursDelay = reader.ReadInt();
+                    ExpireMinutesDelay = reader.ReadDouble();
+                    goto case 7;
 				case 7:
 					KillsMod = reader.ReadDouble();
 					GroupName = reader.ReadString();
