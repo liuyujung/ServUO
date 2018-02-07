@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/LargeBODs/LargeBODAcceptGump.cs">
     <Files>
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="103" Column="41" />
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ASControlCenter.cs" Line="165" Column="33" />
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="67" Column="142" />
-      <File FileName="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs" Line="1243" Column="22" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ASControlCenter.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs" Line="1" Column="5" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlSockets/XmlSocketItems/TestSocketedWeapon.cs" Line="11" Column="30" />
+      <File FileName="Scripts/Services/BulkOrders/LargeBODs/LargeBODAcceptGump.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
