@@ -1237,9 +1237,15 @@ namespace Server.Gumps
 				if ( item != "" && gumpname != "" )
 				{
 					VSItem vsi = new VSItem( item, gumpname, price, amount, blessbond, bbprice, description );
-					m_Stone.ItemList.Add( vsi );
-
-					from.SendMessage( "Item Added." );
+                    if (vsi.GetItemType() == null)
+                    {
+                        from.SendMessage("Item Not Found.");
+                    }
+                    else
+                    {
+                        m_Stone.ItemList.Add(vsi);
+                        from.SendMessage("Item Added.");
+                    }
 				}
 				else
 				{
