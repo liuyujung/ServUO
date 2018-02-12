@@ -678,7 +678,19 @@ namespace Server.Gumps
 
 						if ( type != null )
 						{
-							object o = Activator.CreateInstance( type );
+                            object o = null;
+
+                            if (type.GetInterface("IAccountRestricted") != null)
+                            {
+                                o = Activator.CreateInstance(type, from.Account.Username);
+                            }
+                            else
+                            {
+                                if (type.GetConstructor(Type.EmptyTypes) != null)
+                                {
+                                    o = Activator.CreateInstance(type);
+                                }
+                            }
 
 							if ( o is Mobile )
 							{
@@ -800,7 +812,19 @@ namespace Server.Gumps
 
 						if ( type != null )
 						{
-							object o = Activator.CreateInstance( type );
+							object o = null;
+
+							if (type.GetInterface("IAccountRestricted") != null)
+							{
+								o = Activator.CreateInstance(type, from.Account.Username);
+							}
+							else
+							{
+								if (type.GetConstructor(Type.EmptyTypes) != null)
+								{
+									o = Activator.CreateInstance(type);
+								}
+							}
 
 							if ( o is Mobile )
 							{
