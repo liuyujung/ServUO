@@ -9207,6 +9207,11 @@ namespace Server
 			}
 		}
 
+        // allan-start
+		public virtual void OnAfterDroppedItemToWorld(Item item)
+		{ }
+        // allan-end
+
 		public virtual void OnAfterNameChange(string oldName, string newName)
 		{ }
 

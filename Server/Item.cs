@@ -5010,6 +5010,10 @@ namespace Server
 
             from.SendSound(soundID == -1 ? 0x42 : soundID, GetWorldLocation());
 
+            // allan-start
+            from.OnAfterDroppedItemToWorld(this);
+            // allan-end
+
             return true;
         }
 
