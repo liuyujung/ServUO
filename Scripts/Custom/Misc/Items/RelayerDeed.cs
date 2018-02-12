@@ -67,6 +67,10 @@ namespace Server.Items
 						from.CloseGump(typeof(RelayerConfirmationGump));
                         from.SendGump(new RelayerConfirmationGump(m_Deed, o));
                     }
+                    else
+                    {
+                        from.SendMessage("Invalid item!");
+                    }
 				}
 				else
 				{
@@ -81,7 +85,7 @@ namespace Server.Items
 			private Item m_Targeted;
 
 			public RelayerConfirmationGump(RelayerDeed deed, Item targeted)
-				: base(10, 10)
+				: base(150, 150)
 			{
                 m_Deed = deed;
 				m_Targeted = targeted;
@@ -152,7 +156,7 @@ namespace Server.Items
             private Item m_Sample;
 
 			public RelayerFinalConfirmationGump(RelayerDeed deed, Item targeted, Item sample)
-				: base(10, 10)
+				: base(150, 150)
 			{
 				m_Deed = deed;
 				m_Targeted = targeted;
@@ -161,7 +165,7 @@ namespace Server.Items
 				AddPage(0);
 
 				AddBackground(0, 0, 240, 235, 0x2422);
-                AddHtml(15, 15, 210, 175, "You are going to change the appearance and layer of " + m_Targeted.Name + " to " + m_Sample.Name + ". The sample will be deleted after. Are you sure?", true, false);
+                AddHtml(15, 15, 210, 175, "You are going to change the appearance and layer of " + m_Targeted.Name + " to " + m_Sample.Name + ". Are you sure?", true, false);
 
 				AddButton(160, 195, 0xF7, 0xF8, 1, GumpButtonType.Reply, 0);    //Okay
 				AddButton(90, 195, 0xF2, 0xF1, 0, GumpButtonType.Reply, 0);     //Cancel
@@ -175,7 +179,6 @@ namespace Server.Items
 				Mobile from = sender.Mobile;
                 m_Targeted.ItemID = m_Sample.ItemID;
                 m_Targeted.Layer = m_Sample.Layer;
-				m_Sample.Delete();
 				m_Deed.Delete();
                 from.SendMessage("You have changed the appearance and layer of " + m_Targeted.Name + " to " + m_Sample.Name + ".");
 			}

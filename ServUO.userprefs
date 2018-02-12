@@ -1,11 +1,10 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/PlayerMobile.cs">
     <Files>
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="90" Column="9" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
-      <File FileName="Scripts/Custom/Misc/Items/RelayerDeed.cs" Line="18" Column="55" />
-      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="770" Column="39" />
-      <File FileName="Scripts/Multis/BaseHouse.cs" Line="2180" Column="21" />
+      <File FileName="Scripts/Custom/Misc/Items/RelayerDeed.cs" Line="159" Column="20" />
+      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="755" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
