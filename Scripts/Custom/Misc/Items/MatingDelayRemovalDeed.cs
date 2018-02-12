@@ -9,7 +9,6 @@ namespace Server.Items
 		public MatingDelayRemovalDeed(): base(0x14F0)
 		{
 			Weight = 1.0;
-			Movable = true;
 			LootType = LootType.Blessed;
 			Name = "Mating Delay Removal Deed";
 		}
