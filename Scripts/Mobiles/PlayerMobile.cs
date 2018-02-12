@@ -752,6 +752,35 @@ namespace Server.Mobiles
 				}
 			}
 
+			// allan - start
+			BaseHouse house = BaseHouse.FindHouseAt(item);
+
+            if (house != null && (house.IsOwner(this) || house.IsCoOwner(this)) && house.IsInside(item))
+			{
+                if (item is VendorRentalContract)
+                {
+                    this.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1062392); // You must double click the contract in your pack to lock it down.
+				}
+                else
+                {
+                    if (item is AddonContainerComponent)
+                    {
+						AddonContainerComponent component = (AddonContainerComponent)item;
+                        if (component.Addon != null)
+                            house.AddSecure(this, component.Addon);
+                    }
+                    else
+                    {
+                        house.AddSecure(this, item);
+                    }
+                }
+			}
+			else if (item.LootType == LootType.Blessed || item.Insured)
+			{
+				return false;
+			}
+			// allan - end
+
 			return true;
 		}
 

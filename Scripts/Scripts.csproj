@@ -13221,6 +13221,7 @@
     <Compile Include="Custom\Spells\Items\Scrolls\Ranger\WoodCarvingsScroll.cs" />
     <Compile Include="Custom\Spells\Items\OrcFace.cs" />
     <Compile Include="Items\Functional\GoblinFloorTrap.cs" />
+    <Compile Include="Custom\Misc\Items\RelayerDeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

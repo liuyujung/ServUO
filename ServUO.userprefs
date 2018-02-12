@@ -1,12 +1,11 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/BulkOrders/LargeBODs/LargeBODAcceptGump.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/PlayerMobile.cs">
     <Files>
-      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ASControlCenter.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Custom/OWLTR4.0/Tokens/Token Vendor Stone.cs" Line="1" Column="5" />
-      <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlSockets/XmlSocketItems/TestSocketedWeapon.cs" Line="11" Column="30" />
-      <File FileName="Scripts/Services/BulkOrders/LargeBODs/LargeBODAcceptGump.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="90" Column="9" />
+      <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
+      <File FileName="Scripts/Custom/Misc/Items/RelayerDeed.cs" Line="18" Column="55" />
+      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="770" Column="39" />
+      <File FileName="Scripts/Multis/BaseHouse.cs" Line="2180" Column="21" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
