@@ -17,7 +17,13 @@ namespace Server.Misc
         public static List<RegenBonusHandler> StamBonusHandlers = new List<RegenBonusHandler>();
         public static List<RegenBonusHandler> ManaBonusHandlers = new List<RegenBonusHandler>();
 
-        [CallPriority(10)]
+		// allan-start
+		private static int RegenHitsCap { get; set; }
+        private static int RegenStamCap { get; set; }
+        private static int RegenManaCap { get; set; }
+		// allan-end
+
+		[CallPriority(10)]
         public static void Configure()
         {
             Mobile.DefaultHitsRate = TimeSpan.FromSeconds(11.0);
@@ -31,7 +37,13 @@ namespace Server.Misc
                 Mobile.StamRegenRateHandler = new RegenRateHandler(Mobile_StamRegenRate);
                 Mobile.HitsRegenRateHandler = new RegenRateHandler(Mobile_HitsRegenRate);
             }
-        }
+
+			// allan-start
+			RegenHitsCap = Config.Get("PlayerCaps.RegenHitsCap", 18);
+            RegenStamCap = Config.Get("PlayerCaps.RegenStamCap", 24);
+            RegenManaCap = Config.Get("PlayerCaps.RegenManaCap", 18);
+			// allan-end
+		}
 
         public static double GetArmorOffset(Mobile from)
         {
@@ -87,10 +99,18 @@ namespace Server.Misc
             if (points < 0)
                 points = 0;
 
-            if (Core.ML && from is PlayerMobile)	//does racial bonus go before/after?
-                points = Math.Min(points, 18);
+			//if (Core.ML && from is PlayerMobile)	//does racial bonus go before/after?
+			    //points = Math.Min(points, 18);
 
-            if (CheckTransform(from, typeof(HorrificBeastSpell)))
+			// allan-start
+			if (RegenHitsCap > 0)
+            {
+                if (Core.ML && from is PlayerMobile)
+                    points = Math.Min(points, RegenHitsCap);
+            }
+			// allan-end
+
+			if (CheckTransform(from, typeof(HorrificBeastSpell)))
                 points += 20;
 
             if (CheckAnimal(from, typeof(Dog)) || CheckAnimal(from, typeof(Cat)))
@@ -128,10 +148,18 @@ namespace Server.Misc
             if (CheckAnimal(from, typeof(Kirin)))
                 cappedPoints += 20;
 
-            if (Core.ML && from is PlayerMobile)
-                cappedPoints = Math.Min(cappedPoints, 24);
+			//if (Core.ML && from is PlayerMobile)
+			    //cappedPoints = Math.Min(cappedPoints, 24);
 
-            points += cappedPoints;
+			// allan-start
+			if (RegenStamCap > 0)
+            {
+                if (Core.ML && from is PlayerMobile)
+                    cappedPoints = Math.Min(cappedPoints, RegenStamCap);
+            }
+			// allan-end
+
+			points += cappedPoints;
 
             // Skill Masteries
             points += RampageSpell.GetBonus(from, RampageSpell.BonusType.StamRegen); // After the cap???
@@ -182,8 +210,16 @@ namespace Server.Misc
                 else if (CheckTransform(from, typeof(LichFormSpell)))
                     cappedPoints += 13;
 
-                if (Core.ML && from is PlayerMobile)
-                    cappedPoints = Math.Min(cappedPoints, 18);
+                //if (Core.ML && from is PlayerMobile)
+                    //cappedPoints = Math.Min(cappedPoints, 18);
+
+                // allan-start
+                if (RegenManaCap > 0)
+                {
+                    if (Core.ML && from is PlayerMobile)
+                        cappedPoints = Math.Min(cappedPoints, RegenManaCap);
+                }
+                // allan-end
 
                 totalPoints += cappedPoints;
 
