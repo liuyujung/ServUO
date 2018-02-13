@@ -13,6 +13,7 @@ namespace Server.Items
 			Weight = 1.0;
 			LootType = LootType.Blessed;
 			Name = "Relayer Deed";
+            Hue = 1161;
 		}
 
 		public RelayerDeed(Serial serial) : base(serial) { }
