@@ -1,12 +1,9 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Misc/RegenRates.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Misc/Items/RelayerDeed.cs">
     <Files>
       <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
-      <File FileName="Scripts/Custom/Misc/Items/RelayerDeed.cs" Line="159" Column="20" />
-      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="2844" Column="71" />
-      <File FileName="Scripts/Misc/RegenRates.cs" Line="183" Column="82" />
-      <File FileName="Server/Mobile.cs" Line="6030" Column="70" />
+      <File FileName="Scripts/Custom/Misc/Items/RelayerDeed.cs" Line="16" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
