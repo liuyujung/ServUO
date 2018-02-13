@@ -1,9 +1,4 @@
-using Server.Items;
-using Server.Gumps; 
-using Server.Network; 
-using Server.Menus; 
-using Server.Mobiles;
-using Server.Menus.Questions;
+using Server.Misc;
 
 namespace Server.Items
 { 
@@ -34,27 +29,8 @@ namespace Server.Items
 
         public override void OnSpeech(SpeechEventArgs e)
         {
-            if (!e.Handled && (this.IsChildOf(e.Mobile.Backpack) || e.Mobile.InRange(this.Location, 12)))
-            {
-				if (e.Keywords != null && e.Keywords.Length > 0)
-				{
-					int keyword = e.Keywords[0];
-					if (keyword == 0x0002)
-					{
-						e.Handled = true;
-						if (e.Mobile.Criminal)
-						{
-							e.Mobile.SendMessage("Thou art a criminal and cannot access thy bank box.");
-						}
-						else
-						{
-							BankBox box = e.Mobile.BankBox;
-							if (box != null)
-								box.Open();
-						}
-					}
-				}
-            }
+            BankUtility.OnSpeech(e, Location);
+            base.OnSpeech(e);
         }
  
 		public BankCrystal( Serial serial ) : base( serial ) 

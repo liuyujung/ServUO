@@ -13204,6 +13204,8 @@
     <Compile Include="Custom\Battle Chess\Pieces\Queen.cs" />
     <Compile Include="Custom\Battle Chess\Pieces\Rook.cs" />
     <Compile Include="Custom\Items\TravelBook.cs" />
+    <Compile Include="Custom\Items\Addons\BankStone.cs" />
+    <Compile Include="Custom\Misc\BankUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">
@@ -13367,6 +13369,8 @@
     <Folder Include="Custom\Staff\" />
     <Folder Include="Custom\Auction\" />
     <Folder Include="Custom\Battle Chess\" />
+    <Folder Include="Custom\Items\Addons\" />
+    <Folder Include="Custom\Misc\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
