@@ -1,7 +1,7 @@
-﻿using System;
-using Server.Gumps;
+﻿using Server.Gumps;
 using Server.Targeting;
 using Server.Network;
+using Server.Misc;
 
 namespace Server.Items
 {
@@ -94,7 +94,7 @@ namespace Server.Items
 				AddPage(0);
 
 				AddBackground(0, 0, 240, 235, 0x2422);
-                AddHtml(15, 15, 210, 175, "You are using this relayer deed on " + targeted.Name + ". Continue to pick a sample?", true, false);
+                AddHtml(15, 15, 210, 175, "You are using this relayer deed on " + ItemUtility.GetItemName(targeted) + ". Continue to pick a sample?", true, false);
 
 				AddButton(160, 195, 0xF7, 0xF8, 1, GumpButtonType.Reply, 0);    //Okay
 				AddButton(90, 195, 0xF2, 0xF1, 0, GumpButtonType.Reply, 0);     //Cancel
@@ -166,7 +166,7 @@ namespace Server.Items
 				AddPage(0);
 
 				AddBackground(0, 0, 240, 235, 0x2422);
-                AddHtml(15, 15, 210, 175, "You are going to change the appearance and layer of " + m_Targeted.Name + " to " + m_Sample.Name + ". Are you sure?", true, false);
+                AddHtml(15, 15, 210, 175, "You are going to change the appearance and layer of " + ItemUtility.GetItemName(m_Targeted) + " to " + ItemUtility.GetItemName(m_Sample) + ". Are you sure?", true, false);
 
 				AddButton(160, 195, 0xF7, 0xF8, 1, GumpButtonType.Reply, 0);    //Okay
 				AddButton(90, 195, 0xF2, 0xF1, 0, GumpButtonType.Reply, 0);     //Cancel
@@ -178,10 +178,10 @@ namespace Server.Items
 					return;
 
 				Mobile from = sender.Mobile;
-                m_Targeted.ItemID = m_Sample.ItemID;
-                m_Targeted.Layer = m_Sample.Layer;
+				m_Targeted.Layer = m_Sample.Layer;
+				m_Targeted.ItemID = m_Sample.ItemID;
 				m_Deed.Delete();
-                from.SendMessage("You have changed the appearance and layer of " + m_Targeted.Name + " to " + m_Sample.Name + ".");
+                from.SendMessage("You have changed the appearance and layer of " + ItemUtility.GetItemName(m_Targeted) + " to " + ItemUtility.GetItemName(m_Sample) + ".");
 			}
 		}
 

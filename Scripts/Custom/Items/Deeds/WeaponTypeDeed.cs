@@ -1,12 +1,6 @@
-
-using System;
-using Server;
-using Server.Misc;
-using Server.Mobiles;
 using Server.Network;
-using Server.Prompts;
+using Server.Misc;
 using Server.Targeting;
-using Server.Items;
 using Server.Gumps;
 
 namespace Server.Items
@@ -106,7 +100,7 @@ namespace Server.Items
 				AddPage(0);
 
 				AddBackground(0, 0, 240, 235, 0x2422);
-                AddHtml(15, 15, 210, 175, "You are using this weapon type deed on " + targeted.DefaultName + ". Continue to pick a sample weapon?", true, false);
+                AddHtml(15, 15, 210, 175, "You are using this weapon type deed on " + ItemUtility.GetItemName(targeted) + ". Continue to pick a sample weapon?", true, false);
 
 				AddButton(160, 195, 0xF7, 0xF8, 1, GumpButtonType.Reply, 0);    //Okay
 				AddButton(90, 195, 0xF2, 0xF1, 0, GumpButtonType.Reply, 0);     //Cancel
@@ -171,6 +165,7 @@ namespace Server.Items
 			private WeaponTypeDeed m_Deed;
 			private Item m_Targeted;
 			private Item m_Sample;
+            private bool m_ChangeToOneHanded;
 
 			public WeaponFinalConfirmationGump(WeaponTypeDeed deed, Item targeted, Item sample)
 				: base(150, 150)
@@ -182,7 +177,16 @@ namespace Server.Items
 				AddPage(0);
 
 				AddBackground(0, 0, 240, 235, 0x2422);
-				AddHtml(15, 15, 210, 175, "You are going to change the type of " + m_Targeted.Name + " to the type of " + m_Sample.Name + ". Are you sure?", true, false);
+                if (targeted == sample && targeted.Layer == Layer.TwoHanded)
+                {
+                    m_ChangeToOneHanded = true;
+                    AddHtml(15, 15, 210, 175, "You are going to make " + ItemUtility.GetItemName(m_Targeted) + " one-handed. Are you sure?", true, false);
+                }
+                else
+                {
+                    m_ChangeToOneHanded = false;
+                    AddHtml(15, 15, 210, 175, "You are going to change the type of " + ItemUtility.GetItemName(m_Targeted) + " to the type of " + ItemUtility.GetItemName(m_Sample) + ". Are you sure?", true, false);
+                }
 
 				AddButton(160, 195, 0xF7, 0xF8, 1, GumpButtonType.Reply, 0);    //Okay
 				AddButton(90, 195, 0xF2, 0xF1, 0, GumpButtonType.Reply, 0);     //Cancel
@@ -194,10 +198,19 @@ namespace Server.Items
 					return;
 
 				Mobile from = sender.Mobile;
-				m_Targeted.ItemID = m_Sample.ItemID;
-				m_Targeted.Layer = m_Sample.Layer;
+                if (m_ChangeToOneHanded)
+                {
+                    m_Targeted.Layer = Layer.OneHanded;
+                    m_Targeted.InvalidateProperties();
+                    from.SendMessage("You have made " + ItemUtility.GetItemName(m_Targeted) + " one-handed.");
+                }
+                else
+                {
+					m_Targeted.Layer = m_Sample.Layer;
+					m_Targeted.ItemID = m_Sample.ItemID;
+                    from.SendMessage("You have changed the type of " + ItemUtility.GetItemName(m_Targeted) + " to " + ItemUtility.GetItemName(m_Sample) + ".");
+                }
 				m_Deed.Delete();
-				from.SendMessage("You have changed the type of " + m_Targeted.Name + " to " + m_Sample.Name + ".");
 			}
 		}
 

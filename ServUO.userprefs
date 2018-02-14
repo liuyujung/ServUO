@@ -1,14 +1,11 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Items/BankBell.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Items/Deeds/RelayerDeed.cs">
     <Files>
       <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
-      <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Items/Addons/LoomEastAddon.cs" Line="10" Column="39" />
-      <File FileName="Scripts/Items/Addons/MailboxEastAddon.cs" Line="67" Column="43" />
-      <File FileName="Scripts/Custom/Items/BankBell.cs" Line="19" Column="58" />
-      <File FileName="Scripts/Custom/Items/Addons/BankStone.cs" Line="25" Column="36" />
-      <File FileName="Scripts/Custom/Items/BankCrystal.cs" Line="22" Column="13" />
+      <File FileName="Scripts/Custom/Items/Deeds/WeaponTypeDeed.cs" Line="195" Column="19" />
+      <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="5" Column="1" />
+      <File FileName="Scripts/Custom/Apiculture/BeeHiveAddon.cs" Line="289" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
