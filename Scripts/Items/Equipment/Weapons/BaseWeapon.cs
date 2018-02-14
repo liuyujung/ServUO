@@ -987,37 +987,40 @@ namespace Server.Items
                 }
             }
 
-            bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
+            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            {
+                bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
-			#region Stygian Abyss
-			if (from.Race == Race.Gargoyle && !CanBeWornByGargoyles && from.IsPlayer())
-			{
-				from.SendLocalizedMessage(1111708); // Gargoyles can't wear 
-				return false;
-			}
-			#endregion
+                #region Stygian Abyss
+                if (from.Race == Race.Gargoyle && !CanBeWornByGargoyles && from.IsPlayer())
+                {
+                    from.SendLocalizedMessage(1111708); // Gargoyles can't wear 
+                    return false;
+                }
+                #endregion
 
-			if (RequiredRace != null && from.Race != RequiredRace && !morph)
-			{
-				if (RequiredRace == Race.Elf)
-				{
-					from.SendLocalizedMessage(1072203); // Only Elves may use 
-				}
-					#region SA
-				else if (RequiredRace == Race.Gargoyle)
-				{
-					from.SendLocalizedMessage(1111707); // Only gargoyles can wear 
-				}
-					#endregion
+                if (RequiredRace != null && from.Race != RequiredRace && !morph)
+                {
+                    if (RequiredRace == Race.Elf)
+                    {
+                        from.SendLocalizedMessage(1072203); // Only Elves may use 
+                    }
+                    #region SA
+                    else if (RequiredRace == Race.Gargoyle)
+                    {
+                        from.SendLocalizedMessage(1111707); // Only gargoyles can wear 
+                    }
+                    #endregion
 
-				else
-				{
-					from.SendMessage("Only {0} may use ", RequiredRace.PluralName);
-				}
+                    else
+                    {
+                        from.SendMessage("Only {0} may use ", RequiredRace.PluralName);
+                    }
 
-				return false;
-			}
-			else if (from.Dex < DexRequirement)
+                    return false;
+                }
+            }
+            if (from.Dex < DexRequirement)
 			{
 				from.SendMessage("You are not nimble enough to equip that.");
 				return false;
@@ -5369,19 +5372,22 @@ namespace Server.Items
 			if (m_AosSkillBonuses != null)
 			{
 				m_AosSkillBonuses.GetProperties(list);
-			}			
-
-			if (RequiredRace == Race.Elf)
-			{
-				list.Add(1075086); // Elves Only
 			}
 
-			#region Stygian Abyss
-			else if (RequiredRace == Race.Gargoyle)
-			{
-				list.Add(1111709); // Gargoyles Only
-			}
-			#endregion
+            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            {
+                if (RequiredRace == Race.Elf)
+                {
+                    list.Add(1075086); // Elves Only
+                }
+
+                #region Stygian Abyss
+                else if (RequiredRace == Race.Gargoyle)
+                {
+                    list.Add(1111709); // Gargoyles Only
+                }
+                #endregion
+            }
 
 			if (ArtifactRarity > 0)
 			{

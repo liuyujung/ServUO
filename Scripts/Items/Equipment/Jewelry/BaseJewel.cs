@@ -563,7 +563,7 @@ namespace Server.Items
                 }
             }
 
-            if (from.AccessLevel < AccessLevel.GameMaster)
+            if (from.AccessLevel < AccessLevel.GameMaster && Config.Get("PlayerCaps.EnableRaceRestriction", true))
             {
                 bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
@@ -822,10 +822,13 @@ namespace Server.Items
             int prop;
 
             #region Stygian Abyss
-            if (RequiredRace == Race.Elf)
-                list.Add(1075086); // Elves Only
-            else if (RequiredRace == Race.Gargoyle)
-                list.Add(1111709); // Gargoyles Only
+            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            {
+                if (RequiredRace == Race.Elf)
+                    list.Add(1075086); // Elves Only
+                else if (RequiredRace == Race.Gargoyle)
+                    list.Add(1111709); // Gargoyles Only
+            }
             #endregion
 
             if ((prop = ArtifactRarity) > 0)

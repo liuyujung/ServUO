@@ -1,11 +1,12 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Items/Deeds/RelayerDeed.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Items/Equipment/Armor/BaseArmor.cs">
     <Files>
-      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="34" Column="46" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
-      <File FileName="Scripts/Custom/Items/Deeds/WeaponTypeDeed.cs" Line="195" Column="19" />
-      <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="5" Column="1" />
-      <File FileName="Scripts/Custom/Apiculture/BeeHiveAddon.cs" Line="289" Column="11" />
+      <File FileName="Scripts/Items/Equipment/Weapons/GargishAxe.cs" Line="119" Column="50" />
+      <File FileName="Scripts/Items/Equipment/Jewelry/GargishRing.cs" Line="5" Column="35" />
+      <File FileName="Scripts/Items/Equipment/Clothing/BaseClothing.cs" Line="646" Column="42" />
+      <File FileName="Scripts/Items/Equipment/Armor/BaseArmor.cs" Line="1452" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
