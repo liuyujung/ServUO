@@ -55,7 +55,7 @@ namespace Server.Engines.Apiculture
 
 	public class BeeHiveHelper
 	{
-		public static readonly TimeSpan CheckDelay = TimeSpan.FromHours( 24.0 );
+        public static readonly TimeSpan CheckDelay = Config.Get("TestCenter.Enabled", true) ? TimeSpan.FromMinutes(1.0) : TimeSpan.FromHours(24.0);
 		//public static readonly TimeSpan CheckDelay = TimeSpan.FromSeconds( 1.0 );  //for testing
 
 		public static void Configure()
