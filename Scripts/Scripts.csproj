@@ -13207,6 +13207,7 @@
     <Compile Include="Custom\Items\Addons\BankStone.cs" />
     <Compile Include="Custom\Misc\BankUtility.cs" />
     <Compile Include="Custom\Misc\ItemUtility.cs" />
+    <Compile Include="Custom\Items\Deeds\MageWeaponMaliceRemovalDeed.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Server\Server.csproj">

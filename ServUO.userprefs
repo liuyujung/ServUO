@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Items/Equipment/Armor/BaseArmor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/PlayerMobile.cs">
     <Files>
       <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="34" Column="46" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
-      <File FileName="Scripts/Items/Equipment/Weapons/GargishAxe.cs" Line="119" Column="50" />
-      <File FileName="Scripts/Items/Equipment/Jewelry/GargishRing.cs" Line="5" Column="35" />
-      <File FileName="Scripts/Items/Equipment/Clothing/BaseClothing.cs" Line="646" Column="42" />
-      <File FileName="Scripts/Items/Equipment/Armor/BaseArmor.cs" Line="1452" Column="52" />
+      <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="5" Column="1" />
+      <File FileName="Scripts/Misc/AutoSave.cs" Line="106" Column="20" />
+      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="1491" Column="84" />
+      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="2442" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
