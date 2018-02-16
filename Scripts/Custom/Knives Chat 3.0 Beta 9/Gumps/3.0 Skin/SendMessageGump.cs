@@ -34,7 +34,7 @@ namespace Knives.Chat3
 
             if (c_Reply != null)
             {
-                if (c_Reply.Subject.IndexOf("RE:") != 0)
+                if (c_Reply.Subject.IndexOf("RE:", StringComparison.CurrentCultureIgnoreCase) != 0)
                     c_Subject = "RE: " + c_Reply.Subject;
                 else
                     c_Subject = c_Reply.Subject;
