@@ -1521,7 +1521,7 @@ namespace Server.Mobiles
 					}
                     else if (item is BaseQuiver)
                     {
-                        if (Race == Race.Gargoyle)
+                        if (raceRestrictionEnabled && Race == Race.Gargoyle)
                         {
                             from.AddToBackpack(item);
 

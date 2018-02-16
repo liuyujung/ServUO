@@ -800,32 +800,30 @@ namespace Server.Items
                 if (item is BaseClothing)
                 {
                     BaseClothing clothing = (BaseClothing)item;
+                    bool raceRestrictionEnabled = Config.Get("PlayerCaps.EnableRaceRestriction", true);
 
-                    if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+                    #region Stygian Abyss
+                    if (raceRestrictionEnabled && m.Race == Race.Gargoyle && !clothing.CanBeWornByGargoyles)
                     {
-                        #region Stygian Abyss
-                        if (m.Race == Race.Gargoyle && !clothing.CanBeWornByGargoyles)
-                        {
-                            m.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
-                            m.AddToBackpack(clothing);
-                        }
-                        #endregion
-
-                        if (clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
-                        {
-                            if (clothing.RequiredRace == Race.Elf)
-                                m.SendLocalizedMessage(1072203); // Only Elves may use this.
-                            #region Stygian Abyss
-                            else if (clothing.RequiredRace == Race.Gargoyle)
-                                m.SendLocalizedMessage(1111707); // Only gargoyles can wear this.
-                            #endregion
-                            else
-                                m.SendMessage("Only {0} may use this.", clothing.RequiredRace.PluralName);
-
-                            m.AddToBackpack(clothing);
-                        }
+                        m.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
+                        m.AddToBackpack(clothing);
                     }
-                    if (!clothing.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                    #endregion
+
+                    else if (raceRestrictionEnabled && clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
+                    {
+                        if (clothing.RequiredRace == Race.Elf)
+                            m.SendLocalizedMessage(1072203); // Only Elves may use this.
+                        #region Stygian Abyss
+                        else if (clothing.RequiredRace == Race.Gargoyle)
+                            m.SendLocalizedMessage(1111707); // Only gargoyles can wear this.
+                        #endregion
+                        else
+                            m.SendMessage("Only {0} may use this.", clothing.RequiredRace.PluralName);
+
+                        m.AddToBackpack(clothing);
+                    }
+                    else if (!clothing.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
                     {
                         if (clothing.AllowFemaleWearer)
                             m.SendLocalizedMessage(1010388); // Only females can wear this.

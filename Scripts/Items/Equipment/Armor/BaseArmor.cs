@@ -1438,27 +1438,25 @@ namespace Server.Items
                 if (item is BaseArmor)
                 {
                     BaseArmor armor = (BaseArmor)item;
+                    bool raceRestrictionEnabled = Config.Get("PlayerCaps.EnableRaceRestriction", true);
 
-                    if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+                    if (raceRestrictionEnabled && m.Race == Race.Gargoyle && !armor.CanBeWornByGargoyles)
                     {
-                        if (m.Race == Race.Gargoyle && !armor.CanBeWornByGargoyles)
-                        {
-                            m.SendLocalizedMessage(1111708); // Gargoyles can't wear 
-                            m.AddToBackpack(armor);
-                        }
-                        if (armor.RequiredRace != null && m.Race != armor.RequiredRace)
-                        {
-                            if (armor.RequiredRace == Race.Elf)
-                                m.SendLocalizedMessage(1072203); // Only Elves may use 
-                            else if (armor.RequiredRace == Race.Gargoyle)
-                                m.SendLocalizedMessage(1111707); // Only gargoyles can wear 
-                            else
-                                m.SendMessage("Only {0} may use this.", armor.RequiredRace.PluralName);
-
-                            m.AddToBackpack(armor);
-                        }
+                        m.SendLocalizedMessage(1111708); // Gargoyles can't wear 
+                        m.AddToBackpack(armor);
                     }
-                    if (!armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
+                    else if (raceRestrictionEnabled && armor.RequiredRace != null && m.Race != armor.RequiredRace)
+                    {
+                        if (armor.RequiredRace == Race.Elf)
+                            m.SendLocalizedMessage(1072203); // Only Elves may use 
+                        else if (armor.RequiredRace == Race.Gargoyle)
+                            m.SendLocalizedMessage(1111707); // Only gargoyles can wear 
+                        else
+                            m.SendMessage("Only {0} may use this.", armor.RequiredRace.PluralName);
+
+                        m.AddToBackpack(armor);
+                    }
+                    else if (!armor.AllowMaleWearer && !m.Female && m.AccessLevel < AccessLevel.GameMaster)
                     {
                         if (armor.AllowFemaleWearer)
                             m.SendLocalizedMessage(1010388); // Only females can wear 
