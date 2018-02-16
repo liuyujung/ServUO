@@ -9,7 +9,7 @@ namespace Knives.Chat3
         public static void Initialize()
         {
             RUOVersion.AddCommand("HelpContents", AccessLevel.Player, new ChatCommandHandler(OnHelp));
-            RUOVersion.AddCommand("hc", AccessLevel.Player, new ChatCommandHandler(OnHelp));
+            //RUOVersion.AddCommand("hc", AccessLevel.Player, new ChatCommandHandler(OnHelp));
         }
 
         private static void OnHelp(CommandInfo e)

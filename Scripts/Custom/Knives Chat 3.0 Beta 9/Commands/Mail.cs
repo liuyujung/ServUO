@@ -8,7 +8,7 @@ namespace Knives.Chat3
         public static void Initialize()
         {
             RUOVersion.AddCommand("Mail", AccessLevel.Player, new ChatCommandHandler(OnMail));
-            RUOVersion.AddCommand("Ma", AccessLevel.Player, new ChatCommandHandler(OnMail));
+            //RUOVersion.AddCommand("Ma", AccessLevel.Player, new ChatCommandHandler(OnMail));
         }
 
         private static void OnMail(CommandInfo e)

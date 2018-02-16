@@ -8,7 +8,7 @@ namespace Knives.Chat3
         public static void Initialize()
         {
             RUOVersion.AddCommand("Friends", AccessLevel.Player, new ChatCommandHandler(OnFriends));
-            RUOVersion.AddCommand("Fri", AccessLevel.Player, new ChatCommandHandler(OnFriends));
+            //RUOVersion.AddCommand("Fri", AccessLevel.Player, new ChatCommandHandler(OnFriends));
         }
 
         private static void OnFriends(CommandInfo e)
