@@ -2,17 +2,17 @@
 
 namespace Server.Items
 {
-    public class MageWeaponMaliceRemovalDeed : Item
+    public class MageWeaponMalusRemovalDeed : Item
     {
         [Constructable]
-        public MageWeaponMaliceRemovalDeed() : base(0x14F0)
+        public MageWeaponMalusRemovalDeed() : base(0x14F0)
         {
 			Weight = 1.0;
 			LootType = LootType.Blessed;
-			Name = "Mage Weapon Malice Removal Deed";
+			Name = "Mage Weapon Malus Removal Deed";
         }
 
-        public MageWeaponMaliceRemovalDeed(Serial serial) : base(serial) { }
+        public MageWeaponMalusRemovalDeed(Serial serial) : base(serial) { }
 
 		public override void OnDoubleClick(Mobile from)
 		{
@@ -20,8 +20,8 @@ namespace Server.Items
 				from.SendLocalizedMessage(1042001); // That must be in your pack for you to use it.
 			else
 			{
-				from.SendMessage("Please target the weapon you would like to remove the mage weapon malice.");
-				from.Target = new MageWeaponMaliceRemovalTarget(this);
+				from.SendMessage("Please target the weapon you would like to remove the mage weapon Malus.");
+				from.Target = new MageWeaponMalusRemovalTarget(this);
 			}
 		}
 
@@ -38,11 +38,11 @@ namespace Server.Items
 		}
     }
 
-	public class MageWeaponMaliceRemovalTarget : Target
+	public class MageWeaponMalusRemovalTarget : Target
 	{
-		private MageWeaponMaliceRemovalDeed m_Deed;
+		private MageWeaponMalusRemovalDeed m_Deed;
 
-		public MageWeaponMaliceRemovalTarget(MageWeaponMaliceRemovalDeed deed) : base(1, false, TargetFlags.None)
+		public MageWeaponMalusRemovalTarget(MageWeaponMalusRemovalDeed deed) : base(1, false, TargetFlags.None)
 		{
 			m_Deed = deed;
 		}
@@ -60,12 +60,12 @@ namespace Server.Items
                 if (attributes.MageWeapon != 0)
                 {
                     attributes.MageWeapon = 0;
-                    from.SendMessage("The mage weapon malice has been removed.");
+                    from.SendMessage("The mage weapon malus has been removed.");
                     m_Deed.Delete();
                 }
                 else
                 {
-                    from.SendMessage("The weapon does not have a mage weapon malice.");
+                    from.SendMessage("The weapon does not have a mage weapon malus.");
                 }
 			}
 			else
