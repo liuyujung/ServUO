@@ -67,6 +67,8 @@ namespace Server.Items
         private Mobile _Owner;
         private string _OwnerName;
 
+        private static bool jewelRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableJewelRaceRestriction", true);
+
         [CommandProperty(AccessLevel.GameMaster)]
         public TalismanAttribute Protection
         {
@@ -577,7 +579,7 @@ namespace Server.Items
                 }
             }
 
-            if (from.AccessLevel < AccessLevel.GameMaster && Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (from.AccessLevel < AccessLevel.GameMaster && jewelRaceRestrictionEnabled)
             {
                 bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
@@ -840,7 +842,7 @@ namespace Server.Items
             int prop;
 
             #region Stygian Abyss
-            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (jewelRaceRestrictionEnabled)
             {
                 if (RequiredRace == Race.Elf)
                     list.Add(1075086); // Elves Only

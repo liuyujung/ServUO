@@ -120,6 +120,9 @@ namespace Server.Items
         private int m_StrReq = -1, m_DexReq = -1, m_IntReq = -1;
         private AMA m_Meditate = (AMA)(-1);
 
+		private static bool armorRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableArmorRaceRestriction", true);
+		private static bool jewelRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableJewelRaceRestriction", true);
+
         public virtual bool AllowMaleWearer
         {
             get
@@ -1438,14 +1441,13 @@ namespace Server.Items
                 if (item is BaseArmor)
                 {
                     BaseArmor armor = (BaseArmor)item;
-                    bool raceRestrictionEnabled = Config.Get("PlayerCaps.EnableRaceRestriction", true);
 
-                    if (raceRestrictionEnabled && m.Race == Race.Gargoyle && !armor.CanBeWornByGargoyles)
+                    if (isRaceCheckNeeded(item) && m.Race == Race.Gargoyle && !armor.CanBeWornByGargoyles)
                     {
                         m.SendLocalizedMessage(1111708); // Gargoyles can't wear 
                         m.AddToBackpack(armor);
                     }
-                    else if (raceRestrictionEnabled && armor.RequiredRace != null && m.Race != armor.RequiredRace)
+                    else if (isRaceCheckNeeded(item) && armor.RequiredRace != null && m.Race != armor.RequiredRace)
                     {
                         if (armor.RequiredRace == Race.Elf)
                             m.SendLocalizedMessage(1072203); // Only Elves may use 
@@ -2417,7 +2419,7 @@ namespace Server.Items
                     from.SendLocalizedMessage(1155496); // This item can only be used by VvV participants!
                     return false;
                 }
-                if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+                if (isRaceCheckNeeded(this))
                 {
                     bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
@@ -2871,7 +2873,7 @@ namespace Server.Items
             }
             #endregion
 
-            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (isRaceCheckNeeded(this))
             {
                 if (RequiredRace == Race.Elf)
                     list.Add(1075086); // Elves Only
@@ -3626,6 +3628,12 @@ namespace Server.Items
                 m_Altered = value;
                 InvalidateProperties();
             }
+        }
+
+        public static bool isRaceCheckNeeded(Item item)
+        {
+			bool isJewel = item is GargishNecklace || item is GargishEarrings;
+            return isJewel ? jewelRaceRestrictionEnabled : armorRaceRestrictionEnabled;
         }
     }
 }

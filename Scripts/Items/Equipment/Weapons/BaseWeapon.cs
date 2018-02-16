@@ -258,6 +258,8 @@ namespace Server.Items
 
 		public virtual SkillName AccuracySkill { get { return SkillName.Tactics; } }
 
+        private static bool weaponRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableWeaponRaceRestriction", true);
+
         public override double DefaultWeight
         {
             get
@@ -987,7 +989,7 @@ namespace Server.Items
                 }
             }
 
-            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (weaponRaceRestrictionEnabled)
             {
                 bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
@@ -5371,7 +5373,7 @@ namespace Server.Items
 				m_AosSkillBonuses.GetProperties(list);
 			}
 
-            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (weaponRaceRestrictionEnabled)
             {
                 if (RequiredRace == Race.Elf)
                 {

@@ -7,7 +7,7 @@ NOWARNS=0618,0219,0414,1635
 
 # Detect whether we are on Mac OS X environment or not
 #ifeq ($(shell uname -s),Darwin)
-#  MONO=/Library/Frameworks/Mono.framework/Versions/4.8.0/bin/mono64
+  MONO=/Library/Frameworks/Mono.framework/Versions/4.8.0/bin/mono64
 #else
 #  MONO=mono
 #endif
@@ -37,5 +37,5 @@ ServUO.MONO.exe: Ultima.dll Server/*.cs
 
 ServUO.sh: ServUO.MONO.exe
 	echo "#!/bin/sh" > ${CURPATH}/ServUO.sh
-	echo "mono ${CURPATH}/ServUO.MONO.exe" >> ${CURPATH}/ServUO.sh
+	echo "${MONO} ${CURPATH}/ServUO.MONO.exe" >> ${CURPATH}/ServUO.sh
 	chmod a+x ${CURPATH}/ServUO.sh

@@ -1376,7 +1376,8 @@ namespace Server.Mobiles
                     #endregion
 
                     bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
-                    bool raceRestrictionEnabled = Config.Get("PlayerCaps.EnableRaceRestriction", true);
+                    bool weaponRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableWeaponRaceRestriction", true);
+                    bool armorRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableArmorRaceRestriction", true);
 
                     if (item is BaseWeapon)
                     {
@@ -1395,7 +1396,7 @@ namespace Server.Mobiles
                         {
                             drop = true;
                         }
-                        else if (raceRestrictionEnabled && weapon.RequiredRace != null && weapon.RequiredRace != Race && !morph)
+                        else if (weaponRaceRestrictionEnabled && weapon.RequiredRace != null && weapon.RequiredRace != Race && !morph)
                         {
                             drop = true;
                         }
@@ -1428,7 +1429,7 @@ namespace Server.Mobiles
                         {
                             drop = true;
                         }
-                        else if (raceRestrictionEnabled && armor.RequiredRace != null && armor.RequiredRace != Race && !morph)
+                        else if (armorRaceRestrictionEnabled && armor.RequiredRace != null && armor.RequiredRace != Race && !morph)
                         {
                             drop = true;
                         }
@@ -1488,7 +1489,7 @@ namespace Server.Mobiles
                         {
                             drop = true;
                         }
-                        else if (raceRestrictionEnabled && clothing.RequiredRace != null && clothing.RequiredRace != Race && !morph)
+                        else if (armorRaceRestrictionEnabled && clothing.RequiredRace != null && clothing.RequiredRace != Race && !morph)
                         {
                             drop = true;
                         }
@@ -1520,7 +1521,7 @@ namespace Server.Mobiles
                     }
                     else if (item is BaseQuiver)
                     {
-                        if (raceRestrictionEnabled && Race == Race.Gargoyle)
+                        if (armorRaceRestrictionEnabled && Race == Race.Gargoyle)
                         {
                             from.AddToBackpack(item);
 

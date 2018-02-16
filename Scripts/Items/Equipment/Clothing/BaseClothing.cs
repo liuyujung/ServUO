@@ -102,6 +102,8 @@ namespace Server.Items
         private ReforgedSuffix m_ReforgedSuffix;
         #endregion
 
+        private static bool armorRaceRestrictionEnabled = Config.Get("PlayerCaps.EnableArmorRaceRestriction", true);
+
         [CommandProperty(AccessLevel.GameMaster)]
         public int MaxHitPoints
         {
@@ -632,7 +634,7 @@ namespace Server.Items
                     return false;
                 }
 
-                if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+                if (armorRaceRestrictionEnabled)
                 {
                     bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
 
@@ -800,17 +802,16 @@ namespace Server.Items
                 if (item is BaseClothing)
                 {
                     BaseClothing clothing = (BaseClothing)item;
-                    bool raceRestrictionEnabled = Config.Get("PlayerCaps.EnableRaceRestriction", true);
 
                     #region Stygian Abyss
-                    if (raceRestrictionEnabled && m.Race == Race.Gargoyle && !clothing.CanBeWornByGargoyles)
+                    if (armorRaceRestrictionEnabled && m.Race == Race.Gargoyle && !clothing.CanBeWornByGargoyles)
                     {
                         m.SendLocalizedMessage(1111708); // Gargoyles can't wear this.
                         m.AddToBackpack(clothing);
                     }
                     #endregion
 
-                    else if (raceRestrictionEnabled && clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
+                    else if (armorRaceRestrictionEnabled && clothing.RequiredRace != null && m.Race != clothing.RequiredRace)
                     {
                         if (clothing.RequiredRace == Race.Elf)
                             m.SendLocalizedMessage(1072203); // Only Elves may use this.
@@ -1252,7 +1253,7 @@ namespace Server.Items
             }
             #endregion
 
-            if (Config.Get("PlayerCaps.EnableRaceRestriction", true))
+            if (armorRaceRestrictionEnabled)
             {
                 if (RequiredRace == Race.Elf)
                     list.Add(1075086); // Elves Only
