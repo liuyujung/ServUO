@@ -31,9 +31,9 @@ namespace Knives.Chat3
             else if (list.Count == 0)
                 e.Mobile.SendMessage(Data.GetData(e.Mobile).SystemC, General.Local(113));
             else if (list.Count == 1)
-                new SendMessageGump(e.Mobile, (Mobile)list[0], text, null, MsgType.Normal);
+                e.Mobile.SendGump(new SendMessageGump(e.Mobile, (Mobile)list[0], text, null, MsgType.Normal));
             else
-                new InternalGump(e.Mobile, list, text);
+                e.Mobile.SendGump(new InternalGump(e.Mobile, list, text));
         }
 
         private static ArrayList GetMsgCanidates(Mobile m, string name)
@@ -41,7 +41,7 @@ namespace Knives.Chat3
             ArrayList list = new ArrayList();
 
             foreach (Data data in new ArrayList(Data.Datas.Values))
-                if (data.Mobile.RawName.ToLower().IndexOf(name.ToLower()) != -1 && Message.CanMessage(m, data.Mobile))
+                if (data.Mobile.RawName.ToLower().IndexOf(name.ToLower(), StringComparison.CurrentCulture) != -1 && Message.CanMessage(m, data.Mobile))
                     list.Add(data.Mobile);
 
             return list;
@@ -81,7 +81,7 @@ namespace Knives.Chat3
                 if (!(o is Mobile))
                     return;
 
-                 new SendMessageGump(Owner, (Mobile)o, c_Text, null, MsgType.Normal);
+                ((Mobile)o).SendGump(new SendMessageGump(Owner, (Mobile)o, c_Text, null, MsgType.Normal));
             }
         }
     }

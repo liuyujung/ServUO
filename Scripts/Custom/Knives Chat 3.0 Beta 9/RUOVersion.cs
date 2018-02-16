@@ -5,17 +5,11 @@
  * out, many commands in this system will not work.  Enjoy!
  */
 
-#define RunUO_2_RC1
-//#define RunUO_1_Final
-
 using System;
 using System.Collections;
 using Server;
 using Server.Network;
-
-#if (RunUO_2_RC1)
-    using Server.Commands;
-#endif
+using Server.Commands;
 
 namespace Knives.Chat3
 {
@@ -27,22 +21,14 @@ namespace Knives.Chat3
         {
             s_Commands[com.ToLower()] = cch;
 
-            #if(RunUO_1_Final)
-                Server.Commands.Register(com, acc, new CommandEventHandler(OnCommand));
-            #elif(RunUO_2_RC1)
-                Server.Commands.CommandSystem.Register(com, acc, new CommandEventHandler(OnCommand));
-            #endif
+            CommandSystem.Register(com, acc, new CommandEventHandler(OnCommand));
         }
 
         public static void RemoveCommand(string com)
         {
             s_Commands[com.ToLower()] = null;
 
-            #if (RunUO_1_Final)
-                Server.Commands.Entries.Remove(com);
-            #else
-                Server.Commands.CommandSystem.Entries.Remove(com);
-            #endif
+            CommandSystem.Entries.Remove(com);
         }
 
         public static void OnCommand(CommandEventArgs e)
@@ -55,11 +41,7 @@ namespace Knives.Chat3
 
         public static bool GuildChat(MessageType type)
         {
-            #if (RunUO_1_Final)
-                return false;
-            #else
-                return type == MessageType.Guild;
-            #endif
+            return type == MessageType.Guild;
         }
     }
 }
