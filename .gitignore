@@ -28,5 +28,6 @@ reportHistory.xml
 *.log
 *.bin
 .vs/
-ServUO.userprefs
-ServUO.userprefs
+drng64.dll
+drng32.dll
+libdrng.so

@@ -17,7 +17,7 @@ using Server.Spells;
 using Server.Targeting;
 using Server.Mobiles;
 using Server.Spells.Mysticism;
-using Server.LucidNagual;
+using Server.Factions;
 #endregion
 
 namespace Server.Items
@@ -58,7 +58,7 @@ namespace Server.Items
 		Exceptional,
 	}
 
-    public class Spellbook : Item, ICraftable, ISlayer, IEngravable, IVvVItem, IOwnerRestricted, IWearableDurability
+    public class Spellbook : Item, ICraftable, ISlayer, IEngravable, IVvVItem, IOwnerRestricted, IWearableDurability, IFactionItem
 	{
 		private static readonly Dictionary<Mobile, List<Spellbook>> m_Table = new Dictionary<Mobile, List<Spellbook>>();
 
@@ -98,6 +98,21 @@ namespace Server.Items
 			0, 0, 0, // 0 properties : 3/4 : 75%
 			1 // 1 property   : 1/4 : 25%
 		};
+
+        #region Factions
+        private FactionItem m_FactionState;
+
+        public FactionItem FactionItemState
+        {
+            get { return m_FactionState; }
+            set
+            {
+                m_FactionState = value;
+
+                LootType = (m_FactionState == null ? LootType.Regular : LootType.Blessed);
+            }
+        }
+        #endregion
 
 		private string m_EngravedText;
 		private BookQuality m_Quality;
@@ -927,6 +942,10 @@ namespace Server.Items
 			{
 				list.Add(1050043, m_Crafter.TitleName); // crafted by ~1_NAME~
 			}
+
+            #region Factions
+            FactionEquipment.AddFactionProperties(this, list);
+            #endregion
 
             if (IsVvVItem)
             {
