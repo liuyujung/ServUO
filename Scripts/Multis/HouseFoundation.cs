@@ -142,29 +142,7 @@ namespace Server.Multis
                 return m_Current.Components;
             }
         }
-
-        public override int GetMaxUpdateRange()
-        {
-            return Core.GlobalMaxUpdateRange;
-        }
-
-        public override int GetUpdateRange(Mobile m)
-        {
-            int min = m.NetState != null ? m.NetState.UpdateRange : 18;
-            int max = Core.GlobalMaxUpdateRange;
-
-            int w = CurrentState.Components.Width;
-            int h = CurrentState.Components.Height - 1;
-            int v = min + ((w > h ? w : h) / 2);
-
-            if (v > max)
-                v = max;
-            else if (v < min)
-                v = min;
-
-            return v;
-        }
-
+        
         public DesignState CurrentState
         {
             get
@@ -1925,16 +1903,21 @@ namespace Server.Multis
 
             HouseFoundation foundation = World.FindItem(pvSrc.ReadInt32()) as HouseFoundation;
 
-            if (foundation != null && from.Map == foundation.Map && from.InRange(foundation.GetWorldLocation(), 24) && from.CanSee(foundation))
+            if (foundation != null && from.Map == foundation.Map)
             {
-                DesignState stateToSend;
+                var range = foundation.GetUpdateRange(from);
 
-                if (context != null && context.Foundation == foundation)
-                    stateToSend = foundation.DesignState;
-                else
-                    stateToSend = foundation.CurrentState;
+                if (Utility.InRange(from.Location, foundation.GetWorldLocation(), range) && from.CanSee(foundation))
+                {
+                    DesignState stateToSend;
 
-                stateToSend.SendDetailedInfoTo(state);
+                    if (context != null && context.Foundation == foundation)
+                        stateToSend = foundation.DesignState;
+                    else
+                        stateToSend = foundation.CurrentState;
+
+                    stateToSend.SendDetailedInfoTo(state);
+                }
             }
         }
 
