@@ -2143,11 +2143,6 @@ namespace Server.Mobiles
                 }
             }
 
-            if (oldValue < HitsMax && Hits >= HitsMax)
-            {
-                BaseMount.GetMountPrevention(this);
-            }
-
             base.OnHitsChange(oldValue);
         }
 
