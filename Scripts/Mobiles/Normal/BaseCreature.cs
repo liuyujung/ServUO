@@ -787,7 +787,7 @@ namespace Server.Mobiles
         #region Bonding
         public const bool BondingEnabled = true;
 
-        public virtual bool IsBondable { get { return (BondingEnabled && !Summoned && !m_Allured); } }
+        public virtual bool IsBondable { get { return (BondingEnabled && !Summoned && !m_Allured && !IsGolem); } }
         public virtual TimeSpan BondingDelay { get { return TimeSpan.FromDays(7.0); } }
         public virtual TimeSpan BondingAbandonDelay { get { return TimeSpan.FromDays(1.0); } }
 
@@ -797,6 +797,7 @@ namespace Server.Mobiles
 
         public override bool IsDeadBondedPet { get { return m_IsDeadPet; } }
 
+        private bool m_IsGolem;
         private bool m_IsBonded;
         private bool m_IsDeadPet;
         private DateTime m_BondingBegin;
@@ -829,6 +830,13 @@ namespace Server.Mobiles
 
                 return m_Owners[m_Owners.Count - 1];
             }
+        }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public bool IsGolem
+        {
+            get { return m_IsGolem; }
+            set { m_IsGolem = value; InvalidateProperties(); }
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
@@ -2806,7 +2814,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-            writer.Write(24); // version
+            writer.Write(25); // version
 
             writer.Write((int)m_CurrentAI);
             writer.Write((int)m_DefaultAI);
@@ -2998,6 +3006,9 @@ namespace Server.Mobiles
 			writer.Write((int)m_MatingTimes);
             // Pet Branding version 24
             writer.Write(m_EngravedText);
+
+            // Version 25
+            writer.Write(m_IsGolem);
         }
 
         private static readonly double[] m_StandardActiveSpeeds = new[] { 0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8 };
@@ -3337,6 +3348,15 @@ namespace Server.Mobiles
             if (version >= 24)
             {
                 m_EngravedText = reader.ReadString();
+            }
+
+            if (version >= 25)
+            {
+                m_IsGolem = reader.ReadBool();
+            }
+            else
+            {
+                m_IsGolem = this is Golem;
             }
 
             if (version <= 14 && m_Paragon && Hue == 0x31)
@@ -6347,6 +6367,9 @@ namespace Server.Mobiles
                     list.Add(1080078); // guarding
                 }
             }
+
+            if (IsGolem)
+                list.Add(1113697); // (Golem)
 
             if (Summoned && !IsAnimatedDead && !IsNecroFamiliar && !(this is Clone))
             {
