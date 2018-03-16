@@ -242,8 +242,13 @@ namespace Server.Engines.BulkOrders
                 {
                     if (context.Entries.ContainsKey(type))
                     {
-                        //context.Entries[type].LastBulkOrder = (DateTime.UtcNow + ts) - TimeSpan.FromHours(Delay);
-						context.Entries[type].LastBulkOrder = (DateTime.UtcNow + ts) - TimeSpan.FromMinutes(DelayMins);
+                        //if (context.Entries[type].LastBulkOrder < DateTime.UtcNow - TimeSpan.FromHours(Delay * MaxCachedDeeds))
+                        if (context.Entries[type].LastBulkOrder < DateTime.UtcNow - TimeSpan.FromMinutes(DelayMins * MaxCachedDeeds))
+                            //context.Entries[type].LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(Delay * MaxCachedDeeds);
+                            context.Entries[type].LastBulkOrder = DateTime.UtcNow - TimeSpan.FromMinutes(DelayMins * MaxCachedDeeds);
+                        else
+                            //context.Entries[type].LastBulkOrder = (context.Entries[type].LastBulkOrder + ts) - TimeSpan.FromHours(Delay);
+                            context.Entries[type].LastBulkOrder = (context.Entries[type].LastBulkOrder + ts) - TimeSpan.FromMinutes(DelayMins);
                     }
                 }
                 else if (context.Entries.ContainsKey(type))
