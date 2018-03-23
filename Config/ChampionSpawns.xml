@@ -75,7 +75,7 @@
         <schedule min="4" max="9" expire="10.0"/>
     </spawn>
     <spawn name="Hopper's Bog" group="FelT2A">
-        <location x="5954" y="3475" z="25" map="Felucca" radius="50"/>
+        <location x="5954" y="3475" z="25" map="Felucca" radius="25"/> <!-- 50 -->
         <schedule min="4" max="9" expire="10.0"/>
     </spawn>
     <spawn name="Khaldun" group="FelT2A">
