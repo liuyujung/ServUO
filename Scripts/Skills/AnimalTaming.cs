@@ -455,6 +455,8 @@ namespace Server.SkillHandlers
 							m_Creature.IsBonded = false;
 
                             m_Creature.OnAfterTame(m_Tamer);
+
+                            PetTrainingHelper.GetAbilityProfile(m_Creature, true).OnTame();
 						}
 						else
 						{

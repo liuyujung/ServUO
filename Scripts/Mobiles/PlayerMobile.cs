@@ -47,6 +47,7 @@ using Server.Spells.SkillMasteries;
 using Server.Engines.VvV;
 
 using RankDefinition = Server.Guilds.RankDefinition;
+using Server.Engines.SphynxFortune;
 #endregion
 
 namespace Server.Mobiles
@@ -1170,11 +1171,6 @@ namespace Server.Mobiles
 
 		public override int GetMinResistance(ResistanceType type)
 		{
-			if (IsStaff())
-			{
-				return -100;
-			}
-
 			int magicResist = (int)(Skills[SkillName.MagicResist].Value * 10);
 			int min = int.MinValue;
 
@@ -1193,7 +1189,7 @@ namespace Server.Mobiles
         #region City Loyalty
         public override int GetResistance(ResistanceType type)
         {
-            int resistance = base.GetResistance(type);
+            int resistance = base.GetResistance(type) + SphynxFortune.GetResistanceBonus(this, type);
 
             if (Server.Engines.CityLoyalty.CityLoyaltySystem.HasTradeDeal(this, Server.Engines.CityLoyalty.TradeDeal.SocietyOfClothiers))
             {
@@ -2555,7 +2551,7 @@ namespace Server.Mobiles
             {
                 if (!item.PayedInsurance)
                 {
-                    int cost = item.GetInsuranceCost();
+                    int cost = GetInsuranceCost(item);
 
                     if (Banker.Withdraw(from, cost))
                     {
@@ -2579,6 +2575,29 @@ namespace Server.Mobiles
                     SendLocalizedMessage(1060868, "", 0x23); // Target the item you wish to toggle insurance status on <ESC> to cancel
                 }
             }
+        }
+
+        public static int GetInsuranceCost(Item item)
+        {
+            var imbueWeight = SkillHandlers.Imbuing.GetTotalWeight(item);
+            int cost = 600; // this handles old items, set items, etc
+
+            if (item.GetType().IsAssignableFrom(typeof(Factions.FactionItem)))
+                cost = 800;
+            else if (imbueWeight > 0)
+                cost = Math.Min(800, Math.Max(10, imbueWeight));
+            else if (Mobiles.GenericBuyInfo.BuyPrices.ContainsKey(item.GetType()))
+                cost = Math.Min(800, Math.Max(10, Mobiles.GenericBuyInfo.BuyPrices[item.GetType()]));
+            else if (item.LootType == LootType.Newbied)
+                return 10;
+
+            if ((item is BaseArmor && ((BaseArmor)item).NegativeAttributes.Prized > 0) ||
+                (item is BaseWeapon && ((BaseWeapon)item).NegativeAttributes.Prized > 0) ||
+                (item is BaseJewel && ((BaseJewel)item).NegativeAttributes.Prized > 0) ||
+                (item is BaseClothing && ((BaseClothing)item).NegativeAttributes.Prized > 0))
+                cost *= 2;
+
+            return cost;
         }
 
         private void AutoRenewInventoryInsurance()
@@ -2794,7 +2813,7 @@ namespace Server.Mobiles
                 for (int i = 0; i < items.Length; ++i)
                 {
                     if (insure[i])
-                        cost += items[i].GetInsuranceCost();
+                        cost += GetInsuranceCost(items[i]);
                 }
 
                 AddHtmlLocalized(15, 420, 300, 20, 1114310, 0x7FFF, false, false); // GOLD AVAILABLE:
@@ -2819,12 +2838,12 @@ namespace Server.Mobiles
                     if (insure[i])
                     {
                         AddButton(400, y, 9723, 9724, 100 + i, GumpButtonType.Reply, 0);
-                        AddLabel(250, y, 0x481, item.GetInsuranceCost().ToString());
+                        AddLabel(250, y, 0x481, GetInsuranceCost(item).ToString());
                     }
                     else
                     {
                         AddButton(400, y, 9720, 9722, 100 + i, GumpButtonType.Reply, 0);
-                        AddLabel(250, y, 0x66C, item.GetInsuranceCost().ToString());
+                        AddLabel(250, y, 0x66C, GetInsuranceCost(item).ToString());
                     }
                 }
 
@@ -3702,7 +3721,7 @@ namespace Server.Mobiles
 					return true;
 				}
 
-                int insuredAmount = item.GetInsuranceCost();
+                int insuredAmount = GetInsuranceCost(item);
 				if (AutoRenewInsurance)
 				{
 					int cost = (m_InsuranceAward == null ? insuredAmount : insuredAmount / 2);

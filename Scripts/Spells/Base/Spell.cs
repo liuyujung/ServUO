@@ -25,6 +25,7 @@ using Server.Spells.SkillMasteries;
 using System.Reflection;
 using daat99;
 using Server.Spells.Mysticism;
+using System.Linq;
 #endregion
 
 namespace Server.Spells
@@ -862,8 +863,10 @@ namespace Server.Spells
             Type spellType = GetType();
             MethodInfo spellTargetMethod = null;
 
-            if (spellType != null && (spellTargetMethod = spellType.GetMethod("Target")) != null) { }
-            else if (spellType != null && (spellTargetMethod = spellType.GetMethod("OnTarget")) != null) { }
+            if (spellType != null)
+            {
+                spellTargetMethod = spellType.GetMethods().Where(m => m.Name == "Target" || m.Name == "OnTarget").FirstOrDefault();
+            }
             else
             {
                 OnCast();
@@ -916,7 +919,7 @@ namespace Server.Spells
 
 		public virtual bool CheckFizzle()
 		{
-			if (m_Scroll is BaseWand || m_Caster is BaseCreature)
+			if (m_Scroll is BaseWand)
 			{
 				return true;
 			}
@@ -930,7 +933,9 @@ namespace Server.Spells
 				Caster.CheckSkill(DamageSkill, 0.0, Caster.Skills[DamageSkill].Cap);
 			}
 
-			return Caster.CheckSkill(CastSkill, minSkill, maxSkill);
+            bool skillCheck = Caster.CheckSkill(CastSkill, minSkill, maxSkill);
+
+            return Caster is BaseCreature || skillCheck;
 		}
 
 		public abstract int GetMana();
