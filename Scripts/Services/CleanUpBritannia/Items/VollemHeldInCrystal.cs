@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Server.Gumps;
 using Server.Mobiles;
 
@@ -56,13 +56,6 @@ namespace Server.Items
         public VollemHeld(Serial serial)
             : base(serial)
         {
-        }
-
-        public override void GetProperties(ObjectPropertyList list)
-        {
-            base.GetProperties(list);
-
-            list.Add(1049646); // (summoned)
         }
 
         public override void Serialize(GenericWriter writer)

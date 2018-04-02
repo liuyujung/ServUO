@@ -1059,7 +1059,6 @@
     <Compile Include="Items\Tools\PetBondingPotion.cs" />
     <Compile Include="Items\Tools\RunicMalletAndChisel.cs" />
     <Compile Include="Misc\EquipLastWeapon.cs" />
-    <Compile Include="Misc\Extensions.cs" />
     <Compile Include="Items\Artifacts\Equipment\Glasses\Glasses.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -2679,6 +2678,7 @@
     <Compile Include="Quests\DarkTides\Conversations.cs" />
     <Compile Include="Quests\DarkTides\DarkTidesQuest.cs" />
     <Compile Include="Quests\DarkTides\Objectives.cs" />
+    <Compile Include="Quests\DiscoveringAnimalTraining\DiscoveringAnimalTraining.cs" />
     <Compile Include="Quests\ElfHeritage.cs" />
     <Compile Include="Quests\EminosUndertaking\Conversations.cs" />
     <Compile Include="Quests\EminosUndertaking\EminosUndertakingQuest.cs" />
@@ -2851,6 +2851,7 @@
     <Compile Include="Quests\StudyOfTheSolenHive\Objectives.cs" />
     <Compile Include="Quests\StudyOfTheSolenHive\StudyOfSolenQuest.cs" />
     <Compile Include="Quests\Mad Scientist\Items\SuteksDirtyGear.cs" />
+    <Compile Include="Items\Quest\FlaskOfOil.cs" />
     <Compile Include="Items\Quest\ModifiedClockworkAssembly.cs" />
     <Compile Include="Items\Quest\SecretWallTeleporters.cs" />
     <Compile Include="Mobiles\NPCs\Vollem.cs" />
@@ -9612,6 +9613,10 @@
     <Compile Include="Services\Harvest\HarvestVein.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Services\Malas\Sphynx\AncientWall.cs" />
+    <Compile Include="Services\Malas\Sphynx\Generate.cs" />
+    <Compile Include="Services\Malas\Sphynx\Sphynx.cs" />
+    <Compile Include="Services\Malas\Sphynx\SphynxFortune.cs" />
     <Compile Include="Services\MiniChampionSystem\MiniChampionSpawn.cs" />
     <Compile Include="Services\MiniChampionSystem\MiniChampSpawnInfo.cs" />
     <Compile Include="Services\MiniChampionSystem\MiniChampType.cs" />
@@ -9672,6 +9677,17 @@
     <Compile Include="Services\New Magincia\MaginciaPlants\Hoe.cs" />
     <Compile Include="Services\New Magincia\MaginciaPlants\MaginciaPlantItem.cs" />
     <Compile Include="Services\New Magincia\MaginciaPlants\MaginciaPlantSystem.cs" />
+    <Compile Include="Services\Pet Training\AbilityProfile.cs" />
+    <Compile Include="Services\Pet Training\AreaEffects.cs" />
+    <Compile Include="Services\Pet Training\EthologistTitleDeed.cs" />
+    <Compile Include="Services\Pet Training\Gumps.cs" />
+    <Compile Include="Services\Pet Training\PetTrainingGate.cs" />
+    <Compile Include="Services\Pet Training\PetTrainingHelper.cs" />
+    <Compile Include="Services\Pet Training\PlanningProfile.cs" />
+    <Compile Include="Services\Pet Training\SpecialAbility.cs" />
+    <Compile Include="Services\Pet Training\TrainingDefinition.cs" />
+    <Compile Include="Services\Pet Training\TrainingPoint.cs" />
+    <Compile Include="Services\Pet Training\TrainingProfile.cs" />
     <Compile Include="Services\Plants\FertileDirtGump.cs" />
     <Compile Include="Services\Plants\Raised Garden Beds\RaisedGarden.cs" />
     <Compile Include="Services\Plants\Raised Garden Beds\RaisedGardenPlantItem.cs" />
@@ -12562,7 +12578,6 @@
     <Content Include="Services\XmlSpawner\XMLSpawner Extras\XmlSockets\XmlSockets log.txt" />
     <Content Include="Services\XmlSpawner\XMLSpawner Support\xmlspawner2.txt" />
     <Content Include="Services\XmlSpawner\XMLSpawner Support\xmlspawner2doc.txt" />
-    <Content Include="Spells\Mysticism\Blank.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
