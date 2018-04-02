@@ -1,16 +1,17 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/Normal/BaseCreature.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/NPCs/AnimalTrainer.cs">
     <Files>
       <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="1" Column="1" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="59" Column="21" />
       <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="1" Column="1" />
-      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="3989" Column="45" />
       <File FileName="Server/Mobile.cs" Line="1" Column="1" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/ILevelable.cs" Line="8" Column="29" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/ItemExpCommand.cs" Line="59" Column="24" />
       <File FileName="Scripts/Services/XmlSpawner/XMLSpawner Extras/XmlLevelItem/Items/LevelItemDeed.cs" Line="43" Column="20" />
       <File FileName="Scripts/Items/Decorative/BaseImprisonedMobile.cs" Line="1" Column="1" />
       <File FileName="Scripts/Misc/AutoSave.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Mobiles/NPCs/AnimalTrainer.cs" Line="18" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

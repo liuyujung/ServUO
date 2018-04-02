@@ -3022,11 +3022,7 @@ namespace Server.Mobiles
         {
             base.Serialize(writer);
 
-<<<<<<< HEAD
-            writer.Write(25); // version
-=======
-            writer.Write(24); // version
->>>>>>> upstream/master
+            writer.Write(26); // version
 
             writer.Write((int)m_CurrentAI);
             writer.Write((int)m_DefaultAI);
@@ -3219,11 +3215,10 @@ namespace Server.Mobiles
             // Pet Branding version 24
             writer.Write(m_EngravedText);
 
-<<<<<<< HEAD
             // Version 25
-            writer.Write(m_IsGolem);
-=======
-            // Version 24 Pet Training
+            //writer.Write(m_IsGolem);
+
+            // Version 26 Pet Training
             writer.Write(ControlSlotsMin);
             writer.Write(ControlSlotsMax);
 
@@ -3248,7 +3243,6 @@ namespace Server.Mobiles
             {
                 writer.Write(0);
             }
->>>>>>> upstream/master
         }
 
         private static readonly double[] m_StandardActiveSpeeds = new[] { 0.175, 0.1, 0.15, 0.2, 0.25, 0.3, 0.4, 0.5, 0.6, 0.8 };
@@ -3590,16 +3584,12 @@ namespace Server.Mobiles
                 m_EngravedText = reader.ReadString();
             }
 
-<<<<<<< HEAD
-            if (version >= 25)
-=======
-            if (version == 23)
->>>>>>> upstream/master
+            if (version == 25)
             {
                 reader.ReadBool();
             }
 
-            if (version >= 24)
+            if (version >= 26)
             {
                 ControlSlotsMin = reader.ReadInt();
                 ControlSlotsMax = reader.ReadInt();
