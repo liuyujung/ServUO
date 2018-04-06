@@ -359,7 +359,7 @@ namespace Server.Engines.CannedEvil
             }
         }
 
-        public void Start()
+        public void Start(bool serverLoad = false)
         {
             if (m_Active || Deleted)
                 return;
@@ -383,21 +383,24 @@ namespace Server.Engines.CannedEvil
 
             PrimevalLichPuzzle.Update(this);
 
-            double chance = Utility.RandomDouble();
+            if (!serverLoad)
+            {
+                double chance = Utility.RandomDouble();
 
-            if (chance < 0.1)
-                Level = 4;
-            else if (chance < 0.25)
-                Level = 3;
-            else if (chance < 0.5)
-                Level = 2;
-            else if (Utility.RandomBool())
-                Level = 1;
-            else
-                Level = 0;
+                if (chance < 0.1)
+                    Level = 4;
+                else if (chance < 0.25)
+                    Level = 3;
+                else if (chance < 0.5)
+                    Level = 2;
+                else if (Utility.RandomBool())
+                    Level = 1;
+                else
+                    Level = 0;
 
-            if (Level > 0)
-                AdvanceLevel();
+                if (Level > 0)
+                    AdvanceLevel();
+            }
         }
 
         public void Stop()
@@ -1376,7 +1379,7 @@ namespace Server.Engines.CannedEvil
                         if (m_Platform == null || m_Altar == null || m_Idol == null)
                             Delete();
                         else if (active)
-                            Start();
+                            Start(true);
 
                         break;
                     }
@@ -1539,7 +1542,7 @@ namespace Server.Engines.CannedEvil
 
         public override bool OnMoveInto(Mobile m, Direction d, Point3D newLocation, Point3D oldLocation)
         {
-            if (m is PlayerMobile && !m.Alive && (m.Corpse == null || m.Corpse.Deleted))
+            if (m is PlayerMobile && !m.Alive && (m.Corpse == null || m.Corpse.Deleted) && Map == Map.Felucca)
             {
                 return false;
             }
@@ -1551,7 +1554,7 @@ namespace Server.Engines.CannedEvil
         {
             Mobile m = e.Mobile;
 
-            if (m is PlayerMobile && m.Region.IsPartOf<ChampionSpawnRegion>() && m.AccessLevel == AccessLevel.Player)
+            if (m is PlayerMobile && m.Region.IsPartOf<ChampionSpawnRegion>() && m.AccessLevel == AccessLevel.Player && m.Map == Map.Felucca)
             {
                 if (m.Alive && m.Backpack != null)
                 {
@@ -1589,7 +1592,7 @@ namespace Server.Engines.CannedEvil
         {
             Mobile m = e.Mobile;
 
-            if (m is PlayerMobile && !m.Alive && (m.Corpse == null || m.Corpse.Deleted) && m.Region.IsPartOf<ChampionSpawnRegion>())
+            if (m is PlayerMobile && !m.Alive && (m.Corpse == null || m.Corpse.Deleted) && m.Region.IsPartOf<ChampionSpawnRegion>() && m.Map == Map.Felucca)
             {
                 Map map = m.Map;
                 Point3D loc = ExorcismSpell.GetNearestShrine(m, ref map);
