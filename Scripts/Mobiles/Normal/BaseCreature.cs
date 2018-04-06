@@ -961,9 +961,6 @@ namespace Server.Mobiles
 
         public virtual void InitializeAbilities()
         {
-            if (!PetTrainingHelper.Enabled)
-                return;
-
             switch (AI)
             {
                 case AIType.AI_Mage: SetMagicalAbility(MagicalAbility.Magery); break;
@@ -985,6 +982,9 @@ namespace Server.Mobiles
             {
                 SetSpecialAbility(SpecialAbility.Heal);
             }
+
+            if (PetTrainingHelper.Enabled)
+                return;
 
             if(Skills[SkillName.Focus].Value == 0)
                 SetSkill(SkillName.Focus, 2, 20);
@@ -1304,7 +1304,7 @@ namespace Server.Mobiles
                     if (value is Mobile && AttacksFocus)
                         InitialFocus = (Mobile)value;
                 }
-                else if (AttacksFocus && initialFocus != null && value != initialFocus && !initialFocus.Hidden && InRange(initialFocus.Location, this.RangePerception))
+                else if (AttacksFocus && initialFocus != null && value != initialFocus && !initialFocus.Hidden && InRange(initialFocus.Location, RangePerception))
                 {
                     //Keeps focus
                     base.Combatant = initialFocus;
@@ -1626,7 +1626,7 @@ namespace Server.Mobiles
                 if (m == this || !CanBeHarmful(m))
                     continue;
 
-                if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != this.Team))
+                if (m is BaseCreature && (((BaseCreature)m).Controlled || ((BaseCreature)m).Summoned || ((BaseCreature)m).Team != Team))
                     list.Add(m);
                 else if (m.Player)
                     list.Add(m);
@@ -1743,6 +1743,61 @@ namespace Server.Mobiles
         public virtual void BeginFlee(TimeSpan maxDuration)
         {
             m_EndFlee = DateTime.UtcNow + maxDuration;
+        }
+        #endregion
+
+        #region True Fear
+        public virtual bool CausesTrueFear { get { return false; } }
+
+        private static List<Mobile> m_TrueFearCooldown = new List<Mobile>();
+
+        private const int TrueFearRange = 8;
+
+        public virtual void CauseTrueFear(Mobile m, Point3D oldLocation)
+        {
+            base.OnMovement(m, oldLocation);
+
+            if (m.Alive && m.Player && InRange(m.Location, TrueFearRange) && !InRange(oldLocation, TrueFearRange))
+            {
+                if (!m_TrueFearCooldown.Contains(m))
+                {
+                    int seconds = (int)(13.0 - (m.Skills[SkillName.MagicResist].Value / 10.0));
+
+                    if (seconds < 1)
+                        seconds = 1;
+
+                    int number;
+
+                    if (seconds <= 2)
+                        number = 1080339; // A sense of discomfort passes through you, but it fades quickly
+                    else if (seconds <= 4)
+                        number = 1080340; // An unfamiliar fear washes over you, and for a moment you're unable to move
+                    else if (seconds <= 7)
+                        number = 1080341; // Panic grips you! You're unable to move, to think, to feel anything but fear!
+                    else if (seconds <= 10)
+                        number = 1080342; // Terror slices into your very being, destroying any chance of resisting ~1_name~ you might have had
+                    else
+                        number = 1080343; // Everything around you dissolves into darkness as ~1_name~'s burning eyes fill your vision
+
+                    m.SendLocalizedMessage(number, Name, 0x21);
+
+                    m_TrueFearCooldown.Add(m);
+
+                    m.Frozen = true;
+
+                    BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.TrueFear, 1153791, 1153827, TimeSpan.FromSeconds(seconds), m));
+
+                    Timer.DelayCall(TimeSpan.FromSeconds(seconds), new TimerCallback(
+                        delegate
+                        {
+                            m.Frozen = false;
+                            m.SendLocalizedMessage(1005603); // You can move again!
+                        }));
+
+                    Timer.DelayCall(TimeSpan.FromMinutes(5.0), new TimerCallback(
+                        delegate { m_TrueFearCooldown.Remove(m); }));
+                }
+            }
         }
         #endregion
 
@@ -2241,7 +2296,7 @@ namespace Server.Mobiles
         {
             int oldHits = Hits;
 
-            if (Core.AOS && this.Controlled && from is BaseCreature && !((BaseCreature)from).Controlled && !((BaseCreature)from).Summoned)
+            if (Core.AOS && Controlled && from is BaseCreature && !((BaseCreature)from).Controlled && !((BaseCreature)from).Summoned)
                 amount = (int)(amount * ((BaseCreature)from).BonusPetDamageScalar);
 
             base.Damage(amount, from, informMount, checkDisrupt);
@@ -2356,8 +2411,8 @@ namespace Server.Mobiles
         {
             get
             {
-                if (this.Map != null && _NavPoints.ContainsKey(this.Map))
-                    return _NavPoints[this.Map];
+                if (Map != null && _NavPoints.ContainsKey(Map))
+                    return _NavPoints[Map];
 
                 return null;
             }
@@ -2845,7 +2900,7 @@ namespace Server.Mobiles
 
                 if (scales != 0)
                 {
-                    ScaleType sc = this.ScaleType;
+                    ScaleType sc = ScaleType;
                     List<Item> list = new List<Item>();
 
                     switch (sc)
@@ -5523,11 +5578,13 @@ namespace Server.Mobiles
                     }
                 }
             }
-
             else if (ReacquireOnMovement)
             {
                 ForceReacquire();
             }
+
+            if (CausesTrueFear)
+                CauseTrueFear(m, oldLocation);
 
             InhumanSpeech speechType = SpeechType;
 
@@ -5845,6 +5902,15 @@ namespace Server.Mobiles
             if (name == SkillName.Poisoning && Skills[name].Base > 0 && !PetTrainingHelper.ValidateTrainingPoint(this, MagicalAbility.Poisoning))
             {
                 SetMagicalAbility(MagicalAbility.Poisoning);
+            }
+
+            if (!Controlled && name == SkillName.Magery && AbilityProfile != null && 
+                !AbilityProfile.HasAbility(MagicalAbility.Magery) && 
+                Skills[SkillName.Magery].Base > 0 && 
+                (AI == AIType.AI_Mage || AI == AIType.AI_Necro || AI == AIType.AI_NecroMage || AI == AIType.AI_Mystic || AI == AIType.AI_Spellweaving))
+
+            {
+                SetMagicalAbility(MagicalAbility.Magery);
             }
         }
 
@@ -6977,7 +7043,7 @@ namespace Server.Mobiles
             if (LootingRights != null)
                 return LootingRights;
 
-            List<DamageEntry> damageEntries = this.DamageEntries;
+            List<DamageEntry> damageEntries = DamageEntries;
             int hitsMax = HitsMax;
 
             List<DamageStore> rights = new List<DamageStore>();
@@ -7835,7 +7901,7 @@ namespace Server.Mobiles
 
         public bool IsHealing { get { return (m_HealTimer != null); } }
 
-        public virtual void CheckHeal()
+        public virtual bool CheckHeal()
         {
             long tc = Core.TickCount;
 
@@ -7847,15 +7913,20 @@ namespace Server.Mobiles
                     owner.Map == Map && InRange(owner, HealStartRange) && InLOS(owner) && owner.Hits < HealOwnerTrigger * owner.HitsMax)
                 {
                     HealStart(owner);
-
                     m_NextHealOwnerTime = tc + (int)TimeSpan.FromSeconds(HealOwnerInterval).TotalMilliseconds;
+
+                    return true;
                 }
                 else if (tc >= m_NextHealTime && CanBeBeneficial(this) && (Hits < HealTrigger * HitsMax || Poisoned))
                 {
                     HealStart(this);
                     m_NextHealTime = tc + (int)TimeSpan.FromSeconds(HealInterval).TotalMilliseconds;
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
         public virtual void HealStart(Mobile patient)
@@ -8058,7 +8129,7 @@ namespace Server.Mobiles
         #region Spawn Position
         public virtual Point3D GetSpawnPosition(int range)
         {
-            return GetSpawnPosition(this.Location, this.Map, range);
+            return GetSpawnPosition(Location, Map, range);
         }
 
         public static Point3D GetSpawnPosition(Point3D from, Map map, int range)
@@ -8188,15 +8259,15 @@ namespace Server.Mobiles
                 Mana -= 25;
             }
 
-            if (this.Spell != null)
-                this.Spell = null;
+            if (Spell != null)
+                Spell = null;
 
-            if (!this.UseSkill(SkillName.Discordance))
+            if (!UseSkill(SkillName.Discordance))
                 return false;
 
-            if (this.Target is Discordance.DiscordanceTarget)
+            if (Target is Discordance.DiscordanceTarget)
             {
-                this.Target.Invoke(this, target);
+                Target.Invoke(this, target);
                 return true;
             }
 
@@ -8209,15 +8280,15 @@ namespace Server.Mobiles
             if (target == null || !target.InLOS(this) || !InRange(target.Location, BaseInstrument.GetBardRange(this, SkillName.Peacemaking)) || CheckInstrument() == null)
                 return false;
 
-            if (this.Spell != null)
-                this.Spell = null;
+            if (Spell != null)
+                Spell = null;
 
-            if (!this.UseSkill(SkillName.Peacemaking))
+            if (!UseSkill(SkillName.Peacemaking))
                 return false;
 
-            if (this.Target is Peacemaking.InternalTarget)
+            if (Target is Peacemaking.InternalTarget)
             {
-                this.Target.Invoke(this, target);
+                Target.Invoke(this, target);
                 return true;
             }
 
@@ -8231,22 +8302,22 @@ namespace Server.Mobiles
             if (target == null || !target.InLOS(this) || !InRange(target.Location, BaseInstrument.GetBardRange(this, SkillName.Provocation)) || CheckInstrument() == null || !(target is BaseCreature))
                 return false;
 
-            if (this.Spell != null)
-                this.Spell = null;
+            if (Spell != null)
+                Spell = null;
 
-            if (!this.UseSkill(SkillName.Provocation))
+            if (!UseSkill(SkillName.Provocation))
                 return false;
 
-            if (this.Target is Provocation.InternalFirstTarget)
+            if (Target is Provocation.InternalFirstTarget)
             {
-                this.Target.Invoke(this, target);
+                Target.Invoke(this, target);
 
-                if (this.Target is Provocation.InternalSecondTarget)
+                if (Target is Provocation.InternalSecondTarget)
                 {
                     Mobile second = GetSecondTarget((BaseCreature)target);
 
                     if (second != null)
-                        this.Target.Invoke(this, second);
+                        Target.Invoke(this, second);
 
                     return true;
                 }
@@ -8265,10 +8336,10 @@ namespace Server.Mobiles
 
             if (inst == null)
             {
-                if (this.Backpack == null)
+                if (Backpack == null)
                     return null;
 
-                inst = this.Backpack.FindItemByType(typeof(BaseInstrument)) as BaseInstrument;
+                inst = Backpack.FindItemByType(typeof(BaseInstrument)) as BaseInstrument;
 
                 if (inst == null)
                 {
@@ -8291,7 +8362,7 @@ namespace Server.Mobiles
         /// <returns></returns>
         public virtual Mobile GetBardTarget(bool creaturesOnly = false)
         {
-            Mobile m = this.Combatant as Mobile;
+            Mobile m = Combatant as Mobile;
 
             if (m == null && GetMaster() is PlayerMobile)
                 m = GetMaster().Combatant as Mobile;
@@ -8299,7 +8370,7 @@ namespace Server.Mobiles
             if (m == null || m == this || !CanBeHarmful(m, false) || (creaturesOnly && !(m is BaseCreature)))
             {
                 List<AggressorInfo> list = new List<AggressorInfo>();
-                list.AddRange(this.Aggressors.Where(info => !creaturesOnly || info.Attacker is PlayerMobile));
+                list.AddRange(Aggressors.Where(info => !creaturesOnly || info.Attacker is PlayerMobile));
 
                 if (list.Count > 0)
                     m = list[Utility.Random(list.Count)].Attacker;
@@ -8325,14 +8396,14 @@ namespace Server.Mobiles
 
             int range = BaseInstrument.GetBardRange(this, SkillName.Provocation);
 
-            IPooledEnumerable eable = this.Map.GetMobilesInRange(Location, range);
+            IPooledEnumerable eable = Map.GetMobilesInRange(Location, range);
             List<Mobile> possibles = new List<Mobile>();
 
             foreach (Mobile m in eable)
             {
                 if (m != first && m != this && first.InRange(m.Location, range))
                 {
-                    if (this.CanBeHarmful(m, false) && first.CanBeHarmful(m, false))
+                    if (CanBeHarmful(m, false) && first.CanBeHarmful(m, false))
                         possibles.Add(m);
                 }
             }
@@ -8372,7 +8443,7 @@ namespace Server.Mobiles
 
         public void TryTeleport()
         {
-            if (this.Deleted)
+            if (Deleted)
                 return;
 
             if (TeleportProb > Utility.RandomDouble())
@@ -8383,23 +8454,23 @@ namespace Server.Mobiles
                 {
                     int offset = Utility.Random(8) * 2;
 
-                    Point3D to = this.Location;
+                    Point3D to = Location;
 
                     for (int i = 0; i < m_Offsets.Length; i += 2)
                     {
-                        int x = this.X + m_Offsets[(offset + i) % m_Offsets.Length];
-                        int y = this.Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
+                        int x = X + m_Offsets[(offset + i) % m_Offsets.Length];
+                        int y = Y + m_Offsets[(offset + i + 1) % m_Offsets.Length];
 
-                        if (this.Map.CanSpawnMobile(x, y, this.Z))
+                        if (Map.CanSpawnMobile(x, y, Z))
                         {
-                            to = new Point3D(x, y, this.Z);
+                            to = new Point3D(x, y, Z);
                             break;
                         }
                         else
                         {
-                            int z = this.Map.GetAverageZ(x, y);
+                            int z = Map.GetAverageZ(x, y);
 
-                            if (this.Map.CanSpawnMobile(x, y, z))
+                            if (Map.CanSpawnMobile(x, y, z))
                             {
                                 to = new Point3D(x, y, z);
                                 break;
@@ -8408,26 +8479,26 @@ namespace Server.Mobiles
                     }
 
                     Point3D from = toTeleport.Location;
-                    toTeleport.MoveToWorld(to, this.Map);
+                    toTeleport.MoveToWorld(to, Map);
 
                     Server.Spells.SpellHelper.Turn(this, toTeleport);
                     Server.Spells.SpellHelper.Turn(toTeleport, this);
 
                     toTeleport.ProcessDelta();
 
-                    Effects.SendLocationParticles(EffectItem.Create(from, this.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
-                    Effects.SendLocationParticles(EffectItem.Create(to, this.Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
+                    Effects.SendLocationParticles(EffectItem.Create(from, Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 2023);
+                    Effects.SendLocationParticles(EffectItem.Create(to, Map, EffectItem.DefaultDuration), 0x3728, 10, 10, 5023);
 
                     toTeleport.PlaySound(0x1FE);
 
-                    this.Combatant = toTeleport;
+                    Combatant = toTeleport;
                 }
             }
         }
 
         public virtual Mobile GetTeleportTarget()
         {
-            IPooledEnumerable eable = this.GetMobilesInRange(TeleportRange);
+            IPooledEnumerable eable = GetMobilesInRange(TeleportRange);
             List<Mobile> list = new List<Mobile>();
 
             foreach (Mobile m in eable)
@@ -8479,9 +8550,9 @@ namespace Server.Mobiles
 
             DetectHidden.OnUse(this);
 
-            if (this.Target is DetectHidden.InternalTarget)
+            if (Target is DetectHidden.InternalTarget)
             {
-                this.Target.Invoke(this, this);
+                Target.Invoke(this, this);
                 DebugSay("Checking for hidden players");
             }
             else
