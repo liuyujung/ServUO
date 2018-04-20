@@ -68,7 +68,7 @@ namespace Server
 			}
 
 #if MONO
-			AppendCompilerOption( ref sb, "/d:MONO" );
+            AppendCompilerOption( ref sb, "/d:MONO" );
 #endif
 
 			//These two defines are legacy, ie, depreciated.
@@ -82,7 +82,7 @@ namespace Server
 #endif
 
 #if NEWPARENT
-			AppendCompilerOption(ref sb, "/d:NEWPARENT");
+            AppendCompilerOption(ref sb, "/d:NEWPARENT");
 #endif
 
 			return (sb == null ? null : sb.ToString());
@@ -230,11 +230,12 @@ namespace Server
 					parms.WarningLevel = 4;
 				}
 
-				if (Core.Unix)
-					parms.CompilerOptions = String.Format( "{0} /nowarn:169,219,414 /recurse:Scripts/*.cs", parms.CompilerOptions );
-				
+#if !MONO
 				CompilerResults results = provider.CompileAssemblyFromFile(parms, files);
-				
+#else
+                parms.CompilerOptions = String.Format( "{0} /nowarn:169,219,414 /recurse:Scripts/*.cs", parms.CompilerOptions );
+                CompilerResults results = provider.CompileAssemblyFromFile( parms, "" );
+#endif
 				m_AdditionalReferences.Add(path);
 
 				Display(results);
@@ -246,14 +247,14 @@ namespace Server
 					return false;
 				}
 #else
-				if( results.Errors.Count > 0 ) {
-					foreach( CompilerError err in results.Errors ) {
-						if ( !err.IsWarning ) {
-							assembly = null;
-							return false;
-						}
-					}
-				}
+                if( results.Errors.Count > 0 ) {
+                    foreach( CompilerError err in results.Errors ) {
+                        if ( !err.IsWarning ) {
+                            assembly = null;
+                            return false;
+                        }
+                    }
+                }
 #endif
 
 				if (cache && Path.GetFileName(path) == "Scripts.CS.dll")
