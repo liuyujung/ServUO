@@ -39,3 +39,4 @@ ServUO.sh: ServUO.MONO.exe
 	echo "#!/bin/sh" > ${CURPATH}/ServUO.sh
 	echo "${MONO} ${CURPATH}/ServUO.MONO.exe" >> ${CURPATH}/ServUO.sh
 	chmod a+x ${CURPATH}/ServUO.sh
+	sed -i.bak -e 's/<!--//g; s/-->//g' ServUO.exe.config
