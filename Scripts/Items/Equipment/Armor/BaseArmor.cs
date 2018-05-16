@@ -267,7 +267,7 @@ namespace Server.Items
         {
             get
             {
-                return !IsImbued && NegativeAttributes.Antique < 3;
+                return !IsImbued && NegativeAttributes.Antique < 4;
             }
         }
 
@@ -2819,6 +2819,10 @@ namespace Server.Items
                 list.Add(1154937); // VvV Item
         }
 
+        public virtual void AddDamageTypeProperty(ObjectPropertyList list)
+        {
+        }
+
         public override void GetProperties(ObjectPropertyList list)
         {
             base.GetProperties(list);
@@ -2872,6 +2876,8 @@ namespace Server.Items
                 }
             }
             #endregion
+
+            AddDamageTypeProperty(list);
 
             if (isRaceCheckNeeded(this))
             {
