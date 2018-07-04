@@ -848,7 +848,12 @@ namespace Server.Engines.CannedEvil
             }
 
             if (m_Champion != null)
-                m_Champion.MoveToWorld(new Point3D(X, Y, Z - 15), Map);
+            {
+                Point3D p = new Point3D(X, Y, Z - 15);
+
+                m_Champion.MoveToWorld(p, Map);
+                ((BaseCreature)m_Champion).Home = p;
+            }
 			//daat99 OWLTR start - drop gathered stuff
 			if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.A_LI_N_CLEAN_CHAMP) && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.SAVE_CLEAN_CHAMP_GOLD))
 			{

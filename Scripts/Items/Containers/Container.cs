@@ -91,27 +91,29 @@ namespace Server.Items
                     {
                         list.Add(new ReleaseEntry(from, item, house));
                     }
-
-                    if (!(item is BaseContainer))
-                    {
-                        var myInfo = house.GetSecureInfoFor(from, this);
-
-                        if (myInfo != null)
-                        {
-                            if (house.Secures.FirstOrDefault(i => i.Item == item) == null)
-                            {
-                                house.Secures.Add(new SecureInfo(item, SecureLevel.Owner, from, true));
-                            }
-
-                            SetSecureLevelEntry.AddTo(from, item, list);
-                        }
-                    }
                 }
             }
             else
             {
                 base.GetChildContextMenuEntries(from, list, item);
             }
+        }
+
+        public virtual void DropItemStack(Item dropped)
+        {
+            List<Item> list = Items;
+
+            ItemFlags.SetTaken(dropped, true);
+
+            for (int i = 0; i < list.Count; ++i)
+            {
+                Item item = list[i];
+
+                if (!(item is Container) && item.StackWith(null, dropped, false))
+                    return;
+            }
+
+            DropItem(dropped);
         }
 
         public override bool TryDropItem(Mobile from, Item dropped, bool sendFullMessage)

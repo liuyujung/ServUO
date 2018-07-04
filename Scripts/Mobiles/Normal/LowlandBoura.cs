@@ -7,11 +7,6 @@ namespace Server.Mobiles
     [CorpseName("a boura corpse")]
     public class LowlandBoura : BaseCreature, ICarvable
     {
-        public static Type[] VArtifacts =
-        {
-            typeof (BouraTailShield)
-        };
-
         private bool GatheredFur { get; set; }
 
         [Constructable]
@@ -46,7 +41,7 @@ namespace Server.Mobiles
             MinTameSkill = 19.1;
 
             Fame = 5000;
-            Karma = 5000; //Lose Karma for killing
+            Karma = -3500;
 
             VirtualArmor = 16;
         }

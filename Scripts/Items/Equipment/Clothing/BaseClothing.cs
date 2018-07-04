@@ -2053,8 +2053,6 @@ namespace Server.Items
             if (makersMark)
                 Crafter = from;
 
-            CraftContext context = craftSystem.GetContext(from);
-
             #region Mondain's Legacy
             if (!craftItem.ForceNonExceptional)
             {
@@ -2067,7 +2065,7 @@ namespace Server.Items
 
                     Resource = CraftResources.GetFromType(resourceType);
                 }
-                else if(context == null || !context.DoNotColor)
+                else
                 {
                     Hue = resHue;
                 }

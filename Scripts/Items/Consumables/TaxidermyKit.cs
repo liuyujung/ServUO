@@ -66,7 +66,7 @@ namespace Server.Items
 			new TrophyInfo( typeof( Troll ),		  0x1E66,		1041092, 1041106 ),
             new TrophyInfo( typeof( RedHerring ),     0x1E62,		1113567, 1113569 ),
             new TrophyInfo( typeof( MudPuppy ),		  0x1E62,		1113568, 1113570 ),
-            //HighSeas - not yet :)
+
             new TrophyInfo( typeof( AutumnDragonfish),     0,       1116124, 1116185 ),
             new TrophyInfo( typeof( BullFish ),            1,       1116129, 1116190 ),
             new TrophyInfo( typeof( FireFish ),            2,       1116127, 1116188 ),
@@ -174,10 +174,12 @@ namespace Server.Items
 
                         if (info != null)
                         {
+                            string name = lic.KillEntry.Owner != null ? lic.KillEntry.Owner.Name : from.Name;
+
                             if(info.Complex)
-                                from.AddToBackpack(new HuntTrophyAddonDeed(from.Name, info.MeasuredBy, lic.KillEntry.Measurement, info.SouthID, lic.KillEntry.DateKilled.ToShortDateString(), lic.KillEntry.Location, info.Species));
+                                from.AddToBackpack(new HuntTrophyAddonDeed(name, info.MeasuredBy, lic.KillEntry.Measurement, info.SouthID, lic.KillEntry.DateKilled.ToShortDateString(), lic.KillEntry.Location, info.Species));
                             else
-                                from.AddToBackpack(new HuntTrophyDeed(from.Name, info.MeasuredBy, lic.KillEntry.Measurement, info.SouthID, lic.KillEntry.DateKilled.ToShortDateString(), lic.KillEntry.Location, info.Species, info.FlippedIDs));
+                                from.AddToBackpack(new HuntTrophyDeed(name, info.MeasuredBy, lic.KillEntry.Measurement, info.SouthID, lic.KillEntry.DateKilled.ToShortDateString(), lic.KillEntry.Location, info.Species, info.FlippedIDs));
                             
                             lic.ProducedTrophy = true;
                             m_Kit.Delete();

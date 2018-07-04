@@ -489,7 +489,8 @@ namespace Server.Spells
             {
                 if (!blockSkill)
                 {
-                    caster.CheckSkill(SkillName.EvalInt, 0.0, 120.0);
+                    //caster.CheckSkill(SkillName.EvalInt, 0.0, 120.0);
+                    // This is handled in Spell.cs
 
                     if (curse)
                         target.CheckSkill(SkillName.MagicResist, 0.0, 120.0);
@@ -1275,9 +1276,9 @@ namespace Server.Spells
                 {
                     target.FixedEffect(0x37B9, 10, 5);
 
-                    Mobile temp = caster;
-                    source = target;
-                    target = temp;
+                    IDamageable temp = source;
+                    source = defender;
+                    defender = temp;
                 }
             }
 

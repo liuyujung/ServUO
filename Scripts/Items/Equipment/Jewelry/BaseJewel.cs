@@ -1252,11 +1252,6 @@ namespace Server.Items
             if (!craftItem.ForceNonExceptional)
                 Resource = CraftResources.GetFromType(resourceType);
 
-            CraftContext context = craftSystem.GetContext(from);
-
-            if (context != null && context.DoNotColor)
-                Hue = 0;
-
 			//daat99 OWLTR start - runic jewels
 			if (Core.AOS && tool is BaseRunicTool && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.RECIPE_CRAFT))
 				((BaseRunicTool)tool).ApplyAttributesTo(this);
