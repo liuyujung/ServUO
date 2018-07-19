@@ -1239,6 +1239,11 @@ namespace Server.Engines.Craft
                 bonus += apron.Bonus / 100.0;
             }
 
+            if (WoodworkersBench.HasBonus(from, system.MainSkill))
+            {
+                bonus += .3;
+            }
+
 			switch (system.ECA)
 			{
 				default:
@@ -1349,6 +1354,11 @@ namespace Server.Engines.Craft
 					chance += talisman.SuccessBonus / 100.0;
 				}
 			}
+
+            if (WoodworkersBench.HasBonus(from, craftSystem.MainSkill))
+            {
+                chance += .5;
+            }
 
 			if (allRequiredSkills && valMainSkill == maxMainSkill)
 			{
@@ -1711,6 +1721,9 @@ namespace Server.Engines.Craft
                         ((MapItem)item).Facet = from.Map;
                     #endregion
 
+                    CraftContext context = craftSystem.GetContext(from);
+                    int originalHue = item.Hue;
+
 					if (item is ICraftable)
 					{
 						endquality = ((ICraftable)item).OnCraft(quality, makersMark, from, craftSystem, typeRes, tool, this, resHue);
@@ -1727,6 +1740,12 @@ namespace Server.Engines.Craft
                     if (item.Hue == 0 && RetainsColorFromCloth(item) && m_ClothHue != 0)
                     {
                         item.Hue = m_ClothHue;
+                    }
+
+                    // This takes into account for natural hues, ie plant hues
+                    if (item.Hue != originalHue && context.DoNotColor)
+                    {
+                        item.Hue = originalHue;
                     }
 
 					if (maxAmount > 0)
@@ -1753,8 +1772,6 @@ namespace Server.Engines.Craft
                     {
                         ((IPigmentHue)item).PigmentHue = m_PlantPigmentHue;
                     }
-
-                    CraftContext context = craftSystem.GetContext(from);
 
                     if (context.QuestOption == CraftQuestOption.QuestItem)
                     {

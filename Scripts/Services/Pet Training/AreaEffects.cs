@@ -85,10 +85,7 @@ namespace Server.Mobiles
 
             foreach (Mobile m in eable)
             {
-                if (m != creature && m.Alive && !m.IsDeadBondedPet &&
-                    m.CanBeHarmful(creature, false) &&
-                    SpellHelper.ValidIndirectTarget(creature, m) && 
-                    creature.InLOS(m))
+                if (ValidTarget(creature, m))
                 {
                     toAffect.Add(m);
                 }
@@ -114,6 +111,14 @@ namespace Server.Mobiles
 
         public virtual void OnAfterEffects(BaseCreature creature, Mobile defender)
         {
+        }
+
+        public static bool ValidTarget(Mobile from, Mobile to)
+        {
+            return to != from && to.Alive && !to.IsDeadBondedPet &&
+                    from.CanBeHarmful(to, false) &&
+                    SpellHelper.ValidIndirectTarget(from, to) &&
+                    from.InLOS(to);
         }
 
 		public List<Mobile> _Cooldown;
@@ -417,7 +422,7 @@ namespace Server.Mobiles
             {
                 var profile = PetTrainingHelper.GetAbilityProfile(creature);
 
-                if (profile != null && profile.HasAbility(MagicalAbility.Poisoning))
+                if ((profile != null && profile.HasAbility(MagicalAbility.Poisoning)) || 0.2 > Utility.RandomDouble())
                     creature.CheckSkill(SkillName.Poisoning, 0, creature.Skills[SkillName.Poisoning].Cap);
             }
         }

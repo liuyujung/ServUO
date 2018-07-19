@@ -86,6 +86,12 @@ namespace Server.Gumps
 
             Children = null;
             Parent = null;
+
+            OnDispose();
+        }
+
+        public virtual void OnDispose()
+        {
         }
 
         public abstract void AddGumpLayout();
@@ -181,44 +187,27 @@ namespace Server.Gumps
         {
             User.CloseGump(this.GetType());
         }
-
-        public new void AddItemProperty(Item item)
+        
+        public static T GetGump<T>(PlayerMobile pm, Func<T, bool> predicate) where T : Gump
         {
-            if (item == null || item.Deleted)
-            {
-                return;
-            }
-
-            if (User.NetState != null)
-            {
-                ObjectPropertyList opl = item.PropertyList;
-                item.GetProperties(opl);
-
-                User.Send(opl);
-            }
-
-            AddItemProperty(item.Serial);
+            return EnumerateGumps<T>(pm).FirstOrDefault(x => predicate == null || predicate(x));
         }
 
-        public void AddItemProperty(Mobile mob)
+        public static IEnumerable<T> EnumerateGumps<T>(PlayerMobile pm, Func<T, bool> predicate = null) where T : Gump
         {
-            if (mob == null || mob.Deleted)
+            var ns = pm.NetState;
+
+            if (ns == null)
+                yield break;
+
+            foreach (BaseGump gump in ns.Gumps.OfType<BaseGump>().Where(g => g.GetType() == typeof(T) && 
+                (predicate == null || predicate(g as T))))
             {
-                return;
+                yield return gump as T;
             }
-
-            if (User.NetState != null)
-            {
-                ObjectPropertyList opl = mob.PropertyList;
-                mob.GetProperties(opl);
-
-                User.Send(opl);
-            }
-
-            AddItemProperty(mob.Serial);
         }
 
-        public static List<T> GetGumps<T>(PlayerMobile pm) where T : BaseGump
+        public static List<T> GetGumps<T>(PlayerMobile pm) where T : Gump
         {
             var ns = pm.NetState;
             List<T> list = new List<T>();
@@ -265,6 +254,20 @@ namespace Server.Gumps
 
                 ColUtility.Free(gumps);
             }
+        }
+
+        public new void AddItemProperty(Item item)
+        {
+            item.SendPropertiesTo(User);
+
+            base.AddItemProperty(item);
+        }
+
+        public void AddMobileProperty(Mobile mob)
+        {
+            mob.SendPropertiesTo(User);
+
+            base.AddItemProperty(mob.Serial.Value);
         }
 
         #region Formatting
