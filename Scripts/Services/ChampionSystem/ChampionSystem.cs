@@ -41,6 +41,9 @@ namespace Server.Engines.CannedEvil
 		public static int HarrowerGoldShowerMaxAmount { get { return m_HarrowerGoldMaxAmount; } }
 		public static int PowerScrollAmount { get { return m_PowerScrollAmount; } }
 		public static int StatScrollAmount { get { return m_StatScrollAmount; } }
+
+        public static List<ChampionSpawn> AllSpawns { get { return m_AllSpawns; } }
+
 		public static int RankForLevel(int l)
 		{
 			if (l < 0)
@@ -128,13 +131,16 @@ namespace Server.Engines.CannedEvil
 
 					if(version == 0)
 					{
-						m_ForceGenerate = true;
+						//m_ForceGenerate = true;
 					}
 				});
 		}
 
 		public static void Initialize()
-		{
+        {
+            CommandSystem.Register("GenChampSpawns", AccessLevel.GameMaster, GenSpawns_OnCommand);
+            CommandSystem.Register("DelChampSpawns", AccessLevel.GameMaster, DelSpawns_OnCommand);
+
 			CommandSystem.Register("ChampionInfo", AccessLevel.GameMaster, new CommandEventHandler(ChampionInfo_OnCommand));
             CommandSystem.Register("ChampionRotate", AccessLevel.GameMaster, new CommandEventHandler(ChampionRotate_OnCommand));
             CommandSystem.Register("ChampionRestart", AccessLevel.GameMaster, new CommandEventHandler(ChampionRestart_OnCommand));
@@ -142,14 +148,39 @@ namespace Server.Engines.CannedEvil
 
 			if (!m_Enabled || m_ForceGenerate)
 			{
-				foreach (ChampionSpawn s in m_AllSpawns.Where(sp => sp != null && !sp.Deleted))
-				{
-					s.Delete();
-				}
 				m_Initialized = false;
+
+                if (m_Enabled)
+                {
+                    LoadSpawns();
+                }
+                else
+                {
+                    RemoveSpawns();
+                }
 			}
 
-			if (!m_Enabled)
+            if (m_Enabled)
+            {
+                m_Timer = new InternalTimer();
+            }
+		}
+
+        public static void GenSpawns_OnCommand(CommandEventArgs e)
+        {
+            LoadSpawns();
+            e.Mobile.SendMessage("Champ Spawns Generated!");
+        }
+
+        public static void DelSpawns_OnCommand(CommandEventArgs e)
+        {
+            RemoveSpawns();
+            e.Mobile.SendMessage("Champ Spawns Removed!");
+        }
+
+        public static void LoadSpawns()
+        {
+            if (!m_Enabled)
 				return;
 
 			//m_Timer = new InternalTimer();
@@ -213,7 +244,20 @@ namespace Server.Engines.CannedEvil
             Restart();
 
 			m_Initialized = true;
-		}
+        }
+
+        public static void RemoveSpawns()
+        {
+            if (m_AllSpawns != null && m_AllSpawns.Count > 0)
+            {
+                foreach (ChampionSpawn s in m_AllSpawns.Where(sp => sp != null && !sp.Deleted))
+                {
+                    s.Delete();
+                }
+
+                m_AllSpawns.Clear();
+            }
+        }
 
 		private static string GetAttr(XmlNode node, string name, string def)
 		{

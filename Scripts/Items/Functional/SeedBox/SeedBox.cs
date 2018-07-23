@@ -60,6 +60,11 @@ namespace Server.Engines.Plants
             Level = SecureLevel.Owner;
         }
 
+        public override int GetTotal(TotalType type)
+        {
+            return 0;
+        }
+
         public override void OnDoubleClick(Mobile m)
         {
             if (IsChildOf(m.Backpack) || (CheckAccessible(m) && m.InRange(this.GetWorldLocation(), 3)))
@@ -374,16 +379,13 @@ namespace Server.Engines.Plants
                 }
             }
 
-            if (v == 0)
-            {
-                Timer.DelayCall(TimeSpan.FromSeconds(10), () =>
+            Timer.DelayCall(() =>
+                {
+                    foreach (var item in Items.Where(i => !i.Movable))
                     {
-                        foreach (var item in Items)
-                        {
-                            item.Movable = false;
-                        }
-                    });
-            }
+                        item.Movable = false;
+                    }
+                });
 
             Timer.DelayCall(TimeSpan.FromSeconds(10), CheckEntries);
         }

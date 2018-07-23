@@ -2588,6 +2588,7 @@ namespace Server.Items
             int Absorbed = (int)(HalfAr + HalfAr * Utility.RandomDouble());
 
             damageTaken -= Absorbed;
+
             if (damageTaken < 0) 
                 damageTaken = 0;
 
