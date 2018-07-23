@@ -18,6 +18,7 @@ namespace Server.Items
         public SecureLevel Level { get; set; }
 
         public override bool DisplaysContent { get { return false; } }
+        public override double DefaultWeight { get { return 1.0; } }
 
         public abstract Type ScrollType { get; }
 
@@ -32,9 +33,16 @@ namespace Server.Items
             LootType = LootType.Blessed;
         }
 
+        public override int GetTotal(TotalType type)
+        {
+            return 0;
+        }
+
         public override void OnDoubleClick(Mobile m)
         {
-            if (m is PlayerMobile && m.InRange(GetWorldLocation(), 2))
+            BaseHouse house = BaseHouse.FindHouseAt(this);
+
+            if (m is PlayerMobile && m.InRange(GetWorldLocation(), 2) && (house == null || house.HasSecureAccess(m, Level)))
             {
                 BaseGump.SendGump(new SpecialScrollBookGump((PlayerMobile)m, this));
             }
@@ -82,7 +90,6 @@ namespace Server.Items
                     m.SendLocalizedMessage(DropMessage);
 
                     dropped.Movable = false;
-
                     m.CloseGump(typeof(SpecialScrollBookGump));
 
                     return true;
@@ -108,11 +115,17 @@ namespace Server.Items
 
                     if (house != null && house.LockDowns.ContainsKey(scroll))
                     {
-                        house.Release(m, scroll);
+                        house.LockDowns.Remove(scroll);
                     }
-                    else
+
+                    if (!scroll.Movable)
                     {
                         scroll.Movable = true;
+                    }
+
+                    if (scroll.IsLockedDown)
+                    {
+                        scroll.IsLockedDown = false;
                     }
 
                     m.SendLocalizedMessage(RemoveMessage);
@@ -129,7 +142,7 @@ namespace Server.Items
         {
             base.Serialize(writer);
 
-            writer.Write((int)1); // version
+            writer.Write((int)2); // version
         }
 
         public override void Deserialize(GenericReader reader)
@@ -138,14 +151,13 @@ namespace Server.Items
 
             int version = reader.ReadInt();
 
-            if(version < 1)
+            Timer.DelayCall(() =>
             {
-                Timer.DelayCall(TimeSpan.FromSeconds(10), () =>
-                    {
-                        foreach (var item in Items)
-                            item.Movable = false;
-                    });
-            }
+                foreach (var item in Items.Where(i => !i.Movable))
+                {
+                    item.Movable = false;
+                }
+            });
         }
 
         public virtual Dictionary<SkillCat, List<SkillName>> SkillInfo { get { return null; } }

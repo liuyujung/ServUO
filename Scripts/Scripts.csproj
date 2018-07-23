@@ -704,6 +704,7 @@
     <Compile Include="Items\Artifacts\Equipment\Weapons\Glenda.cs" />
     <Compile Include="Items\Artifacts\Equipment\Weapons\BowOfTheInfiniteSwarm.cs" />
     <Compile Include="Items\Artifacts\Equipment\Weapons\TheDeceiver.cs" />
+    <Compile Include="Items\Books\BaseJournal.cs" />
     <Compile Include="Items\Books\SpecialScrollBooks\BaseSpecialScrollBook.cs" />
     <Compile Include="Items\Books\SpecialScrollBooks\PowerScrollBook.cs" />
     <Compile Include="Items\Books\SpecialScrollBooks\ScrollOfAlacrityBook.cs" />
@@ -1859,7 +1860,7 @@
     <Compile Include="Mobiles\Bosses\Mephitis.cs" />
     <Compile Include="Mobiles\Bosses\Navery\EyeOfNavrey.cs" />
     <Compile Include="Mobiles\Bosses\Navery\Navrey.cs" />
-    <Compile Include="Mobiles\Bosses\Navery\NavreyParalyzingWeb.cs" />
+    <Compile Include="Items\Functional\SpiderWebbing.cs" />
     <Compile Include="Mobiles\Bosses\Neira.cs" />
     <Compile Include="Mobiles\Bosses\PrimevalLich.cs" />
     <Compile Include="Mobiles\Bosses\Rikktor.cs" />
@@ -1965,6 +1966,7 @@
     <Compile Include="Mobiles\Normal\DreadWarhorse.cs" />
     <Compile Include="Mobiles\Normal\FrostDrake.cs" />
     <Compile Include="Mobiles\Normal\Lasher.cs" />
+    <Compile Include="Mobiles\Normal\GiantTurkey.cs" />
     <Compile Include="Mobiles\Normal\Windrunner.cs" />
     <Compile Include="Mobiles\Normal\StygianDrake.cs" />
     <Compile Include="Mobiles\Normal\CrimsonDrake.cs" />
@@ -2245,6 +2247,7 @@
     <Compile Include="Mobiles\NPCs\Evan.cs" />
     <Compile Include="Mobiles\NPCs\Kodar.cs" />
     <Compile Include="Mobiles\NPCs\Lenley.cs" />
+    <Compile Include="Mobiles\NPCs\Paladin.cs" />
     <Compile Include="Mobiles\NPCs\Percolem.cs" />
     <Compile Include="Mobiles\NPCs\QuartermasterFlint.cs" />
     <Compile Include="Mobiles\NPCs\Regina.cs" />
@@ -3124,6 +3127,7 @@
     <Compile Include="Services\CleanUpBritannia\Items\NaturesTears.cs" />
     <Compile Include="Services\CleanUpBritannia\Items\NestWithEggs.cs" />
     <Compile Include="Services\CleanUpBritannia\Items\YuccaTree.cs" />
+    <Compile Include="Services\CleanUpBritannia\PointExchange.cs" />
     <Compile Include="Services\CommunityCollections\CommunityCollectionGump.cs" />
     <Compile Include="Services\Doom\GaryRoom.cs" />
     <Compile Include="Services\Doom\GuardianRoom.cs" />
@@ -3265,6 +3269,7 @@
     <Compile Include="Services\Expansions\Time Of Legends\AuctionSafe\BidHistory.cs" />
     <Compile Include="Services\Expansions\Time Of Legends\AuctionSafe\Gumps.cs" />
     <Compile Include="Services\Expansions\Time Of Legends\Items\CardOfSemidar.cs" />
+    <Compile Include="Services\Expansions\Time Of Legends\Items\ClimbingVine.cs" />
     <Compile Include="Services\Expansions\Time Of Legends\Items\EodonRewardTitleScroll.cs" />
     <Compile Include="Services\Expansions\Time Of Legends\Items\Resources.cs" />
     <Compile Include="Services\Expansions\Time Of Legends\Mobiles\Allosaurus.cs" />
@@ -3386,6 +3391,7 @@
     <Compile Include="Services\FireCasino\CasinoGumps.cs" />
     <Compile Include="Services\FireCasino\DiceGames.cs" />
     <Compile Include="Services\FireCasino\FortuesFireGrog.cs" />
+    <Compile Include="Services\FireCasino\Generate.cs" />
     <Compile Include="Services\FireCasino\Mobiles.cs" />
     <Compile Include="Services\FireCasino\TentBrownAddon.cs" />
     <Compile Include="Services\FireCasino\TentWhiteAddon.cs" />
@@ -9994,6 +10000,32 @@
     <Compile Include="Services\Tomb of Kings\ToKTeleporter.cs" />
     <Compile Include="Services\Tomb of Kings\TombOfKingsRegion.cs" />
     <Compile Include="Services\Tomb of Kings\TombOfKingsSecretDoor.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\BaseTownCryerGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\CreateCityEntryGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\CreateEMEntryGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\CreateGuildEntryGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerCityGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerCompleteQuestGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerEMGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerGreetingsGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerGuildGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerGump.cs" />
+    <Compile Include="Services\Town Cryer\Gumps\TownCryerNewsGump.cs" />
+    <Compile Include="Services\Town Cryer\Quests\APleaFromMinocQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\AVisitToCastleBlackthornQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\BuriedRichesQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\ExploringTheDeepQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\HuntmastersChallengeQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\PaladinsOfTrinsic.cs" />
+    <Compile Include="Services\Town Cryer\Quests\QuestItems.cs" />
+    <Compile Include="Services\Town Cryer\Quests\Rewards.cs" />
+    <Compile Include="Services\Town Cryer\Quests\RightingWrongQuest.cs" />
+    <Compile Include="Services\Town Cryer\Quests\WishesOfTheWispsQuest.cs" />
+    <Compile Include="Services\Town Cryer\TownCryerCityEntry.cs" />
+    <Compile Include="Services\Town Cryer\TownCryerGuildEntry.cs" />
+    <Compile Include="Services\Town Cryer\TownCryerModeratorEntry.cs" />
+    <Compile Include="Services\Town Cryer\TownCryerNewsEntry.cs" />
+    <Compile Include="Services\Town Cryer\TownCryerSystem.cs" />
     <Compile Include="Services\TreasuresOfKotlCity\Generate.cs" />
     <Compile Include="Services\TreasuresOfKotlCity\Items\EnergyTile.cs" />
     <Compile Include="Services\TreasuresOfKotlCity\Items\Journals.cs" />
@@ -10658,9 +10690,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mobiles\Bosses\CrimsonDragon.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Items\Quest\DraconicOrbKey.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Mobiles\Bosses\StygianDragon.cs">
@@ -12582,7 +12611,6 @@
     <Content Include="Services\XmlSpawner\XMLSpawner Support\xmlspawner2.txt" />
     <Content Include="Services\XmlSpawner\XMLSpawner Support\xmlspawner2doc.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
