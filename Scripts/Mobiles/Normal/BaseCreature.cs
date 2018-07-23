@@ -1016,6 +1016,31 @@ namespace Server.Mobiles
             PetTrainingHelper.GetAbilityProfile(this, true).AddAbility(ability, false);
         }
 
+		public void RemoveMagicalAbility(MagicalAbility ability)
+		{
+			PetTrainingHelper.GetAbilityProfile(this, true).RemoveAbility(ability);
+		}
+ 
+		public void RemoveSpecialAbility(SpecialAbility ability)
+		{
+			PetTrainingHelper.GetAbilityProfile(this, true).RemoveAbility(ability);
+		}
+
+		public void RemoveAreaEffect(AreaEffect ability)
+		{
+			PetTrainingHelper.GetAbilityProfile(this, true).RemoveAbility(ability);
+		}
+
+		public void RemoveWeaponAbility(WeaponAbility ability)
+		{
+			PetTrainingHelper.GetAbilityProfile(this, true).RemoveAbility(ability);
+		}
+
+		public bool HasAbility(object o)
+		{
+			return PetTrainingHelper.GetAbilityProfile(this, true).HasAbility(o);
+		}
+
         public virtual double AverageThreshold { get { return 0.33; } }
 
         public List<double> _InitAverage;
@@ -1077,30 +1102,37 @@ namespace Server.Mobiles
 
         public void AdjustTameRequirements()
         {
-            // Currently, with increased control slots, taming skill does not seem to pass 108.0
-            if(ControlSlots <=ControlSlotsMin)
-            {
-                CurrentTameSkill = MinTameSkill;
-            }
-            else if (MinTameSkill < 108)
-            {
-                double minSkill = Math.Ceiling(MinTameSkill);
+            CurrentTameSkill = CalculateCurrentTameSkill(ControlSlots);
+        }
 
+        public double CalculateCurrentTameSkill(int currentControlSlots)
+        {
+        	double minSkill = Math.Ceiling(MinTameSkill);
+        	double current = 0;
+
+        	if (currentControlSlots <= ControlSlotsMin)
+            {
+                current = MinTameSkill;
+            }
+            else if (MinTameSkill < 108) // Currently, with increased control slots, taming skill does not seem to pass 108.0
+            {
                 if (MinTameSkill < 0)
                 {
-                    CurrentTameSkill = Math.Ceiling(Math.Min(108.0, Math.Max(0, CurrentTameSkill) + (Math.Abs(minSkill) * .7)));
+                    current = Math.Ceiling(Math.Min(108.0, Math.Max(0, CurrentTameSkill) + (Math.Abs(minSkill) * .7)));
                 }
                 else
                 {
-                    double level = ControlSlots - ControlSlotsMin;
+                    double level = currentControlSlots - ControlSlotsMin;
                     double levelFactor = (double)(1 + (ControlSlotsMax - ControlSlotsMin)) / minSkill;
 
-                    CurrentTameSkill = Math.Ceiling(Math.Min(108.0, minSkill + (minSkill * ((levelFactor * 7) * level))));
+                    current = Math.Ceiling(Math.Min(108.0, minSkill + (minSkill * ((levelFactor * 7) * level))));
                 }
-
-                if (CurrentTameSkill < MinTameSkill)
-                    CurrentTameSkill = MinTameSkill;
             }
+
+            if (current < MinTameSkill)
+            	current = MinTameSkill;
+
+            return current;
         }
         #endregion
 
@@ -2847,38 +2879,65 @@ namespace Server.Mobiles
 
                 if (feathers != 0)
                 {
-                    corpse.AddCarvedItem(new Feather(feathers), from);
+                    Item feather = new Feather(feathers);
+
+                    if (!Core.AOS || !special || !from.AddToBackpack(feather))
+                    {
+                        corpse.AddCarvedItem(feather, from);
                     from.SendLocalizedMessage(500479); // You pluck the bird. The feathers are now on the corpse.
+                }
+                    else
+                    {
+                        from.SendLocalizedMessage(1114097); // You pluck the bird and place the feathers in your backpack.
+                    }
                 }
 
                 if (wool != 0)
                 {
-                    corpse.AddCarvedItem(new TaintedWool(wool), from);
+                    Item w = new TaintedWool(wool);
+
+                    if (!Core.AOS || !special || !from.AddToBackpack(w))
+                    {
+                        corpse.AddCarvedItem(w, from);
                     from.SendLocalizedMessage(500483); // You shear it, and the wool is now on the corpse.
+                }
+                    else
+                    {
+                        from.SendLocalizedMessage(1114099); // You shear the creature and put the resources in your backpack.
+                    }
                 }
 
                 if (meat != 0)
                 {
-                    if (MeatType == MeatType.Ribs)
-                        corpse.AddCarvedItem(new RawRibs(meat), from);
-                    else if (MeatType == MeatType.Bird)
-                        corpse.AddCarvedItem(new RawBird(meat), from);
-                    else if (MeatType == MeatType.LambLeg)
-                        corpse.AddCarvedItem(new RawLambLeg(meat), from);
-                    else if (MeatType == MeatType.Rotworm)
-                        corpse.AddCarvedItem(new RawRotwormMeat(meat), from);
+                    Item m = null;
 
+                    switch (MeatType)
+                    {
+                        default:
+                        case MeatType.Ribs: m = new RawRibs(meat); break;
+                        case MeatType.Bird: m = new RawBird(meat); break;
+                        case MeatType.LambLeg: m = new RawLambLeg(meat); break;
+                        case MeatType.Rotworm: m = new RawRotwormMeat(meat); break;
+                    }
+
+                    if (!Core.AOS || !special || !from.AddToBackpack(m))
+                    {
+                        corpse.AddCarvedItem(m, from);
                     from.SendLocalizedMessage(500467); // You carve some meat, which remains on the corpse.
+                }
+                    else
+                    {
+                        from.SendLocalizedMessage(1114101); // You carve some meat and put it in your backpack.
+                    }
                 }
 
                 if (hides != 0)
                 {
-                    if (Core.AOS && special)
-                    {
                         Item leather = null;
 
                         switch (HideType)
                         {
+                        default:
                             case HideType.Regular: leather = new Leather(hides); break;
                             case HideType.Spined: leather = new SpinedLeather(hides); break;
                             case HideType.Horned: leather = new HornedLeather(hides); break;
@@ -2894,10 +2953,8 @@ namespace Server.Mobiles
 							//daat99 OWLTR end - custom leather
 						}
 
-                        if (leather != null)
+                    if (!Core.AOS || !special || !from.AddToBackpack(leather))
                         {
-                            if (!from.PlaceInBackpack(leather))
-                            {
                                 corpse.AddCarvedItem(leather, from);
                                 from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
                             }
@@ -2906,7 +2963,7 @@ namespace Server.Mobiles
                                 from.SendLocalizedMessage(1073555); // You skin it and place the cut-up hides in your backpack.
                             }
                         }
-                    }
+                    /*}
                     else
                     {
                         if (HideType == HideType.Regular)
@@ -2936,7 +2993,7 @@ namespace Server.Mobiles
 
 						from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
                     }
-                }
+                }*/
 
                 if (scales != 0)
                 {
@@ -2945,6 +3002,7 @@ namespace Server.Mobiles
 
                     switch (sc)
                     {
+                        default:
                         case ScaleType.Red: list.Add(new RedScales(scales)); break;
 						case ScaleType.Yellow: list.Add(new YellowScales(scales)); break;
 						case ScaleType.Black: list.Add(new BlackScales(scales)); break;
@@ -2973,20 +3031,57 @@ namespace Server.Mobiles
                             }
                     }
                     
+                    if (Core.AOS && special)
+                    {
+                        bool allPack = true;
+                        bool anyPack = false;
+
                     foreach (Item s in list)
                     {
+                            //corpse.AddCarvedItem(s, from);
+                            if (!from.PlaceInBackpack(s))
+                            {
                         corpse.AddCarvedItem(s, from);
+                                allPack = false;
+                    }
+                            else if (!anyPack)
+                            {
+                                anyPack = true;
+                            }
+                        }
+
+                        if (anyPack)
+                            from.SendLocalizedMessage(1114098); // You cut away some scales and put them in your backpack.
+
+                        if(!allPack)
+                    from.SendLocalizedMessage(1079284); // You cut away some scales, but they remain on the corpse.
+                }
+                    else
+                    {
+                        foreach (Item s in list)
+                        {
+                            corpse.AddCarvedItem(s, from);
+                        }
+
+                        from.SendLocalizedMessage(1079284); // You cut away some scales, but they remain on the corpse.
                     }
 
-                    list.Clear();
-
-                    from.SendLocalizedMessage(1079284); // You cut away some scales, but they remain on the corpse.
+                    ColUtility.Free(list);
                 }
 
                 if (dragonblood != 0)
                 {
-                    corpse.AddCarvedItem(new DragonBlood(dragonblood), from);
+                    Item dblood = new DragonBlood(dragonblood);
+
+                    if (!Core.AOS || !special || !from.AddToBackpack(dblood))
+                    {
+                        corpse.AddCarvedItem(dblood, from);
                     from.SendLocalizedMessage(1094946); // Some blood is left on the corpse.
+                }
+                    else
+                    {
+                        from.SendLocalizedMessage(1114100); // You take some blood off the corpse and put it in your backpack.
+                    }
                 }
 
                 corpse.Carved = true;
@@ -3248,9 +3343,6 @@ namespace Server.Mobiles
             // Mondain's Legacy version 19
             writer.Write(m_Allured);
 
-            //Version 20 Queens Loyalty
-            //writer.Write(m_QLPoints);
-
 			//FS:ATS start
 			//Version 22
 			writer.Write((bool)m_IsMating);
@@ -3309,9 +3401,6 @@ namespace Server.Mobiles
 			writer.Write((int)m_MatingTimes);
             // Pet Branding version 24
             writer.Write(m_EngravedText);
-
-            // Version 25
-            //writer.Write(m_IsGolem);
 
             // Version 26 Pet Training
             writer.Write(ControlSlotsMin);
@@ -4719,16 +4808,18 @@ namespace Server.Mobiles
             if (profile == null || !profile.HasAbility(MagicalAbility.Poisoning) || current >= 4)
                 return HitPoison;
 
-            int level = 0;
+            int level = 1;
             double total = Skills[SkillName.Poisoning].Value;
 
             // natural poisoner retains their poison level. Added spell school is capped at level 2.
             if (total >= 100)
-                level = 3;
+                level = 4;
             else if (total > 85)
-                level = 2;
+                level = 3;
             else if (total > 65)
-                level = 1;
+                level = 2;
+            else if (total > 35)
+            	level = 1;
 
             return Poison.GetPoison(Math.Max(current, level));
         }
@@ -9198,8 +9289,11 @@ namespace Server.Mobiles
                 c.BondingBegin = DateTime.MinValue;
                 c.OwnerAbandonTime = DateTime.MinValue;
                 c.ControlTarget = null;
-                //c.ControlOrder = OrderType.Release;
-                c.AIObject.DoOrderRelease();
+                
+                if (c.AIObject != null)
+                {
+                	c.AIObject.DoOrderRelease();
+                }
                 // this will prevent no release of creatures left alone with AI disabled (and consequent bug of Followers)
                 c.DropBackpack();
                 c.RemoveOnSave = true;
