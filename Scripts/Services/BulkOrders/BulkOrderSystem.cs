@@ -197,7 +197,8 @@ namespace Server.Engines.BulkOrders
 					context.Entries[type].LastBulkOrder += TimeSpan.FromMinutes(DelayMins);
                     context.Entries[type].CachedDeeds--;
 
-                    if (context.Entries[type].CachedDeeds == 0 && context.Entries[type].LastBulkOrder < DateTime.UtcNow - TimeSpan.FromHours(Delay))
+                    //if (context.Entries[type].CachedDeeds == 0 && context.Entries[type].LastBulkOrder < DateTime.UtcNow - TimeSpan.FromHours(Delay))
+                    if (context.Entries[type].CachedDeeds == 0 && context.Entries[type].LastBulkOrder < DateTime.UtcNow - TimeSpan.FromMinutes(DelayMins))
                     {
                         context.Entries[type].LastBulkOrder = DateTime.UtcNow;
                     }
