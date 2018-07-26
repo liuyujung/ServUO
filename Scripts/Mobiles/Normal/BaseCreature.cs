@@ -962,6 +962,11 @@ namespace Server.Mobiles
             }
         }
 
+        public virtual TrainingDefinition TrainingDefinition
+        {
+        	get { return null; }
+        }
+
         public virtual void InitializeAbilities()
         {
             switch (AI)
@@ -987,13 +992,13 @@ namespace Server.Mobiles
             }
 
             if (PetTrainingHelper.Enabled)
-                return;
+            {
+            	if (Skills[SkillName.Focus].Value == 0)
+            		SetSkill(SkillName.Focus, 2, 20);
 
-            if(Skills[SkillName.Focus].Value == 0)
-                SetSkill(SkillName.Focus, 2, 20);
-
-            if(Skills[SkillName.DetectHidden].Value == 0 && !(this is BaseVendor))
-                SetSkill(SkillName.DetectHidden, Utility.RandomList(10, 60));
+            	if (Skills[SkillName.DetectHidden].Value == 0 && !(this is BaseVendor))
+            		SetSkill(SkillName.DetectHidden, Utility.RandomList(10, 60));
+            }
         }
 
         public void SetMagicalAbility(MagicalAbility ability)
@@ -4632,8 +4637,17 @@ namespace Server.Mobiles
             {
                 if (PetTrainingHelper.Enabled && ControlSlotsMin == 0 && ControlSlotsMax == 0)
                 {
+                	m_iControlSlots = value;
                     CalculateSlots(value);
-                    m_iControlSlots = ControlSlotsMin;
+
+                    if (m_iControlSlots < ControlSlotsMin)
+                    {
+                    	m_iControlSlots = ControlSlotsMin;
+                    }
+                    else if (m_iControlSlots > ControlSlotsMax)
+                    {
+                    	m_iControlSlots = ControlSlotsMax;
+                    }
                 }
                 else
                 {
