@@ -1115,7 +1115,7 @@ namespace Server.Mobiles
         	double minSkill = Math.Ceiling(MinTameSkill);
         	double current = 0;
 
-        	if (currentControlSlots <= ControlSlotsMin)
+        	if (currentControlSlots <= ControlSlots)
             {
                 current = MinTameSkill;
             }
@@ -4640,7 +4640,7 @@ namespace Server.Mobiles
                 	m_iControlSlots = value;
                     CalculateSlots(value);
 
-                    if (m_iControlSlots < ControlSlotsMin)
+                    if (m_iControlSlots != ControlSlotsMin)
                     {
                     	m_iControlSlots = ControlSlotsMin;
                     }
@@ -4657,10 +4657,10 @@ namespace Server.Mobiles
         }
 
         [CommandProperty(AccessLevel.Administrator)]
-        public int ControlSlotsMax { get; private set; }
+        public int ControlSlotsMax { get; set; }
 
         [CommandProperty(AccessLevel.Administrator)]
-        public int ControlSlotsMin { get; private set; }
+        public int ControlSlotsMin { get; set; }
 
         public virtual bool NoHouseRestrictions { get { return false; } }
         public virtual bool IsHouseSummonable { get { return false; } }
