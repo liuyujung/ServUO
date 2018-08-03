@@ -5,12 +5,7 @@ SDKPATH=${CURPATH}/Ultima
 REFS=System.Drawing.dll
 NOWARNS=0618,0219,0414,1635
 
-# Detect whether we are on Mac OS X environment or not
-#ifeq ($(shell uname -s),Darwin)
-  MONO=/Library/Frameworks/Mono.framework/Versions/4.8.1/bin/mono64
-#else
-#  MONO=mono
-#endif
+MONO=/Library/Frameworks/Mono.framework/Versions/4.8.1/bin/mono64
 
 PHONY : default build clean run
 
@@ -28,21 +23,20 @@ build: ServUO.sh
 
 clean:
 	rm -f ServUO.sh
-	rm -f ServUO.MONO.exe
-	rm -f ServUO.MONO.pdb
+	rm -f ServUO.exe
+	rm -f ServUO.exe.mdb
 	rm -f Ultima.dll
-	rm -f Ultima.pdb
+	rm -f Ultima.dll.mdb
 	rm -f *.bin
 
 Ultima.dll: Ultima/*.cs
 	${MCS} -target:library -out:${CURPATH}/Ultima.dll -r:${REFS} -nowarn:${NOWARNS} -d:MONO -d:ServUO -d:NEWTIMERS -nologo -optimize -unsafe -recurse:${SDKPATH}/*.cs
 
 ServUO.exe: Ultima.dll Server/*.cs
-	#${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.MONO.exe -d:ServUO -d:NEWTIMERS -d:MONO nologo -optimize -unsafe -recurse:${SRVPATH}/*.cs
 	${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.exe -d:MONO -d:ServUO -d:NEWTIMERS -nologo -optimize -unsafe -recurse:${SRVPATH}/*.cs
 
-ServUO.sh: ServUO.MONO.exe
+ServUO.sh: ServUO.exe
 	echo "#!/bin/sh" > ${CURPATH}/ServUO.sh
-	echo "${MONO} ${CURPATH}/ServUO.MONO.exe" >> ${CURPATH}/ServUO.sh
+	echo "${MONO} ${CURPATH}/ServUO.exe" >> ${CURPATH}/ServUO.sh
 	chmod a+x ${CURPATH}/ServUO.sh
 	sed -i.bak -e 's/<!--//g; s/-->//g' ServUO.exe.config

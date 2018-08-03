@@ -4598,31 +4598,26 @@ namespace Server.Mobiles
 
 			switch (version)
 			{
-				case 39:
+				case 37:
                     m_ExtendedFlags = (ExtendedPlayerFlag)reader.ReadInt();
-				    goto case 38;
-				case 38: // Reward Stable Slots
+				    goto case 36;
+				case 36: // Reward Stable Slots
 					RewardStableSlots = reader.ReadInt();
-					goto case 37;
-				case 37: // Siege Blessed Item
+					goto case 35;
+				case 35: // Siege Blessed Item
 					_BlessedItem = reader.ReadItem();
-					goto case 36;
-				//FS:ATS start
-				case 36:
-					{
-						m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter(reader);
-						goto case 35;
-					}
-				case 35:
-					{
-						m_Bioenginer = reader.ReadBool();
-						NextTamingBulkOrder = reader.ReadTimeSpan();
-						goto case 34;
-					}
-				//FS:ATS end
+					goto case 34;
                 // Version 34 - new BOD System
                 case 34:
-                case 33:
+                    //FS:ATS start
+                    {
+                        m_TamingBOBFilter = new Engines.BulkOrders.TamingBOBFilter(reader);
+                        m_Bioenginer = reader.ReadBool();
+                        NextTamingBulkOrder = reader.ReadTimeSpan();
+                        goto case 33;
+                    }
+				    //FS:ATS end
+				case 33:
                     {
                         m_ExploringTheDeepQuest = (ExploringTheDeepQuestChain)reader.ReadInt();
                         goto case 31;
@@ -5055,7 +5050,7 @@ namespace Server.Mobiles
 
 			base.Serialize(writer);
 
-			writer.Write(39); // version
+			writer.Write(37); // version
 
             writer.Write((int)m_ExtendedFlags);
 
@@ -5068,7 +5063,9 @@ namespace Server.Mobiles
 
 			writer.Write(RewardStableSlots);
 			writer.Write(_BlessedItem);
+
 			//FS:ATS start
+			// Version 34
 			m_TamingBOBFilter.Serialize(writer);
 			writer.Write(m_Bioenginer);
 			writer.Write(NextTamingBulkOrder);

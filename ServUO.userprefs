@@ -1,9 +1,14 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Mobiles/NPCs/BaseVendor.cs">
     <Files>
       <File FileName="Scripts/Custom/Spells/Base/AS Control Center/ClassExplainationGump.cs" Line="21" Column="41" />
       <File FileName="Scripts/Items/StoreBought/StableSlotIncreaseToken.cs" Line="1" Column="1" />
       <File FileName="Scripts/Custom/Items/Deeds/RelayerDeed.cs" Line="1" Column="1" />
+      <File FileName="Scripts/Mobiles/Normal/AntLion.cs" Line="179" Column="29" />
+      <File FileName="Scripts/Mobiles/Normal/BaseCreature.cs" Line="6700" Column="23" />
+      <File FileName="Scripts/Mobiles/PlayerMobile.cs" Line="5069" Column="40" />
+      <File FileName="Scripts/Custom/OWLTR4.0/New/Crafting Recipe.cs" Line="19" Column="15" />
+      <File FileName="Scripts/Mobiles/NPCs/BaseVendor.cs" Line="759" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
