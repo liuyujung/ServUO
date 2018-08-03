@@ -1884,6 +1884,7 @@ namespace Server.Items
                     {
                         if (version == 13)
                             reader.ReadBool();
+
                         _Owner = reader.ReadMobile();
                         _OwnerName = reader.ReadString();
                         goto case 11;
@@ -1908,6 +1909,7 @@ namespace Server.Items
                         m_ReforgedPrefix = (ReforgedPrefix)reader.ReadInt();
                         m_ReforgedSuffix = (ReforgedSuffix)reader.ReadInt();
                         m_ItemPower = (ItemPower)reader.ReadInt();
+
                         if (version == 13 && reader.ReadBool())
                         {
                             Timer.DelayCall(TimeSpan.FromSeconds(1), () =>
@@ -2436,7 +2438,22 @@ namespace Server.Items
                 }
                 if (isRaceCheckNeeded(this))
                 {
-                    bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
+
+                bool morph = from.FindItemOnLayer(Layer.Earrings) is MorphEarrings;
+
+                if (from.Race == Race.Gargoyle && !CanBeWornByGargoyles)
+                {
+                    from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1111708); // Gargoyles can't wear this.
+                    return false;
+                }
+                if (RequiredRace != null && from.Race != RequiredRace && !morph)
+                {
+                    if (RequiredRace == Race.Elf)
+                        from.SendLocalizedMessage(1072203); // Only Elves may use this.
+                    else if (RequiredRace == Race.Gargoyle)
+                        from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1111707); // Only gargoyles can wear this.
+                    else
+                        from.SendMessage("Only {0} may use this.", RequiredRace.PluralName);
 
                     if (from.Race == Race.Gargoyle && !CanBeWornByGargoyles)
                     {
@@ -2455,10 +2472,11 @@ namespace Server.Items
                         return false;
                     }
                 }
+                }
                 if (!AllowMaleWearer && !from.Female)
                 {
                     if (AllowFemaleWearer)
-                        from.SendLocalizedMessage(1010388); // Only females can wear 
+                        from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1010388); // Only females can wear this.
                     else
                         from.SendMessage("You may not wear this.");
 
@@ -2467,7 +2485,7 @@ namespace Server.Items
                 else if (!AllowFemaleWearer && from.Female)
                 {
                     if (AllowMaleWearer)
-                        from.SendLocalizedMessage(1063343); // Only males can wear 
+                        from.LocalOverheadMessage(MessageType.Regular, 0x3B2, 1063343); // Only males can wear this.
                     else
                         from.SendMessage("You may not wear this.");
 
@@ -3508,9 +3526,9 @@ namespace Server.Items
                 if (m_SetEnergyBonus != 0)
                     list.Add(1072386, m_SetEnergyBonus.ToString()); // energy resist +~1_val~%		
             }
-            else if (m_SetEquipped && SetHelper.ResistsBonusPerPiece(this) && RootParentEntity is Mobile)
+            else if (m_SetEquipped && SetHelper.ResistsBonusPerPiece(this) && RootParent is Mobile)
             {
-                Mobile m = (Mobile)RootParentEntity;
+                Mobile m = (Mobile)RootParent;
 
                 if (m_SetPhysicalBonus != 0)
                     list.Add(1080361, SetHelper.GetSetTotalResist(m, ResistanceType.Physical).ToString()); // physical resist ~1_val~% (total)

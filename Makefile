@@ -16,6 +16,11 @@ PHONY : default build clean run
 
 default: run
 
+debug: 
+	${MCS} -target:library -out:${CURPATH}/Ultima.dll -r:${REFS} -nowarn:${NOWARNS} -d:DEBUG -d:MONO -d:ServUO -d:NEWTIMERS -nologo -debug -unsafe -recurse:${SDKPATH}/*.cs
+	${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.exe -d:DEBUG -d:MONO -d:ServUO -d:NEWTIMERS -nologo -debug -unsafe -recurse:${SRVPATH}/*.cs
+	sed -i.bak -e 's/<!--//g; s/-->//g' ServUO.exe.config
+
 run: build
 	${CURPATH}/ServUO.sh
 
@@ -30,10 +35,11 @@ clean:
 	rm -f *.bin
 
 Ultima.dll: Ultima/*.cs
-	${MCS} -target:library -out:${CURPATH}/Ultima.dll -r:${REFS} -d:ServUO -d:NEWTIMERS -nowarn:${NOWARNS} -debug -nologo -optimize -unsafe -recurse:${SDKPATH}/*.cs
+	${MCS} -target:library -out:${CURPATH}/Ultima.dll -r:${REFS} -nowarn:${NOWARNS} -d:MONO -d:ServUO -d:NEWTIMERS -nologo -optimize -unsafe -recurse:${SDKPATH}/*.cs
 
-ServUO.MONO.exe: Ultima.dll Server/*.cs
-	${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.MONO.exe -d:ServUO -d:NEWTIMERS -d:MONO -debug -nologo -optimize -unsafe -recurse:${SRVPATH}/*.cs
+ServUO.exe: Ultima.dll Server/*.cs
+	#${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.MONO.exe -d:ServUO -d:NEWTIMERS -d:MONO nologo -optimize -unsafe -recurse:${SRVPATH}/*.cs
+	${MCS} -win32icon:${SRVPATH}/servuo.ico -r:${CURPATH}/Ultima.dll,${REFS} -nowarn:${NOWARNS} -target:exe -out:${CURPATH}/ServUO.exe -d:MONO -d:ServUO -d:NEWTIMERS -nologo -optimize -unsafe -recurse:${SRVPATH}/*.cs
 
 ServUO.sh: ServUO.MONO.exe
 	echo "#!/bin/sh" > ${CURPATH}/ServUO.sh

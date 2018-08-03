@@ -1111,6 +1111,7 @@ namespace Server.Items
                     {
                         if (version == 11)
                             reader.ReadBool();
+						
                         _Owner = reader.ReadMobile();
                         _OwnerName = reader.ReadString();
                         goto case 7;
@@ -1131,7 +1132,8 @@ namespace Server.Items
                         m_ReforgedPrefix = (ReforgedPrefix)reader.ReadInt();
                         m_ReforgedSuffix = (ReforgedSuffix)reader.ReadInt();
                         m_ItemPower = (ItemPower)reader.ReadInt();
-                        if(version == 11 && reader.ReadBool())
+						
+                        if(version < 12 && reader.ReadBool())
                             m_NegativeAttributes.NoRepair = 1;
                         #endregion
 

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Server.Gumps;
 using Server.Items;
 using Server.Mobiles;
@@ -8,6 +10,7 @@ using System.Linq;
 using daat99;
 using Server.Network; //daat
 using System.Collections; //daat
+using Server.Services.Virtues;
 using Server.Spells.Necromancy;
 
 namespace Server.Engines.CannedEvil

@@ -833,7 +833,7 @@ namespace Server
         void OnChop(Mobile from);
     }
 
-    public interface IHarvestTool
+    public interface IHarvestTool : IEntity
     {
         Engines.Harvest.HarvestSystem HarvestSystem { get; }
     }
