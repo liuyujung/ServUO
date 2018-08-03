@@ -218,7 +218,7 @@ namespace Server.Items
                 if (m_Commodity.Name != null)
                     list.Add(1060658, "{0}\t{1}", m_Commodity.Name, m_Commodity.Amount); // ~1_val~: ~2_val~
                 else
-                    list.Add(1060658, "#{0}\t{1}", ((ICommodity)m_Commodity).DescriptionNumber, m_Commodity.Amount); // ~1_val~: ~2_val~
+                    list.Add(1060658, "#{0}\t{1}", ((ICommodity)m_Commodity).Description, m_Commodity.Amount); // ~1_val~: ~2_val~
 			}
 			//daat99 OWLTR end - commodity deeds
             else

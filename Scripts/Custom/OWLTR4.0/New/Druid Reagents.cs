@@ -3,8 +3,20 @@ namespace Server.Items
 {
 	public class DestroyingAngel : BaseReagent, ICommodity
 	{
-		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-		bool ICommodity.IsDeedable { get { return true; } }
+		TextDefinition ICommodity.Description
+		{
+			get
+			{
+				return this.LabelNumber;
+			}
+		}
+		bool ICommodity.IsDeedable
+		{
+			get
+			{
+				return true;
+			}
+		}
 		
 		[Constructable]
 		public DestroyingAngel() : this( 1 )
@@ -42,8 +54,20 @@ namespace Server.Items
 	
 	public class PetrafiedWood : BaseReagent, ICommodity
 	{
-		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-		bool ICommodity.IsDeedable { get { return true; } }
+		TextDefinition ICommodity.Description
+		{
+			get
+			{
+				return this.LabelNumber;
+			}
+		}
+		bool ICommodity.IsDeedable
+		{
+			get
+			{
+				return true;
+			}
+		}
 		
 		[Constructable]
 		public PetrafiedWood() : this( 1 )
@@ -81,8 +105,20 @@ namespace Server.Items
 	
 	public class SpringWater : BaseReagent, ICommodity
 	{
-		int ICommodity.DescriptionNumber { get { return LabelNumber; } }
-		bool ICommodity.IsDeedable { get { return true; } }
+		TextDefinition ICommodity.Description
+		{
+			get
+			{
+				return this.LabelNumber;
+			}
+		}
+		bool ICommodity.IsDeedable
+		{
+			get
+			{
+				return true;
+			}
+		}
 		
 		[Constructable]
 		public SpringWater() : this( 1 )
