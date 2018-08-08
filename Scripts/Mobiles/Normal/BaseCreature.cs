@@ -1063,6 +1063,11 @@ namespace Server.Mobiles
         public virtual bool FreezeOnCast { get { return ShowSpellMantra; } }
         public virtual bool CanFly { get { return false; } }
 
+        public virtual bool CanAutoStable { get { return ControlMaster is PlayerMobile && 
+                                                        !Allured && 
+                                                        !Summoned &&
+                                                        (!(this is IMount) || ((IMount)this).Rider == null); } }
+
         #region High Seas
         public virtual bool TaintedLifeAura { get { return false; } }
         #endregion
@@ -4098,7 +4103,7 @@ namespace Server.Mobiles
 
                     CalculateSlots(value);
 
-                    if (m_iControlSlots < ControlSlotsMin)
+                    if (m_iControlSlots != ControlSlotsMin)
                     {
                         m_iControlSlots = ControlSlotsMin;
                     }
@@ -7723,7 +7728,7 @@ namespace Server.Mobiles
         #region Detect Hidden
         private long _NextDetect;
 
-        public virtual bool CanDetectHidden { get { return Skills[SkillName.DetectHidden].Value > 0; } }
+        public virtual bool CanDetectHidden { get { return Controlled && Skills[SkillName.DetectHidden].Value > 0; } }
 
         public virtual int FindPlayerDelayBase { get { return (15000 / Int); } }
         public virtual int FindPlayerDelayMax { get { return 60; } }
@@ -7731,7 +7736,6 @@ namespace Server.Mobiles
         public virtual int FindPlayerDelayHigh { get { return 10; } }
         public virtual int FindPlayerDelayLow { get { return 9; } }
 
-        // This does NOT actually use the skill. Just uses the skill values for a distinct ability.
         public virtual void TryFindPlayer()
         {
             if (Deleted || Map == null)
