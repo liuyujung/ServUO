@@ -2421,11 +2421,6 @@ namespace Server.Mobiles
                     list.Add(new Engines.Points.LoyaltyRating(this));
 			    }
 
-                if (Backpack != null && CanSee(Backpack) && Alive)
-                {
-                    list.Add(new OpenBackpackEntry(this));
-                }
-
 				if (Alive && InsuranceEnabled)
 				{
 					list.Add(new CallbackEntry(6201, ToggleItemInsurance));
