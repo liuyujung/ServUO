@@ -2123,6 +2123,7 @@ namespace Server.Items
             WeaponAbility a = WeaponAbility.GetCurrentAbility(attacker);
             SpecialMove move = SpecialMove.GetCurrentMove(attacker);
 
+            bool ranged = this is BaseRanged;
             int phys, fire, cold, pois, nrgy, chaos, direct;
 
             if (Core.TOL && a is MovingShot)
@@ -2134,8 +2135,8 @@ namespace Server.Items
             {
                 GetDamageTypes(attacker, out phys, out fire, out cold, out pois, out nrgy, out chaos, out direct);
 
-                if (!OnslaughtSpell.HasOnslaught(attacker, defender) && 
-                    ConsecratedContext != null && 
+                if (!OnslaughtSpell.HasOnslaught(attacker, defender) &&
+                    ConsecratedContext != null &&
                     ConsecratedContext.Owner == attacker &&
                     ConsecratedContext.ConsecrateProcChance >= Utility.Random(100))
                 {
@@ -2159,6 +2160,15 @@ namespace Server.Items
                     else if (type == 2) cold = 100;
                     else if (type == 3) pois = 100;
                     else if (type == 4) nrgy = 100;
+                }
+                else if (Core.ML && ranged)
+                {
+                    IRangeDamage rangeDamage = attacker.FindItemOnLayer(Layer.Cloak) as IRangeDamage;
+
+                    if (rangeDamage != null)
+                    {
+                        rangeDamage.AlterRangedDamage(ref phys, ref fire, ref cold, ref pois, ref nrgy, ref chaos, ref direct);
+                    }
                 }
             }
 
@@ -2219,8 +2229,6 @@ namespace Server.Items
             WeaponAbility weavabil;
             bool bladeweaving = Bladeweave.BladeWeaving(attacker, out weavabil);
             bool ignoreArmor = (a is ArmorIgnore || (move != null && move.IgnoreArmor(attacker)) || (bladeweaving && weavabil is ArmorIgnore));
-
-            bool ranged = this is BaseRanged;
 
             // object is not a mobile, so we end here
             if (defender == null)
@@ -2507,16 +2515,6 @@ namespace Server.Items
             #endregion
 
             Timer.DelayCall(d => AddBlood(d, damage), defender);
-
-			if (Core.ML && ranged)
-			{
-                IRangeDamage rangeDamage = attacker.FindItemOnLayer(Layer.Cloak) as IRangeDamage;
-
-                if (rangeDamage != null)
-				{
-                    rangeDamage.AlterRangedDamage(ref phys, ref fire, ref cold, ref pois, ref nrgy, ref chaos, ref direct);
-				}
-			}
 
 			int damageGiven = damage;
 
