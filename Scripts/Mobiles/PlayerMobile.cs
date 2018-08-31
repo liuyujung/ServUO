@@ -1699,15 +1699,19 @@ namespace Server.Mobiles
 
 		private static void OnLogout(LogoutEventArgs e)
 		{
-			#region Scroll of Alacrity
-			if (((PlayerMobile)e.Mobile).AcceleratedStart > DateTime.UtcNow)
+            PlayerMobile pm = e.Mobile as PlayerMobile;
+
+            #region Scroll of Alacrity
+            if (pm.AcceleratedStart > DateTime.UtcNow)
 			{
-				((PlayerMobile)e.Mobile).AcceleratedStart = DateTime.UtcNow;
-				ScrollofAlacrity.AlacrityEnd(e.Mobile);
+				pm.AcceleratedStart = DateTime.UtcNow;
+				ScrollofAlacrity.AlacrityEnd(pm);
 			}
 			#endregion
 
-            BaseFamiliar.OnLogout(e.Mobile as PlayerMobile);
+            BaseFamiliar.OnLogout(pm);
+
+            BaseEscort.DeleteEscort(pm);
 		}
 
 		private static void EventSink_Connected(ConnectedEventArgs e)
