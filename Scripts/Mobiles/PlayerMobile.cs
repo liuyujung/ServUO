@@ -220,6 +220,7 @@ namespace Server.Mobiles
 			set { m_Bioenginer = value; }
 		}
 		//FS:ATS end
+
         public static bool IsValidLandLocation(Point3D p, Map map)
         {
             return map.CanFit(p.X, p.Y, p.Z, 16, false, false);
@@ -1468,6 +1469,7 @@ namespace Server.Mobiles
                         BaseWeapon weapon = (BaseWeapon)item;
 
                         bool drop = false;
+
                         if (dex < weapon.DexRequirement)
                         {
                             drop = true;
@@ -1714,7 +1716,7 @@ namespace Server.Mobiles
             BaseFamiliar.OnLogout(pm);
 
             BaseEscort.DeleteEscort(pm);
-		}
+        }
 
 		private static void EventSink_Connected(ConnectedEventArgs e)
 		{
@@ -1750,7 +1752,7 @@ namespace Server.Mobiles
 			SpecialMove.ClearAllMoves(from);
 		}
 
-		private static void EventSink_Disconnected(DisconnectedEventArgs e)
+        private static void EventSink_Disconnected(DisconnectedEventArgs e)
 		{
 			Mobile from = e.Mobile;
 			DesignContext context = DesignContext.Find(from);
@@ -2496,7 +2498,7 @@ namespace Server.Mobiles
 				}
 				#endregion
 
-                if (!Core.SA && Alive)
+                if (Core.UOR && !Core.SA && Alive)
 				{
 					list.Add(new CallbackEntry(6210, ToggleChampionTitleDisplay));
 				}
@@ -3957,7 +3959,7 @@ namespace Server.Mobiles
 			//NO WIPE RISK!!!
 			daat99.MasterStorageUtils.MoveItemsOnDeath(this, c);
 			//daat99 Master Looter end - keep/drop items on death
-			
+
 			if (m_NonAutoreinsuredItems > 0)
 			{
 				SendLocalizedMessage(1061115);
@@ -3986,9 +3988,10 @@ namespace Server.Mobiles
 			EndAction(typeof(IncognitoSpell));
 
 			MeerMage.StopEffect(this, false);
+            BaseEscort.DeleteEscort(this);
 
-			#region Stygian Abyss
-			if (Flying)
+            #region Stygian Abyss
+            if (Flying)
 			{
 				Flying = false;
 				BuffInfo.RemoveBuff(this, BuffIcon.Fly);
@@ -4548,7 +4551,7 @@ namespace Server.Mobiles
 		private Engines.BulkOrders.TamingBOBFilter m_TamingBOBFilter;
 		//FS:ATS end
 
-		public BOBFilter BOBFilter 
+		public BOBFilter BOBFilter
         {
             get
             {
@@ -4574,7 +4577,7 @@ namespace Server.Mobiles
 				case 37:
                     m_ExtendedFlags = (ExtendedPlayerFlag)reader.ReadInt();
 				    goto case 36;
-				case 36: // Reward Stable Slots
+				case 36:
 					RewardStableSlots = reader.ReadInt();
 					goto case 35;
 				case 35: // Siege Blessed Item
@@ -5034,7 +5037,6 @@ namespace Server.Mobiles
 				_BlessedItem = null;
 			}
 
-			writer.Write(RewardStableSlots);
 			writer.Write(_BlessedItem);
 
 			//FS:ATS start
