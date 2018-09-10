@@ -166,7 +166,7 @@ namespace Server.Multis
             }
         }
 
-        public int Status
+        public virtual int Status
         {
             get
             {
@@ -178,7 +178,7 @@ namespace Server.Multis
 
                 TimeSpan decaySpan = m_DecayTime - DateTime.UtcNow;
 
-                if (decaySpan >= TimeSpan.FromDays(13.0))
+                if (decaySpan >= BoatDecayDelay)
                     return 1043010; // This structure is like new.
 
                 if (decaySpan >= TimeSpan.FromDays(10.0))
@@ -1543,6 +1543,10 @@ namespace Server.Multis
         {
         }
 
+        public virtual void OnAfterPlacement(bool initial)
+        {
+        }
+
         public Point3D Rotate(Point3D p, int count)
         {
             int rx = p.X - Location.X;
@@ -1586,6 +1590,14 @@ namespace Server.Multis
                 return true;
 
             return false;
+        }
+
+        public static bool HasBoat(Mobile from)
+        {
+            if (from.AccessLevel > AccessLevel.Player)
+                return false;
+
+            return Boats.Any(boat => boat.Owner == from && !boat.Deleted && boat.Map != Map.Internal && !(boat is RowBoat));
         }
 
         public static bool IsValidLocation(Point3D p, Map map)
