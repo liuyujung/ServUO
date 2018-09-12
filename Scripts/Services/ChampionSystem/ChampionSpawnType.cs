@@ -19,8 +19,9 @@ namespace Server.Engines.CannedEvil
         Infuse,
         #endregion
         #region TOL
-        DragonTurtle
+        DragonTurtle,
         #endregion
+        Khaldun
 		//daat99 OWLTR start - MotA champ
         ,
         Crafter
@@ -38,37 +39,37 @@ namespace Server.Engines.CannedEvil
         {
             get
             {
-                return this.m_Name;
+                return m_Name;
             }
         }
         public Type Champion
         {
             get
             {
-                return this.m_Champion;
+                return m_Champion;
             }
         }
         public Type[][] SpawnTypes
         {
             get
             {
-                return this.m_SpawnTypes;
+                return m_SpawnTypes;
             }
         }
         public string[] LevelNames
         {
             get
             {
-                return this.m_LevelNames;
+                return m_LevelNames;
             }
         }
 
         public ChampionSpawnInfo(string name, Type champion, string[] levelNames, Type[][] spawnTypes)
         {
-            this.m_Name = name;
-            this.m_Champion = champion;
-            this.m_LevelNames = levelNames;
-            this.m_SpawnTypes = spawnTypes;
+            m_Name = name;
+            m_Champion = champion;
+            m_LevelNames = levelNames;
+            m_SpawnTypes = spawnTypes;
         }
 
         public static ChampionSpawnInfo[] Table
@@ -166,23 +167,31 @@ namespace Server.Engines.CannedEvil
 
             #region TOL
             new ChampionSpawnInfo( "Valley", typeof( DragonTurtle ), new string[]{ "Explorer", "Huntsman", "Msafiri", } , new Type[][]
-		    {																											// DragonTurtle
+            {																											// DragonTurtle
 				new Type[]{ typeof( MyrmidexDrone ), typeof( MyrmidexLarvae ) },										// Level 1
 				new Type[]{ typeof( SilverbackGorilla ), typeof( WildTiger ) },											// Level 2
 				new Type[]{ typeof( GreaterPhoenix  ), typeof( Infernus ) },										    // Level 3
 				new Type[]{ typeof( Dimetrosaur ), typeof( Allosaurus ) }											    // Level 4
 			} ),
-                #endregion
+            #endregion
+
+            new ChampionSpawnInfo( "Khaldun", typeof( KhalAnkur ), new string[]{ "Banisher", "Enforcer", "Eradicator" } , new Type[][]
+            {                                                                                                           // KhalAnkur
+                new Type[]{ typeof( SkelementalKnight ), typeof( KhaldunBlood ) },                                      // Level 1
+                new Type[]{ typeof( SkelementalMage ), typeof( Viscera ) },                                             // Level 2
+                new Type[]{ typeof( CultistAmbusher  ), typeof( ShadowFiend ) },                                        // Level 3
+                new Type[]{ typeof( KhalAnkurWarriors ) }                                                               // Level 4
+            } ),
 
 			//daat99 OWLTR start - MotA champ mobs
-				new ChampionSpawnInfo( "Master of the Arts", typeof(MasterOfTheArts), new string[]{ "Destoyer", "Smelter", "Crafter" } , new Type[][]
-				{																											// Crafter
-					new Type[]{ typeof( CarpenterAutomaton ), typeof( BabyBellhop ) },										// Level 1
-					new Type[]{ typeof( TailorAutomaton ), typeof( Bellhop ) },												// Level 2
-					new Type[]{ typeof( BlacksmithAutomaton ), typeof( StrongBellhop ) },									// Level 3
-					new Type[]{ typeof( FletcherAutomaton ), typeof( BurntOne ) }											// Level 4
-				} )				
-				//daat99 OWLTR end - MotA champ mobs
+			new ChampionSpawnInfo( "Master of the Arts", typeof(MasterOfTheArts), new string[]{ "Destoyer", "Smelter", "Crafter" } , new Type[][]
+			{																											// Crafter
+				new Type[]{ typeof( CarpenterAutomaton ), typeof( BabyBellhop ) },										// Level 1
+				new Type[]{ typeof( TailorAutomaton ), typeof( Bellhop ) },												// Level 2
+				new Type[]{ typeof( BlacksmithAutomaton ), typeof( StrongBellhop ) },									// Level 3
+				new Type[]{ typeof( FletcherAutomaton ), typeof( BurntOne ) }											// Level 4
+			} )				
+			//daat99 OWLTR end - MotA champ mobs
         };
 
         public static ChampionSpawnInfo GetInfo(ChampionSpawnType type)
