@@ -5993,7 +5993,7 @@ namespace Server.Mobiles
 
         public long NextMovementTime { get { return m_NextMovementTime; } }
 
-		public virtual bool UsesFastwalkPrevention { get { return (IsPlayer()) & !Flying; } }
+		public virtual bool UsesFastwalkPrevention { get { return (IsPlayer())/* & !Flying*/; } }
 
 		public override int ComputeMovementSpeed(Direction dir, bool checkTurning)
 		{
@@ -6011,7 +6011,7 @@ namespace Server.Mobiles
 
 			bool running = ((dir & Direction.Running) != 0);
 
-			bool onHorse = (Mount != null);
+			bool onHorse = Mount != null || Flying;
 
 			AnimalFormContext animalContext = AnimalForm.GetContext(this);
 
