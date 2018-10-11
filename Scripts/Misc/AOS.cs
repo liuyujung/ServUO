@@ -317,6 +317,10 @@ namespace Server
             BestialSetHelper.OnDamage(m, from, ref totalDamage);
             #endregion
 
+            #region Epiphany Set
+            EpiphanyHelper.OnHit(m, totalDamage);
+            #endregion
+
             if (type == DamageType.Spell && m != null && Feint.Registry.ContainsKey(m) && Feint.Registry[m].Enemy == from)
                 totalDamage -= (int)((double)damage * ((double)Feint.Registry[m].DamageReduction / 100));
 
@@ -2457,11 +2461,13 @@ namespace Server
             {
                 Spell spell = context.Spell as Spell;
                 spell.GetCastSkills(out minSkill, out maxSkill);
+
                 if (m.Skills[spell.CastSkill].Value < minSkill)
                 {
                     TransformationSpellHelper.RemoveContext(m, context, true);
                 }
             }
+
             if (acontext != null)
             {
                 if (acontext.Type == typeof(WildWhiteTiger) && m.Skills[SkillName.Ninjitsu].Value < 90)
