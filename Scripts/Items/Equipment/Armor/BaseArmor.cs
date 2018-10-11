@@ -538,6 +538,15 @@ namespace Server.Items
 
             return value;
         }
+
+        public static bool HasRefinedResist(Mobile from)
+        {
+            return from.Items.OfType<BaseArmor>().Any(armor => armor.m_RefinedPhysical > 0 ||
+                                                               armor.m_RefinedFire > 0 ||
+                                                               armor.m_RefinedCold > 0 ||
+                                                               armor.m_RefinedPoison > 0 ||
+                                                               armor.m_RefinedEnergy > 0);
+        }
         
         public override void AddResistanceProperties(ObjectPropertyList list)
         {
@@ -821,7 +830,7 @@ namespace Server.Items
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public CraftResource Resource
+        public virtual CraftResource Resource
         {
             get
             {
@@ -1340,7 +1349,7 @@ namespace Server.Items
             InvalidateProperties();
         }
 
-        public int GetDurabilityBonus()
+        public virtual int GetDurabilityBonus()
         {
             int bonus = 0;
 
