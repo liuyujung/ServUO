@@ -24,7 +24,7 @@ namespace Server.Engines.CannedEvil
         private bool m_Active;
         private bool m_RandomizeType;
         private ChampionSpawnType m_Type;
-        public List<Mobile> m_Creatures;
+        private List<Mobile> m_Creatures;
         private List<Item> m_RedSkulls;
         private List<Item> m_WhiteSkulls;
         private ChampionPlatform m_Platform;
@@ -50,6 +50,11 @@ namespace Server.Engines.CannedEvil
         private bool m_ConfinedRoaming;
 
         private Dictionary<Mobile, int> m_DamageEntries;
+
+        public List<Mobile> Creatures
+        {
+            get { return m_Creatures; }
+        }
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public string GroupName { get; set; }
@@ -852,16 +857,15 @@ namespace Server.Engines.CannedEvil
 
             if (m_Champion != null)
             {
-                if (m_Champion is KhalAnkur)
-                {
-                    m_Champion.Blessed = true;
-                    ((KhalAnkur)m_Champion).Spawn = this;
-                }
-
                 Point3D p = new Point3D(X, Y, Z - 15);
 
                 m_Champion.MoveToWorld(p, Map);
                 ((BaseCreature)m_Champion).Home = p;
+
+                if (m_Champion is BaseChampion)
+                {
+                    ((BaseChampion)m_Champion).OnChampPopped(this);
+                }
             }
 			//daat99 OWLTR start - drop gathered stuff
 			if (OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.A_LI_N_CLEAN_CHAMP) && OWLTROptionsManager.IsEnabled(OWLTROptionsManager.OPTIONS_ENUM.SAVE_CLEAN_CHAMP_GOLD))

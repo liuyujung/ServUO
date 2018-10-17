@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
 using Server.Engines.PartySystem;
 using Server.Guilds;
 using Server.Items;
@@ -228,34 +230,12 @@ namespace Server.Spells
             }
         }
 
-        //TODO: Check if aggressor leaves facet, if heat is removed
         public static bool CheckCombat(Mobile m, bool restrict = true)
         {
             if (!restrict)
                 return false;
 
-            TimeSpan delay = Server.Misc.AttackMessage.CombatHeatDelay;
-
-            for (int i = 0; i < m.Aggressed.Count; ++i)
-            {
-                AggressorInfo info = m.Aggressed[i];
-
-                if (info.Defender.Player && (DateTime.UtcNow - info.LastCombatTime) < delay)
-                    return true;
-            }
-
-            if (!Core.AOS)
-            {
-                for (int i = 0; i < m.Aggressors.Count; ++i)
-                {
-                    AggressorInfo info = m.Aggressors[i];
-
-                    if (info.Attacker.Player && (DateTime.UtcNow - info.LastCombatTime) < delay)
-                        return true;
-                }
-            }
-
-            return false;
+            return Aggression.CheckHasAggression(m, Core.AOS);
         }
 
         public static bool AdjustField(ref Point3D p, Map map, int height, bool mobsBlock)
@@ -585,9 +565,14 @@ namespace Server.Spells
                     if (p != null && (p.Contains(c.ControlMaster) || p.Contains(c.SummonMaster)))
                         return false;
                 }
+                else if(to.Player || // monsters can hit players and pets of players
+                        (to is BaseCreature && (((BaseCreature)to).Controlled || ((BaseCreature)to).Summoned) && ((BaseCreature)to).GetMaster() is PlayerMobile))
+                {
+                    return true;
+                }
             }
 
-            // Non-enemy monsters will no longer flag area spells on each other
+            // Non-enemy monsters will not flag area spells on each other
             if (from is BaseCreature && to is BaseCreature)
             {
                 BaseCreature fromBC = (BaseCreature)from;
@@ -613,6 +598,38 @@ namespace Server.Spells
             int noto = Notoriety.Compute(from, to);
 
             return (noto != Notoriety.Innocent || from.Murderer);
+        }
+
+        public static IEnumerable<IDamageable> AcquireIndirectTargets(Mobile caster, IPoint3D p, Map map, int range)
+        {
+            if (map == null)
+            {
+                yield break;
+            }
+
+            IPooledEnumerable eable = map.GetObjectsInRange(new Point3D(p), range);
+
+            foreach (var id in eable.OfType<IDamageable>())
+            {
+                if (id == caster)
+                {
+                    continue;
+                }
+
+                if (!id.Alive || !caster.InLOS(id) || !caster.CanBeHarmful(id, false))
+                {
+                    continue;
+                }
+
+                if (id is Mobile && !SpellHelper.ValidIndirectTarget(caster, (Mobile)id))
+                {
+                    continue;
+                }
+
+                yield return id;
+            }
+
+            eable.Free();
         }
 
         private static readonly int[] m_Offsets = new int[]

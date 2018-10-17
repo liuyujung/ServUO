@@ -3152,29 +3152,14 @@ namespace Server.Items
 				return;
 			}
 
-			var list = new List<Mobile>();
+            var list = SpellHelper.AcquireIndirectTargets(from, from, from.Map, 5);
 
-            IPooledEnumerable eable = from.GetMobilesInRange(5);
-
-			foreach (Mobile m in eable)
-			{
-				if (from != m && defender != m && SpellHelper.ValidIndirectTarget(from, m) && from.CanBeHarmful(m, false) &&
-					(!Core.ML || from.InLOS(m)))
-				{
-					list.Add(m);
-				}
-			}
-
-            eable.Free();
-
-            if (list.Count > 0)
+            if (list.Count() > 0)
             {
                 Effects.PlaySound(from.Location, map, sound);
 
-                for (int i = 0; i < list.Count; ++i)
+                foreach(var m in list)
                 {
-                    Mobile m = list[i];
-
                     from.DoHarmful(m, true);
                     m.FixedEffect(0x3779, 1, 15, hue, 0);
                     AOS.Damage(m, from, (int)(damageGiven / 2), phys, fire, cold, pois, nrgy, Server.DamageType.SpellAOE);
@@ -3183,8 +3168,6 @@ namespace Server.Items
 
             if (ProcessingMultipleHits)
                 BlockHitEffects = true;
-
-            ColUtility.Free(list);
 		}
 		#endregion
 
@@ -4925,7 +4908,7 @@ namespace Server.Items
             {
                 if (WeaponAttributes.HitLeechHits > 0 || WeaponAttributes.HitLeechMana > 0)
                 {
-                    WeaponAttributes.ScaleLeech(this, Attributes.WeaponSpeed);
+                    WeaponAttributes.ScaleLeech(Attributes.WeaponSpeed);
                 }
             }
 

@@ -1282,6 +1282,11 @@ namespace Server.Spells
             return true;
         }
 
+        public virtual IEnumerable<IDamageable> AcquireIndirectTargets(IPoint3D pnt, int range)
+        {
+            return SpellHelper.AcquireIndirectTargets(Caster, pnt, Caster.Map, range);
+        }
+
 		private class AnimTimer : Timer
 		{
 			private readonly Spell m_Spell;
