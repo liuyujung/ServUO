@@ -128,7 +128,6 @@ namespace Server.Mobiles
 		Spined,
 		Horned,
 		Barbed,
-		Fur,
 		//daat99 OWLTR start - custom hides
 		Polar,
 		Synthetic,
@@ -139,6 +138,15 @@ namespace Server.Mobiles
 		Ethereal
 		//daat99 OWLTR end - custom hides
 	}
+
+    public enum FurType
+    {
+        None,
+        Green,
+        LightBrown,
+        Yellow,
+        Brown
+    }
 
 	public enum TribeType
 	{
@@ -2888,10 +2896,11 @@ namespace Server.Mobiles
 			int hides = Hides;
 			int scales = Scales;
 			int dragonblood = DragonBlood;
+			int fur = Fur;
 
-			bool special = with is SkinningKnife || with is ButchersWarCleaver || with is HarvestersBlade;
+			bool special = with is HarvestersBlade;
 
-			if ((feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0) || Summoned || IsBonded || corpse.Animated)
+			if ((feathers == 0 && wool == 0 && meat == 0 && hides == 0 && scales == 0 && fur == 0) || Summoned || IsBonded || corpse.Animated)
 			{
 				if (corpse.Animated)
 				{
@@ -2914,6 +2923,7 @@ namespace Server.Mobiles
 					feathers *= 2;
 					wool *= 2;
 					hides *= 2;
+					fur *= 2;
 
 					if (Core.ML)
 					{
@@ -3009,7 +3019,7 @@ namespace Server.Mobiles
 							//daat99 OWLTR end - custom leather
 					}
 
-					if (!Core.AOS || !special || !from.AddToBackpack(leather))
+					if (!Core.AOS || !special || !from.AddToBackpack(leather) || !(with is ButchersWarCleaver))
 					{
 						corpse.AddCarvedItem(leather, from);
 						from.SendLocalizedMessage(500471); // You skin it, and the hides are now in the corpse.
@@ -3138,6 +3148,14 @@ namespace Server.Mobiles
 						from.SendLocalizedMessage(1114100); // You take some blood off the corpse and put it in your backpack.
 					}
 				}
+
+				if (fur != 0)
+                {
+                    Item _fur = new Fur(FurType, fur);
+
+                    corpse.AddCarvedItem(_fur, from);
+                    from.SendLocalizedMessage(1112765); // You shear it, and the fur is now on the corpse.
+                }
 
 				corpse.Carved = true;
 
@@ -4749,6 +4767,7 @@ namespace Server.Mobiles
 		public virtual int Wool { get { return 0; } }
 
 		public virtual int Fur { get { return 0; } }
+		public virtual FurType FurType { get { return FurType.Green; } }
 
 		public virtual MeatType MeatType { get { return MeatType.Ribs; } }
 		public virtual int Meat { get { return 0; } }
@@ -5410,8 +5429,8 @@ namespace Server.Mobiles
 
 					if (aggressor is PlayerMobile || (aggressor is BaseCreature && !((BaseCreature)aggressor).IsMonster))
 					{
-						BuffInfo.AddBuff(ControlMaster, new BuffInfo(BuffIcon.HeatOfBattleStatus, 1153801, 1153827, AttackMessage.CombatHeatDelay, ControlMaster, true));
-						BuffInfo.AddBuff(aggressor, new BuffInfo(BuffIcon.HeatOfBattleStatus, 1153801, 1153827, AttackMessage.CombatHeatDelay, aggressor, true));
+						BuffInfo.AddBuff(ControlMaster, new BuffInfo(BuffIcon.HeatOfBattleStatus, 1153801, 1153827, Aggression.CombatHeatDelay, ControlMaster, true));
+						BuffInfo.AddBuff(aggressor, new BuffInfo(BuffIcon.HeatOfBattleStatus, 1153801, 1153827, Aggression.CombatHeatDelay, aggressor, true));
 					}
 				}
 			}
