@@ -1342,7 +1342,7 @@ namespace Server.Mobiles
 		[CommandProperty(AccessLevel.GameMaster)]
 		public bool IsParagon
 		{
-			get { return m_Paragon; }
+			get{ return m_Paragon; }
 			set
 			{
 				if (m_Paragon == value)
@@ -1351,11 +1351,11 @@ namespace Server.Mobiles
 				}
 				else if (value)
 				{
-					XmlParagon.Convert(this);
+					Paragon.Convert(this);
 				}
 				else
 				{
-					XmlParagon.UnConvert(this);
+					Paragon.UnConvert(this);
 				}
 
 				m_Paragon = value;
@@ -1672,7 +1672,7 @@ namespace Server.Mobiles
 
 			if (IsParagon)
 			{
-				damage = (int)(damage / XmlParagon.GetHitsBuff(this));
+				damage = (int)(damage / Paragon.HitsBuff);
 			}
 
 			if (damage > 200)
@@ -2221,24 +2221,16 @@ namespace Server.Mobiles
 
 		public override string ApplyNameSuffix(string suffix)
 		{
-			XmlData customtitle = (XmlData)XmlAttach.FindAttachment(this, typeof(XmlData), "ParagonTitle");
-
-			if (customtitle != null)
-			{
-				suffix = customtitle.Data;
-			}
-			else if (IsParagon && !GivesMLMinorArtifact)
+            if (IsParagon && !GivesMLMinorArtifact)
 			{
 				if (suffix.Length == 0)
 				{
-					suffix = XmlParagon.GetParagonLabel(this);
+					suffix = "(Paragon)";
 				}
 				else
 				{
-					suffix = String.Concat(suffix, " " + XmlParagon.GetParagonLabel(this));
+					suffix = String.Concat( suffix, " (Paragon)" );
 				}
-
-				XmlAttach.AttachTo(this, new XmlData("ParagonTitle", suffix));
 			}
 
 			return base.ApplyNameSuffix(suffix);
@@ -2346,8 +2338,6 @@ namespace Server.Mobiles
 
 			chance -= (MaxLoyalty - m_Loyalty) * 10;
 
-			chance += (int)XmlMobFactions.GetScaledFaction(m, this, -250, 250, 0.001);
-
 			return ((double)chance / 1000);
 		}
 
@@ -2452,7 +2442,7 @@ namespace Server.Mobiles
 
 		public override void OnBeforeSpawn(Point3D location, Map m)
 		{
-			if (XmlParagon.CheckConvert(this, location, m))
+			if (Paragon.CheckConvert(this, location, m))
 			{
 				IsParagon = true;
 			}
@@ -2809,13 +2799,6 @@ namespace Server.Mobiles
 			{
 				Timer.DelayCall(TimeSpan.FromSeconds(10), ((PlayerMobile)@from).RecoverAmmo);
 			}
-
-			#region XmlSpawner
-			if (!Summoned && willKill && from != null)
-			{
-				LevelItemManager.CheckItems(from, this);
-			}
-			#endregion
 
 			base.OnDamage(amount, from, willKill);
 		}
@@ -7165,10 +7148,11 @@ namespace Server.Mobiles
 			{
 				if (treasureLevel >= 0)
 				{
-					if (m_Paragon && XmlParagon.GetChestChance(this) > Utility.RandomDouble())
+					if (m_Paragon && Paragon.ChestChance > Utility.RandomDouble())
 					{
-						XmlParagon.AddChest(this, treasureLevel);
+						PackItem( new ParagonChest( this.Name, treasureLevel ) );
 					}
+				
 					else if (TreasureMapChance >= Utility.RandomDouble())
 					{
 						Map map = Map;
@@ -7507,9 +7491,9 @@ namespace Server.Mobiles
 
 		public virtual void OnKilledBy(Mobile mob)
 		{
-			if (m_Paragon && XmlParagon.CheckArtifactChance(mob, this))
+			if (m_Paragon && Paragon.CheckArtifactChance(mob, this))
 			{
-				XmlParagon.GiveArtifactTo(mob, this);
+				Paragon.GiveArtifactTo(mob);
 			}
 
 			EventSink.InvokeOnKilledBy(new OnKilledByEventArgs(this, mob));
@@ -7980,7 +7964,7 @@ namespace Server.Mobiles
 
 		public virtual void OnAfterTame(Mobile tamer)
 		{
-			if (StatLossAfterTame)
+			if (StatLossAfterTame && Owners.Count == 0)
             {
                 AnimalTaming.ScaleStats(this, 0.5);
             }
@@ -8650,6 +8634,8 @@ namespace Server.Mobiles
 					inst.SuccessSound = PlayInstrumentSound ? 0x58B : 0;
 					inst.FailureSound = PlayInstrumentSound ? 0x58C : 0;
 					inst.Movable = false;
+                    inst.Quality = ItemQuality.Exceptional;
+
 					PackItem(inst);
 				}
 			}
@@ -9393,11 +9379,8 @@ namespace Server.Mobiles
 					if (m is BaseMount && ((BaseMount)m).Rider != null)
 					{
 						((BaseCreature)m).OwnerAbandonTime = DateTime.MinValue;
-
-						return;
 					}
-
-					if (m is BaseCreature)
+					else if (m is BaseCreature)
 					{
 						BaseCreature c = (BaseCreature)m;
 
