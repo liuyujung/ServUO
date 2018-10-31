@@ -79,7 +79,8 @@ namespace Server.Mobiles
 		Fish = 0x0008,
 		Eggs = 0x0010,
 		Gold = 0x0020,
-		Metal = 0x0040
+		Metal = 0x0040,
+        BlackrockStew = 0x0080
 	}
 
 	[Flags]
@@ -4022,6 +4023,11 @@ namespace Server.Mobiles
 			typeof(GoldIngot), typeof(AgapiteIngot), typeof(VeriteIngot), typeof(ValoriteIngot)
 		};
 
+        private static readonly Type[] m_BlackrockStew =
+        {
+            typeof(BowlOfBlackrockStew)
+        };
+
 		public virtual bool CheckFoodPreference(Item f)
 		{
 			if (CheckFoodPreference(f, FoodType.Eggs, m_Eggs))
@@ -4053,6 +4059,11 @@ namespace Server.Mobiles
 			{
 				return true;
 			}
+
+            if (CheckFoodPreference(f, FoodType.BlackrockStew, m_BlackrockStew))
+            {
+                return true;
+            }
 
 			return false;
 		}
@@ -4219,7 +4230,10 @@ namespace Server.Mobiles
 			{
 				return true;
 			}
-			if (!from.InRange(Location, 2)) return base.OnDragDrop(from, dropped);
+			
+	        if (!from.InRange(Location, 2))
+                return base.OnDragDrop(from, dropped);
+
 			bool gainedPath = false;
 
 			if (dropped.HonestyOwner == this)
