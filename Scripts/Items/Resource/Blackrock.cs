@@ -1,21 +1,18 @@
 using System;
+using Server.Network;
 
 namespace Server.Items
 {
-    public class TheNightReaper : RepeatingCrossbow
-	{
-		public override bool IsArtifact { get { return true; } }
+    public class Blackrock : Item
+    {
         [Constructable]
-        public TheNightReaper()
+        public Blackrock()
+            : base(Utility.RandomList(0x136C, 0x1EA7))
         {
-            Hue = 0x41C;
-            Slayer = SlayerName.Exorcism;
-            Attributes.NightSight = 1;
-            Attributes.WeaponSpeed = 25;
-            Attributes.WeaponDamage = 55;
+            Hue = 1954;
         }
 
-        public TheNightReaper(Serial serial)
+        public Blackrock(Serial serial)
             : base(serial)
         {
         }
@@ -24,9 +21,15 @@ namespace Server.Items
         {
             get
             {
-                return 1072912;
+                switch (ItemID)
+                {
+                    case 0x136C: return 1153837; // a large piece of blackrock
+                    case 0x1EA7: return 1150016; // a small piece of blackrock
+                    default: return 1153836; // a piece of blackrock
+                }
             }
-        }// The Night Reaper
+        }
+		
         public override void Serialize(GenericWriter writer)
         {
             base.Serialize(writer);
