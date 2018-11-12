@@ -493,7 +493,9 @@ namespace daat99
 							typeof( SilverScales ),
 							typeof( GoldScales ),
 							typeof( MedusaDarkScales ),
-							typeof( MedusaLightScales ) }
+							typeof( MedusaLightScales ) },
+				new Type[] { typeof(Sausage), typeof(CookableSausage) },
+			    new Type[] { typeof(Lettuce), typeof(FarmableLettuce) }
 			};
 		}
 	}

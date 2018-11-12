@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{AE4A9EAA-E0EB-4DC9-9604-BE4289F9F6C3}|Default">
   <MonoDevelop.Ide.Workbench ActiveDocument="Scripts/Services/ChampionSystem/ChampionSystem.cs">
     <Files>
-      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="304" Column="26" />
+      <File FileName="Scripts/Services/Craft/Core/CraftItem.cs" Line="402" Column="7" />
+      <File FileName="Scripts/Services/ChampionSystem/ChampionSystem.cs" Line="338" Column="29" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

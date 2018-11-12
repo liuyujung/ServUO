@@ -180,8 +180,8 @@ namespace Server.Engines.CannedEvil
 
         public static void LoadSpawns()
         {
-            if (!m_Enabled)
-				return;
+            //if (!m_Enabled)
+			//	return;
 
 			//m_Timer = new InternalTimer();
             //m_Timer.Start();
@@ -189,33 +189,37 @@ namespace Server.Engines.CannedEvil
 			if (m_Initialized)
 				return;
 
-			m_AllSpawns.Clear();
+			//m_AllSpawns.Clear();
+            RemoveSpawns();
 
 			Utility.PushColor(ConsoleColor.White);
 			Console.WriteLine("Generating Champion Spawns");
 			Utility.PopColor();
 
-			ChampionSpawn spawn;
+            ChampionSpawn spawn;
 
-			XmlDocument doc = new XmlDocument();
-			doc.Load(m_ConfigPath);
-			foreach (XmlNode node in doc.GetElementsByTagName("championSystem")[0].ChildNodes)
-			{
-				if (node.Name.Equals("spawn"))
-				{
-					spawn = new ChampionSpawn();
-					spawn.SpawnName = GetAttr(node, "name", "Unamed Spawner");
-					string value = GetAttr(node, "type", null);
-					if(value == null)
-						spawn.RandomizeType = true;
-					else
-						spawn.Type = (ChampionSpawnType)Enum.Parse(typeof(ChampionSpawnType), value);
-					value = GetAttr(node, "spawnMod", "1.0");
-					spawn.SpawnMod = XmlConvert.ToDouble(value);
-					value = GetAttr(node, "killsMod", "1.0");
-					spawn.KillsMod = XmlConvert.ToDouble(value);
-					foreach(XmlNode child in node.ChildNodes)
-					{
+            XmlDocument doc = new XmlDocument();
+            doc.Load(m_ConfigPath);
+            foreach (XmlNode node in doc.GetElementsByTagName("championSystem")[0].ChildNodes)
+            {
+                if (node.Name.Equals("spawn"))
+                {
+                    spawn = new ChampionSpawn();
+                    spawn.SpawnName = GetAttr(node, "name", "Unamed Spawner");
+                    string value = GetAttr(node, "type", null);
+
+                    if (value == null)
+                        spawn.RandomizeType = true;
+                    else
+                        spawn.Type = (ChampionSpawnType)Enum.Parse(typeof(ChampionSpawnType), value);
+
+                    value = GetAttr(node, "spawnMod", "1.0");
+                    spawn.SpawnMod = XmlConvert.ToDouble(value);
+                    value = GetAttr(node, "killsMod", "1.0");
+                    spawn.KillsMod = XmlConvert.ToDouble(value);
+
+                    foreach (XmlNode child in node.ChildNodes)
+                    {
                         if (child.Name.Equals("location"))
                         {
                             int x = XmlConvert.ToInt32(GetAttr(child, "x", "0"));
@@ -236,7 +240,12 @@ namespace Server.Engines.CannedEvil
                         }
 					}
 					spawn.GroupName = GetAttr(node, "group", null);
-					m_AllSpawns.Add(spawn);
+                    m_AllSpawns.Add(spawn);
+
+                    if (spawn.Type == ChampionSpawnType.Infuse)
+                    {
+                        PrimevalLichPuzzle.GenLichPuzzle(null);
+                    }
 				}
 			}
 
