@@ -142,9 +142,12 @@ namespace Server.Engines.CannedEvil
             CommandSystem.Register("DelChampSpawns", AccessLevel.GameMaster, DelSpawns_OnCommand);
 
 			CommandSystem.Register("ChampionInfo", AccessLevel.GameMaster, new CommandEventHandler(ChampionInfo_OnCommand));
+
+            // allan-start
             CommandSystem.Register("ChampionRotate", AccessLevel.GameMaster, new CommandEventHandler(ChampionRotate_OnCommand));
             CommandSystem.Register("ChampionRestart", AccessLevel.GameMaster, new CommandEventHandler(ChampionRestart_OnCommand));
             CommandSystem.Register("ChampionRegen", AccessLevel.CoOwner, new CommandEventHandler(ChampionRegen_OnCommand));
+            // allan-end
 
 			if (!m_Enabled || m_ForceGenerate)
 			{
@@ -163,7 +166,8 @@ namespace Server.Engines.CannedEvil
             if (m_Enabled)
             {
                 m_Timer = new InternalTimer();
-            }
+				//m_Timer.Start();
+			}
 		}
 
         public static void GenSpawns_OnCommand(CommandEventArgs e)
@@ -180,16 +184,9 @@ namespace Server.Engines.CannedEvil
 
         public static void LoadSpawns()
         {
-            //if (!m_Enabled)
-			//	return;
-
-			//m_Timer = new InternalTimer();
-            //m_Timer.Start();
-
 			if (m_Initialized)
 				return;
-
-			//m_AllSpawns.Clear();
+            
             RemoveSpawns();
 
 			Utility.PushColor(ConsoleColor.White);
@@ -232,12 +229,14 @@ namespace Server.Engines.CannedEvil
                             spawn.SpawnRadius = r;
                             spawn.MoveToWorld(new Point3D(x, y, z), map);
                         }
+                        // allan-start
                         else if (child.Name.Equals("schedule"))
                         {
                             spawn.ExpireMinutesDelay = XmlConvert.ToDouble(GetAttr(child, "expire", "10.0"));
                             spawn.RestartMinHoursDelay = XmlConvert.ToInt32(GetAttr(child, "min", "4"));
                             spawn.RestartMaxHoursDelay = XmlConvert.ToInt32(GetAttr(child, "max", "4"));
                         }
+                        // allan-end
 					}
 					spawn.GroupName = GetAttr(node, "group", null);
                     m_AllSpawns.Add(spawn);
@@ -249,8 +248,10 @@ namespace Server.Engines.CannedEvil
 				}
 			}
 
+            // allan-start
 			//Rotate();
             Restart();
+            // allan-end
 
 			m_Initialized = true;
         }
@@ -293,8 +294,9 @@ namespace Server.Engines.CannedEvil
 			e.Mobile.SendGump(new ChampionSystemGump());
 		}
 
+        // allan-start
 		[Usage("ChampionRotate")]
-		[Description("Opens a UI that displays information about the champion system")]
+		[Description("Rotates Champion Spawns")]
 		private static void ChampionRotate_OnCommand(CommandEventArgs e)
 		{
 			if (!m_Enabled)
@@ -311,7 +313,7 @@ namespace Server.Engines.CannedEvil
 		}
 
 		[Usage("ChampionRestart")]
-		[Description("Opens a UI that displays information about the champion system")]
+		[Description("Restarts Champion Spawns")]
 		private static void ChampionRestart_OnCommand(CommandEventArgs e)
 		{
 			if (!m_Enabled)
@@ -344,7 +346,8 @@ namespace Server.Engines.CannedEvil
 					spawn.Stop();
 				spawn.BeginRestart(spawn.RestartDelay);
 			}
-        }
+		}
+		// allan-end
 
 		private static void Rotate()
 		{
