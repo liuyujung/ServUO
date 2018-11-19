@@ -3603,6 +3603,8 @@ namespace Server.Mobiles
 
 		protected override void OnMapChange(Map oldMap)
 		{
+            ViceVsVirtueSystem.OnMapChange(this);
+
             if (NetState != null && NetState.IsEnhancedClient)
             {
                 Waypoints.OnMapChange(this, oldMap);
@@ -4116,6 +4118,8 @@ namespace Server.Mobiles
 				}
 			}
 
+			Faction.HandleDeath(this, killer);
+
 			Guilds.Guild.HandleDeath(this, killer);
             
             if (m_BuffTable != null)
@@ -4535,11 +4539,15 @@ namespace Server.Mobiles
 				return false;
 			}
 
-			if (Core.ML && target is BaseCreature && ((BaseCreature)target).Controlled &&
-				this == ((BaseCreature)target).ControlMaster)
+			if (Core.ML && target is BaseCreature && ((BaseCreature)target).Controlled && ((BaseCreature)target).ControlMaster == this)
 			{
 				return false;
 			}
+
+            if (target is BaseCreature && ((BaseCreature)target).Summoned && ((BaseCreature)target).SummonMaster == this)
+            {
+                return false;
+            }
 
 			return base.IsHarmfulCriminal(damageable);
 		}

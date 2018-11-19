@@ -773,9 +773,6 @@ namespace Server.Mobiles
 		protected DateTime SummonEnd { get { return m_SummonEnd; } set { m_SummonEnd = value; } }
 
 		public virtual Faction FactionAllegiance { get { return null; } }
-		public virtual int FactionSilverWorth { get { return 30; } }
-
-		public virtual int BaseLootBudget { get { return RandomItemGenerator.GetBaseBudget(this); } }
 
 		public virtual int DefaultHitsRegen
 		{
@@ -1247,8 +1244,6 @@ namespace Server.Mobiles
 		}
 		#endregion
 
-		public virtual bool AutoRearms { get { return false; } }
-
 		public virtual double WeaponAbilityChance { get { return 0.4; } }
 
 		public virtual WeaponAbility GetWeaponAbility()
@@ -1429,8 +1424,6 @@ namespace Server.Mobiles
 		}
 
 		public bool IsAmbusher { get; set; }
-
-		public virtual bool HasManaOveride { get { return false; } }
 
 		public virtual FoodType FavoriteFood { get { return FoodType.Meat; } }
 		public virtual PackInstinct PackInstinct { get { return PackInstinct.None; } }
@@ -7171,7 +7164,6 @@ namespace Server.Mobiles
 					{
 						PackItem( new ParagonChest( this.Name, treasureLevel ) );
 					}
-				
 					else if (TreasureMapChance >= Utility.RandomDouble())
 					{
 						Map map = Map;
