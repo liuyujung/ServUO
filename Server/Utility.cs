@@ -1673,7 +1673,7 @@ namespace Server
         /// </summary>
         /// <param name="list"></param>
         /// <param name="predicate"></param>
-        public static void SafeDelete<T>(List<T> list, Func<IEntity, bool> predicate)
+        public static void SafeDelete<T>(List<T> list, Func<T, bool> predicate)
         {
             if (list == null)
             {
@@ -1688,7 +1688,7 @@ namespace Server
                 {
                     var entity = list[i] as IEntity;
 
-                    if (entity != null && !entity.Deleted && (predicate == null || predicate(entity)))
+                    if (entity != null && !entity.Deleted && (predicate == null || predicate((T)entity)))
                     {
                         entity.Delete();
                     }
