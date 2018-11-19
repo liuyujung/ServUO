@@ -12911,3 +12911,8 @@
     <Folder Include="Custom\Items\Addons\" />
     <Folder Include="Custom\Misc\" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
