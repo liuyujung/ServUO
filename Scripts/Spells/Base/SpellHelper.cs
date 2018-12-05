@@ -424,7 +424,7 @@ namespace Server.Spells
             {
                 int span = (((6 * caster.Skills.EvalInt.Fixed) / 50) + 1);
 
-                if (caster.Spell is CurseSpell && SkillMasterySpell.UnderPartyEffects(target, typeof(ResilienceSpell)))
+                if (caster.Spell is CurseSpell && Spells.SkillMasteries.ResilienceSpell.UnderEffects(target))
                     span /= 2;
 
                 return TimeSpan.FromSeconds(span);
@@ -639,7 +639,7 @@ namespace Server.Spells
         }
 
         public static IEnumerable<IDamageable> AcquireIndirectTargets(Mobile caster, IPoint3D p, Map map, int range)
-        {
+        {  
             if (map == null)
             {
                 yield break;
