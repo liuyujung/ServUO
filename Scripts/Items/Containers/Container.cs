@@ -72,11 +72,16 @@ namespace Server.Items
             return base.CheckItemUse(from, item);
         }
 
+        public virtual bool Security { get { return true; } }
+
         public override void GetContextMenuEntries(Mobile from, List<ContextMenuEntry> list)
         {
             base.GetContextMenuEntries(from, list);
 
-            SetSecureLevelEntry.AddTo(from, this, list);
+            if (Security)
+            {
+                SetSecureLevelEntry.AddTo(from, this, list);
+            }
         }
 
         public override void GetChildContextMenuEntries(Mobile from, List<ContextMenuEntry> list, Item item)
@@ -1268,8 +1273,6 @@ namespace Server.Items
     [FlipableAttribute(0x4026, 0x4025)]
     public class GargishChest : LockableContainer
     {
-        public override int DefaultGumpID { get { return 0x42; } }
-
         [Constructable]
         public GargishChest()
             : base(0x4026)

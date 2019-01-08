@@ -1782,7 +1782,7 @@ namespace Server.SkillHandlers
             m_Table[217] = new ImbuingDefinition(SAAbsorptionAttribute.ResonanceEnergy,     1154658, 140, null, null, null, 20, 1, 1152391);
             m_Table[218] = new ImbuingDefinition(SAAbsorptionAttribute.ResonanceKinetic,    1154659, 140, null, null, null, 20, 1, 1152391);
 
-            m_Table[219] = new ImbuingDefinition(SAAbsorptionAttribute.CastingFocus,        1154659, 140, null, null, null, 20, 1, 1116535);
+            m_Table[219] = new ImbuingDefinition(SAAbsorptionAttribute.CastingFocus,        1116535, 140, null, null, null, 20, 1, 1116535);
 
             m_Table[220] = new ImbuingDefinition(AosArmorAttribute.ReactiveParalyze,        1154660, 140, null, null, null, 1, 1,  1152400);
             m_Table[221] = new ImbuingDefinition(AosArmorAttribute.SoulCharge,              1116536, 140, null, null, null, 20, 1, 1152391);
@@ -1809,14 +1809,14 @@ namespace Server.SkillHandlers
 			typeof(SpiderCarapace), 	typeof(DaemonClaw), 			typeof(VialOfVitriol),
 			typeof(GoblinBlood), 		typeof(LavaSerpentCrust), 		typeof(UndyingFlesh),
 			typeof(CrushedGlass), 		typeof(CrystallineBlackrock), 	typeof(PowderedIron),
-			typeof(ElvenFletching),    typeof(DelicateScales),
+			typeof(ElvenFletching),     typeof(DelicateScales),
 			
 			typeof(EssenceSingularity), typeof(EssenceBalance), 		typeof(EssencePassion),
 			typeof(EssenceDirection), 	typeof(EssencePrecision), 		typeof(EssenceControl),
 			typeof(EssenceDiligence), 	typeof(EssenceAchievement), 	typeof(EssenceFeeling), 
 			typeof(EssenceOrder),
 			
-			typeof(ParasiticPlant), 	typeof(LuminescentFungi), 		typeof(BrilliantAmber), 
+			typeof(ParasiticPlant), 	typeof(LuminescentFungi),
 			typeof(FireRuby), 			typeof(WhitePearl), 			typeof(BlueDiamond), 
 			typeof(Turquoise)
 		};
@@ -2076,6 +2076,10 @@ namespace Server.SkillHandlers
                 if (item is BaseWeapon && attr is AosWeaponAttribute && (mod == 25 || mod == 27))
                 {
                     max = GetPropRange((BaseWeapon)item, (AosWeaponAttribute)attr)[1];
+                }
+                else if (item is BaseWeapon && mod >= 3 && mod <= 5)
+                {
+                    max = 9;
                 }
                 else if (item is BaseJewel && attr is AosAttribute && (AosAttribute)attr == AosAttribute.WeaponDamage)
                 {
@@ -2346,14 +2350,10 @@ namespace Server.SkillHandlers
 
         public static int TimesImbued(Item item)
         {
-            if (item is BaseWeapon)
-                return ((BaseWeapon)item).TimesImbued;
-            if (item is BaseArmor)
-                return ((BaseArmor)item).TimesImbued;
-            if (item is BaseJewel)
-                return ((BaseJewel)item).TimesImbued;
-            if (item is BaseHat)
-                return ((BaseHat)item).TimesImbued;
+            if (item is IImbuableEquipement)
+            {
+                return ((IImbuableEquipement)item).TimesImbued;
+            }
 
             return 0;
         }

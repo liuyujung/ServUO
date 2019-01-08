@@ -990,6 +990,8 @@ namespace Server.Items
 		private static Dictionary<Type, CraftSystem> m_AllowableTable = new Dictionary<Type, CraftSystem>();
 		private static Dictionary<int, NamedInfoCol[][]> m_PrefixSuffixInfo = new Dictionary<int, NamedInfoCol[][]>();
 
+        public static Dictionary<int, NamedInfoCol[][]> PrefixSuffixInfo { get { return m_PrefixSuffixInfo; } }
+
         public static void Initialize()
         {
             m_AllowableTable[typeof(LeatherGlovesOfMining)] = DefTailoring.CraftSystem;
@@ -1659,20 +1661,25 @@ namespace Server.Items
             return NameTable[(int)suffix - 1][1];
         }
 
-        private static int[][] NameTable = new int[][]
+        public static int[][] NameTable { get { return _NameTable; } }
+        private static int[][] _NameTable = new int[][]
         {
-            new int[] { 1151682, 1151683 },
-            new int[] { 1151684, 1151685 },
-            new int[] { 1151686, 1151687 },
-            new int[] { 1151688, 1151689 },
-            new int[] { 1151690, 1151691 },
-            new int[] { 1151692, 1151693 },
-            new int[] { 1151694, 1151695 },
-            new int[] { 1151696, 1151697 },
-            new int[] { 1151698, 1151699 },
-            new int[] { 1151700, 1151701 },
-            new int[] { 1151702, 1151703 },
-            new int[] { 1151704, 1151705 },
+            new int[] { 1151682, 1151683 }, // Might
+            new int[] { 1151684, 1151685 }, // Mystic
+            new int[] { 1151686, 1151687 }, // Animated
+            new int[] { 1151688, 1151689 }, // Arcane
+            new int[] { 1151690, 1151691 }, // Exquisite
+            new int[] { 1151692, 1151693 }, // Vampiric
+            new int[] { 1151694, 1151695 }, // Invigorating
+            new int[] { 1151696, 1151697 }, // Fortified
+            new int[] { 1151698, 1151699 }, // Auspicious
+            new int[] { 1151700, 1151701 }, // Charmed
+            new int[] { 1151702, 1151703 }, // Vicious
+            new int[] { 1151704, 1151705 }, // Towering
+            new int[] {       0, 1154548 }, // Blackthorn
+            new int[] {       0, 1154507 }, // Minax
+            new int[] {       0, 1156900 }, // Kotl
+            new int[] {       0, 1158672 }, // Khaldun
         };
 
         public static void AddSuffixName(ObjectPropertyList list, ReforgedSuffix suffix, string name)
@@ -2340,14 +2347,10 @@ namespace Server.Items
         {
             ItemPower ip = GetItemPower(item, Imbuing.GetTotalWeight(item), Imbuing.GetTotalMods(item), playermade);
 
-            if (item is BaseWeapon)
-                ((BaseWeapon)item).ItemPower = ip;
-            else if (item is BaseArmor)
-                ((BaseArmor)item).ItemPower = ip;
-            else if (item is BaseJewel)
-                ((BaseJewel)item).ItemPower = ip;
-            else if (item is BaseClothing)
-                ((BaseClothing)item).ItemPower = ip;
+            if (item is ICombatEquipment)
+            {
+                ((ICombatEquipment)item).ItemPower = ip;
+            }
 
             return ip;
         }
@@ -2876,11 +2879,17 @@ namespace Server.Items
             return 1;
         }
 
-        public static List<object> m_MeleeWeaponList;
-        public static List<object> m_RangedWeaponList;
-        public static List<object> m_ArmorList;
-        public static List<object> m_JewelList;
-        public static List<object> m_ShieldList;
+        public static List<object> MeleeWeaponList { get { return m_MeleeWeaponList; } }
+        public static List<object> RangedWeaponList { get { return m_RangedWeaponList; } }
+        public static List<object> ArmorList { get { return m_ArmorList; } }
+        public static List<object> JewelList { get { return m_JewelList; } }
+        public static List<object> ShieldList { get { return m_ShieldList; } }
+
+        private static List<object> m_MeleeWeaponList;
+        private static List<object> m_RangedWeaponList;
+        private static List<object> m_ArmorList;
+        private static List<object> m_JewelList;
+        private static List<object> m_ShieldList;
 
         private static object[] m_WeaponBasic = new object[]
 		{
