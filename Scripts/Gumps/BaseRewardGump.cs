@@ -18,8 +18,6 @@ namespace Server.Gumps
         public double Points { get; protected set; }
         public List<CollectionItem> Collection { get; protected set; }
 
-        public virtual int YDist  {  get  { return 10; } }
-
         public BaseRewardGump(Mobile owner, PlayerMobile user, List<CollectionItem> col, int title, double points = -1.0)
             : base(50, 50)
 		{
@@ -63,6 +61,11 @@ namespace Server.Gumps
             while (Collection != null && Index < Collection.Count)
                 DisplayRewardPage();
 		}
+
+        public virtual int GetYOffset(int id)
+        {
+            return 10;
+        }
 
         protected virtual void AddPoints()
         {
@@ -109,11 +112,12 @@ namespace Server.Gumps
                 else if (item.Tooltip > 0)
                     AddTooltip(item.Tooltip);
 
-				//AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + (item.Name != null ? " " + item.Name : ""));
+				//AddLabel(65 + max, offset + (int)(height / 2) - 10, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString());
                 AddLabel(45 + max, offset + (int)(height / 2) - 15, Points >= item.Points ? 0x64 : 0x21, item.Points.ToString() + " Points");
                 AddLabel(45 + max, offset + (int)(height / 2), Points >= item.Points ? 0x64 : 0x21, item.Name != null ? item.Name : "");
 				
-                offset += YDist + height;
+                offset += GetYOffset(item.ItemID) + height;
+                //offset += YDist + height;
                 Index++;
 
                 if (Index < Collection.Count)

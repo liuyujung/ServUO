@@ -344,8 +344,15 @@ namespace Server
             }
             #endregion
 
+            if (type <= DamageType.Ranged)
+            {
+                AttuneWeaponSpell.TryAbsorb(m, ref totalDamage);
+            }
+
             if (keepAlive && totalDamage > m.Hits)
+            {
                 totalDamage = m.Hits;
+            }
 
             if (from is BaseCreature && type <= DamageType.Ranged)
             {
@@ -605,7 +612,7 @@ namespace Server
 
             if (attribute == AosAttribute.WeaponDamage)
             {
-                if (BaseMagicalFood.IsUnderInfluence(m, MagicalFood.WrathGrapes))
+                if (BaseMagicalFood.IsUnderInfluence(m, MagicalFood.GrapesOfWrath))
                     value += 35;
 
                 // attacker gets 10% bonus when they're under divine fury
@@ -644,7 +651,7 @@ namespace Server
             }
             else if (attribute == AosAttribute.SpellDamage)
             {
-                if (BaseMagicalFood.IsUnderInfluence(m, MagicalFood.WrathGrapes))
+                if (BaseMagicalFood.IsUnderInfluence(m, MagicalFood.GrapesOfWrath))
                     value += 15;
 
                 if (PsychicAttack.Registry.ContainsKey(m))

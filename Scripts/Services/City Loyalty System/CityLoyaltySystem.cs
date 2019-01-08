@@ -98,6 +98,7 @@ namespace Server.Engines.CityLoyalty
         public static readonly int AnnouncementPeriod = Config.Get("CityLoyalty.AnnouncementPeriod", 48);
 
         public static readonly TimeSpan LoveAtrophyDuration = TimeSpan.FromHours(40);
+        public static Map SystemMap { get { return Siege.SiegeShard ? Map.Felucca : Map.Trammel; } }
 
         public override TextDefinition Name { get { return new TextDefinition(String.Format("{0}", this.City.ToString())); } }
         public override bool AutoAdd { get { return false; } }
@@ -112,21 +113,12 @@ namespace Server.Engines.CityLoyalty
 
 		[CommandProperty(AccessLevel.GameMaster)]
 		public City City { get; private set; }
-		
-		[CommandProperty(AccessLevel.GameMaster)]
-		public int CompletedTrades { get; set; }
 
         [CommandProperty(AccessLevel.GameMaster)]
 		public CityDefinition Definition { get; set; }
 		
 		[CommandProperty(AccessLevel.GameMaster)]
-		public long Treasury { get; set; }
-		
-		[CommandProperty(AccessLevel.GameMaster)]
 		public CityElection Election { get; set; }
-
-        [CommandProperty(AccessLevel.GameMaster)]
-        public TradeDeal ActiveTradeDeal { get; set; }
 
         [CommandProperty(AccessLevel.GameMaster)]
         public DateTime TradeDealStart { get; set; }
@@ -152,9 +144,21 @@ namespace Server.Engines.CityLoyalty
         [CommandProperty(AccessLevel.GameMaster)]
         public CityMessageBoard Board { get; set; }
 
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string Headline { get; set; }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public string Body { get; set; }
+
+        [CommandProperty(AccessLevel.GameMaster)]
+        public DateTime PostedOn { get; set; }
+
         private Mobile _Governor;
         private Mobile _GovernorElect;
         private bool _PendingGovernor;
+        private long _Treasury;
+        private TradeDeal _ActiveTradeDeal;
+        private int _CompletedTrades;
 
         [CommandProperty(AccessLevel.GameMaster)]
         public Mobile GovernorElect 
@@ -166,6 +170,9 @@ namespace Server.Engines.CityLoyalty
                     Governor = null;
 
                 _GovernorElect = value;
+
+                if (Stone != null)
+                    Stone.InvalidateProperties();
             }
         }
 
@@ -209,13 +216,43 @@ namespace Server.Engines.CityLoyalty
         }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public string Headline { get; set; }
+        public long Treasury
+        {
+            get { return _Treasury; }
+            set
+            {
+                _Treasury = value;
+
+                if (Stone != null)
+                    Stone.InvalidateProperties();
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public string Body { get; set; }
+        public TradeDeal ActiveTradeDeal
+        {
+            get { return _ActiveTradeDeal; }
+            set
+            {
+                _ActiveTradeDeal = value;
+
+                if (Stone != null)
+                    Stone.InvalidateProperties();
+            }
+        }
 
         [CommandProperty(AccessLevel.GameMaster)]
-        public DateTime PostedOn { get; set; }
+        public int CompletedTrades
+        {
+            get { return _CompletedTrades; }
+            set
+            {
+                _CompletedTrades = value;
+
+                if (Stone != null)
+                    Stone.InvalidateProperties();
+            }
+        }
 
         private Dictionary<Mobile, DateTime> CitizenWait { get; set; }
 
@@ -541,6 +578,8 @@ namespace Server.Engines.CityLoyalty
                     entry.UtilizingTradeDeal = true;
                     BuffInfo.AddBuff(m, new BuffInfo(BuffIcon.CityTradeDeal, 1154168, 1154169, new TextDefinition((int)ActiveTradeDeal), true));
 
+                    m.Delta(MobileDelta.WeaponDamage);
+
                     m.SendLocalizedMessage(1154075); // You gain the benefit of your City's Trade Deal!
                 }
             }
@@ -638,7 +677,7 @@ namespace Server.Engines.CityLoyalty
 
         public static bool HasTradeDeal(Mobile m, TradeDeal deal)
         {
-            CityLoyaltySystem sys = GetCitizenship(m);
+            CityLoyaltySystem sys = GetCitizenship(m, false);
 
             if (sys != null)
             {
@@ -712,7 +751,7 @@ namespace Server.Engines.CityLoyalty
 
             rights.ForEach(store =>
                 {
-                    CityLoyaltySystem city = CityLoyaltySystem.GetCitizenship(store.m_Mobile);
+                    CityLoyaltySystem city = CityLoyaltySystem.GetCitizenship(store.m_Mobile, false);
 
                     if (city != null)
                         city.AwardLove(store.m_Mobile, 1 * (spawnLevel + 1), 0.10 > Utility.RandomDouble());
@@ -797,10 +836,7 @@ namespace Server.Engines.CityLoyalty
 
                 foreach (CityLoyaltyEntry entry in sys.PlayerTable.OfType<CityLoyaltyEntry>())
                 {
-                    if (entry.TradeDealExpired)
-                    {
-                        entry.CheckTradeDeal();
-                    }
+                    entry.CheckTradeDeal();
                 }
 
                 if (sys.Election != null)
@@ -808,7 +844,14 @@ namespace Server.Engines.CityLoyalty
                     sys.Election.OnTick();
                 }
                 else
+                {
                     sys.Election = new CityElection(sys);
+                }
+
+                if (sys.Stone != null)
+                {
+                    sys.Stone.InvalidateProperties();
+                }
             }
 
             CityTradeSystem.OnTick();
@@ -1235,12 +1278,12 @@ namespace Server.Engines.CityLoyalty
                 Timer.DelayCall(TimeSpan.FromSeconds(10), () =>
                     {
                         Board = new CityMessageBoard(City, 0xA0C5);
-                        Board.MoveToWorld(Definition.BoardLocation, Map.Trammel);
+                        Board.MoveToWorld(Definition.BoardLocation, SystemMap);
                         Console.WriteLine("City Message Board for {0} Converted!", City.ToString());
                         /*if (Board != null)
                         {
                             //Board.ItemID = 0xA0C5;
-                            //board.MoveToWorld(Definition.BoardLocation, Map.Trammel);
+                            //board.MoveToWorld(Definition.BoardLocation, SystemMap);
 
 
                             Console.WriteLine("City Message Board for {0} Converted!", City.ToString());
