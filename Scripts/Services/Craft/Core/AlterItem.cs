@@ -123,13 +123,13 @@ namespace Server.Engines.Craft
                         Item contract = null;
 
                         if (skill == SkillName.Blacksmith)
-                            contract = new AlterContract(RepairDeed.RepairSkillType.Smithing, from);
+                            contract = new AlterContract(RepairSkillType.Smithing, from);
                         else if (skill == SkillName.Carpentry)
-                            contract = new AlterContract(RepairDeed.RepairSkillType.Carpentry, from);
+                            contract = new AlterContract(RepairSkillType.Carpentry, from);
                         else if (skill == SkillName.Tailoring)
-                            contract = new AlterContract(RepairDeed.RepairSkillType.Tailoring, from);
+                            contract = new AlterContract(RepairSkillType.Tailoring, from);
                         else if (skill == SkillName.Tinkering)
-                            contract = new AlterContract(RepairDeed.RepairSkillType.Tinkering, from);
+                            contract = new AlterContract(RepairSkillType.Tinkering, from);
 
                         if (contract != null)
                         {
@@ -183,6 +183,19 @@ namespace Server.Engines.Craft
             else if (origItem is BaseWeapon && ((BaseWeapon)origItem).EnchantedWeilder != null)
             {
                 number = 1111849; // You cannot alter an item that is currently enchanted.
+            }
+            else if (origItem.HasSocket<SlayerSocket>())
+            {
+                var socket = origItem.GetSocket<SlayerSocket>();
+
+                if (socket.Slayer == SlayerName.Silver)
+                {
+                    number = 1155681; // You cannot alter an item that has been treated with Tincture of Silver.
+                }
+                else
+                {
+                    number = 1111849; // You cannot alter an item that is currently enchanted.
+                }
             }
             else
             {

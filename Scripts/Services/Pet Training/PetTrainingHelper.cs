@@ -1160,7 +1160,7 @@ namespace Server.Mobiles
                     else if (cap < 115)
                         value = 100;
                     else if (cap < 120)
-                        value = 115;
+                        value = 150;
                 }
             }
         }
@@ -1184,6 +1184,7 @@ namespace Server.Mobiles
             {
                 cost -= (int)((double)startValue * tp.Weight);
             }
+
             return cost;
         }
 
