@@ -17,12 +17,12 @@ namespace Server.Items
         {
             get
             {
-                return this.m_Resource;
+                return m_Resource;
             }
             set
             {
-                this.m_Resource = value;
-                this.InvalidateProperties();
+                m_Resource = value;
+                InvalidateProperties();
             }
         }
 
@@ -34,7 +34,7 @@ namespace Server.Items
 
             writer.Write((int)1); // version
 
-            writer.Write((int)this.m_Resource);
+            writer.Write((int)m_Resource);
         }
 
         public override void Deserialize(GenericReader reader)
@@ -46,12 +46,12 @@ namespace Server.Items
             switch ( version )
             {
                 case 2: // Reset from Resource System
-                    this.m_Resource = this.DefaultResource;
+                    m_Resource = DefaultResource;
                     reader.ReadString();
                     break;
                 case 1:
                     {
-                        this.m_Resource = (CraftResource)reader.ReadInt();
+                        m_Resource = (CraftResource)reader.ReadInt();
                         break;
                     }
                 case 0:
@@ -99,7 +99,7 @@ namespace Server.Items
                                 break;
                         }
 
-                        this.m_Resource = CraftResources.GetFromOreInfo(info);
+                        m_Resource = CraftResources.GetFromOreInfo(info);
                         break;
                     }
             }
@@ -127,11 +127,11 @@ namespace Server.Items
         public BaseOre(CraftResource resource, int amount)
             : base(RandomSize())
         {
-            this.Stackable = true;
-            this.Amount = amount;
-            this.Hue = CraftResources.GetHue(resource);
+            Stackable = true;
+            Amount = amount;
+            Hue = CraftResources.GetHue(resource);
 
-            this.m_Resource = resource;
+            m_Resource = resource;
         }
 
         public BaseOre(Serial serial)
@@ -141,8 +141,8 @@ namespace Server.Items
 
         public override void AddNameProperty(ObjectPropertyList list)
         {
-            if (this.Amount > 1)
-                list.Add(1050039, "{0}\t#{1}", this.Amount, 1026583); // ~1_NUMBER~ ~2_ITEMNAME~
+            if (Amount > 1)
+                list.Add(1050039, "{0}\t#{1}", Amount, 1026583); // ~1_NUMBER~ ~2_ITEMNAME~
             else
                 list.Add(1026583); // ore
         }
@@ -151,14 +151,14 @@ namespace Server.Items
         {
             base.GetProperties(list);
 
-            if (!CraftResources.IsStandard(this.m_Resource))
+            if (!CraftResources.IsStandard(m_Resource))
             {
-                int num = CraftResources.GetLocalizationNumber(this.m_Resource);
+                int num = CraftResources.GetLocalizationNumber(m_Resource);
 
                 if (num > 0)
                     list.Add(num);
                 else
-                    list.Add(CraftResources.GetName(this.m_Resource));
+                    list.Add(CraftResources.GetName(m_Resource));
             }
         }
 
@@ -166,8 +166,8 @@ namespace Server.Items
         {
             get
             {
-                if (this.m_Resource >= CraftResource.DullCopper && this.m_Resource <= CraftResource.Valorite)
-                    return 1042845 + (int)(this.m_Resource - CraftResource.DullCopper);
+                if (m_Resource >= CraftResource.DullCopper && m_Resource <= CraftResource.Valorite)
+                    return 1042845 + (int)(m_Resource - CraftResource.DullCopper);
 
                 return 1042853; // iron ore;
             }
@@ -175,14 +175,14 @@ namespace Server.Items
 
         public override void OnDoubleClick(Mobile from)
         {
-            if (!this.Movable)
+            if (!Movable)
                 return;
 
-            if (this.RootParent is BaseCreature)
+            if (RootParent is BaseCreature)
             {
                 from.SendLocalizedMessage(500447); // That is not accessible
             }
-            else if (from.InRange(this.GetWorldLocation(), 2))
+            else if (from.InRange(GetWorldLocation(), 2))
             {
                 from.SendLocalizedMessage(501971); // Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
                 //daat99 OWLTR start - mule forge
@@ -208,7 +208,7 @@ namespace Server.Items
 				player = from;
 				//daat99 OWLTR end - mule forge
 
-				this.m_Ore = ore;
+				m_Ore = ore;
             }
 
             private bool IsForge(object obj)
@@ -247,10 +247,10 @@ namespace Server.Items
 
             protected override void OnTarget(Mobile from, object targeted)
             {
-                if (this.m_Ore.Deleted)
+                if (m_Ore.Deleted)
                     return;
 
-                if (!from.InRange(this.m_Ore.GetWorldLocation(), 2))
+                if (!from.InRange(m_Ore.GetWorldLocation(), 2))
                 {
                     from.SendLocalizedMessage(501976); // The ore is too far away.
                     return;
@@ -265,15 +265,16 @@ namespace Server.Items
                     {
                         return;
                     }
-                    else if (this.m_Ore == ore)
+                    else if (m_Ore == ore)
                     {
-                        from.SendLocalizedMessage(501972); // Select another pile or ore with which to combine this.
+                        from.SendLocalizedMessage(501972); // Select another pile or ore with which to combine
+                        from.Target = new InternalTarget(ore);
 						//daat99 OWLTR start - mule forge
-						from.Target = new InternalTarget(ore, from);
+						//from.Target = new InternalTarget(ore, from);
 						//daat99 OWLTR end - mule forge
                         return;
                     }
-                    else if (ore.Resource != this.m_Ore.Resource)
+                    else if (ore.Resource != m_Ore.Resource)
                     {
                         from.SendLocalizedMessage(501979); // You cannot combine ores of different metals.
                         return;
@@ -288,11 +289,11 @@ namespace Server.Items
                     else
                         worth *= 4;
 
-                    int sourceWorth = this.m_Ore.Amount;
+                    int sourceWorth = m_Ore.Amount;
 
-                    if (this.m_Ore.ItemID == 0x19B9)
+                    if (m_Ore.ItemID == 0x19B9)
                         sourceWorth *= 8;
-                    else if (this.m_Ore.ItemID == 0x19B7)
+                    else if (m_Ore.ItemID == 0x19B7)
                         sourceWorth *= 2;
                     else
                         sourceWorth *= 4;
@@ -302,20 +303,20 @@ namespace Server.Items
                     int plusWeight = 0;
                     int newID = ore.ItemID;
 
-                    if (ore.DefaultWeight != this.m_Ore.DefaultWeight)
+                    if (ore.DefaultWeight != m_Ore.DefaultWeight)
                     {
-                        if (ore.ItemID == 0x19B7 || this.m_Ore.ItemID == 0x19B7)
+                        if (ore.ItemID == 0x19B7 || m_Ore.ItemID == 0x19B7)
                         {
                             newID = 0x19B7;
                         }
                         else if (ore.ItemID == 0x19B9)
                         {
-                            newID = this.m_Ore.ItemID;
+                            newID = m_Ore.ItemID;
                             plusWeight = ore.Amount * 2;
                         }
                         else
                         {
-                            plusWeight = this.m_Ore.Amount * 2;
+                            plusWeight = m_Ore.Amount * 2;
                         }
                     }
 
@@ -339,12 +340,12 @@ namespace Server.Items
                     else
                         ore.Amount = worth / 4;
 
-                    this.m_Ore.Delete();
+                    m_Ore.Delete();
                     return;
                 }
                 #endregion
 
-                if (this.IsForge(targeted))
+                if (IsForge(targeted))
                 {
                     double difficulty;
 
@@ -355,7 +356,7 @@ namespace Server.Items
                         talisman = true;
                     #endregion
 
-                    switch ( this.m_Ore.Resource )
+                    switch ( m_Ore.Resource )
                     {
                         default:
                             difficulty = 50.0;
@@ -410,7 +411,7 @@ namespace Server.Items
                         return;
                     }
 
-                    if (this.m_Ore.ItemID == 0x19B7 && this.m_Ore.Amount < 2)
+                    if (m_Ore.ItemID == 0x19B7 && m_Ore.Amount < 2)
                     {
                         from.SendLocalizedMessage(501987); // There is not enough metal-bearing ore in this pile to make an ingot.
                         return;
@@ -418,7 +419,7 @@ namespace Server.Items
 
                     if (talisman || from.CheckTargetSkill(SkillName.Mining, targeted, minSkill, maxSkill))
                     {
-                        int toConsume = this.m_Ore.Amount;
+                        int toConsume = m_Ore.Amount;
 
                         if (toConsume <= 0)
                         {
@@ -431,14 +432,14 @@ namespace Server.Items
 
                             int ingotAmount;
 
-                            if (this.m_Ore.ItemID == 0x19B7)
+                            if (m_Ore.ItemID == 0x19B7)
                             {
                                 ingotAmount = toConsume / 2;
 
                                 if (toConsume % 2 != 0)
                                     --toConsume;
                             }
-                            else if (this.m_Ore.ItemID == 0x19B9)
+                            else if (m_Ore.ItemID == 0x19B9)
                             {
                                 ingotAmount = toConsume * 2;
                             }
@@ -447,10 +448,15 @@ namespace Server.Items
                                 ingotAmount = toConsume;
                             }
 
-                            BaseIngot ingot = this.m_Ore.GetIngot();
+                            BaseIngot ingot = m_Ore.GetIngot();
                             ingot.Amount = ingotAmount;
 
-                            this.m_Ore.Consume(toConsume);
+                            if (m_Ore.HasSocket<Caddellite>())
+                            {
+                                ingot.AttachSocket(new Caddellite());
+                            }
+
+                            m_Ore.Consume(toConsume);
                             from.AddToBackpack(ingot);
                             //from.PlaySound( 0x57 );
 
@@ -465,16 +471,16 @@ namespace Server.Items
                     }
                     else
                     {
-                        if (this.m_Ore.Amount < 2)
+                        if (m_Ore.Amount < 2)
                         {
-                            if (this.m_Ore.ItemID == 0x19B9)
-                                this.m_Ore.ItemID = 0x19B8;
+                            if (m_Ore.ItemID == 0x19B9)
+                                m_Ore.ItemID = 0x19B8;
                             else
-                                this.m_Ore.ItemID = 0x19B7;
+                                m_Ore.ItemID = 0x19B7;
                         }
                         else
                         {
-                            this.m_Ore.Amount /= 2;
+                            m_Ore.Amount /= 2;
                         }
 
                         from.SendLocalizedMessage(501990); // You burn away the impurities but are left with less useable metal.
@@ -503,7 +509,7 @@ namespace Server.Items
             : this(1)
         {
             if (fixedSize)
-                this.ItemID = 0x19B8;
+                ItemID = 0x19B8;
         }
 
         public IronOre(Serial serial)

@@ -319,6 +319,8 @@ namespace Server.Items
 
             armor.m_SetAttributes = new AosAttributes(newItem, m_SetAttributes);
             armor.m_SetSkillBonuses = new AosSkillBonuses(newItem, m_SetSkillBonuses);
+
+            base.OnAfterDuped(newItem);
         }
 
         #region Personal Bless Deed
@@ -2855,9 +2857,9 @@ namespace Server.Items
         {
         }
 
-        public override void GetProperties(ObjectPropertyList list)
+        public override void AddNameProperties(ObjectPropertyList list)
         {
-            base.GetProperties(list);
+            base.AddNameProperties(list);
 
             if (OwnerName != null)
             {
@@ -3067,8 +3069,6 @@ namespace Server.Items
             if (m_HitPoints >= 0 && m_MaxHitPoints > 0)
                 list.Add(1060639, "{0}\t{1}", m_HitPoints, m_MaxHitPoints); // durability ~1_val~ / ~2_val~
 
-            EnchantedHotItem.AddProperties(this, list);
-
             Server.Engines.XmlSpawner2.XmlAttach.AddAttachmentProperties(this, list);
 
             if (IsSetItem && !m_SetEquipped)
@@ -3076,9 +3076,10 @@ namespace Server.Items
                 list.Add(1072378); // <br>Only when full set is present:				
                 GetSetProperties(list);
             }
+        }
 
-            AddHonestyProperty(list);
-
+        public override void AddItemPowerProperties(ObjectPropertyList list)
+        {
             if (m_ItemPower != ItemPower.None)
             {
                 if (m_ItemPower <= ItemPower.LegendaryArtifact)
@@ -3143,7 +3144,7 @@ namespace Server.Items
         {
             bool drop = base.DropToWorld(from, p);
 
-            EnchantedHotItem.CheckDrop(from, this);
+            EnchantedHotItemSocket.CheckDrop(from, this);
 
             return drop;
         }

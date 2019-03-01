@@ -288,7 +288,7 @@ namespace Server.Items
             {
                 if (item is IFlipable)
                 {
-                    ((IFlipable)item).OnFlip();
+                    ((IFlipable)item).OnFlip(from);
                     return;
                 }
 

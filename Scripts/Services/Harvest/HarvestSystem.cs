@@ -223,8 +223,10 @@ namespace Server.Engines.Harvest
                             item.Amount += WoodsmansTalisman.CheckHarvest(from, type, this);
                         }
 
-                        bank.Consume(amount, from);
-						EventSink.InvokeResourceHarvestSuccess(new ResourceHarvestSuccessEventArgs(from, tool,item, this));
+                        if (from.AccessLevel == AccessLevel.Player)
+                        {
+                            bank.Consume(amount, from);
+                        }
 
 						//daat99 OWLTR start - custom harvesting
 						CraftResource craftResourceFromType = CraftResources.GetFromType(type);
@@ -289,12 +291,13 @@ namespace Server.Engines.Harvest
 						//daat99 OWLTR end - custom harvesting
 
                         BonusHarvestResource bonus = def.GetBonusResource();
+                        Item bonusItem = null;
 
                         if (bonus != null && bonus.Type != null && skillBase >= bonus.ReqSkill)
                         {
 							if (bonus.RequiredMap == null || bonus.RequiredMap == from.Map)
 							{
-								Item bonusItem = Construct(bonus.Type, from, tool);
+							    bonusItem = Construct(bonus.Type, from, tool);
 
 								if (Give(from, bonusItem, true))	//Bonuses always allow placing at feet, even if pack is full irregrdless of def
 								{
@@ -306,6 +309,8 @@ namespace Server.Engines.Harvest
 								}
 							}
                         }
+
+                        EventSink.InvokeResourceHarvestSuccess(new ResourceHarvestSuccessEventArgs(from, tool, item, bonusItem, this));
                     }
 
                     #region High Seas
@@ -851,7 +856,22 @@ namespace Server
 
         public static bool Check(Item item)
         {
-            return (item != null && item.GetType().IsDefined(typeof(FurnitureAttribute), false));
+            if (item == null)
+            {
+                return false;
+            }
+
+            if (item.GetType().IsDefined(typeof(FurnitureAttribute), false))
+            {
+                return true;
+            }
+
+            if (item is AddonComponent && ((AddonComponent)item).Addon != null && ((AddonComponent)item).Addon.GetType().IsDefined(typeof(FurnitureAttribute), false))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

@@ -131,6 +131,8 @@ namespace Server.Misc
                 double focusBonus = focus / 200;
                 double medBonus = 0;
 
+                CheckBonusSkill(from, from.Mana, from.ManaMax, SkillName.Focus);
+
                 if (armorPenalty == 0)
                 {
                     medBonus = (0.0075 * med) + (0.0025 * from.Int);
@@ -201,6 +203,11 @@ namespace Server.Misc
                     rate = 0.5;
                 else if (rate > 7.0)
                     rate = 7.0;
+            }
+
+            if (double.IsNaN(rate))
+            {
+                return Mobile.DefaultManaRate;
             }
 
             return TimeSpan.FromSeconds(rate);
