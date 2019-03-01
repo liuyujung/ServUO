@@ -180,14 +180,17 @@ namespace Server.Engines.BulkOrders
 
                         return true;
                     }
-                    else if (entry.LastBulkOrder + TimeSpan.FromHours(Delay) < DateTime.UtcNow)
+                    //else if (entry.LastBulkOrder + TimeSpan.FromHours(Delay) < DateTime.UtcNow)
+                    else if (entry.LastBulkOrder + TimeSpan.FromMinutes(DelayMins) < DateTime.UtcNow)
                     {
                         if (entry.LastBulkOrder == DateTime.MinValue)
                         {
-                            entry.LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(Delay);
+                            //entry.LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(Delay);
+                            entry.LastBulkOrder = DateTime.UtcNow - TimeSpan.FromMinutes(DelayMins);
                         }
 
-                        entry.LastBulkOrder = entry.LastBulkOrder + TimeSpan.FromHours(Delay);
+                        //entry.LastBulkOrder = entry.LastBulkOrder + TimeSpan.FromHours(Delay);
+                        entry.LastBulkOrder = entry.LastBulkOrder + TimeSpan.FromMinutes(DelayMins);
 
                         return true;
                     }
@@ -903,7 +906,8 @@ namespace Server.Engines.BulkOrders
             if (_CachedDeeds >= BulkOrderSystem.MaxCachedDeeds)
             {
                 // cache is full, resets
-                if (LastBulkOrder + TimeSpan.FromHours(BulkOrderSystem.Delay) < DateTime.UtcNow)
+                //if (LastBulkOrder + TimeSpan.FromHours(BulkOrderSystem.Delay) < DateTime.UtcNow)
+                if (LastBulkOrder + TimeSpan.FromMinutes(BulkOrderSystem.DelayMins) < DateTime.UtcNow)
                 {
                     LastBulkOrder = DateTime.UtcNow;
                 }
@@ -911,12 +915,11 @@ namespace Server.Engines.BulkOrders
                 return;
             }
 
-            int deeds = Math.Min(BulkOrderSystem.MaxCachedDeeds, (int)((DateTime.UtcNow - LastBulkOrder).TotalHours / (double)BulkOrderSystem.Delay));
+            //int deeds = Math.Min(BulkOrderSystem.MaxCachedDeeds, (int)((DateTime.UtcNow - LastBulkOrder).TotalHours / (double)BulkOrderSystem.Delay));
+            int deeds = Math.Min(BulkOrderSystem.MaxCachedDeeds, (int)((DateTime.UtcNow - LastBulkOrder).TotalMinutes / (double)BulkOrderSystem.DelayMins));
 
             if (deeds > 0)
             {
-                //if (_CachedDeeds < BulkOrderSystem.MaxCachedDeeds && LastBulkOrder + TimeSpan.FromHours(BulkOrderSystem.Delay) < DateTime.UtcNow)
-                //if (_CachedDeeds < BulkOrderSystem.MaxCachedDeeds && LastBulkOrder + TimeSpan.FromMinutes(BulkOrderSystem.DelayMins) < DateTime.UtcNow)
                 // cache is not full, gives proper amount and resets
                 for (int i = 0; i < deeds; i++)
                 {
@@ -925,10 +928,12 @@ namespace Server.Engines.BulkOrders
                     // this auto-corrects, in the event a bone-head shard owner sets it to min value, or on new server
                     if (LastBulkOrder == DateTime.MinValue)
                     {
-                        LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(BulkOrderSystem.Delay * deeds);
+                        //LastBulkOrder = DateTime.UtcNow - TimeSpan.FromHours(BulkOrderSystem.Delay * deeds);
+                        LastBulkOrder = DateTime.UtcNow - TimeSpan.FromMinutes(BulkOrderSystem.DelayMins * deeds);
                     }
 
-                    LastBulkOrder = LastBulkOrder + TimeSpan.FromHours(BulkOrderSystem.Delay);
+                    //LastBulkOrder = LastBulkOrder + TimeSpan.FromHours(BulkOrderSystem.Delay);
+                    LastBulkOrder = LastBulkOrder + TimeSpan.FromMinutes(BulkOrderSystem.DelayMins);
                 }
             }
         }
